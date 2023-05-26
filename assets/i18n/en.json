@@ -1,0 +1,38 @@
+{
+  "language": {
+    "name": {
+      "en": "English (US)",
+      "es": "Spanish",
+      "hi": "Hindi"
+    }
+  },
+  "title": "Smart City Dashboard",
+  "smart_city": "Smart City",
+  "search": "Search of speak anything",
+  "city": {
+    "bhubaneswar": "Bhubaneswar",
+    "london": "London",
+    "vienna": "Vienna",
+    "pune": "Pune"
+  },
+  "country": {
+    "india": "India",
+    "england": "England",
+    "austria": "Vienna"
+  },
+  "homepage": {
+    "home": "Home",
+    "welcome": "Welcome",
+    "description": "Click on any Smart City to visualize its details. Search option is also available. Click on the help button for any doubts or confusion.",
+    "help": "Help",
+    "settings": "Settings",
+    "option": "LG Options",
+    "available_data": "Available Data"
+  },
+  "settings": {
+    "save": "SAVE",
+    "connect": "CONNECT TO LG",
+    "connected": "CONNECTED",
+    "disconnected": "DISCONNECTED"
+  }
+}
