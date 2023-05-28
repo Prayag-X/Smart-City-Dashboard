@@ -64,86 +64,95 @@ class _SettingsState extends ConsumerState<Settings> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
       children: [
-        TextFormFields(
-          icon: Icons.network_check_rounded,
-          hintText: 'IP address',
-          controller: ipController,
-        ),
-        TextFormFields(
-          icon: Icons.person,
-          hintText: 'LG Username',
-          controller: usernameController,
-        ),
-        TextFormFields(
-          icon: Icons.key_rounded,
-          hintText: 'LG Password',
-          controller: passwordController,
-        ),
-        TextFormFields(
-          icon: Icons.key_rounded,
-          hintText: 'SSH Port',
-          controller: portController,
-        ),
-        TextFormFields(
-          icon: Icons.key_rounded,
-          hintText: 'No. of LG rigs',
-          controller: rigsController,
-        ),
-        20.ph,
-        TextButton(
-          style: TextButton.styleFrom(
-              backgroundColor: const Color(0xFF3F475C),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  side: const BorderSide(color: Colors.blue))),
-          onPressed: () async => await setSharedPrefs(),
-          child: SizedBox(
-            height: 50,
-            width: screenSize(context).width - 600,
-            child: Center(
-              child: Text(
-                TextConst.save,
-                style: textStyleBoldWhite.copyWith(fontSize: 15),
-              ),
+        Column(
+          children: [
+            TextFormFieldCustom(
+              icon: Icons.network_check_rounded,
+              hintText: 'IP address',
+              controller: ipController,
             ),
-          ),
-        ),
-        20.ph,
-        TextButton(
-          style: TextButton.styleFrom(
-              backgroundColor: const Color(0xFF3F475C),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                  side: const BorderSide(color: Colors.blue))),
-          onPressed: () async {
-            await SSH(ref: ref).connect();
-            await SSH(ref: ref).setRefresh();
-            await SSH(ref: ref).renderInSlave(
-                ref.read(leftmostRigProvider),
-                ImageShower.showImage(
-                    'https://www.google.com/search?q=images&rlz=1C1CHBD_enIN925IN925&sxsrf=APwXEddNoWg92Jj7e7atQCVBDWEKKRlXog:1684874055074&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjvz6z8pIz_AhViVPUHHad6DN0Q_AUoAXoECAEQAw&biw=1536&bih=722&dpr=1.25#imgrc=nwiTKnJXTwcwcM'));
-
-          },
-          child: SizedBox(
-            height: 50,
-            width: screenSize(context).width - 600,
-            child: Center(
-              child: Text(
-                TextConst.connect,
-                style: textStyleBoldWhite.copyWith(fontSize: 15),
-              ),
+            TextFormFieldCustom(
+              icon: Icons.person,
+              hintText: 'LG Username',
+              controller: usernameController,
             ),
-          ),
+            TextFormFieldCustom(
+              icon: Icons.key_rounded,
+              hintText: 'LG Password',
+              controller: passwordController,
+            ),
+            TextFormFieldCustom(
+              icon: Icons.key_rounded,
+              hintText: 'SSH Port',
+              controller: portController,
+            ),
+            TextFormFieldCustom(
+              icon: Icons.key_rounded,
+              hintText: 'No. of LG rigs',
+              controller: rigsController,
+            ),
+            20.ph,
+            TextButtonCustom(
+                onPressed: () async => await setSharedPrefs(),
+                name: TextConst.save,
+                width: screenSize(context).width - 600),
+            20.ph,
+            TextButtonCustom(
+                onPressed: () async {
+                  await SSH(ref: ref).connect();
+                  await SSH(ref: ref).renderInSlave(
+                      ref.read(leftmostRigProvider),
+                      ImageShower.showImage(
+                          'https://www.google.com/search?q=images&rlz=1C1CHBD_enIN925IN925&sxsrf=APwXEddNoWg92Jj7e7atQCVBDWEKKRlXog:1684874055074&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjvz6z8pIz_AhViVPUHHad6DN0Q_AUoAXoECAEQAw&biw=1536&bih=722&dpr=1.25#imgrc=nwiTKnJXTwcwcM'));
+                },
+                name: TextConst.connect,
+                width: screenSize(context).width - 600),
+          ],
         ),
       ],
     );
   }
 }
 
-class TextFormFields extends StatelessWidget {
-  const TextFormFields({
+class TextButtonCustom extends StatelessWidget {
+  const TextButtonCustom({
+    Key? key,
+    required this.onPressed,
+    required this.name,
+    required this.width,
+  }) : super(key: key);
+
+  final Function onPressed;
+  final String name;
+  final double width;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      style: TextButton.styleFrom(
+          backgroundColor: const Color(0xFF3F475C),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(300),
+              side: const BorderSide(color: Colors.blue))),
+      onPressed: () async => await onPressed(),
+      child: SizedBox(
+        height: 50,
+        width: width,
+        child: Center(
+          child: Text(
+            name,
+            style: textStyleBoldWhite.copyWith(fontSize: 15),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class TextFormFieldCustom extends StatelessWidget {
+  const TextFormFieldCustom({
     Key? key,
     required this.controller,
     required this.icon,
@@ -173,7 +182,7 @@ class TextFormFields extends StatelessWidget {
               color: Colors.white.withOpacity(0.5),
             ),
             contentPadding:
-                const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+                const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
               borderSide: const BorderSide(color: Colors.blue, width: 1),
