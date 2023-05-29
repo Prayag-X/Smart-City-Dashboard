@@ -28,7 +28,7 @@ class _TabPanelState extends ConsumerState<TabPanel> {
     int homePageTab = ref.watch(homePageTabProvider);
     return Container(
       height: screenSize(context).height,
-      width: 210,
+      width: 250,
       color: Themes.darkTabBarColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -36,7 +36,7 @@ class _TabPanelState extends ConsumerState<TabPanel> {
           GestureDetector(
             onTap: () => ref.read(homePageTabProvider.notifier).state = 0,
             child: Container(
-              height: 210,
+              height: 240,
               color: homePageTab == 0
                   ? Themes.darkHighlightColor
                   : Colors.transparent,
@@ -44,7 +44,7 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    height: 210,
+                    height: 240,
                     width: 3,
                     color: homePageTab == 0 ? Colors.white : Colors.transparent,
                   ),
@@ -54,14 +54,14 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                     children: [
                       const LogoShower(
                         logo: ImageConst.appLogo,
-                        size: 150,
+                        size: 170,
                       ),
                       Text(TextConst.home,
-                          style: textStyleBoldWhite.copyWith(fontSize: 20))
+                          style: textStyleBoldWhite.copyWith(fontSize: 23))
                     ],
                   ),
                   Container(
-                    height: 210,
+                    height: 240,
                     width: 3,
                     color: Colors.transparent,
                   ),
@@ -75,13 +75,13 @@ class _TabPanelState extends ConsumerState<TabPanel> {
               children: [
                 Text(
                   TextConst.welcome,
-                  style: textStyleNormalWhite.copyWith(fontSize: 16),
+                  style: textStyleNormalWhite.copyWith(fontSize: 19),
                 ),
                 20.ph,
                 Text(
                   TextConst.description,
                   textAlign: TextAlign.center,
-                  style: textStyleNormalWhite.copyWith(fontSize: 16),
+                  style: textStyleNormalWhite.copyWith(fontSize: 19),
                 ),
               ],
             ),

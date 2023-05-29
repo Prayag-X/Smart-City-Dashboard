@@ -68,8 +68,10 @@ class _SettingsState extends ConsumerState<Settings> {
 
   @override
   Widget build(BuildContext context) {
+    bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
     return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+      physics:
+          const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       child: Column(
         children: [
           Const.appBarHeight.ph,
@@ -104,15 +106,10 @@ class _SettingsState extends ConsumerState<Settings> {
                     hintText: 'No. of LG rigs',
                     controller: rigsController,
                   ),
-                  20.ph,
-                  TextButtonCustom(
-                      onPressed: () async => await setSharedPrefs(),
-                      name: TextConst.save,
-                      width: screenSize(context).width/2 - 200),
                 ],
               ),
               SizedBox(
-                height: 400,
+                height: 300,
                 child: VerticalDivider(
                   color: Themes.darkWhiteColor,
                   indent: 30,
@@ -121,7 +118,7 @@ class _SettingsState extends ConsumerState<Settings> {
               ),
               Column(
                 children: [
-                  150.ph,
+                  100.ph,
                   // Container(
                   //   width: screenSize(context).width/2 - 200,
                   //   child: Row(
@@ -134,24 +131,26 @@ class _SettingsState extends ConsumerState<Settings> {
                   // ),
                   20.ph,
                   SizedBox(
-                    width: screenSize(context).width/2 - 200,
+                    width: screenSize(context).width / 2 - 200,
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(TextConst.language ,
+                        Text(
+                          TextConst.language,
                           style: textStyleBoldWhite.copyWith(fontSize: 20),
                         ),
                         DropdownButton<String>(
                           value: dropdownValue,
-                          dropdownColor: Themes.darkColor,
-                          elevation: 0,
+                          dropdownColor: darkenColor(Themes.darkColor, 0.02),
+                          elevation: 10,
                           style: textStyleNormalWhite.copyWith(fontSize: 15),
                           onChanged: (String? value) {
                             setState(() {
                               dropdownValue = value!;
                             });
                           },
-                          items: TextConst.langList.map<DropdownMenuItem<String>>((String value) {
+                          items: TextConst.langList
+                              .map<DropdownMenuItem<String>>((String value) {
                             return DropdownMenuItem<String>(
                               value: value,
                               child: Text(value),
@@ -166,22 +165,23 @@ class _SettingsState extends ConsumerState<Settings> {
             ],
           ),
           20.ph,
-          Divider(
-            color: Themes.darkWhiteColor,
-            indent: 100,
-            endIndent: 100,
-          ),
-          20.ph,
           TextButtonCustom(
-              onPressed: () async {
+            onPressed: () async {
+              if (!isConnectedToLg) {
+                await setSharedPrefs();
                 await SSH(ref: ref).connect();
                 await SSH(ref: ref).renderInSlave(
                     ref.read(leftmostRigProvider),
                     ImageShower.showImage(
                         'https://www.google.com/search?q=images&rlz=1C1CHBD_enIN925IN925&sxsrf=APwXEddNoWg92Jj7e7atQCVBDWEKKRlXog:1684874055074&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjvz6z8pIz_AhViVPUHHad6DN0Q_AUoAXoECAEQAw&biw=1536&bih=722&dpr=1.25#imgrc=nwiTKnJXTwcwcM'));
-              },
-              name: TextConst.connect,
-              width: screenSize(context).width - 400),
+              } else {
+                await SSH(ref: ref).disconnect();
+              }
+            },
+            name: isConnectedToLg ? TextConst.disconnect : TextConst.connect,
+            width: screenSize(context).width - 400,
+            color: isConnectedToLg ? Colors.red : Colors.green,
+          ),
           20.ph,
           Divider(
             color: Themes.darkWhiteColor,
@@ -195,17 +195,41 @@ class _SettingsState extends ConsumerState<Settings> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButtonCustom(
-                    onPressed: () async {},
-                    name: TextConst.connect,
-                    width: screenSize(context).width/3 - 150),
+                  onPressed: () async {
+                    if (isConnectedToLg) {}
+                  },
+                  name: isConnectedToLg ? TextConst.cleanLogo : '--',
+                  width: screenSize(context).width / 3 - 150,
+                  color: isConnectedToLg
+                      ? Colors.yellow
+                      : lightenColor(Themes.darkColor, 0.01),
+                ),
                 TextButtonCustom(
-                    onPressed: () async {},
-                    name: TextConst.connect,
-                    width: screenSize(context).width/3 - 150),
+                  onPressed: () async {
+                    if (isConnectedToLg) {
+                      await SSH(ref: ref).renderInSlave(
+                          ref.read(leftmostRigProvider),
+                          ImageShower.showImage(
+                              'https://www.google.com/search?q=images&rlz=1C1CHBD_enIN925IN925&sxsrf=APwXEddNoWg92Jj7e7atQCVBDWEKKRlXog:1684874055074&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjvz6z8pIz_AhViVPUHHad6DN0Q_AUoAXoECAEQAw&biw=1536&bih=722&dpr=1.25#imgrc=nwiTKnJXTwcwcM'));
+
+                    }
+                  },
+                  name: isConnectedToLg ? TextConst.showLogo : '--',
+                  width: screenSize(context).width / 3 - 150,
+                  color: isConnectedToLg
+                      ? Colors.yellow
+                      : lightenColor(Themes.darkColor, 0.01),
+                ),
                 TextButtonCustom(
-                    onPressed: () async {},
-                    name: TextConst.connect,
-                    width: screenSize(context).width/3 - 150),
+                  onPressed: () async {
+                    if (isConnectedToLg) {}
+                  },
+                  name: isConnectedToLg ? TextConst.cleanKML : '--',
+                  width: screenSize(context).width / 3 - 150,
+                  color: isConnectedToLg
+                      ? Colors.yellow
+                      : lightenColor(Themes.darkColor, 0.01),
+                ),
               ],
             ),
           ),
@@ -216,13 +240,25 @@ class _SettingsState extends ConsumerState<Settings> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButtonCustom(
-                    onPressed: () async {},
-                    name: TextConst.connect,
-                    width: screenSize(context).width/2 - 215),
+                  onPressed: () async {
+                    if (isConnectedToLg) {}
+                  },
+                  name: isConnectedToLg ? TextConst.setRefresh : '--',
+                  width: screenSize(context).width / 2 - 215,
+                  color: isConnectedToLg
+                      ? Colors.blue
+                      : lightenColor(Themes.darkColor, 0.01),
+                ),
                 TextButtonCustom(
-                    onPressed: () async {},
-                    name: TextConst.connect,
-                    width: screenSize(context).width/2 - 215),
+                  onPressed: () async {
+                    if (isConnectedToLg) {}
+                  },
+                  name: isConnectedToLg ? TextConst.resetRefresh : '--',
+                  width: screenSize(context).width / 2 - 215,
+                  color: isConnectedToLg
+                      ? Colors.blue
+                      : lightenColor(Themes.darkColor, 0.01),
+                ),
               ],
             ),
           ),
@@ -233,17 +269,35 @@ class _SettingsState extends ConsumerState<Settings> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 TextButtonCustom(
-                    onPressed: () async {},
-                    name: TextConst.connect,
-                    width: screenSize(context).width/3 - 150),
+                  onPressed: () async {
+                    if (isConnectedToLg) {}
+                  },
+                  name: isConnectedToLg ? TextConst.relaunchLG : '--',
+                  width: screenSize(context).width / 3 - 150,
+                  color: isConnectedToLg
+                      ? Colors.redAccent
+                      : lightenColor(Themes.darkColor, 0.01),
+                ),
                 TextButtonCustom(
-                    onPressed: () async {},
-                    name: TextConst.connect,
-                    width: screenSize(context).width/3 - 150),
+                  onPressed: () async {
+                    if (isConnectedToLg) {}
+                  },
+                  name: isConnectedToLg ? TextConst.rebootLG : '--',
+                  width: screenSize(context).width / 3 - 150,
+                  color: isConnectedToLg
+                      ? Colors.redAccent
+                      : lightenColor(Themes.darkColor, 0.01),
+                ),
                 TextButtonCustom(
-                    onPressed: () async {},
-                    name: TextConst.connect,
-                    width: screenSize(context).width/3 - 150),
+                  onPressed: () async {
+                    if (isConnectedToLg) {}
+                  },
+                  name: isConnectedToLg ? TextConst.shutdownLG : '--',
+                  width: screenSize(context).width / 3 - 150,
+                  color: isConnectedToLg
+                      ? Colors.redAccent
+                      : lightenColor(Themes.darkColor, 0.01),
+                ),
               ],
             ),
           ),
@@ -260,20 +314,22 @@ class TextButtonCustom extends StatelessWidget {
     required this.onPressed,
     required this.name,
     required this.width,
+    required this.color,
   }) : super(key: key);
 
   final Function onPressed;
   final String name;
   final double width;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
       style: TextButton.styleFrom(
-          backgroundColor: Themes.darkHighlightColor,
+          backgroundColor: color.withOpacity(0.7),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(300),
-              side: const BorderSide(color: Colors.blue))),
+              side: BorderSide(color: Themes.darkWhiteColor))),
       onPressed: () async => await onPressed(),
       child: SizedBox(
         height: 50,
@@ -306,7 +362,7 @@ class TextFormFieldCustom extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: SizedBox(
-        width: screenSize(context).width/2 - 200,
+        width: screenSize(context).width / 2 - 200,
         child: TextFormField(
           decoration: InputDecoration(
             prefixIcon: Icon(
@@ -316,9 +372,7 @@ class TextFormFieldCustom extends StatelessWidget {
             ),
             labelText: hintText,
             labelStyle: textStyleNormal.copyWith(
-                fontSize: 17,
-              color: Themes.darkWhiteColor.withOpacity(0.5)
-            ),
+                fontSize: 17, color: Themes.darkWhiteColor.withOpacity(0.5)),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
             focusedBorder: OutlineInputBorder(
@@ -330,9 +384,7 @@ class TextFormFieldCustom extends StatelessWidget {
               borderSide: BorderSide(color: Themes.darkWhiteColor, width: 1),
             ),
           ),
-          style: textStyleNormalWhite.copyWith(
-            fontSize: 17
-          ),
+          style: textStyleNormalWhite.copyWith(fontSize: 17),
           controller: controller,
         ),
       ),

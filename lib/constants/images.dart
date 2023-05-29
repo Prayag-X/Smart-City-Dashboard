@@ -1,4 +1,5 @@
 class ImageConst {
+  static const splash = 'assets/logos/splash.png';
   static const appLogo = 'assets/logos/app_logo.png';
   static const lgLogo = 'assets/logos/lg.png';
   static const settingLogo = 'assets/logos/settings.png';

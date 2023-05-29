@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../constants/images.dart';
+import '../constants/theme.dart';
 import '../providers/settings_providers.dart';
 import '../widgets/logo_shower.dart';
 import '../widgets/helper.dart';
@@ -41,12 +42,13 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: const Color(0xFF202124),
-      child: const Center(
-          child: LogoShower(
-        logo: ImageConst.appLogo,
-        size: 500,
-      )),
+      decoration: BoxDecoration(
+        color: Themes.darkColor,
+        image: const DecorationImage(
+            image: AssetImage(ImageConst.splash),
+            fit: BoxFit.fitHeight
+        ),
+      ),
     );
   }
 }

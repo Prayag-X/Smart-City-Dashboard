@@ -1,10 +1,6 @@
 {
   "language": {
-    "name": {
-      "en": "English (US)",
-      "es": "Spanish",
-      "hi": "Hindi"
-    }
+    "en": "English"
   },
   "title": "Smart City Dashboard",
   "smart_city": "Smart City",
@@ -32,7 +28,18 @@
   "settings": {
     "save": "SAVE",
     "connect": "CONNECT TO LG",
+    "disconnect": "DISCONNECT FROM LG",
     "connected": "CONNECTED",
-    "disconnected": "DISCONNECTED"
+    "disconnected": "DISCONNECTED",
+    "clean_logo": "CLEAN SLAVES",
+    "show_logo": "SHOW LOGO",
+    "clean_kml": "CLEAN KML",
+    "set_refresh": "SET REFRESH",
+    "reset_refresh": "RESET REFRESH",
+    "relaunch_lg": "RELAUNCH LG",
+    "reboot_lg": "REBOOT LG",
+    "shutdown_lg": "SHUTDOWN LG",
+    "language": "Language",
+    "theme": "Theme"
   }
 }

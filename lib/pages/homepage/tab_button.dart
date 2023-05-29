@@ -31,22 +31,22 @@ class TabButton extends ConsumerWidget {
       child: Container(
         color: homePageTab == tab ? Themes.darkHighlightColor : Colors.transparent,
         child: Padding(
-          padding: const EdgeInsets.only(top: 7, bottom: 7),
+          padding: const EdgeInsets.only(top: 9, bottom: 9),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
-                height: 30,
+                height: 40,
                 width: 3,
                 color: homePageTab == tab ? Colors.white : Colors.transparent,
               ),
               15.pw,
-              LogoShower(logo: logo, size: 28),
-              10.pw,
+              LogoShower(logo: logo, size: 33),
+              15.pw,
               Text(
                 name,
                 style: textStyleNormalWhite.copyWith(
-                  fontSize: 19
+                  fontSize: 22
                 ),
               )
             ],

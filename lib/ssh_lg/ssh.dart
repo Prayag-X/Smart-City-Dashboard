@@ -38,7 +38,21 @@ class SSH {
 
   renderInSlave(int slaveNo, String imageKML) async {
     try {
-      await ref.read(sshClient)!.run("echo '$imageKML' > /var/www/html/kml/slave_$slaveNo.kml");
+      await ref
+          .read(sshClient)!
+          .run("echo '$imageKML' > /var/www/html/kml/slave_$slaveNo.kml");
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  cleanSlaves() async {
+    try {
+      for(var i = 2; i <= ref.read(rigsProvider); i++) {
+        await ref
+            .read(sshClient)!
+            .run("echo '' > /var/www/html/kml/slave_$i.kml");
+      }
     } catch (e) {
       print(e);
     }
@@ -46,25 +60,15 @@ class SSH {
 
   Future setRefresh() async {
     try {
-      const search = '<href>##LG_PHPIFACE##kml\\/slave_{{slave}}.kml<\\/href>';
-      const replace =
-          '<href>##LG_PHPIFACE##kml\\/slave_{{slave}}.kml<\\/href><refreshMode>onInterval<\\/refreshMode><refreshInterval>2<\\/refreshInterval>';
-      final command =
-          'echo ${ref.read(
-          passwordProvider)} | sudo -S sed -i "s/$search/$replace/" ~/earth/kml/slave/myplaces.kml';
-
-      final clear =
-          'echo ${ref.read(
-          passwordProvider)} | sudo -S sed -i "s/$replace/$search/" ~/earth/kml/slave/myplaces.kml';
       for (var i = 2; i <= ref.read(rigsProvider); i++) {
-        final clearCmd = clear.replaceAll('{{slave}}', i.toString());
-        final cmd = command.replaceAll('{{slave}}', i.toString());
-        String query =
-            'sshpass -p ${ref.read(passwordProvider)} ssh -t lg$i \'{{cmd}}\'';
+        String search = '<href>##LG_PHPIFACE##kml\\/slave_$i.kml<\\/href>';
+        String replace =
+            '<href>##LG_PHPIFACE##kml\\/slave_$i.kml<\\/href><refreshMode>onInterval<\\/refreshMode><refreshInterval>2<\\/refreshInterval>';
 
-        await ref.read(sshClient)!.execute(
-            query.replaceAll('{{cmd}}', clearCmd));
-        await ref.read(sshClient)!.execute(query.replaceAll('{{cmd}}', cmd));
+        await ref.read(sshClient)!.run(
+            'sshpass -p ${ref.read(passwordProvider)} ssh -t lg$i \'echo ${ref.read(passwordProvider)} | sudo -S sed -i "s/$replace/$search/" ~/earth/kml/slave/myplaces.kml\'');
+        await ref.read(sshClient)!.run(
+            'sshpass -p ${ref.read(passwordProvider)} ssh -t lg$i \'echo ${ref.read(passwordProvider)} | sudo -S sed -i "s/$search/$replace/" ~/earth/kml/slave/myplaces.kml\'');
       }
     } catch (e) {
       print(e);

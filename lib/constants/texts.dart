@@ -22,8 +22,17 @@ class TextConst {
   static String england = translate('country.england');
   static String save = translate('settings.save');
   static String connect = translate('settings.connect');
+  static String disconnect = translate('settings.disconnect');
   static String connected = translate('settings.connected');
   static String disconnected = translate('settings.disconnected');
+  static String cleanLogo = translate('settings.clean_logo');
+  static String showLogo = translate('settings.show_logo');
+  static String cleanKML = translate('settings.clean_kml');
+  static String setRefresh = translate('settings.set_refresh');
+  static String resetRefresh = translate('settings.reset_refresh');
+  static String relaunchLG = translate('settings.relaunch_lg');
+  static String rebootLG = translate('settings.reboot_lg');
+  static String shutdownLG = translate('settings.shutdown_lg');
   static String language = translate('settings.language');
   static String theme = translate('settings.theme');
   static List<String> langList = [translate('language.en')];
