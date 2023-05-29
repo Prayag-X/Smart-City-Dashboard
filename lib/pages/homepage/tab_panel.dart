@@ -10,6 +10,8 @@ import 'package:smart_city_dashboard/widgets/extensions.dart';
 import 'package:smart_city_dashboard/widgets/helper.dart';
 import 'package:smart_city_dashboard/widgets/logo_shower.dart';
 
+import '../../constants/theme.dart';
+
 class TabPanel extends ConsumerStatefulWidget {
   const TabPanel({
     Key? key,
@@ -27,7 +29,7 @@ class _TabPanelState extends ConsumerState<TabPanel> {
     return Container(
       height: screenSize(context).height,
       width: 210,
-      color: const Color(0xFF35373C),
+      color: Themes.darkTabBarColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -35,7 +37,9 @@ class _TabPanelState extends ConsumerState<TabPanel> {
             onTap: () => ref.read(homePageTabProvider.notifier).state = 0,
             child: Container(
               height: 210,
-              color: homePageTab == 0 ? const Color(0xFF3F475C) : Colors.transparent,
+              color: homePageTab == 0
+                  ? Themes.darkHighlightColor
+                  : Colors.transparent,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -52,11 +56,8 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                         logo: ImageConst.appLogo,
                         size: 150,
                       ),
-                      Text(
-                          TextConst.home,
-                          style: textStyleBoldWhite.copyWith(
-                            fontSize: 20
-                          ))
+                      Text(TextConst.home,
+                          style: textStyleBoldWhite.copyWith(fontSize: 20))
                     ],
                   ),
                   Container(
@@ -78,7 +79,7 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                 ),
                 20.ph,
                 Text(
-                    TextConst.description,
+                  TextConst.description,
                   textAlign: TextAlign.center,
                   style: textStyleNormalWhite.copyWith(fontSize: 16),
                 ),
@@ -88,14 +89,19 @@ class _TabPanelState extends ConsumerState<TabPanel> {
           Container(
             child: Column(
               children: [
-                TabButton(logo: ImageConst.helpLogo, name: TextConst.help, tab: 1),
-                const Divider(
-                  color: Colors.white,
+                TabButton(
+                    logo: ImageConst.helpLogo, name: TextConst.help, tab: 1),
+                Divider(
+                  color: Themes.darkWhiteColor,
                   indent: 10,
                   endIndent: 10,
                 ),
-                TabButton(logo: ImageConst.settingLogo, name: TextConst.settings, tab: 2),
-                TabButton(logo: ImageConst.lgLogo, name: TextConst.option, tab: 3),
+                TabButton(
+                    logo: ImageConst.settingLogo,
+                    name: TextConst.settings,
+                    tab: 2),
+                TabButton(
+                    logo: ImageConst.lgLogo, name: TextConst.option, tab: 3),
                 20.ph
               ],
             ),

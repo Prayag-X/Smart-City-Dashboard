@@ -8,6 +8,7 @@ import 'package:smart_city_dashboard/widgets/extensions.dart';
 import 'package:smart_city_dashboard/widgets/helper.dart';
 import 'package:smart_city_dashboard/widgets/logo_shower.dart';
 
+import '../../constants/theme.dart';
 import '../../providers/page_providers.dart';
 
 class TabButton extends ConsumerWidget {
@@ -28,7 +29,7 @@ class TabButton extends ConsumerWidget {
     return GestureDetector(
       onTap: () => ref.read(homePageTabProvider.notifier).state = tab,
       child: Container(
-        color: homePageTab == tab ? const Color(0xFF3F475C) : Colors.transparent,
+        color: homePageTab == tab ? Themes.darkHighlightColor : Colors.transparent,
         child: Padding(
           padding: const EdgeInsets.only(top: 7, bottom: 7),
           child: Row(

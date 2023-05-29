@@ -23,26 +23,22 @@ class ScreenBody extends ConsumerWidget {
     return Container(
       color: const Color(0xFF202124),
       child: Center(
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(
-              parent: AlwaysScrollableScrollPhysics()),
-          child: (() {
-            switch (homePageTab) {
-              case 0:
-                return const CityHomePage();
-                break;
-              case 1:
-                return const CityHomePage();
-                break;
-              case 2:
-                return Settings();
-                break;
-              case 3:
-                return const CityHomePage();
-                break;
-            }
-          }()),
-        ),
+        child: (() {
+          switch (homePageTab) {
+            case 0:
+              return const CityHomePage();
+              break;
+            case 1:
+              return const CityHomePage();
+              break;
+            case 2:
+              return Settings();
+              break;
+            case 3:
+              return const CityHomePage();
+              break;
+          }
+        }()),
       ),
     );
   }

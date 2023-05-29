@@ -13,16 +13,19 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      resizeToAvoidBottomInset: false,
-        body: Row(
-          children: const [
-            TabPanel(),
-            Expanded(
-                child: ScreenPanel()
-            ),
-          ],
-        )
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
+      child: Scaffold(
+        resizeToAvoidBottomInset: false,
+          body: Row(
+            children: const [
+              TabPanel(),
+              Expanded(
+                  child: ScreenPanel()
+              ),
+            ],
+          )
+      ),
     );
   }
 }

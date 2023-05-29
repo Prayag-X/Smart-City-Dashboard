@@ -14,21 +14,24 @@ class CityHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        CityCard(
-            name: TextConst.bhubaneswar,
-            image: ImageConst.bhubaneswar,
-            country: TextConst.india,
-            availableData: ViennaData.data
-        ),
-        CityCard(
-            name: TextConst.bhubaneswar,
-            image: ImageConst.bhubaneswar,
-            country: TextConst.india,
-            availableData: ViennaData.data
-        ),
-      ],
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+      child: Column(
+        children: [
+          CityCard(
+              name: TextConst.bhubaneswar,
+              image: ImageConst.bhubaneswar,
+              country: TextConst.india,
+              availableData: ViennaData.data
+          ),
+          CityCard(
+              name: TextConst.bhubaneswar,
+              image: ImageConst.bhubaneswar,
+              country: TextConst.india,
+              availableData: ViennaData.data
+          ),
+        ],
+      ),
     );
   }
 }

@@ -1,6 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:dartssh2/dartssh2.dart';
 
+import '../constants/texts.dart';
+
 StateProvider<String> ipProvider = StateProvider((ref) => '');
 StateProvider<String> usernameProvider = StateProvider((ref) => '');
 StateProvider<String> passwordProvider = StateProvider((ref) => '');
@@ -16,6 +18,8 @@ setRigs(int rig, WidgetRef ref) {
   print((rig) ~/ 2 + 2);
 
 }
+
+StateProvider<String> languageProvider = StateProvider((ref) => TextConst.langList.first);
 
 StateProvider<SSHClient?> sshClient = StateProvider((ref) => null);
 StateProvider<bool> isConnectedToLGProvider = StateProvider((ref) => false);

@@ -7,6 +7,8 @@ import 'package:smart_city_dashboard/pages/homepage/screen_body.dart';
 import 'package:smart_city_dashboard/providers/settings_providers.dart';
 import 'package:smart_city_dashboard/widgets/extensions.dart';
 
+import '../../constants/constants.dart';
+import '../../constants/theme.dart';
 import '../../widgets/helper.dart';
 
 class ScreenPanel extends ConsumerStatefulWidget {
@@ -34,8 +36,8 @@ class _ScreenPanelState extends ConsumerState<ScreenPanel> {
   Container appBar() {
     bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
     return Container(
-        height: 85,
-        color: const Color(0xFF202124),
+        height: Const.appBarHeight,
+        color: Themes.darkColor,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Row(
@@ -80,19 +82,19 @@ class _ScreenPanelState extends ConsumerState<ScreenPanel> {
                 height: 40,
                 child: TextFormField(
                   decoration: InputDecoration(
-                    prefixIcon: const Icon(
+                    prefixIcon: Icon(
                       Icons.mic,
-                      color: Colors.white,
+                      color: Themes.darkWhiteColor,
                     ),
                       contentPadding: const EdgeInsets.symmetric(
                           vertical: 15, horizontal: 25),
                       focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: Colors.white, width: 3),
+                          borderSide: BorderSide(
+                              color: Themes.darkWhiteColor, width: 3),
                           borderRadius: BorderRadius.circular(35.0)),
                       enabledBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              color: Colors.white, width: 1),
+                          borderSide:  BorderSide(
+                              color: Themes.darkWhiteColor, width: 1),
                           borderRadius: BorderRadius.circular(35.0)),
                       hintText: TextConst.search,
                       hintStyle: textStyleNormal.copyWith(

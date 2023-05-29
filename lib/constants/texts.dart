@@ -24,16 +24,9 @@ class TextConst {
   static String connect = translate('settings.connect');
   static String connected = translate('settings.connected');
   static String disconnected = translate('settings.disconnected');
+  static String language = translate('settings.language');
+  static String theme = translate('settings.theme');
+  static List<String> langList = [translate('language.en')];
 }
-
-// class TextConstDashboardPage {
-//   static String title = translate('title');
-//   static String weather = translate('dashboard.weather');
-//   static String traffic = translate('dashboard.welcome');
-//   static String waste = translate('dashboard.description');
-//   static String power = translate('dashboard.help');
-//   static String about = translate('homepage.settings');
-//   static String option = translate('homepage.option');
-// }
 
 

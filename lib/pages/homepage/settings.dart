@@ -12,6 +12,8 @@ import 'package:smart_city_dashboard/providers/settings_providers.dart';
 import 'package:smart_city_dashboard/widgets/extensions.dart';
 import 'package:smart_city_dashboard/widgets/helper.dart';
 
+import '../../constants/constants.dart';
+import '../../constants/theme.dart';
 import '../../providers/page_providers.dart';
 import '../../ssh_lg/ssh.dart';
 
@@ -31,6 +33,7 @@ class _SettingsState extends ConsumerState<Settings> {
   TextEditingController portController = TextEditingController(text: '');
   TextEditingController rigsController = TextEditingController(text: '');
   late SharedPreferences prefs;
+  late String dropdownValue;
 
   setSharedPrefs() async {
     prefs = await SharedPreferences.getInstance();
@@ -48,6 +51,7 @@ class _SettingsState extends ConsumerState<Settings> {
 
   initTextControllers() {
     setState(() {
+      dropdownValue = ref.read(languageProvider);
       ipController.text = ref.read(ipProvider);
       usernameController.text = ref.read(usernameProvider);
       passwordController.text = ref.read(passwordProvider);
@@ -64,54 +68,188 @@ class _SettingsState extends ConsumerState<Settings> {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Column(
-          children: [
-            TextFormFieldCustom(
-              icon: Icons.network_check_rounded,
-              hintText: 'IP address',
-              controller: ipController,
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+      child: Column(
+        children: [
+          Const.appBarHeight.ph,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Column(
+                children: [
+                  TextFormFieldCustom(
+                    icon: Icons.network_check_rounded,
+                    hintText: 'IP address',
+                    controller: ipController,
+                  ),
+                  TextFormFieldCustom(
+                    icon: Icons.person,
+                    hintText: 'LG Username',
+                    controller: usernameController,
+                  ),
+                  TextFormFieldCustom(
+                    icon: Icons.key_rounded,
+                    hintText: 'LG Password',
+                    controller: passwordController,
+                  ),
+                  TextFormFieldCustom(
+                    icon: Icons.key_rounded,
+                    hintText: 'SSH Port',
+                    controller: portController,
+                  ),
+                  TextFormFieldCustom(
+                    icon: Icons.key_rounded,
+                    hintText: 'No. of LG rigs',
+                    controller: rigsController,
+                  ),
+                  20.ph,
+                  TextButtonCustom(
+                      onPressed: () async => await setSharedPrefs(),
+                      name: TextConst.save,
+                      width: screenSize(context).width/2 - 200),
+                ],
+              ),
+              SizedBox(
+                height: 400,
+                child: VerticalDivider(
+                  color: Themes.darkWhiteColor,
+                  indent: 30,
+                  endIndent: 30,
+                ),
+              ),
+              Column(
+                children: [
+                  150.ph,
+                  // Container(
+                  //   width: screenSize(context).width/2 - 200,
+                  //   child: Row(
+                  //     children: [
+                  //       Text(TextConst.theme,
+                  //       style: textStyleBoldWhite.copyWith(fontSize: 20),
+                  //       )
+                  //     ],
+                  //   )
+                  // ),
+                  20.ph,
+                  SizedBox(
+                    width: screenSize(context).width/2 - 200,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(TextConst.language ,
+                          style: textStyleBoldWhite.copyWith(fontSize: 20),
+                        ),
+                        DropdownButton<String>(
+                          value: dropdownValue,
+                          dropdownColor: Themes.darkColor,
+                          elevation: 0,
+                          style: textStyleNormalWhite.copyWith(fontSize: 15),
+                          onChanged: (String? value) {
+                            setState(() {
+                              dropdownValue = value!;
+                            });
+                          },
+                          items: TextConst.langList.map<DropdownMenuItem<String>>((String value) {
+                            return DropdownMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          }).toList(),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          20.ph,
+          Divider(
+            color: Themes.darkWhiteColor,
+            indent: 100,
+            endIndent: 100,
+          ),
+          20.ph,
+          TextButtonCustom(
+              onPressed: () async {
+                await SSH(ref: ref).connect();
+                await SSH(ref: ref).renderInSlave(
+                    ref.read(leftmostRigProvider),
+                    ImageShower.showImage(
+                        'https://www.google.com/search?q=images&rlz=1C1CHBD_enIN925IN925&sxsrf=APwXEddNoWg92Jj7e7atQCVBDWEKKRlXog:1684874055074&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjvz6z8pIz_AhViVPUHHad6DN0Q_AUoAXoECAEQAw&biw=1536&bih=722&dpr=1.25#imgrc=nwiTKnJXTwcwcM'));
+              },
+              name: TextConst.connect,
+              width: screenSize(context).width - 400),
+          20.ph,
+          Divider(
+            color: Themes.darkWhiteColor,
+            indent: 100,
+            endIndent: 100,
+          ),
+          20.ph,
+          SizedBox(
+            width: screenSize(context).width - 385,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButtonCustom(
+                    onPressed: () async {},
+                    name: TextConst.connect,
+                    width: screenSize(context).width/3 - 150),
+                TextButtonCustom(
+                    onPressed: () async {},
+                    name: TextConst.connect,
+                    width: screenSize(context).width/3 - 150),
+                TextButtonCustom(
+                    onPressed: () async {},
+                    name: TextConst.connect,
+                    width: screenSize(context).width/3 - 150),
+              ],
             ),
-            TextFormFieldCustom(
-              icon: Icons.person,
-              hintText: 'LG Username',
-              controller: usernameController,
+          ),
+          10.ph,
+          SizedBox(
+            width: screenSize(context).width - 385,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButtonCustom(
+                    onPressed: () async {},
+                    name: TextConst.connect,
+                    width: screenSize(context).width/2 - 215),
+                TextButtonCustom(
+                    onPressed: () async {},
+                    name: TextConst.connect,
+                    width: screenSize(context).width/2 - 215),
+              ],
             ),
-            TextFormFieldCustom(
-              icon: Icons.key_rounded,
-              hintText: 'LG Password',
-              controller: passwordController,
+          ),
+          10.ph,
+          SizedBox(
+            width: screenSize(context).width - 385,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButtonCustom(
+                    onPressed: () async {},
+                    name: TextConst.connect,
+                    width: screenSize(context).width/3 - 150),
+                TextButtonCustom(
+                    onPressed: () async {},
+                    name: TextConst.connect,
+                    width: screenSize(context).width/3 - 150),
+                TextButtonCustom(
+                    onPressed: () async {},
+                    name: TextConst.connect,
+                    width: screenSize(context).width/3 - 150),
+              ],
             ),
-            TextFormFieldCustom(
-              icon: Icons.key_rounded,
-              hintText: 'SSH Port',
-              controller: portController,
-            ),
-            TextFormFieldCustom(
-              icon: Icons.key_rounded,
-              hintText: 'No. of LG rigs',
-              controller: rigsController,
-            ),
-            20.ph,
-            TextButtonCustom(
-                onPressed: () async => await setSharedPrefs(),
-                name: TextConst.save,
-                width: screenSize(context).width - 600),
-            20.ph,
-            TextButtonCustom(
-                onPressed: () async {
-                  await SSH(ref: ref).connect();
-                  await SSH(ref: ref).renderInSlave(
-                      ref.read(leftmostRigProvider),
-                      ImageShower.showImage(
-                          'https://www.google.com/search?q=images&rlz=1C1CHBD_enIN925IN925&sxsrf=APwXEddNoWg92Jj7e7atQCVBDWEKKRlXog:1684874055074&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjvz6z8pIz_AhViVPUHHad6DN0Q_AUoAXoECAEQAw&biw=1536&bih=722&dpr=1.25#imgrc=nwiTKnJXTwcwcM'));
-                },
-                name: TextConst.connect,
-                width: screenSize(context).width - 600),
-          ],
-        ),
-      ],
+          ),
+          Const.appBarHeight.ph,
+        ],
+      ),
     );
   }
 }
@@ -132,7 +270,7 @@ class TextButtonCustom extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextButton(
       style: TextButton.styleFrom(
-          backgroundColor: const Color(0xFF3F475C),
+          backgroundColor: Themes.darkHighlightColor,
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(300),
               side: const BorderSide(color: Colors.blue))),
@@ -168,18 +306,18 @@ class TextFormFieldCustom extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: SizedBox(
-        width: screenSize(context).width - 420,
+        width: screenSize(context).width/2 - 200,
         child: TextFormField(
           decoration: InputDecoration(
             prefixIcon: Icon(
               icon,
-              color: Colors.white,
+              color: Themes.darkWhiteColor,
               size: 20,
             ),
             labelText: hintText,
-            labelStyle: TextStyle(
-              fontSize: 15,
-              color: Colors.white.withOpacity(0.5),
+            labelStyle: textStyleNormal.copyWith(
+                fontSize: 17,
+              color: Themes.darkWhiteColor.withOpacity(0.5)
             ),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
@@ -189,12 +327,11 @@ class TextFormFieldCustom extends StatelessWidget {
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: const BorderSide(color: Color(0xffffffff), width: 1),
+              borderSide: BorderSide(color: Themes.darkWhiteColor, width: 1),
             ),
           ),
-          style: const TextStyle(
-            fontSize: 17,
-            color: Colors.white,
+          style: textStyleNormalWhite.copyWith(
+            fontSize: 17
           ),
           controller: controller,
         ),
