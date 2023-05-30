@@ -6,7 +6,7 @@ import 'package:smart_city_dashboard/constants/available_data.dart';
 import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/constants/texts.dart';
-import 'package:smart_city_dashboard/kml_makers/image_shower.dart';
+import 'package:smart_city_dashboard/kml_makers/kml_makers.dart';
 import 'package:smart_city_dashboard/pages/homepage/city_card.dart';
 import 'package:smart_city_dashboard/providers/settings_providers.dart';
 import 'package:smart_city_dashboard/widgets/extensions.dart';
@@ -170,10 +170,8 @@ class _SettingsState extends ConsumerState<Settings> {
               if (!isConnectedToLg) {
                 await setSharedPrefs();
                 await SSH(ref: ref).connect();
-                await SSH(ref: ref).renderInSlave(
-                    ref.read(leftmostRigProvider),
-                    ImageShower.showImage(
-                        'https://www.google.com/search?q=images&rlz=1C1CHBD_enIN925IN925&sxsrf=APwXEddNoWg92Jj7e7atQCVBDWEKKRlXog:1684874055074&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjvz6z8pIz_AhViVPUHHad6DN0Q_AUoAXoECAEQAw&biw=1536&bih=722&dpr=1.25#imgrc=nwiTKnJXTwcwcM'));
+                await SSH(ref: ref).renderInSlave(ref.read(leftmostRigProvider),
+                    KMLMakers.screenOverlayImage(ImageConst.splashOnline, Const.splashAspectRatio));
               } else {
                 await SSH(ref: ref).disconnect();
               }
@@ -196,7 +194,9 @@ class _SettingsState extends ConsumerState<Settings> {
               children: [
                 TextButtonCustom(
                   onPressed: () async {
-                    if (isConnectedToLg) {}
+                    if (isConnectedToLg) {
+                      await SSH(ref: ref).cleanSlaves();
+                    }
                   },
                   name: isConnectedToLg ? TextConst.cleanLogo : '--',
                   width: screenSize(context).width / 3 - 150,
@@ -209,9 +209,7 @@ class _SettingsState extends ConsumerState<Settings> {
                     if (isConnectedToLg) {
                       await SSH(ref: ref).renderInSlave(
                           ref.read(leftmostRigProvider),
-                          ImageShower.showImage(
-                              'https://www.google.com/search?q=images&rlz=1C1CHBD_enIN925IN925&sxsrf=APwXEddNoWg92Jj7e7atQCVBDWEKKRlXog:1684874055074&source=lnms&tbm=isch&sa=X&ved=2ahUKEwjvz6z8pIz_AhViVPUHHad6DN0Q_AUoAXoECAEQAw&biw=1536&bih=722&dpr=1.25#imgrc=nwiTKnJXTwcwcM'));
-
+                          KMLMakers.screenOverlayImage(ImageConst.splashOnline, Const.splashAspectRatio));
                     }
                   },
                   name: isConnectedToLg ? TextConst.showLogo : '--',
@@ -222,7 +220,9 @@ class _SettingsState extends ConsumerState<Settings> {
                 ),
                 TextButtonCustom(
                   onPressed: () async {
-                    if (isConnectedToLg) {}
+                    if (isConnectedToLg) {
+                      await SSH(ref: ref).cleanKML();
+                    }
                   },
                   name: isConnectedToLg ? TextConst.cleanKML : '--',
                   width: screenSize(context).width / 3 - 150,
@@ -241,7 +241,9 @@ class _SettingsState extends ConsumerState<Settings> {
               children: [
                 TextButtonCustom(
                   onPressed: () async {
-                    if (isConnectedToLg) {}
+                    if (isConnectedToLg) {
+                      await SSH(ref: ref).setRefresh();
+                    }
                   },
                   name: isConnectedToLg ? TextConst.setRefresh : '--',
                   width: screenSize(context).width / 2 - 215,
@@ -251,7 +253,9 @@ class _SettingsState extends ConsumerState<Settings> {
                 ),
                 TextButtonCustom(
                   onPressed: () async {
-                    if (isConnectedToLg) {}
+                    if (isConnectedToLg) {
+                      await SSH(ref: ref).resetRefresh();
+                    }
                   },
                   name: isConnectedToLg ? TextConst.resetRefresh : '--',
                   width: screenSize(context).width / 2 - 215,
@@ -270,7 +274,9 @@ class _SettingsState extends ConsumerState<Settings> {
               children: [
                 TextButtonCustom(
                   onPressed: () async {
-                    if (isConnectedToLg) {}
+                    if (isConnectedToLg) {
+                      await SSH(ref: ref).relaunchLG();
+                    }
                   },
                   name: isConnectedToLg ? TextConst.relaunchLG : '--',
                   width: screenSize(context).width / 3 - 150,
@@ -280,7 +286,9 @@ class _SettingsState extends ConsumerState<Settings> {
                 ),
                 TextButtonCustom(
                   onPressed: () async {
-                    if (isConnectedToLg) {}
+                    if (isConnectedToLg) {
+                      await SSH(ref: ref).rebootLG();
+                    }
                   },
                   name: isConnectedToLg ? TextConst.rebootLG : '--',
                   width: screenSize(context).width / 3 - 150,
@@ -290,7 +298,9 @@ class _SettingsState extends ConsumerState<Settings> {
                 ),
                 TextButtonCustom(
                   onPressed: () async {
-                    if (isConnectedToLg) {}
+                    if (isConnectedToLg) {
+                      await SSH(ref: ref).shutdownLG();
+                    }
                   },
                   name: isConnectedToLg ? TextConst.shutdownLG : '--',
                   width: screenSize(context).width / 3 - 150,
