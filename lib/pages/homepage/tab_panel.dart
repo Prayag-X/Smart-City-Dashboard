@@ -10,6 +10,7 @@ import 'package:smart_city_dashboard/widgets/extensions.dart';
 import 'package:smart_city_dashboard/widgets/helper.dart';
 import 'package:smart_city_dashboard/widgets/logo_shower.dart';
 
+import '../../constants/constants.dart';
 import '../../constants/theme.dart';
 
 class TabPanel extends ConsumerStatefulWidget {
@@ -28,7 +29,7 @@ class _TabPanelState extends ConsumerState<TabPanel> {
     int homePageTab = ref.watch(homePageTabProvider);
     return Container(
       height: screenSize(context).height,
-      width: 250,
+      width: Const.tabBarWidth,
       color: Themes.darkTabBarColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -57,7 +58,7 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                         size: 170,
                       ),
                       Text(TextConst.home,
-                          style: textStyleBoldWhite.copyWith(fontSize: 23))
+                          style: textStyleBoldWhite.copyWith(fontSize: 26))
                     ],
                   ),
                   Container(
@@ -75,13 +76,13 @@ class _TabPanelState extends ConsumerState<TabPanel> {
               children: [
                 Text(
                   TextConst.welcome,
-                  style: textStyleNormalWhite.copyWith(fontSize: 19),
+                  style: textStyleNormalWhite.copyWith(fontSize: 21),
                 ),
                 20.ph,
                 Text(
                   TextConst.description,
                   textAlign: TextAlign.center,
-                  style: textStyleNormalWhite.copyWith(fontSize: 19),
+                  style: textStyleNormalWhite.copyWith(fontSize: 20),
                 ),
               ],
             ),

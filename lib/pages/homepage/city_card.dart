@@ -5,7 +5,10 @@ import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/constants/texts.dart';
 import 'package:smart_city_dashboard/widgets/extensions.dart';
+import 'package:smart_city_dashboard/widgets/helper.dart';
 import 'package:smart_city_dashboard/widgets/logo_shower.dart';
+
+import '../../constants/theme.dart';
 
 class CityCard extends ConsumerWidget {
   const CityCard({
@@ -24,17 +27,17 @@ class CityCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 20.0),
+      padding: const EdgeInsets.symmetric(vertical: 25.0),
       child: Container(
-        height: 170,
-        width: 650,
-        color: Color(0xFF2F3546),
+        height: 200,
+        width: screenSize(context).width - 500,
+        color: darkenColor(Themes.darkHighlightColor, 0.05),
         child: Row(
           children: [
-            ImageShower(logo: image, size: 170),
+            ImageShower(logo: image, size: 200),
             20.pw,
             SizedBox(
-              width: 230,
+              width: screenSize(context).width - 960,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,19 +45,19 @@ class CityCard extends ConsumerWidget {
                   Text(
                     TextConst.smartCity,
                     style: textStyleNormal.copyWith(
-                        fontSize: 11, color: Colors.white.withOpacity(0.6)),
+                        fontSize: 14, color: Colors.white.withOpacity(0.6)),
                   ),
                   Text(
                     name,
-                    style: textStyleBoldWhite.copyWith(fontSize: 26),
+                    style: textStyleBoldWhite.copyWith(fontSize: 30),
                   ),
                   5.ph,
                   Row(
                     children: [
-                      const LogoShower(logo: ImageConst.markerLogo, size: 20),
+                      const LogoShower(logo: ImageConst.markerLogo, size: 25),
                       Text(
                         country,
-                        style: textStyleNormalWhite.copyWith(fontSize: 15),
+                        style: textStyleNormalWhite.copyWith(fontSize: 20),
                       ),
                     ],
                   )
@@ -76,10 +79,10 @@ class CityCard extends ConsumerWidget {
                   Text(
                     TextConst.availableData,
                     style: textStyleNormal.copyWith(
-                        fontSize: 12, color: Colors.white.withOpacity(0.6)),
+                        fontSize: 15, color: Colors.white.withOpacity(0.6)),
                   ),
                   SizedBox(
-                    height: 60,
+                    height: 90,
                     child: ListView.builder(
                         itemCount: availableData.length,
                         itemBuilder: (_, index) => Row(
@@ -87,12 +90,12 @@ class CityCard extends ConsumerWidget {
                                 5.pw,
                                 LogoShower(
                                     logo: availableData.keys.elementAt(index),
-                                    size: 15),
+                                    size: 20),
                                 9.pw,
                                 Text(
                                   availableData.values.elementAt(index),
                                   style: textStyleNormalWhite.copyWith(
-                                      fontSize: 14),
+                                      fontSize: 17),
                                 )
                               ],
                             )),

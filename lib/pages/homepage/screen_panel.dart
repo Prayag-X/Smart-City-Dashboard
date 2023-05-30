@@ -3,13 +3,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/constants/texts.dart';
-import 'package:smart_city_dashboard/pages/homepage/screen_body.dart';
+import 'package:smart_city_dashboard/pages/homepage/about_page.dart';
+import 'package:smart_city_dashboard/pages/homepage/help_page.dart';
+import 'package:smart_city_dashboard/pages/homepage/settings.dart';
 import 'package:smart_city_dashboard/providers/settings_providers.dart';
 import 'package:smart_city_dashboard/widgets/extensions.dart';
 
 import '../../constants/constants.dart';
 import '../../constants/theme.dart';
+import '../../providers/page_providers.dart';
 import '../../widgets/helper.dart';
+import 'city_home_page.dart';
 
 class ScreenPanel extends ConsumerStatefulWidget {
   const ScreenPanel({
@@ -25,9 +29,27 @@ class _ScreenPanelState extends ConsumerState<ScreenPanel> {
 
   @override
   Widget build(BuildContext context) {
+    bool isHomePage = ref.watch(isHomePageProvider);
+    int homePageTab = ref.watch(homePageTabProvider);
     return Stack(
       children: [
-        const ScreenBody(),
+        Container(
+          color: Themes.darkColor,
+          child: Center(
+            child: (() {
+              switch (homePageTab) {
+                case 0:
+                  return const CityHomePage();
+                case 1:
+                  return const HelpPage();
+                case 2:
+                  return const Settings();
+                case 3:
+                  return const AboutPage();
+              }
+            }()),
+          ),
+        ),
         appBar(),
       ],
     );
@@ -36,83 +58,74 @@ class _ScreenPanelState extends ConsumerState<ScreenPanel> {
   Container appBar() {
     bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
     return Container(
-        height: Const.appBarHeight,
-        color: Themes.darkColor,
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    TextConst.title,
-                    style: textStyleBoldWhite.copyWith(
-                      fontSize: 25
+      height: Const.appBarHeight,
+      color: Themes.darkColor,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20.0),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  TextConst.title,
+                  style: textStyleBoldWhite.copyWith(fontSize: 30),
+                ),
+                5.ph,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 13,
+                      height: 13,
+                      decoration: BoxDecoration(
+                          color: isConnectedToLg ? Colors.green : Colors.red,
+                          borderRadius: BorderRadius.circular(35.0)),
                     ),
-                  ),
-                  5.ph,
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                        width: 10,
-                        height: 10,
-                        decoration: BoxDecoration(
+                    5.pw,
+                    Text(
+                      isConnectedToLg
+                          ? TextConst.connected
+                          : TextConst.disconnected,
+                      style: textStyleBold.copyWith(
                           color: isConnectedToLg ? Colors.green : Colors.red,
-                            borderRadius: BorderRadius.circular(35.0)
-                        ),
-                      ),
-                      5.pw,
-                      Text(
-                        isConnectedToLg ? TextConst.connected : TextConst.disconnected,
-                        style: textStyleBold.copyWith(
-                          color: isConnectedToLg ? Colors.green : Colors.red,
-                          fontSize: 11
-                        ),
-                      )
-                    ],
-                  )
-                ],
-              ),
-              SizedBox(
-                width: 250,
-                height: 40,
-                child: TextFormField(
-                  decoration: InputDecoration(
+                          fontSize: 14),
+                    )
+                  ],
+                )
+              ],
+            ),
+            SizedBox(
+              width: 350,
+              height: 55,
+              child: TextFormField(
+                decoration: InputDecoration(
                     prefixIcon: Icon(
                       Icons.mic,
                       color: Themes.darkWhiteColor,
                     ),
-                      contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15, horizontal: 25),
-                      focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Themes.darkWhiteColor, width: 3),
-                          borderRadius: BorderRadius.circular(35.0)),
-                      enabledBorder: OutlineInputBorder(
-                          borderSide:  BorderSide(
-                              color: Themes.darkWhiteColor, width: 1),
-                          borderRadius: BorderRadius.circular(35.0)),
-                      hintText: TextConst.search,
-                      hintStyle: textStyleNormal.copyWith(
-                        color: Colors.white.withOpacity(0.5),
-                        fontSize: 13
-                      )
-                  ),
-                  style: textStyleNormalWhite.copyWith(
-                      fontSize: 13
-                  ),
-                  controller: searchController,
-                ),
+                    contentPadding: const EdgeInsets.symmetric(
+                        vertical: 15, horizontal: 25),
+                    focusedBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Themes.darkWhiteColor, width: 3),
+                        borderRadius: BorderRadius.circular(35.0)),
+                    enabledBorder: OutlineInputBorder(
+                        borderSide:
+                            BorderSide(color: Themes.darkWhiteColor, width: 1),
+                        borderRadius: BorderRadius.circular(35.0)),
+                    hintText: TextConst.search,
+                    hintStyle: textStyleNormal.copyWith(
+                        color: Colors.white.withOpacity(0.5), fontSize: 16)),
+                style: textStyleNormalWhite.copyWith(fontSize: 16),
+                controller: searchController,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
-      );
+      ),
+    );
   }
 }
-
-

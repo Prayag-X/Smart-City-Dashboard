@@ -13,6 +13,7 @@ class TextConst {
   static String help = translate('homepage.help');
   static String settings = translate('homepage.settings');
   static String option = translate('homepage.option');
+  static String about = translate('homepage.about');
   static String bhubaneswar = translate('city.bhubaneswar');
   static String london = translate('city.london');
   static String vienna = translate('city.vienna');
