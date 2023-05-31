@@ -99,7 +99,9 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                     ],
                   ),
                 )
-              : const SizedBox.shrink(),
+              : Column(
+            children: ref.read(cityDataProvider)!.availableTabs,
+          ),
           Column(
             children: [
               isHomePage

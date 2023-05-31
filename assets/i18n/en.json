@@ -27,7 +27,8 @@
     "available_data": "Available Data"
   },
   "city_page": {
-    "go_back": "(Tap to go back to home)"
+    "go_back": "(Tap to go back to home)",
+    "weather": "Weather"
   },
   "settings": {
     "save": "SAVE",

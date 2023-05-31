@@ -100,20 +100,23 @@ class CityCard extends ConsumerWidget {
                             height: 90,
                             child: ListView.builder(
                                 itemCount: cityData.availableData.length,
-                                itemBuilder: (_, index) => Row(
-                                      children: [
-                                        5.pw,
-                                        LogoShower(
-                                            logo: cityData.availableData.keys.elementAt(index),
-                                            size: 20),
-                                        9.pw,
-                                        Text(
-                                          cityData.availableData.values.elementAt(index),
-                                          style: textStyleNormalWhite.copyWith(
-                                              fontSize: 17),
-                                        )
-                                      ],
-                                    )),
+                                itemBuilder: (_, index) => Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 1.0),
+                                  child: Row(
+                                        children: [
+                                          5.pw,
+                                          LogoShower(
+                                              logo: cityData.availableData.keys.elementAt(index),
+                                              size: 15),
+                                          9.pw,
+                                          Text(
+                                            cityData.availableData.values.elementAt(index),
+                                            style: textStyleNormalWhite.copyWith(
+                                                fontSize: 17),
+                                          )
+                                        ],
+                                      ),
+                                )),
                           ),
                           const SizedBox.shrink()
                         ],

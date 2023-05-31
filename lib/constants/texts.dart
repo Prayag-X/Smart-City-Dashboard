@@ -3,6 +3,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 //Made the texts separate to make it easy to apply multilingual feature.
 
 class TextConst {
+  static List<String> langList = [translate('language.en')];
   static String title = translate('title');
   static String search = translate('search');
   static String smartCity = translate('smart_city');
@@ -36,8 +37,8 @@ class TextConst {
   static String shutdownLG = translate('settings.shutdown_lg');
   static String language = translate('settings.language');
   static String theme = translate('settings.theme');
-  static List<String> langList = [translate('language.en')];
   static String goBack = translate('city_page.go_back');
+  static String weather = translate('city_page.weather');
 }
 
 

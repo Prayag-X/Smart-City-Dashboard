@@ -31,7 +31,7 @@ class TabButton extends ConsumerWidget {
       child: Container(
         color: homePageTab == tab ? Themes.darkHighlightColor : Colors.transparent,
         child: Padding(
-          padding: const EdgeInsets.only(top: 9, bottom: 9),
+          padding: const EdgeInsets.symmetric(vertical: 10,),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [

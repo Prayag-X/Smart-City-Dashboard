@@ -7,6 +7,7 @@ class ImageConst {
   static const settingLogo = 'assets/logos/settings.png';
   static const helpLogo = 'assets/logos/help.png';
   static const markerLogo = 'assets/logos/marker.jpg';
+  static const weatherLogo = 'assets/logos/weather.png';
   static const bhubaneswar = 'assets/images/bhubaneswar.jpg';
   static const london = 'assets/images/london.png';
   static const newYork = 'assets/images/new_york.png';
