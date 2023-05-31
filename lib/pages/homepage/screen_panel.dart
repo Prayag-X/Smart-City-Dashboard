@@ -36,18 +36,20 @@ class _ScreenPanelState extends ConsumerState<ScreenPanel> {
         Container(
           color: Themes.darkColor,
           child: Center(
-            child: (() {
-              switch (homePageTab) {
-                case 0:
-                  return const CityHomePage();
-                case 1:
-                  return const HelpPage();
-                case 2:
-                  return const Settings();
-                case 3:
-                  return const AboutPage();
-              }
-            }()),
+            child: isHomePage
+                ? (() {
+                    switch (homePageTab) {
+                      case 0:
+                        return const CityHomePage();
+                      case 1:
+                        return const HelpPage();
+                      case 2:
+                        return const Settings();
+                      case 3:
+                        return const AboutPage();
+                    }
+                  }())
+                : Container(),
           ),
         ),
         appBar(),

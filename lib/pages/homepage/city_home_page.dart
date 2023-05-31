@@ -6,6 +6,7 @@ import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/constants/texts.dart';
 import 'package:smart_city_dashboard/pages/homepage/city_card.dart';
+import 'package:smart_city_dashboard/widgets/helper.dart';
 
 class CityHomePage extends StatelessWidget {
   const CityHomePage({
@@ -15,22 +16,17 @@ class CityHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-      physics: const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-      child: Column(
-        children: [
-          CityCard(
-              name: TextConst.bhubaneswar,
-              image: ImageConst.bhubaneswar,
-              country: TextConst.india,
-              availableData: ViennaData.data
-          ),
-          CityCard(
-              name: TextConst.bhubaneswar,
-              image: ImageConst.bhubaneswar,
-              country: TextConst.india,
-              availableData: ViennaData.data
-          ),
-        ],
+      physics:
+          const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+      child: Container(
+        height: screenSize(context).height,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+            children: CityCardData.availableCities
+                .map((city) => CityCard(
+                      cityData: city,
+                    ))
+                .toList()),
       ),
     );
   }

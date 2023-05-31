@@ -26,6 +26,9 @@
     "about": "About",
     "available_data": "Available Data"
   },
+  "city_page": {
+    "go_back": "(Tap to go back to home)"
+  },
   "settings": {
     "save": "SAVE",
     "connect": "CONNECT TO LG",

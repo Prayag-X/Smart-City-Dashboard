@@ -12,6 +12,7 @@ import 'package:smart_city_dashboard/widgets/logo_shower.dart';
 
 import '../../constants/constants.dart';
 import '../../constants/theme.dart';
+import '../../models/city_card_model.dart';
 
 class TabPanel extends ConsumerStatefulWidget {
   const TabPanel({
@@ -27,6 +28,7 @@ class _TabPanelState extends ConsumerState<TabPanel> {
   Widget build(BuildContext context) {
     bool isHomePage = ref.watch(isHomePageProvider);
     int homePageTab = ref.watch(homePageTabProvider);
+    CityCardModel? cityData = ref.watch(cityDataProvider);
     return Container(
       height: screenSize(context).height,
       width: Const.tabBarWidth,
@@ -35,10 +37,13 @@ class _TabPanelState extends ConsumerState<TabPanel> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           GestureDetector(
-            onTap: () => ref.read(homePageTabProvider.notifier).state = 0,
+            onTap: () {
+              ref.read(homePageTabProvider.notifier).state = 0;
+              ref.read(isHomePageProvider.notifier).state = true;
+            },
             child: Container(
               height: 240,
-              color: homePageTab == 0
+              color: homePageTab == 0 && isHomePage
                   ? Themes.darkHighlightColor
                   : Colors.transparent,
               child: Row(
@@ -47,7 +52,9 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                   Container(
                     height: 240,
                     width: 3,
-                    color: homePageTab == 0 ? Colors.white : Colors.transparent,
+                    color: homePageTab == 0 && isHomePage
+                        ? Colors.white
+                        : Colors.transparent,
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -57,8 +64,12 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                         logo: ImageConst.appLogo,
                         size: 170,
                       ),
-                      Text(TextConst.home,
-                          style: textStyleBoldWhite.copyWith(fontSize: 26))
+                      Text(isHomePage ? TextConst.home : cityData!.cityName,
+                          style: textStyleBoldWhite.copyWith(fontSize: 26)),
+                      Text(isHomePage ? '' : TextConst.goBack,
+                          style: textStyleNormal.copyWith(
+                              fontSize: 16,
+                              color: Themes.darkWhiteColor.withOpacity(0.7)))
                     ],
                   ),
                   Container(
@@ -70,42 +81,44 @@ class _TabPanelState extends ConsumerState<TabPanel> {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(13.0),
-            child: Column(
-              children: [
-                Text(
-                  TextConst.welcome,
-                  style: textStyleNormalWhite.copyWith(fontSize: 21),
-                ),
-                20.ph,
-                Text(
-                  TextConst.description,
-                  textAlign: TextAlign.center,
-                  style: textStyleNormalWhite.copyWith(fontSize: 20),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            child: Column(
-              children: [
-                TabButton(
-                    logo: ImageConst.helpLogo, name: TextConst.help, tab: 1),
-                Divider(
-                  color: Themes.darkWhiteColor,
-                  indent: 10,
-                  endIndent: 10,
-                ),
-                TabButton(
-                    logo: ImageConst.settingLogo,
-                    name: TextConst.settings,
-                    tab: 2),
-                TabButton(
-                    logo: ImageConst.lgLogo, name: TextConst.option, tab: 3),
-                20.ph
-              ],
-            ),
+          isHomePage
+              ? Padding(
+                  padding: const EdgeInsets.all(13.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        TextConst.welcome,
+                        style: textStyleNormalWhite.copyWith(fontSize: 21),
+                      ),
+                      20.ph,
+                      Text(
+                        TextConst.description,
+                        textAlign: TextAlign.center,
+                        style: textStyleNormalWhite.copyWith(fontSize: 20),
+                      ),
+                    ],
+                  ),
+                )
+              : const SizedBox.shrink(),
+          Column(
+            children: [
+              isHomePage
+                  ? TabButton(
+                      logo: ImageConst.helpLogo, name: TextConst.help, tab: 1)
+                  : const SizedBox.shrink(),
+              Divider(
+                color: Themes.darkWhiteColor,
+                indent: 10,
+                endIndent: 10,
+              ),
+              TabButton(
+                  logo: ImageConst.settingLogo,
+                  name: TextConst.settings,
+                  tab: 2),
+              TabButton(
+                  logo: ImageConst.aboutLogo, name: TextConst.about, tab: 3),
+              20.ph
+            ],
           ),
         ],
       ),

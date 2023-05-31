@@ -37,6 +37,7 @@ class TextConst {
   static String language = translate('settings.language');
   static String theme = translate('settings.theme');
   static List<String> langList = [translate('language.en')];
+  static String goBack = translate('city_page.go_back');
 }
 
 
