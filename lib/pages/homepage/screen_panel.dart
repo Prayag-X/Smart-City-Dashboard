@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
@@ -13,7 +12,6 @@ import 'package:smart_city_dashboard/widgets/extensions.dart';
 import '../../constants/constants.dart';
 import '../../constants/theme.dart';
 import '../../providers/page_providers.dart';
-import '../../widgets/helper.dart';
 import 'city_home_page.dart';
 
 class ScreenPanel extends ConsumerStatefulWidget {
@@ -31,7 +29,7 @@ class _ScreenPanelState extends ConsumerState<ScreenPanel> {
   @override
   Widget build(BuildContext context) {
     bool isHomePage = ref.watch(isHomePageProvider);
-    int homePageTab = ref.watch(homePageTabProvider);
+    int homePageTab = ref.watch(tabProvider);
     return Stack(
       children: [
         Container(

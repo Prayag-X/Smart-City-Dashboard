@@ -1,11 +1,7 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
-import 'package:smart_city_dashboard/constants/texts.dart';
 import 'package:smart_city_dashboard/widgets/extensions.dart';
-import 'package:smart_city_dashboard/widgets/helper.dart';
 import 'package:smart_city_dashboard/widgets/logo_shower.dart';
 
 import '../../constants/theme.dart';
@@ -25,9 +21,9 @@ class TabButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    int homePageTab = ref.watch(homePageTabProvider);
+    int homePageTab = ref.watch(tabProvider);
     return GestureDetector(
-      onTap: () => ref.read(homePageTabProvider.notifier).state = tab,
+      onTap: () => ref.read(tabProvider.notifier).state = tab,
       child: Container(
         color: homePageTab == tab ? Themes.darkHighlightColor : Colors.transparent,
         child: Padding(

@@ -1,13 +1,11 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:smart_city_dashboard/constants/available_cities.dart';
 import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/constants/texts.dart';
 import 'package:smart_city_dashboard/kml_makers/kml_makers.dart';
-import 'package:smart_city_dashboard/pages/homepage/city_card.dart';
 import 'package:smart_city_dashboard/providers/settings_providers.dart';
 import 'package:smart_city_dashboard/widgets/extensions.dart';
 import 'package:smart_city_dashboard/widgets/helper.dart';
@@ -27,6 +25,11 @@ class Settings extends ConsumerStatefulWidget {
 }
 
 class _SettingsState extends ConsumerState<Settings> {
+  final CameraPosition initialMapPosition = const CameraPosition(
+    target: LatLng(51.4769, 0.0),
+    zoom: 2,
+  );
+
   TextEditingController ipController = TextEditingController(text: '');
   TextEditingController usernameController = TextEditingController(text: '');
   TextEditingController passwordController = TextEditingController(text: '');
@@ -170,8 +173,16 @@ class _SettingsState extends ConsumerState<Settings> {
               if (!isConnectedToLg) {
                 await setSharedPrefs();
                 await SSH(ref: ref).connect();
-                await SSH(ref: ref).renderInSlave(ref.read(leftmostRigProvider),
-                    KMLMakers.screenOverlayImage(ImageConst.splashOnline, Const.splashAspectRatio));
+                await SSH(ref: ref).renderInSlave(
+                    ref.read(leftmostRigProvider),
+                    KMLMakers.screenOverlayImage(
+                        ImageConst.splashOnline, Const.splashAspectRatio));
+                await SSH(ref: ref).flyTo(
+                    initialMapPosition.target.latitude,
+                    initialMapPosition.target.longitude,
+                    initialMapPosition.zoom.zoomLG,
+                    initialMapPosition.tilt,
+                    initialMapPosition.bearing);
               } else {
                 await SSH(ref: ref).disconnect();
               }
@@ -209,7 +220,8 @@ class _SettingsState extends ConsumerState<Settings> {
                     if (isConnectedToLg) {
                       await SSH(ref: ref).renderInSlave(
                           ref.read(leftmostRigProvider),
-                          KMLMakers.screenOverlayImage(ImageConst.splashOnline, Const.splashAspectRatio));
+                          KMLMakers.screenOverlayImage(ImageConst.splashOnline,
+                              Const.splashAspectRatio));
                     }
                   },
                   name: isConnectedToLg ? TextConst.showLogo : '--',
@@ -311,7 +323,7 @@ class _SettingsState extends ConsumerState<Settings> {
               ],
             ),
           ),
-          Const.appBarHeight.ph,
+          30.ph,
         ],
       ),
     );

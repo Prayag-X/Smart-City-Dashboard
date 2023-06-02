@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dartssh2/dartssh2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smart_city_dashboard/kml_makers/kml_makers.dart';
 import 'package:smart_city_dashboard/providers/settings_providers.dart';
 
 class SSH {
@@ -44,8 +44,8 @@ class SSH {
   renderInSlave(int slaveNo, String imageKML) async {
     try {
       await ref
-          .read(sshClient)!
-          .run("echo '$imageKML' > /var/www/html/kml/slave_$slaveNo.kml");
+          .read(sshClient)
+          ?.run("echo '$imageKML' > /var/www/html/kml/slave_$slaveNo.kml");
     } catch (e) {
       print(e);
     }
@@ -55,8 +55,8 @@ class SSH {
     try {
       for (var i = 2; i <= ref.read(rigsProvider); i++) {
         await ref
-            .read(sshClient)!
-            .run("echo '' > /var/www/html/kml/slave_$i.kml");
+            .read(sshClient)
+            ?.run("echo '' > /var/www/html/kml/slave_$i.kml");
       }
     } catch (e) {
       print(e);
@@ -66,6 +66,7 @@ class SSH {
   cleanKML() async {
     try {
       await ref.read(sshClient)!.run('echo "exittour=true" > /tmp/query.txt');
+      await ref.read(sshClient)!.run('echo "" > /tmp/query.txt');
       await ref.read(sshClient)!.run("echo '' > /var/www/html/kmls.txt");
     } catch (e) {
       print(e);
@@ -79,9 +80,9 @@ class SSH {
         String replace =
             '<href>##LG_PHPIFACE##kml\\/slave_$i.kml<\\/href><refreshMode>onInterval<\\/refreshMode><refreshInterval>2<\\/refreshInterval>';
 
-        await ref.read(sshClient)!.run(
+        await ref.read(sshClient)?.run(
             'sshpass -p ${ref.read(passwordProvider)} ssh -t lg$i \'echo ${ref.read(passwordProvider)} | sudo -S sed -i "s/$replace/$search/" ~/earth/kml/slave/myplaces.kml\'');
-        await ref.read(sshClient)!.run(
+        await ref.read(sshClient)?.run(
             'sshpass -p ${ref.read(passwordProvider)} ssh -t lg$i \'echo ${ref.read(passwordProvider)} | sudo -S sed -i "s/$search/$replace/" ~/earth/kml/slave/myplaces.kml\'');
       }
       print("DONE");
@@ -97,7 +98,7 @@ class SSH {
             '<href>##LG_PHPIFACE##kml\\/slave_$i.kml<\\/href><refreshMode>onInterval<\\/refreshMode><refreshInterval>2<\\/refreshInterval>';
         String replace = '<href>##LG_PHPIFACE##kml\\/slave_$i.kml<\\/href>';
 
-        await ref.read(sshClient)!.run(
+        await ref.read(sshClient)?.run(
             'sshpass -p ${ref.read(passwordProvider)} ssh -t lg$i \'echo ${ref.read(passwordProvider)} | sudo -S sed -i "s/$search/$replace/" ~/earth/kml/slave/myplaces.kml\'');
       }
       print("DONE");
@@ -123,9 +124,9 @@ class SSH {
             echo ${ref.read(passwordProvider)} | sudo -S service \\\${SERVICE} restart
           fi
           " && sshpass -p ${ref.read(passwordProvider)} ssh -x -t lg@lg$i "\$RELAUNCH_CMD\"""";
-        await ref.read(sshClient)!.run(
+        await ref.read(sshClient)?.run(
             '"/home/${ref.read(usernameProvider)}/bin/lg-relaunch" > /home/${ref.read(usernameProvider)}/log.txt');
-        await ref.read(sshClient)!.run(cmd);
+        await ref.read(sshClient)?.run(cmd);
       }
     } catch (e) {
       print(e);
@@ -135,7 +136,7 @@ class SSH {
   rebootLG() async {
     try {
       for (var i = 1; i <= ref.read(rigsProvider); i++) {
-        await ref.read(sshClient)!.run(
+        await ref.read(sshClient)?.run(
             'sshpass -p ${ref.read(passwordProvider)} ssh -t lg$i "echo ${ref.read(passwordProvider)} | sudo -S reboot');
       }
     } catch (e) {
@@ -146,11 +147,17 @@ class SSH {
   shutdownLG() async {
     try {
       for (var i = 1; i <= ref.read(rigsProvider); i++) {
-        await ref.read(sshClient)!.run(
+        await ref.read(sshClient)?.run(
             'sshpass -p ${ref.read(passwordProvider)} ssh -t lg$i "echo ${ref.read(passwordProvider)} | sudo -S poweroff"');
       }
     } catch (e) {
       print(e);
     }
+  }
+
+  flyTo(double latitude, double longitude, double zoom, double tilt,
+      double bearing) async {
+    await ref.read(sshClient)?.run(
+        'echo "flytoview=${KMLMakers.lookAt(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
   }
 }

@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_city_dashboard/constants/images.dart';
@@ -27,7 +26,7 @@ class _TabPanelState extends ConsumerState<TabPanel> {
   @override
   Widget build(BuildContext context) {
     bool isHomePage = ref.watch(isHomePageProvider);
-    int homePageTab = ref.watch(homePageTabProvider);
+    int homePageTab = ref.watch(tabProvider);
     CityCardModel? cityData = ref.watch(cityDataProvider);
     return Container(
       height: screenSize(context).height,
@@ -38,7 +37,7 @@ class _TabPanelState extends ConsumerState<TabPanel> {
         children: [
           GestureDetector(
             onTap: () {
-              ref.read(homePageTabProvider.notifier).state = 0;
+              ref.read(tabProvider.notifier).state = 0;
               ref.read(isHomePageProvider.notifier).state = true;
             },
             child: Container(
@@ -119,7 +118,6 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                   tab: -1),
               TabButton(
                   logo: ImageConst.aboutLogo, name: TextConst.about, tab: -2),
-              20.ph
             ],
           ),
         ],

@@ -6,7 +6,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/images.dart';
 import '../constants/theme.dart';
 import '../providers/settings_providers.dart';
-import '../widgets/logo_shower.dart';
 import '../widgets/helper.dart';
 
 class SplashScreen extends ConsumerStatefulWidget {
