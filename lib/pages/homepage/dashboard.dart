@@ -50,17 +50,11 @@ class _DashboardState extends ConsumerState<Dashboard> {
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             const SizedBox.shrink(),
-            // const SizedBox.shrink(),
             Container(
               width: (screenSize(context).width - Const.tabBarWidth) / 2,
               color: Colors.blue,
               child: Column(),
             ),
-            // const VerticalDivider(
-            //   color: Colors.white,
-            //   indent: 20,
-            //   endIndent: 20,
-            // ),
             Container(
               width: (screenSize(context).width - Const.tabBarWidth) / 2 - 40,
               color: Colors.blue,
@@ -92,7 +86,6 @@ class _DashboardState extends ConsumerState<Dashboard> {
               ),
             ),
             const SizedBox.shrink(),
-            // const SizedBox.shrink(),
           ],
         ),
       ),

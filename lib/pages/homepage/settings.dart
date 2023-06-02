@@ -190,6 +190,7 @@ class _SettingsState extends ConsumerState<Settings> {
             name: isConnectedToLg ? TextConst.disconnect : TextConst.connect,
             width: screenSize(context).width - 400,
             color: isConnectedToLg ? Colors.red : Colors.green,
+            ref: ref,
           ),
           20.ph,
           Divider(
@@ -214,6 +215,7 @@ class _SettingsState extends ConsumerState<Settings> {
                   color: isConnectedToLg
                       ? Colors.yellow
                       : lightenColor(Themes.darkColor, 0.01),
+                  ref: ref,
                 ),
                 TextButtonCustom(
                   onPressed: () async {
@@ -229,6 +231,7 @@ class _SettingsState extends ConsumerState<Settings> {
                   color: isConnectedToLg
                       ? Colors.yellow
                       : lightenColor(Themes.darkColor, 0.01),
+                  ref: ref,
                 ),
                 TextButtonCustom(
                   onPressed: () async {
@@ -241,6 +244,7 @@ class _SettingsState extends ConsumerState<Settings> {
                   color: isConnectedToLg
                       ? Colors.yellow
                       : lightenColor(Themes.darkColor, 0.01),
+                  ref: ref,
                 ),
               ],
             ),
@@ -262,6 +266,7 @@ class _SettingsState extends ConsumerState<Settings> {
                   color: isConnectedToLg
                       ? Colors.blue
                       : lightenColor(Themes.darkColor, 0.01),
+                  ref: ref,
                 ),
                 TextButtonCustom(
                   onPressed: () async {
@@ -274,6 +279,7 @@ class _SettingsState extends ConsumerState<Settings> {
                   color: isConnectedToLg
                       ? Colors.blue
                       : lightenColor(Themes.darkColor, 0.01),
+                  ref: ref,
                 ),
               ],
             ),
@@ -295,6 +301,7 @@ class _SettingsState extends ConsumerState<Settings> {
                   color: isConnectedToLg
                       ? Colors.redAccent
                       : lightenColor(Themes.darkColor, 0.01),
+                  ref: ref,
                 ),
                 TextButtonCustom(
                   onPressed: () async {
@@ -307,6 +314,7 @@ class _SettingsState extends ConsumerState<Settings> {
                   color: isConnectedToLg
                       ? Colors.redAccent
                       : lightenColor(Themes.darkColor, 0.01),
+                  ref: ref,
                 ),
                 TextButtonCustom(
                   onPressed: () async {
@@ -319,6 +327,7 @@ class _SettingsState extends ConsumerState<Settings> {
                   color: isConnectedToLg
                       ? Colors.redAccent
                       : lightenColor(Themes.darkColor, 0.01),
+                  ref: ref,
                 ),
               ],
             ),
@@ -337,12 +346,14 @@ class TextButtonCustom extends StatelessWidget {
     required this.name,
     required this.width,
     required this.color,
+    required this.ref,
   }) : super(key: key);
 
   final Function onPressed;
   final String name;
   final double width;
   final Color color;
+  final WidgetRef ref;
 
   @override
   Widget build(BuildContext context) {
@@ -352,7 +363,11 @@ class TextButtonCustom extends StatelessWidget {
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(300),
               side: BorderSide(color: Themes.darkWhiteColor))),
-      onPressed: () async => await onPressed(),
+      onPressed: () async {
+        ref.read(isLoadingProvider.notifier).state = true;
+        await onPressed();
+        ref.read(isLoadingProvider.notifier).state = false;
+      },
       child: SizedBox(
         height: 50,
         width: width,
