@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/constants/texts.dart';
 import 'package:smart_city_dashboard/pages/homepage/about_page.dart';
+import 'package:smart_city_dashboard/pages/homepage/dashboard.dart';
 import 'package:smart_city_dashboard/pages/homepage/help_page.dart';
 import 'package:smart_city_dashboard/pages/homepage/settings.dart';
 import 'package:smart_city_dashboard/providers/settings_providers.dart';
@@ -41,15 +42,27 @@ class _ScreenPanelState extends ConsumerState<ScreenPanel> {
                     switch (homePageTab) {
                       case 0:
                         return const CityHomePage();
-                      case 1:
+                      case -3:
                         return const HelpPage();
-                      case 2:
+                      case -1:
                         return const Settings();
-                      case 3:
+                      case -2:
                         return const AboutPage();
                     }
                   }())
-                : Container(),
+                :
+            (() {
+              switch (homePageTab) {
+                case -3:
+                  return const HelpPage();
+                case -1:
+                  return const Settings();
+                case -2:
+                  return const AboutPage();
+                default:
+                  return const Dashboard();
+              }
+            }()),
           ),
         ),
         appBar(),

@@ -106,7 +106,7 @@ class _TabPanelState extends ConsumerState<TabPanel> {
             children: [
               isHomePage
                   ? TabButton(
-                      logo: ImageConst.helpLogo, name: TextConst.help, tab: 1)
+                      logo: ImageConst.helpLogo, name: TextConst.help, tab: -3)
                   : const SizedBox.shrink(),
               Divider(
                 color: Themes.darkWhiteColor,
@@ -116,9 +116,9 @@ class _TabPanelState extends ConsumerState<TabPanel> {
               TabButton(
                   logo: ImageConst.settingLogo,
                   name: TextConst.settings,
-                  tab: 2),
+                  tab: -1),
               TabButton(
-                  logo: ImageConst.aboutLogo, name: TextConst.about, tab: 3),
+                  logo: ImageConst.aboutLogo, name: TextConst.about, tab: -2),
               20.ph
             ],
           ),
