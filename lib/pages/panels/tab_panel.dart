@@ -3,7 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/constants/texts.dart';
-import 'package:smart_city_dashboard/pages/homepage/tab_button.dart';
+import 'package:smart_city_dashboard/pages/panels/tab_button.dart';
 import 'package:smart_city_dashboard/providers/page_providers.dart';
 import 'package:smart_city_dashboard/widgets/extensions.dart';
 import 'package:smart_city_dashboard/widgets/helper.dart';

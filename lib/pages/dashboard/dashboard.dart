@@ -32,6 +32,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
       target: ref.read(cityDataProvider)!.location,
       zoom: 11,
     );
+    newMapPosition = initialMapPosition;
     SSH(ref: ref).flyTo(
         initialMapPosition.target.latitude,
         initialMapPosition.target.longitude,
@@ -66,20 +67,16 @@ class _DashboardState extends ConsumerState<Dashboard> {
                     child: GoogleMap(
                       mapType: MapType.hybrid,
                       initialCameraPosition: initialMapPosition,
-                      onMapCreated: (GoogleMapController controller) {
-                        _controller.complete(controller);
-                      },
-                      onCameraMove: (position) {
-                        setState(() => newMapPosition = position);
-                      },
-                      onCameraIdle: () async {
-                        await SSH(ref: ref).flyTo(
-                            newMapPosition.target.latitude,
-                            newMapPosition.target.longitude,
-                            newMapPosition.zoom.zoomLG,
-                            newMapPosition.tilt,
-                            newMapPosition.bearing);
-                      },
+                      onMapCreated: (GoogleMapController controller) =>
+                          _controller.complete(controller),
+                      onCameraMove: (position) =>
+                          setState(() => newMapPosition = position),
+                      onCameraIdle: () async => await SSH(ref: ref).flyTo(
+                          newMapPosition.target.latitude,
+                          newMapPosition.target.longitude,
+                          newMapPosition.zoom.zoomLG,
+                          newMapPosition.tilt,
+                          newMapPosition.bearing),
                     ),
                   )
                 ],

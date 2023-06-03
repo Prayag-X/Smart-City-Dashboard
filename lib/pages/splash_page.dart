@@ -8,8 +8,8 @@ import '../constants/theme.dart';
 import '../providers/settings_providers.dart';
 import '../widgets/helper.dart';
 
-class SplashScreen extends ConsumerStatefulWidget {
-  const SplashScreen({
+class SplashPage extends ConsumerStatefulWidget {
+  const SplashPage({
     Key? key,
   }) : super(key: key);
 
@@ -17,7 +17,7 @@ class SplashScreen extends ConsumerStatefulWidget {
   ConsumerState createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends ConsumerState<SplashScreen> {
+class _SplashScreenState extends ConsumerState<SplashPage> {
   initApp() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     ref.read(ipProvider.notifier).state = prefs.getString('ip') ?? '';

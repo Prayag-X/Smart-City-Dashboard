@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
-import 'pages/homepage/homepage.dart';
-import 'pages/splash_screen.dart';
+import 'pages/main_page.dart';
+import 'pages/splash_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -48,8 +48,8 @@ class _RoutesState extends State<Routes> {
         locale: localizationDelegate.currentLocale,
         initialRoute: '/',
         routes: {
-          '/': (context) => const SplashScreen(),
-          '/HomePage': (context) => const HomePage(),
+          '/': (context) => const SplashPage(),
+          '/HomePage': (context) => const MainPage(),
           // '/ChatPage': (context) => const ChatPage(),
         },
       ),

@@ -15,8 +15,8 @@ import '../../constants/theme.dart';
 import '../../providers/page_providers.dart';
 import '../../ssh_lg/ssh.dart';
 
-class Settings extends ConsumerStatefulWidget {
-  const Settings({
+class SettingsPage extends ConsumerStatefulWidget {
+  const SettingsPage({
     Key? key,
   }) : super(key: key);
 
@@ -24,7 +24,7 @@ class Settings extends ConsumerStatefulWidget {
   ConsumerState createState() => _SettingsState();
 }
 
-class _SettingsState extends ConsumerState<Settings> {
+class _SettingsState extends ConsumerState<SettingsPage> {
   final CameraPosition initialMapPosition = const CameraPosition(
     target: LatLng(51.4769, 0.0),
     zoom: 2,

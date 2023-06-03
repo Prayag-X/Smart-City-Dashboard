@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
-import 'screen_panel.dart';
-import 'tab_panel.dart';
+import 'panels/screen_panel.dart';
+import 'panels/tab_panel.dart';
 
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
+class MainPage extends StatelessWidget {
+  const MainPage({super.key});
 
   @override
   Widget build(BuildContext context) {

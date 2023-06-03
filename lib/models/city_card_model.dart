@@ -1,5 +1,5 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:smart_city_dashboard/pages/homepage/tab_button.dart';
+import 'package:smart_city_dashboard/pages/panels/tab_button.dart';
 
 class CityCardModel {
   String cityName;

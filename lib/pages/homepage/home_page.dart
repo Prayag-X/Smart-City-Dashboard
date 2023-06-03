@@ -3,8 +3,8 @@ import 'package:smart_city_dashboard/constants/available_cities.dart';
 import 'package:smart_city_dashboard/pages/homepage/city_card.dart';
 import 'package:smart_city_dashboard/widgets/helper.dart';
 
-class CityHomePage extends StatelessWidget {
-  const CityHomePage({
+class HomePage extends StatelessWidget {
+  const HomePage({
     super.key,
   });
 
@@ -13,7 +13,7 @@ class CityHomePage extends StatelessWidget {
     return SingleChildScrollView(
       physics:
           const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-      child: Container(
+      child: SizedBox(
         height: screenSize(context).height,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
