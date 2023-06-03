@@ -2,11 +2,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/providers/page_providers.dart';
 import 'package:smart_city_dashboard/widgets/extensions.dart';
 import 'package:smart_city_dashboard/widgets/helper.dart';
 
 import '../../constants/constants.dart';
+import '../../constants/texts.dart';
+import '../../constants/theme.dart';
 import '../../ssh_lg/ssh.dart';
 
 class Dashboard extends ConsumerStatefulWidget {
@@ -43,6 +46,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
+    MapType mapType = ref.watch(mapTypeProvider);
     return Padding(
       padding: EdgeInsets.only(top: Const.appBarHeight),
       child: SizedBox(
@@ -53,30 +57,119 @@ class _DashboardState extends ConsumerState<Dashboard> {
             const SizedBox.shrink(),
             Container(
               width: (screenSize(context).width - Const.tabBarWidth) / 2,
-              color: Colors.blue,
+              // color: Colors.blue,
               child: Column(),
             ),
             Container(
               width: (screenSize(context).width - Const.tabBarWidth) / 2 - 40,
-              color: Colors.blue,
+              // color: Colors.blue,
               child: Column(
                 children: [
                   SizedBox(
                     height:
-                        (screenSize(context).height - Const.appBarHeight) / 2,
-                    child: GoogleMap(
-                      mapType: MapType.hybrid,
-                      initialCameraPosition: initialMapPosition,
-                      onMapCreated: (GoogleMapController controller) =>
-                          _controller.complete(controller),
-                      onCameraMove: (position) =>
-                          setState(() => newMapPosition = position),
-                      onCameraIdle: () async => await SSH(ref: ref).flyTo(
-                          newMapPosition.target.latitude,
-                          newMapPosition.target.longitude,
-                          newMapPosition.zoom.zoomLG,
-                          newMapPosition.tilt,
-                          newMapPosition.bearing),
+                        (screenSize(context).height - Const.appBarHeight) /
+                                2 -
+                            40,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
+                      child: GoogleMap(
+                        mapType: mapType,
+                        initialCameraPosition: initialMapPosition,
+                        onMapCreated: (GoogleMapController controller) =>
+                            _controller.complete(controller),
+                        onCameraMove: (position) =>
+                            setState(() => newMapPosition = position),
+                        onCameraIdle: () async => await SSH(ref: ref).flyTo(
+                            newMapPosition.target.latitude,
+                            newMapPosition.target.longitude,
+                            newMapPosition.zoom.zoomLG,
+                            newMapPosition.tilt,
+                            newMapPosition.bearing),
+                      ),
+                    ),
+                  ),
+                  10.ph,
+                  Container(
+                    height: 40,
+                    decoration: BoxDecoration(
+                      borderRadius:
+                          BorderRadius.circular(Const.dashboardUIRoundness),
+                      border: Border.all(
+                        color: Themes.darkHighlightColor,
+                        width: 2.0,
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: GestureDetector(
+                          onTap: () {
+                            ref.read(mapTypeProvider.notifier).state =
+                                MapType.hybrid;
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: mapType == MapType.hybrid
+                                  ? Themes.darkHighlightColor
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(
+                                      Const.dashboardUIRoundness - 3),
+                                  bottomLeft: Radius.circular(
+                                      Const.dashboardUIRoundness - 3)),
+                            ),
+                            child: Center(
+                                child: Text(
+                              TextConst.mapHybrid,
+                              style:
+                                  textStyleNormalWhite.copyWith(fontSize: 18),
+                            )),
+                          ),
+                        )),
+                        Expanded(
+                            child: GestureDetector(
+                          onTap: () {
+                            ref.read(mapTypeProvider.notifier).state =
+                                MapType.normal;
+                          },
+                          child: Container(
+                            color: mapType == MapType.normal
+                                ? Themes.darkHighlightColor
+                                : Colors.transparent,
+                            child: Center(
+                                child: Text(
+                              TextConst.mapNormal,
+                              style:
+                                  textStyleNormalWhite.copyWith(fontSize: 18),
+                            )),
+                          ),
+                        )),
+                        Expanded(
+                            child: GestureDetector(
+                          onTap: () {
+                            ref.read(mapTypeProvider.notifier).state =
+                                MapType.terrain;
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: mapType == MapType.terrain
+                                  ? Themes.darkHighlightColor
+                                  : Colors.transparent,
+                              borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(
+                                      Const.dashboardUIRoundness - 3),
+                                  bottomRight: Radius.circular(
+                                      Const.dashboardUIRoundness - 3)),
+                            ),
+                            child: Center(
+                                child: Text(
+                              TextConst.mapTerrain,
+                              style:
+                                  textStyleNormalWhite.copyWith(fontSize: 18),
+                            )),
+                          ),
+                        )),
+                      ],
                     ),
                   )
                 ],

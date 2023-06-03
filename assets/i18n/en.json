@@ -30,6 +30,13 @@
     "go_back": "(Tap to go back to home)",
     "weather": "Weather"
   },
+  "dashboard": {
+    "map_type": {
+      "hybrid": "Hybrid",
+      "normal": "Normal",
+      "terrain": "Terrain"
+    }
+  },
   "settings": {
     "save": "SAVE",
     "connect": "CONNECT TO LG",

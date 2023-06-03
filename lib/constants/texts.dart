@@ -39,6 +39,9 @@ class TextConst {
   static String theme = translate('settings.theme');
   static String goBack = translate('city_page.go_back');
   static String weather = translate('city_page.weather');
+  static String mapHybrid = translate('dashboard.map_type.hybrid');
+  static String mapNormal = translate('dashboard.map_type.normal');
+  static String mapTerrain = translate('dashboard.map_type.terrain');
 }
 
 
