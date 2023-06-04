@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/providers/page_providers.dart';
+import 'package:smart_city_dashboard/services/weather_api.dart';
 import 'package:smart_city_dashboard/widgets/extensions.dart';
 import 'package:smart_city_dashboard/widgets/helper.dart';
 
@@ -22,6 +23,17 @@ class LeftPanel extends ConsumerStatefulWidget {
 }
 
 class _LeftPanelState extends ConsumerState<LeftPanel> {
+  getWeather() async {
+    await WeatherApi().getCurrentWeather('new york');
+    // print(x);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getWeather();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container();
