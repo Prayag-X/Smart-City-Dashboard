@@ -3,5 +3,5 @@ class Const {
   static double tabBarWidth = 250;
   static List<double> splashAspectRatio = [0.6, 0.8];
   static double lgZoomScale = 630000000.0;
-  static double dashboardUIRoundness = 16;
+  static double dashboardUIRoundness = 20;
 }
