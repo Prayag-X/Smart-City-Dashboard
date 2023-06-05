@@ -27,20 +27,31 @@ class DashboardContainer extends StatefulWidget {
       this.progressColor = Colors.transparent,
       required this.title,
       required this.data,
-      required this.image});
+      required this.image,
+      this.percentage = 0});
+
   final double heightMultiplier;
   final double widthMultiplier;
   final bool showPercentage;
+  final double percentage;
   final Color progressColor;
   final String title;
   final String data;
-  final ImageProvider<Object> image;
+  final String image;
 
   @override
   State<DashboardContainer> createState() => _DashboardContainerState();
 }
 
 class _DashboardContainerState extends State<DashboardContainer> {
+  bool largeData = false;
+
+  @override
+  void initState() {
+    super.initState();
+    largeData = widget.data.length > 7;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -57,7 +68,8 @@ class _DashboardContainerState extends State<DashboardContainer> {
         borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 12.0),
+        padding: EdgeInsets.symmetric(
+            vertical: 12.0, horizontal: largeData ? 25 : 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -65,28 +77,36 @@ class _DashboardContainerState extends State<DashboardContainer> {
             Text(
               widget.title,
               style: textStyleNormal.copyWith(
-                  fontSize: 20, color: Colors.white.withOpacity(0.7)),
+                  fontSize: 17, color: Colors.white.withOpacity(0.5)),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 widget.showPercentage
                     ? CircularPercentIndicator(
-                        radius: 40.0,
-                        lineWidth: 10.0,
+                        radius: 35.0,
+                        lineWidth: 8.0,
                         animation: true,
-                        percent: 0.7,
-                        center: LogoShower(logo: widget.image, size: 45),
+                        percent: widget.percentage,
+                        center: AssetLogoShower(logo: widget.image, size: 40),
                         circularStrokeCap: CircularStrokeCap.round,
                         progressColor: widget.progressColor,
-                  backgroundColor: lightenColor(Themes.darkHighlightColor, 0.1),
+                        backgroundColor:
+                            lightenColor(Themes.darkHighlightColor, 0.1),
                       )
-                    : LogoShower(logo: widget.image, size: 65),
+                    : AssetLogoShower(logo: widget.image, size: 65),
                 15.pw,
-                Text(
-                  widget.data,
-                  style: textStyleBoldWhite.copyWith(fontSize: 40),
-                ),
+                largeData
+                    ? Expanded(
+                        child: Text(
+                          widget.data,
+                          style: textStyleSemiBoldWhite.copyWith(fontSize: 25),
+                        ),
+                      )
+                    : Text(
+                        widget.data,
+                        style: textStyleSemiBoldWhite.copyWith(fontSize: 40),
+                      ),
               ],
             ),
             const SizedBox.shrink()
@@ -94,5 +114,41 @@ class _DashboardContainerState extends State<DashboardContainer> {
         ),
       ),
     );
+  }
+}
+
+class BlankDashboardContainer extends StatefulWidget {
+  const BlankDashboardContainer(
+      {super.key, this.heightMultiplier = 1, this.widthMultiplier = 1});
+  final double heightMultiplier;
+  final double widthMultiplier;
+
+  @override
+  State<BlankDashboardContainer> createState() =>
+      _BlankDashboardContainerState();
+}
+
+class _BlankDashboardContainerState extends State<BlankDashboardContainer> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+        width: (screenSize(context).width - Const.tabBarWidth) *
+                widget.widthMultiplier /
+                4 -
+            (widget.widthMultiplier - 2).abs() * Const.dashboardUISpacing / 2,
+        height: (screenSize(context).width - Const.tabBarWidth) *
+            widget.heightMultiplier *
+            Const.dashboardUIHeightFactor /
+            4,
+        decoration: BoxDecoration(
+          color: Themes.darkHighlightColor,
+          borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
+        ),
+        child: Center(
+          child: Text(
+            '--',
+            style: textStyleNormalWhite.copyWith(fontSize: 30),
+          ),
+        ));
   }
 }

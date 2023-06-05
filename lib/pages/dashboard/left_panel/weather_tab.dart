@@ -29,16 +29,20 @@ class WeatherTab extends ConsumerStatefulWidget {
 
 class _LeftPanelState extends ConsumerState<WeatherTab> {
   WeatherApi weatherApi = WeatherApi();
-  late RealtimeWeather? realtimeWeather;
-  late ForecastWeather? forecastWeather;
+  RealtimeWeather? realtimeWeather;
+  ForecastWeather? forecastWeather;
 
   getWeather() async {
     await Future.delayed(Duration.zero).then((x) async {
       ref.read(isLoadingProvider.notifier).state = true;
-      // realtimeWeather = await weatherApi
-      //     .getCurrentWeather(ref.read(cityDataProvider)!.cityName);
-      // forecastWeather = await weatherApi
-      //     .getForecastWeather(ref.read(cityDataProvider)!.cityName);
+      var realtimeWeatherX = await weatherApi
+          .getCurrentWeather(ref.read(cityDataProvider)!.cityName);
+      var forecastWeatherY = await weatherApi
+          .getForecastWeather(ref.read(cityDataProvider)!.cityName);
+      setState(() {
+        realtimeWeather = realtimeWeatherX;
+        forecastWeather = forecastWeatherY;
+      });
       ref.read(isLoadingProvider.notifier).state = false;
     });
     // print(x);
@@ -57,21 +61,82 @@ class _LeftPanelState extends ConsumerState<WeatherTab> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            DashboardContainer(title: 'hola', data: 'hola', image: AssetImage(ImageConst.aboutLogo), showPercentage: true, progressColor: Colors.blue,),
-            DashboardContainer(title: 'hola', data: 'hola', image: AssetImage(ImageConst.aboutLogo)),
+            realtimeWeather != null
+                ? DashboardContainer(
+                    title: TextConst.today,
+                    data: realtimeWeather!.current.condition.text,
+                    image: realtimeWeather!.current.condition.icon.parseIcon,
+                  )
+                : const BlankDashboardContainer(),
+            realtimeWeather != null
+                ? DashboardContainer(
+                    title: TextConst.wind,
+                    data:
+                        '${realtimeWeather!.current.windKph}Km/h ${realtimeWeather!.current.windDegree}°${realtimeWeather!.current.windDir}',
+                    image: ImageConst.windLogo,
+                  )
+                : const BlankDashboardContainer(),
           ],
         ),
-        10.ph,
+        Const.dashboardUISpacing.ph,
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            DashboardContainer(title: 'hola', data: 'hola', image: AssetImage(ImageConst.aboutLogo)),
-            DashboardContainer(title: 'hola', data: 'hola', image: AssetImage(ImageConst.aboutLogo)),
+            realtimeWeather != null
+                ? DashboardContainer(
+                    title: TextConst.temperature,
+                    data: '${realtimeWeather!.current.tempC}°C',
+                    image: ImageConst.temperatureLogo,
+                    showPercentage: true,
+                    percentage:
+                        realtimeWeather!.current.tempC.setTemperaturePercentage,
+                    progressColor: Colors.red,
+                  )
+                : const BlankDashboardContainer(),
+            realtimeWeather != null
+                ? DashboardContainer(
+                    title: TextConst.today,
+                    data: '${realtimeWeather!.current.humidity}%',
+                    image: ImageConst.humidityLogo,
+                    showPercentage: true,
+                    percentage: realtimeWeather!.current.humidity.setPercentage,
+                    progressColor: Colors.blue,
+                  )
+                : const BlankDashboardContainer(),
+          ],
+        ),
+        Const.dashboardUISpacing.ph,
+        const BlankDashboardContainer(
+          heightMultiplier: 2,
+          widthMultiplier: 2,
+        ),
+        Const.dashboardUISpacing.ph,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            realtimeWeather != null
+                ? DashboardContainer(
+                    title: TextConst.cloud,
+                    data: '${realtimeWeather!.current.cloud}%',
+                    image: ImageConst.cloudLogo,
+                    showPercentage: true,
+                    percentage: realtimeWeather!.current.cloud.setPercentage,
+                    progressColor: Colors.purple,
+                  )
+                : const BlankDashboardContainer(),
+            realtimeWeather != null
+                ? DashboardContainer(
+                    title: TextConst.uv,
+                    data: '${realtimeWeather!.current.uv}%',
+                    image: ImageConst.uvLogo,
+                    showPercentage: true,
+                    percentage: realtimeWeather!.current.uv.setPercentage,
+                    progressColor: Colors.yellow,
+                  )
+                : const BlankDashboardContainer(),
           ],
         ),
       ],
     );
   }
 }
-
-

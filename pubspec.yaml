@@ -35,6 +35,9 @@ flutter:
     - assets/i18n/
     - assets/images/
     - assets/logos/
+    - assets/logos/weather/
+    - assets/logos/weather/day/
+    - assets/logos/weather/night/
 
 fonts:
   - family: Inter

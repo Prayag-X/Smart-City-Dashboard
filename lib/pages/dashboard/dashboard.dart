@@ -16,16 +16,15 @@ class Dashboard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const SizedBox.shrink(),
-            Container(
+            // const SizedBox.shrink(),
+            SizedBox(
               width: (screenSize(context).width - Const.tabBarWidth) / 2,
+              height: screenSize(context).height - Const.appBarHeight,
               // color: Colors.blue,
-              child: SingleChildScrollView(
-                physics: const BouncingScrollPhysics(
+              child: const SingleChildScrollView(
+                physics: BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics()),
-                child: Container(
-                    height: screenSize(context).height - Const.appBarHeight,
-                    child: WeatherTab()),
+                child: WeatherTab(),
               ),
             ),
             Container(
@@ -34,7 +33,7 @@ class Dashboard extends StatelessWidget {
                 child: Column(
                   children: [GoogleMapPart()],
                 )),
-            const SizedBox.shrink(),
+            // const SizedBox.shrink(),
           ],
         ),
       ),

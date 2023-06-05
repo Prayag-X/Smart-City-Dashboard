@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:smart_city_dashboard/constants/constants.dart';
+import 'package:smart_city_dashboard/constants/images.dart';
 
 extension SizedBoxPadding on num {
   SizedBox get ph => SizedBox(height: toDouble());
@@ -9,6 +10,16 @@ extension SizedBoxPadding on num {
 
 extension ZoomLG on num {
   double get zoomLG => Const.lgZoomScale / pow(2, this);
+}
+
+extension SetPercentage on num {
+  double get setTemperaturePercentage => (this+90)/150;
+  double get setPercentage => this/100;
+}
+
+extension Parser on String {
+  String get parseIcon =>
+      '${ImageConst.allWeatherLogos}${split('/').reversed.elementAt(1)}/${split('/').last}';
 }
 
 extension Neumorphism on Widget {
