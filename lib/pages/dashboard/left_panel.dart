@@ -35,10 +35,10 @@ class _LeftPanelState extends ConsumerState<LeftPanel> {
   getWeather() async {
     await Future.delayed(Duration.zero).then((x) async {
       ref.read(isLoadingProvider.notifier).state = true;
-      realtimeWeather = await weatherApi
-          .getCurrentWeather(ref.read(cityDataProvider)!.cityName);
-      forecastWeather = await weatherApi
-          .getForecastWeather(ref.read(cityDataProvider)!.cityName);
+      // realtimeWeather = await weatherApi
+      //     .getCurrentWeather(ref.read(cityDataProvider)!.cityName);
+      // forecastWeather = await weatherApi
+      //     .getForecastWeather(ref.read(cityDataProvider)!.cityName);
       ref.read(isLoadingProvider.notifier).state = false;
     });
     // print(x);

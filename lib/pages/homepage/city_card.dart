@@ -68,7 +68,7 @@ class CityCard extends ConsumerWidget {
                           5.ph,
                           Row(
                             children: [
-                              const LogoShower(logo: ImageConst.markerLogo, size: 25),
+                              const AssetLogoShower(logo: ImageConst.markerLogo, size: 25),
                               Text(
                                 cityData.country,
                                 style: textStyleNormalWhite.copyWith(fontSize: 20),
@@ -104,7 +104,7 @@ class CityCard extends ConsumerWidget {
                                   child: Row(
                                         children: [
                                           5.pw,
-                                          LogoShower(
+                                          AssetLogoShower(
                                               logo: cityData.availableData.keys.elementAt(index),
                                               size: 15),
                                           9.pw,

@@ -35,6 +35,14 @@
       "hybrid": "Hybrid",
       "normal": "Normal",
       "terrain": "Terrain"
+    },
+    "weather": {
+      "today": "Today's Weather",
+      "wind": "Wind",
+      "temperature": "Temperature",
+      "humidity": "Humidity",
+      "uv": "UV",
+      "cloud": "Cloud"
     }
   },
   "settings": {

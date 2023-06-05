@@ -37,7 +37,7 @@ class TabButton extends ConsumerWidget {
                 color: homePageTab == tab ? Colors.white : Colors.transparent,
               ),
               15.pw,
-              LogoShower(logo: logo, size: 33),
+              AssetLogoShower(logo: logo, size: 33),
               15.pw,
               Text(
                 name,

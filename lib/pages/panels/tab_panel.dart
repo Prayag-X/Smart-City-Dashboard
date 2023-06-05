@@ -59,7 +59,7 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const LogoShower(
+                      const AssetLogoShower(
                         logo: ImageConst.appLogo,
                         size: 170,
                       ),

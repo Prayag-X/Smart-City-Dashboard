@@ -42,6 +42,12 @@ class TextConst {
   static String mapHybrid = translate('dashboard.map_type.hybrid');
   static String mapNormal = translate('dashboard.map_type.normal');
   static String mapTerrain = translate('dashboard.map_type.terrain');
+  static String today = translate('dashboard.weather.today');
+  static String wind = translate('dashboard.weather.wind');
+  static String temperature = translate('dashboard.weather.temperature');
+  static String humidity = translate('dashboard.weather.humidity');
+  static String uv = translate('dashboard.weather.uv');
+  static String cloud = translate('dashboard.weather.cloud');
 }
 
 

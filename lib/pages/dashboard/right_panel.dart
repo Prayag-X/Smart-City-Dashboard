@@ -72,7 +72,7 @@ class _RightPanelState extends ConsumerState<RightPanel> {
             ),
           ),
         ),
-        10.ph,
+        Const.dashboardUISpacing.ph,
         Container(
           height: 40,
           decoration: BoxDecoration(
