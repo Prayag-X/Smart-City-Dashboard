@@ -10,6 +10,7 @@ import 'package:smart_city_dashboard/services/weather_api.dart';
 import 'package:smart_city_dashboard/widgets/extensions.dart';
 import 'package:smart_city_dashboard/widgets/helper.dart';
 import 'package:smart_city_dashboard/widgets/logo_shower.dart';
+import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../constants/constants.dart';
 import '../../constants/texts.dart';
@@ -22,11 +23,15 @@ class DashboardContainer extends StatefulWidget {
       {super.key,
       this.heightMultiplier = 1,
       this.widthMultiplier = 1,
+      this.showPercentage = false,
+      this.progressColor = Colors.transparent,
       required this.title,
       required this.data,
       required this.image});
   final double heightMultiplier;
   final double widthMultiplier;
+  final bool showPercentage;
+  final Color progressColor;
   final String title;
   final String data;
   final ImageProvider<Object> image;
@@ -59,16 +64,28 @@ class _DashboardContainerState extends State<DashboardContainer> {
           children: [
             Text(
               widget.title,
-              style: textStyleNormal.copyWith(fontSize: 20,color: Colors.white.withOpacity(0.7)),
+              style: textStyleNormal.copyWith(
+                  fontSize: 20, color: Colors.white.withOpacity(0.7)),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                LogoShower(logo: widget.image, size: 55),
+                widget.showPercentage
+                    ? CircularPercentIndicator(
+                        radius: 40.0,
+                        lineWidth: 10.0,
+                        animation: true,
+                        percent: 0.7,
+                        center: LogoShower(logo: widget.image, size: 45),
+                        circularStrokeCap: CircularStrokeCap.round,
+                        progressColor: widget.progressColor,
+                  backgroundColor: lightenColor(Themes.darkHighlightColor, 0.1),
+                      )
+                    : LogoShower(logo: widget.image, size: 65),
                 15.pw,
                 Text(
                   widget.data,
-                  style: textStyleBoldWhite.copyWith(fontSize: 35),
+                  style: textStyleBoldWhite.copyWith(fontSize: 40),
                 ),
               ],
             ),

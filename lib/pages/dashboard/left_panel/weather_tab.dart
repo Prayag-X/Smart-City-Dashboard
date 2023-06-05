@@ -12,14 +12,14 @@ import 'package:smart_city_dashboard/services/weather_api.dart';
 import 'package:smart_city_dashboard/widgets/extensions.dart';
 import 'package:smart_city_dashboard/widgets/helper.dart';
 
-import '../../constants/constants.dart';
-import '../../constants/texts.dart';
-import '../../constants/theme.dart';
-import '../../providers/settings_providers.dart';
-import '../../ssh_lg/ssh.dart';
+import '../../../constants/constants.dart';
+import '../../../constants/texts.dart';
+import '../../../constants/theme.dart';
+import '../../../providers/settings_providers.dart';
+import '../../../ssh_lg/ssh.dart';
 
-class LeftPanel extends ConsumerStatefulWidget {
-  const LeftPanel({
+class WeatherTab extends ConsumerStatefulWidget {
+  const WeatherTab({
     Key? key,
   }) : super(key: key);
 
@@ -27,7 +27,7 @@ class LeftPanel extends ConsumerStatefulWidget {
   ConsumerState createState() => _LeftPanelState();
 }
 
-class _LeftPanelState extends ConsumerState<LeftPanel> {
+class _LeftPanelState extends ConsumerState<WeatherTab> {
   WeatherApi weatherApi = WeatherApi();
   late RealtimeWeather? realtimeWeather;
   late ForecastWeather? forecastWeather;
@@ -52,31 +52,24 @@ class _LeftPanelState extends ConsumerState<LeftPanel> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics:
-      const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-      child: Container(
-        height: screenSize(context).height-Const.appBarHeight,
-        child: Column(
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                DashboardContainer(title: 'hola', data: 'hola', image: AssetImage(ImageConst.aboutLogo)),
-                DashboardContainer(title: 'hola', data: 'hola', image: AssetImage(ImageConst.aboutLogo)),
-              ],
-            ),
-            10.ph,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                DashboardContainer(title: 'hola', data: 'hola', image: AssetImage(ImageConst.aboutLogo)),
-                DashboardContainer(title: 'hola', data: 'hola', image: AssetImage(ImageConst.aboutLogo)),
-              ],
-            ),
+            DashboardContainer(title: 'hola', data: 'hola', image: AssetImage(ImageConst.aboutLogo), showPercentage: true, progressColor: Colors.blue,),
+            DashboardContainer(title: 'hola', data: 'hola', image: AssetImage(ImageConst.aboutLogo)),
           ],
         ),
-      ),
+        10.ph,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            DashboardContainer(title: 'hola', data: 'hola', image: AssetImage(ImageConst.aboutLogo)),
+            DashboardContainer(title: 'hola', data: 'hola', image: AssetImage(ImageConst.aboutLogo)),
+          ],
+        ),
+      ],
     );
   }
 }

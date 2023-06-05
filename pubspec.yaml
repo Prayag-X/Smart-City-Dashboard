@@ -18,6 +18,7 @@ dependencies:
   dartssh2: ^2.8.2
   google_maps_flutter: ^2.2.8
   http: ^0.13.6
+  percent_indicator: ^4.0.1
   cupertino_icons: ^1.0.2
 
 dev_dependencies:

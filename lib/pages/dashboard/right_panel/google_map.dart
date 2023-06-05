@@ -7,13 +7,13 @@ import 'package:smart_city_dashboard/providers/page_providers.dart';
 import 'package:smart_city_dashboard/widgets/extensions.dart';
 import 'package:smart_city_dashboard/widgets/helper.dart';
 
-import '../../constants/constants.dart';
-import '../../constants/texts.dart';
-import '../../constants/theme.dart';
-import '../../ssh_lg/ssh.dart';
+import '../../../constants/constants.dart';
+import '../../../constants/texts.dart';
+import '../../../constants/theme.dart';
+import '../../../ssh_lg/ssh.dart';
 
-class RightPanel extends ConsumerStatefulWidget {
-  const RightPanel({
+class GoogleMapPart extends ConsumerStatefulWidget {
+  const GoogleMapPart({
     Key? key,
   }) : super(key: key);
 
@@ -21,7 +21,7 @@ class RightPanel extends ConsumerStatefulWidget {
   ConsumerState createState() => _RightPanelState();
 }
 
-class _RightPanelState extends ConsumerState<RightPanel> {
+class _RightPanelState extends ConsumerState<GoogleMapPart> {
   final Completer<GoogleMapController> _controller =
   Completer<GoogleMapController>();
 
@@ -48,30 +48,29 @@ class _RightPanelState extends ConsumerState<RightPanel> {
   Widget build(BuildContext context) {
     MapType mapType = ref.watch(mapTypeProvider);
     return Column(
-      children: [
-        SizedBox(
-          height:
-          (screenSize(context).height - Const.appBarHeight) /
-              2 -
-              40,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
-            child: GoogleMap(
-              mapType: mapType,
-              initialCameraPosition: initialMapPosition,
-              onMapCreated: (GoogleMapController controller) =>
-                  _controller.complete(controller),
-              onCameraMove: (position) =>
-                  setState(() => newMapPosition = position),
-              onCameraIdle: () async => await SSH(ref: ref).flyTo(
-                  newMapPosition.target.latitude,
-                  newMapPosition.target.longitude,
-                  newMapPosition.zoom.zoomLG,
-                  newMapPosition.tilt,
-                  newMapPosition.bearing),
-            ),
+      children: [SizedBox(
+        height:
+        (screenSize(context).height - Const.appBarHeight) /
+            2 -
+            40,
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
+          child: GoogleMap(
+            mapType: mapType,
+            initialCameraPosition: initialMapPosition,
+            onMapCreated: (GoogleMapController controller) =>
+                _controller.complete(controller),
+            onCameraMove: (position) =>
+                setState(() => newMapPosition = position),
+            onCameraIdle: () async => await SSH(ref: ref).flyTo(
+                newMapPosition.target.latitude,
+                newMapPosition.target.longitude,
+                newMapPosition.zoom.zoomLG,
+                newMapPosition.tilt,
+                newMapPosition.bearing),
           ),
         ),
+      ),
         Const.dashboardUISpacing.ph,
         Container(
           height: 40,
@@ -155,8 +154,7 @@ class _RightPanelState extends ConsumerState<RightPanel> {
                   )),
             ],
           ),
-        )
-      ],
+        )],
     );
   }
 }
