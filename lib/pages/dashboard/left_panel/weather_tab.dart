@@ -70,14 +70,23 @@ class _LeftPanelState extends ConsumerState<WeatherTab> {
                 : const BlankDashboardContainer(),
             realtimeWeather != null
                 ? DashboardContainer(
-                    title: TextConst.wind,
-                    data:
-                        '${realtimeWeather!.current.windKph} Km/h ${realtimeWeather!.current.windDegree}°${realtimeWeather!.current.windDir}',
-                    image: ImageConst.windLogo,
-                  )
+              title: TextConst.time,
+              data: realtimeWeather!.location.localtime.parseTime,
+              image: realtimeWeather!.current.isDay == 1 ? ImageConst.dayLogo : ImageConst.nightLogo,
+            )
                 : const BlankDashboardContainer(),
           ],
         ),
+        Const.dashboardUISpacing.ph,
+        realtimeWeather != null
+            ? DashboardContainer(
+          widthMultiplier: 2,
+          title: TextConst.wind,
+          data:
+          '${realtimeWeather!.current.windKph} Km/h ${realtimeWeather!.current.windDegree}°${realtimeWeather!.current.windDir}',
+          image: ImageConst.windLogo,
+        )
+            : const BlankDashboardContainer(widthMultiplier: 2,),
         Const.dashboardUISpacing.ph,
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -143,10 +152,10 @@ class _LeftPanelState extends ConsumerState<WeatherTab> {
             realtimeWeather != null
                 ? DashboardContainer(
               title: TextConst.uv,
-              data: '${realtimeWeather!.current.uv}%',
+              data: '${realtimeWeather!.current.uv}',
               image: ImageConst.uvLogo,
               showPercentage: true,
-              percentage: realtimeWeather!.current.uv.setPercentage,
+              percentage: realtimeWeather!.current.uv.setUVPercentage,
               progressColor: Colors.yellow,
             )
                 : const BlankDashboardContainer(),

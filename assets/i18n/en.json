@@ -43,6 +43,7 @@
       "feels": "Feels like",
       "humidity": "Humidity",
       "pressure": "Pressure",
+      "time": "Time",
       "uv": "UV",
       "cloud": "Cloud"
     }

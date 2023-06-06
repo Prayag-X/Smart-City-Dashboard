@@ -15,12 +15,14 @@ extension ZoomLG on num {
 extension SetPercentage on num {
   double get setTemperaturePercentage => min(max((this + 30) / 85, 0), 1);
   double get setPressurePercentage => min(max((this - 800) / 500, 0), 1);
+  double get setUVPercentage => this / 15;
   double get setPercentage => this / 100;
 }
 
 extension Parser on String {
   String get parseIcon =>
       '${ImageConst.allWeatherLogos}${split('/').reversed.elementAt(1)}/${split('/').last}';
+  String get parseTime => split(' ').last;
 }
 
 extension Neumorphism on Widget {

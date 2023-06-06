@@ -49,7 +49,7 @@ class _DashboardContainerState extends State<DashboardContainer> {
   @override
   void initState() {
     super.initState();
-    largeData = widget.data.length > 7;
+    largeData = widget.data.length > 7 && widget.widthMultiplier == 1;
   }
 
   @override

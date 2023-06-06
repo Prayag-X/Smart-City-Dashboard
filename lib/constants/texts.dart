@@ -49,6 +49,7 @@ class TextConst {
   static String pressure = translate('dashboard.weather.pressure');
   static String feels = translate('dashboard.weather.feels');
   static String uv = translate('dashboard.weather.uv');
+  static String time = translate('dashboard.weather.time');
   static String cloud = translate('dashboard.weather.cloud');
 }
 

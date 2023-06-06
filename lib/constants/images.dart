@@ -1,6 +1,6 @@
 class ImageConst {
-  static const splash = 'assets/logos/splash.png';
-  static const splashOnline = 'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/logos/splash.png';
+  static const splash = 'assets/images/splash.png';
+  static const splashOnline = 'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/images/splash.png';
   static const bhubaneswar = 'assets/images/bhubaneswar.jpg';
   static const london = 'assets/images/london.png';
   static const newYork = 'assets/images/new_york.png';
@@ -19,5 +19,7 @@ class ImageConst {
   static const temperatureLogo = 'assets/logos/temperature.png';
   static const humidityLogo = 'assets/logos/humidity.png';
   static const pressureLogo = 'assets/logos/pressure.png';
+  static const dayLogo = 'assets/logos/day.png';
+  static const nightLogo = 'assets/logos/night.png';
   static const allWeatherLogos = 'assets/logos/weather/';
 }

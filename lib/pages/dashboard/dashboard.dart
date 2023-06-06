@@ -16,7 +16,7 @@ class Dashboard extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            // const SizedBox.shrink(),
+            const SizedBox.shrink(),
             SizedBox(
               width: (screenSize(context).width - Const.tabBarWidth) / 2,
               height: screenSize(context).height - Const.appBarHeight,
