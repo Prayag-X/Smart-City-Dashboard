@@ -72,7 +72,7 @@ class _LeftPanelState extends ConsumerState<WeatherTab> {
                 ? DashboardContainer(
                     title: TextConst.wind,
                     data:
-                        '${realtimeWeather!.current.windKph}Km/h ${realtimeWeather!.current.windDegree}°${realtimeWeather!.current.windDir}',
+                        '${realtimeWeather!.current.windKph} Km/h ${realtimeWeather!.current.windDegree}°${realtimeWeather!.current.windDir}',
                     image: ImageConst.windLogo,
                   )
                 : const BlankDashboardContainer(),
@@ -95,13 +95,13 @@ class _LeftPanelState extends ConsumerState<WeatherTab> {
                 : const BlankDashboardContainer(),
             realtimeWeather != null
                 ? DashboardContainer(
-                    title: TextConst.today,
-                    data: '${realtimeWeather!.current.humidity}%',
-                    image: ImageConst.humidityLogo,
-                    showPercentage: true,
-                    percentage: realtimeWeather!.current.humidity.setPercentage,
-                    progressColor: Colors.blue,
-                  )
+              title: TextConst.feels,
+              data: '${realtimeWeather!.current.feelslikeC}°C',
+              image: ImageConst.temperatureLogo,
+              showPercentage: true,
+              percentage:  realtimeWeather!.current.feelslikeC.setTemperaturePercentage,
+              progressColor: Colors.orange,
+            )
                 : const BlankDashboardContainer(),
           ],
         ),
@@ -116,6 +116,16 @@ class _LeftPanelState extends ConsumerState<WeatherTab> {
           children: [
             realtimeWeather != null
                 ? DashboardContainer(
+              title: TextConst.humidity,
+              data: '${realtimeWeather!.current.humidity}%',
+              image: ImageConst.humidityLogo,
+              showPercentage: true,
+              percentage: realtimeWeather!.current.humidity.setPercentage,
+              progressColor: Colors.blue,
+            )
+                : const BlankDashboardContainer(),
+            realtimeWeather != null
+                ? DashboardContainer(
                     title: TextConst.cloud,
                     data: '${realtimeWeather!.current.cloud}%',
                     image: ImageConst.cloudLogo,
@@ -124,15 +134,31 @@ class _LeftPanelState extends ConsumerState<WeatherTab> {
                     progressColor: Colors.purple,
                   )
                 : const BlankDashboardContainer(),
+          ],
+        ),
+        Const.dashboardUISpacing.ph,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
             realtimeWeather != null
                 ? DashboardContainer(
-                    title: TextConst.uv,
-                    data: '${realtimeWeather!.current.uv}%',
-                    image: ImageConst.uvLogo,
-                    showPercentage: true,
-                    percentage: realtimeWeather!.current.uv.setPercentage,
-                    progressColor: Colors.yellow,
-                  )
+              title: TextConst.uv,
+              data: '${realtimeWeather!.current.uv}%',
+              image: ImageConst.uvLogo,
+              showPercentage: true,
+              percentage: realtimeWeather!.current.uv.setPercentage,
+              progressColor: Colors.yellow,
+            )
+                : const BlankDashboardContainer(),
+            realtimeWeather != null
+                ? DashboardContainer(
+              title: TextConst.pressure,
+              data: '${realtimeWeather!.current.pressureMb} mb',
+              image: ImageConst.pressureLogo,
+              showPercentage: true,
+              percentage: realtimeWeather!.current.pressureMb.setPressurePercentage,
+              progressColor: Colors.pinkAccent,
+            )
                 : const BlankDashboardContainer(),
           ],
         ),

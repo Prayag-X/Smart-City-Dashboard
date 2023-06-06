@@ -88,7 +88,7 @@ class _DashboardContainerState extends State<DashboardContainer> {
                         lineWidth: 8.0,
                         animation: true,
                         percent: widget.percentage,
-                        center: AssetLogoShower(logo: widget.image, size: 40),
+                        center: AssetLogoShower(logo: widget.image, size: 35),
                         circularStrokeCap: CircularStrokeCap.round,
                         progressColor: widget.progressColor,
                         backgroundColor:

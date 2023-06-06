@@ -37,10 +37,12 @@
       "terrain": "Terrain"
     },
     "weather": {
-      "today": "Today's Weather",
+      "today": "Now",
       "wind": "Wind",
       "temperature": "Temperature",
+      "feels": "Feels like",
       "humidity": "Humidity",
+      "pressure": "Pressure",
       "uv": "UV",
       "cloud": "Cloud"
     }

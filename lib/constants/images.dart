@@ -18,5 +18,6 @@ class ImageConst {
   static const uvLogo = 'assets/logos/uv.png';
   static const temperatureLogo = 'assets/logos/temperature.png';
   static const humidityLogo = 'assets/logos/humidity.png';
+  static const pressureLogo = 'assets/logos/pressure.png';
   static const allWeatherLogos = 'assets/logos/weather/';
 }

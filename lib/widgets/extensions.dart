@@ -13,8 +13,9 @@ extension ZoomLG on num {
 }
 
 extension SetPercentage on num {
-  double get setTemperaturePercentage => (this+90)/150;
-  double get setPercentage => this/100;
+  double get setTemperaturePercentage => min(max((this + 30) / 85, 0), 1);
+  double get setPressurePercentage => min(max((this - 800) / 500, 0), 1);
+  double get setPercentage => this / 100;
 }
 
 extension Parser on String {
