@@ -4,6 +4,7 @@ import 'package:smart_city_dashboard/models/city_card_model.dart';
 import 'package:smart_city_dashboard/pages/dashboard/google_map.dart';
 import 'package:smart_city_dashboard/widgets/helper.dart';
 import '../../constants/constants.dart';
+import '../../constants/theme.dart';
 import '../../providers/page_providers.dart';
 import 'weather_tab/left_panel.dart';
 import 'weather_tab/right_panel.dart';
@@ -22,7 +23,7 @@ class Dashboard extends ConsumerWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            const SizedBox.shrink(),
+            // const SizedBox.shrink(),
             SizedBox(
               width: (screenSize(context).width - Const.tabBarWidth) / 2,
               height: screenSize(context).height - Const.appBarHeight,
@@ -32,7 +33,7 @@ class Dashboard extends ConsumerWidget {
                     parent: AlwaysScrollableScrollPhysics()),
                 child: (() {
                   // if(tab == 0) {
-                  return const WeatherTab();
+                  return const WeatherTabLeft();
                   // }
                   // switch(city.number) {
                   //   case 1:
@@ -47,16 +48,36 @@ class Dashboard extends ConsumerWidget {
                 child: Column(
                   children: [
                     GoogleMapPart(),
-                    (() {
-                      return Container();
-                      // if(tab == 0) {
-                      // return const WeatherTab();
-                      // }
-                      // switch(city.number) {
-                      //   case 1:
-                      //     sw
-                      // }
-                    }())
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
+                      child: SizedBox(
+                        height:
+                            (screenSize(context).height - Const.appBarHeight) /
+                                    2 -
+                                25 -
+                                Const.dashboardUISpacing,
+                        child: SingleChildScrollView(
+                          physics: const BouncingScrollPhysics(
+                              parent: AlwaysScrollableScrollPhysics()),
+                          child: (() {
+                            return Container(
+                              color: Themes.darkHighlightColor,
+                              height: (screenSize(context).height -
+                                          Const.appBarHeight) /
+                                      2 -
+                                  40,
+                            );
+                            // if(tab == 0) {
+                            // return const WeatherTab();
+                            // }
+                            // switch(city.number) {
+                            //   case 1:
+                            //     sw
+                            // }
+                          }()),
+                        ),
+                      ),
+                    ),
                   ],
                 )),
             // const SizedBox.shrink(),

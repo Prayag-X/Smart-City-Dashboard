@@ -50,7 +50,9 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
     return Column(
       children: [
         SizedBox(
-          height: (screenSize(context).height - Const.appBarHeight) / 2 - 40,
+          height: (screenSize(context).height - Const.appBarHeight) / 2 -
+              25 -
+              Const.dashboardUISpacing,
           child: ClipRRect(
             borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
             child: GoogleMap(
