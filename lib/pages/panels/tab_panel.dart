@@ -12,6 +12,7 @@ import 'package:smart_city_dashboard/widgets/logo_shower.dart';
 import '../../constants/constants.dart';
 import '../../constants/theme.dart';
 import '../../models/city_card_model.dart';
+import '../../providers/data_providers.dart';
 
 class TabPanel extends ConsumerStatefulWidget {
   const TabPanel({

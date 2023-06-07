@@ -5,6 +5,7 @@ import 'package:smart_city_dashboard/pages/dashboard/google_map.dart';
 import 'package:smart_city_dashboard/widgets/helper.dart';
 import '../../constants/constants.dart';
 import '../../constants/theme.dart';
+import '../../providers/data_providers.dart';
 import '../../providers/page_providers.dart';
 import 'weather_tab/left_panel.dart';
 import 'weather_tab/right_panel.dart';

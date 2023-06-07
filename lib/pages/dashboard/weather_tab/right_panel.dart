@@ -15,6 +15,7 @@ import 'package:smart_city_dashboard/widgets/helper.dart';
 import '../../../constants/constants.dart';
 import '../../../constants/texts.dart';
 import '../../../constants/theme.dart';
+import '../../../providers/data_providers.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../ssh_lg/ssh.dart';
 
