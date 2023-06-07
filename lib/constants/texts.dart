@@ -26,6 +26,8 @@ class TextConst {
   static String connect = translate('settings.connect');
   static String disconnect = translate('settings.disconnect');
   static String connected = translate('settings.connected');
+  static String online = translate('settings.online');
+  static String offline = translate('settings.offline');
   static String disconnected = translate('settings.disconnected');
   static String cleanLogo = translate('settings.clean_logo');
   static String showLogo = translate('settings.show_logo');
@@ -50,6 +52,9 @@ class TextConst {
   static String feels = translate('dashboard.weather.feels');
   static String uv = translate('dashboard.weather.uv');
   static String time = translate('dashboard.weather.time');
+  static String upcoming = translate('dashboard.weather.upcoming');
+  static String tempMax = translate('dashboard.weather.temp_max');
+  static String tempMin = translate('dashboard.weather.temp_min');
   static String cloud = translate('dashboard.weather.cloud');
 }
 

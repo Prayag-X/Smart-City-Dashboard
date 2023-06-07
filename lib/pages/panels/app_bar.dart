@@ -30,6 +30,7 @@ class _AppBarState extends ConsumerState<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
+    bool isConnectedToInternet = ref.watch(isConnectedToInternetProvider);
     bool isLoading = ref.watch(isLoadingProvider);
     return Column(
       children: [
@@ -57,6 +58,23 @@ class _AppBarState extends ConsumerState<CustomAppBar> {
                           width: 13,
                           height: 13,
                           decoration: BoxDecoration(
+                              color: isConnectedToInternet ? Colors.green : Colors.red,
+                              borderRadius: BorderRadius.circular(35.0)),
+                        ),
+                        5.pw,
+                        Text(
+                          isConnectedToInternet
+                              ? TextConst.online
+                              : TextConst.offline,
+                          style: textStyleBold.copyWith(
+                              color: isConnectedToInternet ? Colors.green : Colors.red,
+                              fontSize: 14),
+                        ),
+                        20.pw,
+                        Container(
+                          width: 13,
+                          height: 13,
+                          decoration: BoxDecoration(
                               color: isConnectedToLg ? Colors.green : Colors.red,
                               borderRadius: BorderRadius.circular(35.0)),
                         ),
@@ -68,7 +86,7 @@ class _AppBarState extends ConsumerState<CustomAppBar> {
                           style: textStyleBold.copyWith(
                               color: isConnectedToLg ? Colors.green : Colors.red,
                               fontSize: 14),
-                        )
+                        ),
                       ],
                     )
                   ],

@@ -51,32 +51,29 @@ class Dashboard extends ConsumerWidget {
                     GoogleMapPart(),
                     ClipRRect(
                       borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
-                      child: SizedBox(
+                      child: Container(
                         height:
                             (screenSize(context).height - Const.appBarHeight) /
                                     2 -
                                 25 -
                                 Const.dashboardUISpacing,
-                        child: SingleChildScrollView(
-                          physics: const BouncingScrollPhysics(
-                              parent: AlwaysScrollableScrollPhysics()),
-                          child: (() {
-                            return Container(
-                              color: Themes.darkHighlightColor,
-                              height: (screenSize(context).height -
-                                          Const.appBarHeight) /
-                                      2 -
-                                  40,
-                            );
-                            // if(tab == 0) {
-                            // return const WeatherTab();
-                            // }
-                            // switch(city.number) {
-                            //   case 1:
-                            //     sw
-                            // }
-                          }()),
-                        ),
+                        // color: Themes.darkHighlightColor,
+                        child: (() {
+                          // return Container(
+                          //   color: Themes.darkHighlightColor,
+                          //   height: (screenSize(context).height -
+                          //               Const.appBarHeight) /
+                          //           2 -
+                          //       40,
+                          // );
+                          // if(tab == 0) {
+                          return const WeatherTabRight();
+                          // }
+                          // switch(city.number) {
+                          //   case 1:
+                          //     sw
+                          // }
+                        }()),
                       ),
                     ),
                   ],

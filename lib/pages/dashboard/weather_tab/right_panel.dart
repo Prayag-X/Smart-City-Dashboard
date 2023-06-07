@@ -19,44 +19,47 @@ import '../../../providers/data_providers.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../ssh_lg/ssh.dart';
 
-class WeatherTabRight extends ConsumerStatefulWidget {
+class WeatherTabRight extends ConsumerWidget {
   const WeatherTabRight({
     Key? key,
   }) : super(key: key);
 
   @override
-  ConsumerState createState() => _LeftPanelState();
-}
-
-class _LeftPanelState extends ConsumerState<WeatherTabRight> {
-  WeatherApi weatherApi = WeatherApi();
-  RealtimeWeather? realtimeWeather;
-  ForecastWeather? forecastWeather;
-
-  getWeather() async {
-    await Future.delayed(Duration.zero).then((x) async {
-      ref.read(isLoadingProvider.notifier).state = true;
-      var realtimeWeatherX = await weatherApi
-          .getCurrentWeather(ref.read(cityDataProvider)!.cityName);
-      var forecastWeatherY = await weatherApi
-          .getForecastWeather(ref.read(cityDataProvider)!.cityName);
-      setState(() {
-        realtimeWeather = realtimeWeatherX;
-        forecastWeather = forecastWeatherY;
-      });
-      ref.read(isLoadingProvider.notifier).state = false;
-    });
-    // print(x);
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getWeather();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container();
+  Widget build(BuildContext context, WidgetRef ref) {
+    ForecastWeather? weatherData = ref.watch(weatherDataProvider);
+    return Column(
+      children: [
+        Container(height: 20,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(TextConst.upcoming,
+              style: textStyleNormal.copyWith(
+                  fontSize: 17, color: Colors.white.withOpacity(0.5)),
+            ),
+            Text(TextConst.tempMax,
+              style: textStyleNormal.copyWith(
+                  fontSize: 17, color: Colors.white.withOpacity(0.5)),
+            ),
+            Text(TextConst.tempMin,
+              style: textStyleNormal.copyWith(
+                  fontSize: 17, color: Colors.white.withOpacity(0.5)),
+            ),
+            Text(TextConst.humidity,
+              style: textStyleNormal.copyWith(
+                  fontSize: 17, color: Colors.white.withOpacity(0.5)),
+            ),
+          ],
+        ),),
+        Divider(
+          color: Colors.white,
+        ),
+        SingleChildScrollView(
+          physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics()),
+          child: Container(),
+        )
+      ],
+    );
   }
 }

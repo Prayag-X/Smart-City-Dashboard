@@ -45,6 +45,9 @@
       "pressure": "Pressure",
       "time": "Time",
       "uv": "UV",
+      "upcoming": "Upcoming",
+      "temp_max": "Max Temp",
+      "temp_min": "Min Temp",
       "cloud": "Cloud"
     }
   },
@@ -52,6 +55,8 @@
     "save": "SAVE",
     "connect": "CONNECT TO LG",
     "disconnect": "DISCONNECT FROM LG",
+    "online": "ONLINE",
+    "offline": "OFFLINE",
     "connected": "CONNECTED",
     "disconnected": "DISCONNECTED",
     "clean_logo": "CLEAN SLAVES",
