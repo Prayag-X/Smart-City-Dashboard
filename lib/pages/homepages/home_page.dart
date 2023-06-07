@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_city_dashboard/constants/available_cities.dart';
-import 'package:smart_city_dashboard/pages/homepage/city_card.dart';
+import 'package:smart_city_dashboard/pages/homepages/city_card.dart';
 import 'package:smart_city_dashboard/widgets/helper.dart';
 
 class HomePage extends StatelessWidget {
