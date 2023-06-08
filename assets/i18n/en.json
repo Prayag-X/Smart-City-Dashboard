@@ -37,7 +37,7 @@
       "terrain": "Terrain"
     },
     "weather": {
-      "today": "Now",
+      "now": "Now",
       "wind": "Wind",
       "temperature": "Temperature",
       "feels": "Feels like",
@@ -45,7 +45,8 @@
       "pressure": "Pressure",
       "time": "Time",
       "uv": "UV",
-      "upcoming": "Upcoming",
+      "forecast": "Forecast",
+      "today": "Today",
       "temp_max": "Max Temp",
       "temp_min": "Min Temp",
       "cloud": "Cloud"

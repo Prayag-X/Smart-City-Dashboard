@@ -23,6 +23,7 @@ extension Parser on String {
   String get parseIcon =>
       '${ImageConst.allWeatherLogos}${split('/').reversed.elementAt(1)}/${split('/').last}';
   String get parseTime => split(' ').last;
+  String get parseDay => split(' ')[0].split('-')[2];
 }
 
 extension Neumorphism on Widget {

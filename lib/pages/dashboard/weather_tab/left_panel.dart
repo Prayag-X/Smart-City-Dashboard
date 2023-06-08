@@ -55,7 +55,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
           children: [
             weatherData != null
                 ? DashboardContainer(
-                    title: TextConst.today,
+                    title: TextConst.now,
                     data: weatherData.current.condition.text!,
                     image: weatherData.current.condition.icon!.parseIcon,
                   )
