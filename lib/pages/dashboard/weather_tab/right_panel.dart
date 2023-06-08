@@ -28,6 +28,7 @@ class WeatherTabRight extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     ForecastWeather? weatherData = ref.watch(weatherDataProvider);
+    int weatherDayClicked = ref.watch(weatherDayClickedProvider);
     return Column(
       children: [
         SizedBox(
@@ -78,27 +79,28 @@ class WeatherTabRight extends ConsumerWidget {
             physics: const BouncingScrollPhysics(
                 parent: AlwaysScrollableScrollPhysics()),
             child: weatherData != null
-                ? Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                    child: Column(
-                      children: [
-                        Column(
-                          children: weatherData.forecast.forecastday
-                              .map(
-                                (forecast) => Padding(
+                ? Column(
+                    children: [
+                      Column(
+                        children: weatherData.forecast.forecastday
+                            .map(
+                              (forecast) => GestureDetector(
+                                onTap: () => ref.read(weatherDayClickedProvider.notifier).state = weatherData.forecast.forecastday.indexOf(forecast),
+                                child: Container(
+                                decoration: BoxDecoration(
+                                  color: weatherDayClicked == weatherData.forecast.forecastday.indexOf(forecast) ? Themes.darkHighlightColor : null,
+                                  borderRadius: BorderRadius.circular(
+                                      Const.dashboardUIRoundness),
+                                ),
+                                child: Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        vertical: 20.0),
+                                        vertical: 20.0, horizontal: 10.0),
                                     child: Row(
                                       children: [
                                         Expanded(
                                           flex: 4,
                                           child: Text(
-                                            int.parse(forecast.date.day
-                                                        .toString()) ==
-                                                    int.parse(weatherData
-                                                        .location
-                                                        .localtime
-                                                        .parseDay)
+                                            weatherData.forecast.forecastday.indexOf(forecast) == 0
                                                 ? TextConst.today
                                                 : '${forecast.date.day}/${forecast.date.month}',
                                             style: textStyleNormalWhite
@@ -143,9 +145,9 @@ class WeatherTabRight extends ConsumerWidget {
                                             flex: 5,
                                             child: Row(
                                               children: [
-                                                AssetLogoShower(
+                                                const AssetLogoShower(
                                                     logo:
-                                                        ImageConst.humidityLogo,
+                                                    ImageConst.humidityLogo,
                                                     size: 25),
                                                 5.pw,
                                                 Text(
@@ -157,11 +159,11 @@ class WeatherTabRight extends ConsumerWidget {
                                             )),
                                       ],
                                     )),
-                              )
-                              .toList(),
-                        ),
-                      ],
-                    ),
+                              ),)
+                            )
+                            .toList(),
+                      ),
+                    ],
                   )
                 : Container(),
           ),

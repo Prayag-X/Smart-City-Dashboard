@@ -6,3 +6,4 @@ import 'package:smart_city_dashboard/models/forecast_weather.dart';
 StateProvider<MapType> mapTypeProvider = StateProvider((ref) => MapType.hybrid);
 StateProvider<CityCardModel?> cityDataProvider = StateProvider((ref) => null);
 StateProvider<ForecastWeather?> weatherDataProvider = StateProvider((ref) => null);
+StateProvider<int> weatherDayClickedProvider = StateProvider((ref) => 0);
