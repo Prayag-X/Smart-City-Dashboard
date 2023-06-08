@@ -84,82 +84,85 @@ class WeatherTabRight extends ConsumerWidget {
                       Column(
                         children: weatherData.forecast.forecastday
                             .map(
-                              (forecast) => GestureDetector(
+                              (forecast) => Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 5.0),
+                                child: GestureDetector(
                                 onTap: () => ref.read(weatherDayClickedProvider.notifier).state = weatherData.forecast.forecastday.indexOf(forecast),
                                 child: Container(
-                                decoration: BoxDecoration(
-                                  color: weatherDayClicked == weatherData.forecast.forecastday.indexOf(forecast) ? Themes.darkHighlightColor : null,
-                                  borderRadius: BorderRadius.circular(
-                                      Const.dashboardUIRoundness),
-                                ),
-                                child: Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        vertical: 20.0, horizontal: 10.0),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          flex: 4,
-                                          child: Text(
-                                            weatherData.forecast.forecastday.indexOf(forecast) == 0
-                                                ? TextConst.today
-                                                : '${forecast.date.day}/${forecast.date.month}',
-                                            style: textStyleNormalWhite
-                                                .copyWith(fontSize: 25),
+                                  decoration: BoxDecoration(
+                                    color: weatherDayClicked == weatherData.forecast.forecastday.indexOf(forecast) ? Themes.darkHighlightColor : null,
+                                    borderRadius: BorderRadius.circular(
+                                        Const.dashboardUIRoundness),
+                                  ),
+                                  child: Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 15.0, horizontal: 10.0),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            flex: 4,
+                                            child: Text(
+                                              weatherData.forecast.forecastday.indexOf(forecast) == 0
+                                                  ? TextConst.today
+                                                  : '${forecast.date.day}/${forecast.date.month}',
+                                              style: textStyleNormalWhite
+                                                  .copyWith(fontSize: 25),
+                                            ),
                                           ),
-                                        ),
-                                        Expanded(
-                                            flex: 6,
-                                            child: Row(
-                                              children: [
-                                                const Icon(
-                                                  Icons.arrow_upward_rounded,
-                                                  size: 25,
-                                                  color: Colors.red,
-                                                ),
-                                                5.pw,
-                                                Text(
-                                                  '${forecast.day.maxtempC}°C',
-                                                  style: textStyleNormalWhite
-                                                      .copyWith(fontSize: 25),
-                                                ),
-                                              ],
-                                            )),
-                                        Expanded(
-                                            flex: 6,
-                                            child: Row(
-                                              children: [
-                                                const Icon(
-                                                  Icons.arrow_downward_rounded,
-                                                  size: 25,
-                                                  color: Colors.blue,
-                                                ),
-                                                5.pw,
-                                                Text(
-                                                  '${forecast.day.mintempC}°C',
-                                                  style: textStyleNormalWhite
-                                                      .copyWith(fontSize: 25),
-                                                ),
-                                              ],
-                                            )),
-                                        Expanded(
-                                            flex: 5,
-                                            child: Row(
-                                              children: [
-                                                const AssetLogoShower(
-                                                    logo:
-                                                    ImageConst.humidityLogo,
-                                                    size: 25),
-                                                5.pw,
-                                                Text(
-                                                  '${forecast.day.avghumidity}%',
-                                                  style: textStyleNormalWhite
-                                                      .copyWith(fontSize: 25),
-                                                ),
-                                              ],
-                                            )),
-                                      ],
-                                    )),
-                              ),)
+                                          Expanded(
+                                              flex: 6,
+                                              child: Row(
+                                                children: [
+                                                  const Icon(
+                                                    Icons.arrow_upward_rounded,
+                                                    size: 25,
+                                                    color: Colors.red,
+                                                  ),
+                                                  5.pw,
+                                                  Text(
+                                                    '${forecast.day.maxtempC}°C',
+                                                    style: textStyleNormalWhite
+                                                        .copyWith(fontSize: 25),
+                                                  ),
+                                                ],
+                                              )),
+                                          Expanded(
+                                              flex: 6,
+                                              child: Row(
+                                                children: [
+                                                  const Icon(
+                                                    Icons.arrow_downward_rounded,
+                                                    size: 25,
+                                                    color: Colors.blue,
+                                                  ),
+                                                  5.pw,
+                                                  Text(
+                                                    '${forecast.day.mintempC}°C',
+                                                    style: textStyleNormalWhite
+                                                        .copyWith(fontSize: 25),
+                                                  ),
+                                                ],
+                                              )),
+                                          Expanded(
+                                              flex: 5,
+                                              child: Row(
+                                                children: [
+                                                  const AssetLogoShower(
+                                                      logo:
+                                                      ImageConst.humidityLogo,
+                                                      size: 25),
+                                                  5.pw,
+                                                  Text(
+                                                    '${forecast.day.avghumidity}%',
+                                                    style: textStyleNormalWhite
+                                                        .copyWith(fontSize: 25),
+                                                  ),
+                                                ],
+                                              )),
+                                        ],
+                                      )),
+                                ),),)
                             )
                             .toList(),
                       ),

@@ -48,6 +48,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
   @override
   Widget build(BuildContext context) {
     ForecastWeather? weatherData = ref.watch(weatherDataProvider);
+    int weatherDayClicked = ref.watch(weatherDayClickedProvider);
     return Column(
       children: [
         Row(
