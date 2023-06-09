@@ -21,5 +21,6 @@ class ImageConst {
   static const pressureLogo = 'assets/logos/pressure.png';
   static const dayLogo = 'assets/logos/day.png';
   static const nightLogo = 'assets/logos/night.png';
+  static const calenderLogo = 'assets/logos/calender.png';
   static const allWeatherLogos = 'assets/logos/weather/';
 }

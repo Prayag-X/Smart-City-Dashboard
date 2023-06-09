@@ -47,15 +47,21 @@ class TextConst {
   static String now = translate('dashboard.weather.now');
   static String today = translate('dashboard.weather.today');
   static String wind = translate('dashboard.weather.wind');
+  static String windMax = translate('dashboard.weather.wind_max');
   static String temperature = translate('dashboard.weather.temperature');
   static String humidity = translate('dashboard.weather.humidity');
+  static String humidityAvg = translate('dashboard.weather.humidity_avg');
   static String pressure = translate('dashboard.weather.pressure');
   static String feels = translate('dashboard.weather.feels');
   static String uv = translate('dashboard.weather.uv');
   static String time = translate('dashboard.weather.time');
   static String forecast = translate('dashboard.weather.forecast');
   static String tempMax = translate('dashboard.weather.temp_max');
+  static String tempMaxFull = translate('dashboard.weather.temp_max_full');
   static String tempMin = translate('dashboard.weather.temp_min');
+  static String tempMinFull = translate('dashboard.weather.temp_min_full');
+  static String condition = translate('dashboard.weather.condition');
+  static String date = translate('dashboard.weather.date');
   static String cloud = translate('dashboard.weather.cloud');
 }
 

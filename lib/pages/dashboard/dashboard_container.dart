@@ -26,8 +26,7 @@ class DashboardContainer extends StatefulWidget {
       this.showPercentage = false,
       this.progressColor = Colors.transparent,
       required this.title,
-      required this.data,
-      required this.image,
+      required this.data, this.image,
       this.percentage = 0});
 
   final double heightMultiplier;
@@ -37,7 +36,7 @@ class DashboardContainer extends StatefulWidget {
   final Color progressColor;
   final String title;
   final String data;
-  final String image;
+  final String? image;
 
   @override
   State<DashboardContainer> createState() => _DashboardContainerState();
@@ -88,14 +87,14 @@ class _DashboardContainerState extends State<DashboardContainer> {
                         lineWidth: 8.0,
                         animation: true,
                         percent: widget.percentage,
-                        center: AssetLogoShower(logo: widget.image, size: 35),
+                        center: AssetLogoShower(logo: widget.image!, size: 35),
                         circularStrokeCap: CircularStrokeCap.round,
                         progressColor: widget.progressColor,
                         backgroundColor:
                             lightenColor(Themes.darkHighlightColor, 0.1),
                       )
-                    : AssetLogoShower(logo: widget.image, size: 65),
-                15.pw,
+                    : widget.image != null ? AssetLogoShower(logo: widget.image!, size: 65) : const SizedBox.shrink(),
+                widget.image != null ? 15.pw : const SizedBox.shrink(),
                 largeData
                     ? Expanded(
                         child: Text(

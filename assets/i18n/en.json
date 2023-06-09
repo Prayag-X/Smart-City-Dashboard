@@ -39,16 +39,22 @@
     "weather": {
       "now": "Now",
       "wind": "Wind",
+      "wind_max": "Max Wind",
       "temperature": "Temperature",
       "feels": "Feels like",
       "humidity": "Humidity",
+      "humidity_avg": "Avg Humidity",
       "pressure": "Pressure",
       "time": "Time",
       "uv": "UV",
       "forecast": "Forecast",
       "today": "Today",
+      "date": "Date",
+      "condition": "Condition",
       "temp_max": "Max Temp",
+      "temp_max_full": "Max Temperature",
       "temp_min": "Min Temp",
+      "temp_min_full": "Min Temperature",
       "cloud": "Cloud"
     }
   },
