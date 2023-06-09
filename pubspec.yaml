@@ -20,6 +20,8 @@ dependencies:
   http: ^0.13.6
   percent_indicator: ^4.0.1
   connectivity_plus: ^4.0.1
+  fl_chart: ^0.62.0
+  syncfusion_flutter_charts: ^21.2.4
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
