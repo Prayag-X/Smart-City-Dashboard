@@ -18,6 +18,7 @@ import '../../../constants/texts.dart';
 import '../../../constants/theme.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../ssh_lg/ssh.dart';
+import '../waste.dart';
 
 class WeatherTabLeft extends ConsumerStatefulWidget {
   const WeatherTabLeft({
@@ -277,6 +278,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
                 : const BlankDashboardContainer(),
           ],
         ),
+        LineChartSample1(),
         Const.dashboardUISpacing.ph,
       ],
     );

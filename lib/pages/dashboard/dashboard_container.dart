@@ -26,7 +26,8 @@ class DashboardContainer extends StatefulWidget {
       this.showPercentage = false,
       this.progressColor = Colors.transparent,
       required this.title,
-      required this.data, this.image,
+      required this.data,
+      this.image,
       this.percentage = 0});
 
   final double heightMultiplier;
@@ -43,14 +44,6 @@ class DashboardContainer extends StatefulWidget {
 }
 
 class _DashboardContainerState extends State<DashboardContainer> {
-  bool largeData = false;
-
-  @override
-  void initState() {
-    super.initState();
-    largeData = widget.data.length > 7 && widget.widthMultiplier == 1;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -68,7 +61,9 @@ class _DashboardContainerState extends State<DashboardContainer> {
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(
-            vertical: 12.0, horizontal: largeData ? 25 : 0),
+            vertical: 12.0,
+            horizontal:
+                widget.data.length > 7 && widget.widthMultiplier == 1 ? 25 : 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -93,9 +88,11 @@ class _DashboardContainerState extends State<DashboardContainer> {
                         backgroundColor:
                             lightenColor(Themes.darkHighlightColor, 0.1),
                       )
-                    : widget.image != null ? AssetLogoShower(logo: widget.image!, size: 65) : const SizedBox.shrink(),
+                    : widget.image != null
+                        ? AssetLogoShower(logo: widget.image!, size: 65)
+                        : const SizedBox.shrink(),
                 widget.image != null ? 15.pw : const SizedBox.shrink(),
-                largeData
+                widget.data.length > 7 && widget.widthMultiplier == 1
                     ? Expanded(
                         child: Text(
                           widget.data,
