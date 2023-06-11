@@ -29,22 +29,22 @@ class DashboardChart extends StatefulWidget {
       this.minY = 0,
       this.maxX = 20,
       this.maxY = 10,
-      required this.verticalMarkers,
-      required this.horizontalMarkers,
+      required this.markerY,
+      required this.markerX,
       this.markerIntervalX = 5,
       this.markerIntervalY = 2});
 
   final String title;
   final Map<String, Color> chartData;
   final List<List<FlSpot>> points;
-  final List<String> verticalMarkers;
-  final List<String> horizontalMarkers;
+  final List<String> markerX;
+  final List<List<String>> markerY;
+  final int markerIntervalX;
+  final int markerIntervalY;
   final double minX;
   final double minY;
   final double maxX;
   final double maxY;
-  final int markerIntervalX;
-  final int markerIntervalY;
 
   @override
   State<DashboardChart> createState() => _DashboardChartState();
@@ -120,20 +120,30 @@ class _DashboardChartState extends State<DashboardChart> {
       );
 
   Widget leftTitleWidgets(double value, TitleMeta meta) {
-    String marker = '';
-    if ((value.toInt() - 1) % widget.markerIntervalY == 0) {
-      marker = widget.verticalMarkers[value.toInt()];
+    Widget marker = Container();
+    print(value.toInt());
+    if ((value.toInt() - 1) % widget.markerIntervalY == 0 &&
+        value.toInt() != widget.maxY) {
+      marker = Column(
+        children: widget.markerY[value.toInt()]
+            .map((marker) => Text(marker,
+                style: textStyleNormal.copyWith(
+                    fontSize: 15,
+                    color: widget.chartData.values.elementAt(
+                        widget.markerY[value.toInt()].indexOf(marker))),
+                textAlign: TextAlign.center))
+            .toList(),
+      );
     }
 
-    return Text(marker,
-        style: textStyleNormalWhite.copyWith(fontSize: 15),
-        textAlign: TextAlign.center);
+    return marker;
   }
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     String marker = '';
-    if ((value.toInt() - 1) % widget.markerIntervalX == 0) {
-      marker = widget.verticalMarkers[value.toInt()];
+    if ((value.toInt() - 1) % widget.markerIntervalX == 0 &&
+        value.toInt() != widget.maxX) {
+      marker = widget.markerX[value.toInt()];
     }
 
     return SideTitleWidget(
@@ -141,7 +151,8 @@ class _DashboardChartState extends State<DashboardChart> {
       space: 10,
       child: Text(
         marker,
-        style: textStyleNormalWhite.copyWith(fontSize: 15),
+        style: textStyleNormal.copyWith(
+            fontSize: 15, color: lightenColor(Themes.darkHighlightColor, 0.4)),
       ),
     );
   }
@@ -201,8 +212,7 @@ class _DashboardChartState extends State<DashboardChart> {
                           Text(
                             entry.key,
                             style: textStyleNormal.copyWith(
-                                fontSize: 17,
-                                color: Colors.white.withOpacity(0.8)),
+                                fontSize: 17, color: Colors.white),
                           ),
                         ],
                       ))

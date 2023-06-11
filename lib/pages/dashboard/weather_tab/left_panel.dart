@@ -7,6 +7,7 @@ import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/models/forecast_weather.dart';
 import 'package:smart_city_dashboard/models/realtime_weather.dart';
 import 'package:smart_city_dashboard/pages/dashboard/dashboard_container.dart';
+import 'package:smart_city_dashboard/pages/dashboard/weather_tab/chart_parser.dart';
 import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/providers/page_providers.dart';
 import 'package:smart_city_dashboard/services/weather_api.dart';
@@ -118,7 +119,12 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
           ],
         ),
         Const.dashboardUISpacing.ph,
-        // DashboardChart(title: TextConst.hourly, chartData: {'Temp': Colors.blue},),
+        weatherData != null
+            ? ChartParser().hourlyDataParser(weatherData, 0)
+            : const BlankDashboardContainer(
+                heightMultiplier: 2,
+                widthMultiplier: 2,
+              ),
         Const.dashboardUISpacing.ph,
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -244,7 +250,9 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
           ],
         ),
         Const.dashboardUISpacing.ph,
-        const BlankDashboardContainer(
+        weatherData != null
+            ? ChartParser().hourlyDataParser(weatherData, weatherDayClicked)
+            : const BlankDashboardContainer(
           heightMultiplier: 2,
           widthMultiplier: 2,
         ),
