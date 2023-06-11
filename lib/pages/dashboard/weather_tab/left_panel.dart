@@ -18,7 +18,7 @@ import '../../../constants/texts.dart';
 import '../../../constants/theme.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../ssh_lg/ssh.dart';
-import '../waste.dart';
+import '../dashboard_chart.dart';
 
 class WeatherTabLeft extends ConsumerStatefulWidget {
   const WeatherTabLeft({
@@ -118,10 +118,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
           ],
         ),
         Const.dashboardUISpacing.ph,
-        const BlankDashboardContainer(
-          heightMultiplier: 2,
-          widthMultiplier: 2,
-        ),
+        DashboardChart(title: TextConst.hourly,),
         Const.dashboardUISpacing.ph,
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -175,8 +172,6 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
                 : const BlankDashboardContainer(),
           ],
         ),
-        Const.dashboardUISpacing.ph,
-        LineChartSample1(),
         Const.dashboardUISpacing.ph,
       ],
     );

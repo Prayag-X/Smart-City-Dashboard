@@ -56,6 +56,7 @@ class TextConst {
   static String uv = translate('dashboard.weather.uv');
   static String time = translate('dashboard.weather.time');
   static String forecast = translate('dashboard.weather.forecast');
+  static String hourly = translate('dashboard.weather.hourly');
   static String tempMax = translate('dashboard.weather.temp_max');
   static String tempMaxFull = translate('dashboard.weather.temp_max_full');
   static String tempMin = translate('dashboard.weather.temp_min');

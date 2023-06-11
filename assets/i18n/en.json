@@ -48,6 +48,7 @@
       "time": "Time",
       "uv": "UV",
       "forecast": "Forecast",
+      "hourly": "Hourly Weather",
       "today": "Today",
       "date": "Date",
       "condition": "Condition",
