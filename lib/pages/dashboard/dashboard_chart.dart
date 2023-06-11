@@ -19,175 +19,144 @@ import '../../constants/theme.dart';
 import '../../providers/settings_providers.dart';
 import '../../ssh_lg/ssh.dart';
 
-class LineChartCustom extends StatelessWidget {
-  const LineChartCustom({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    Color lightColor = lightenColor(Themes.darkHighlightColor, 0.1).withOpacity(0.5);
-    return LineChart(
-      LineChartData(
-        lineTouchData: LineTouchData(
-          handleBuiltInTouches: true,
-          touchTooltipData: LineTouchTooltipData(
-            tooltipBgColor: lightColor,
-          ),
-        ),
-        gridData: FlGridData(
-          show: true,
-          getDrawingHorizontalLine: (value) => FlLine(
-            color: lightColor,
-            strokeWidth: 1,
-          ),
-          getDrawingVerticalLine: (value) => FlLine(
-            color: lightColor,
-            strokeWidth: 1,
-          ),
-        ),
-        titlesData: FlTitlesData(
-          bottomTitles: AxisTitles(
-            sideTitles: SideTitles(
-              showTitles: true,
-              reservedSize: 25,
-              interval: 1,
-              getTitlesWidget: bottomTitleWidgets,
-            ),
-          ),
-          rightTitles: AxisTitles(
-            sideTitles: SideTitles(showTitles: false),
-          ),
-          topTitles: AxisTitles(
-            sideTitles: SideTitles(showTitles: false),
-          ),
-          leftTitles: AxisTitles(
-            sideTitles: SideTitles(
-              getTitlesWidget: leftTitleWidgets,
-              showTitles: true,
-              interval: 1,
-              reservedSize: 40,
-            ),
-          ),
-        ),
-        borderData: FlBorderData(
-          show: true,
-          border: Border(
-            bottom: BorderSide(
-                color: lightColor, width: 4),
-            left: BorderSide(
-                color: lightColor, width: 4),
-            right: BorderSide(color: lightColor, width: 1),
-            top: BorderSide(color: lightColor, width: 1),
-          ),
-        ),
-        lineBarsData: [
-          lineChartBarData1_1,
-          lineChartBarData1_2,
-        ],
-        minX: 0,
-        maxX: 14,
-        maxY: 4,
-        minY: 0,
-      ),
-    );
-  }
-
-  Widget leftTitleWidgets(double value, TitleMeta meta) {
-    String text;
-    switch (value.toInt()) {
-      case 1:
-        text = '1m';
-        break;
-      case 2:
-        text = '2m';
-        break;
-      case 3:
-        text = '3m';
-        break;
-      case 4:
-        text = '5m';
-        break;
-      case 5:
-        text = '6m';
-        break;
-      default:
-        return Container();
-    }
-
-    return Text(text, style: textStyleNormalWhite.copyWith(fontSize: 15), textAlign: TextAlign.center);
-  }
-
-  Widget bottomTitleWidgets(double value, TitleMeta meta) {
-    String text;
-    switch (value.toInt()) {
-      case 2:
-        text = 'SEPT';
-        break;
-      case 7:
-        text = 'OCT';
-        break;
-      case 12:
-        text = 'DEC';
-        break;
-      default:
-        text = '';
-        break;
-    }
-
-    return SideTitleWidget(
-      axisSide: meta.axisSide,
-      space: 10,
-      child: Text(text, style: textStyleNormalWhite.copyWith(fontSize: 15),),
-    );
-  }
-
-  LineChartBarData get lineChartBarData1_1 => LineChartBarData(
-        isCurved: true,
-        color: Colors.green,
-        barWidth: 8,
-        isStrokeCapRound: true,
-        dotData: FlDotData(show: false),
-        belowBarData: BarAreaData(show: false),
-        spots: const [
-          FlSpot(1, 1),
-          FlSpot(3, 1.5),
-          FlSpot(5, 1.4),
-          FlSpot(7, 3.4),
-          FlSpot(10, 2),
-          FlSpot(12, 2.2),
-          FlSpot(13, 1.8),
-        ],
-      );
-
-  LineChartBarData get lineChartBarData1_2 => LineChartBarData(
-        isCurved: true,
-        color: Colors.blue,
-        barWidth: 8,
-        isStrokeCapRound: true,
-        dotData: FlDotData(show: false),
-        belowBarData: BarAreaData(
-          show: false,
-          color: Colors.blue.withOpacity(0),
-        ),
-        spots: const [
-          FlSpot(1, 1),
-          FlSpot(3, 2.8),
-          FlSpot(7, 1.2),
-          FlSpot(10, 2.8),
-          FlSpot(12, 2.6),
-          FlSpot(13, 3.9),
-        ],
-      );
-}
-
 class DashboardChart extends StatefulWidget {
-  const DashboardChart({super.key, required this.title});
+  const DashboardChart(
+      {super.key,
+      required this.title,
+      required this.chartData,
+      required this.points,
+      this.minX = 0,
+      this.minY = 0,
+      this.maxX = 20,
+      this.maxY = 10,
+      required this.verticalMarkers,
+      required this.horizontalMarkers,
+      this.markerIntervalX = 5,
+      this.markerIntervalY = 2});
+
   final String title;
+  final Map<String, Color> chartData;
+  final List<List<FlSpot>> points;
+  final List<String> verticalMarkers;
+  final List<String> horizontalMarkers;
+  final double minX;
+  final double minY;
+  final double maxX;
+  final double maxY;
+  final int markerIntervalX;
+  final int markerIntervalY;
 
   @override
   State<DashboardChart> createState() => _DashboardChartState();
 }
 
 class _DashboardChartState extends State<DashboardChart> {
+  Color lightColor =
+      lightenColor(Themes.darkHighlightColor, 0.1).withOpacity(0.5);
+
+  LineChart lineChartCustom() => LineChart(
+        LineChartData(
+          lineTouchData: LineTouchData(
+            handleBuiltInTouches: true,
+            touchTooltipData: LineTouchTooltipData(
+              tooltipBgColor: lightColor,
+            ),
+          ),
+          gridData: FlGridData(
+            show: true,
+            getDrawingHorizontalLine: (value) => FlLine(
+              color: lightColor,
+              strokeWidth: 1,
+            ),
+            getDrawingVerticalLine: (value) => FlLine(
+              color: lightColor,
+              strokeWidth: 1,
+            ),
+          ),
+          titlesData: FlTitlesData(
+            bottomTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                reservedSize: 25,
+                interval: 1,
+                getTitlesWidget: bottomTitleWidgets,
+              ),
+            ),
+            leftTitles: AxisTitles(
+              sideTitles: SideTitles(
+                showTitles: true,
+                reservedSize: 35,
+                interval: 1,
+                getTitlesWidget: leftTitleWidgets,
+              ),
+            ),
+            rightTitles: AxisTitles(
+              sideTitles: SideTitles(showTitles: false),
+            ),
+            topTitles: AxisTitles(
+              sideTitles: SideTitles(showTitles: false),
+            ),
+          ),
+          borderData: FlBorderData(
+            show: true,
+            border: Border(
+              bottom: BorderSide(color: lightColor, width: 4),
+              left: BorderSide(color: lightColor, width: 4),
+              right: BorderSide(color: lightColor, width: 1),
+              top: BorderSide(color: lightColor, width: 1),
+            ),
+          ),
+          lineBarsData: widget.points
+              .map((chartPoint) => lineChartBarData(
+                  widget.chartData.values
+                      .elementAt(widget.points.indexOf(chartPoint)),
+                  chartPoint))
+              .toList(),
+          minX: widget.minX,
+          maxX: widget.maxX,
+          minY: widget.minY,
+          maxY: widget.maxY,
+        ),
+      );
+
+  Widget leftTitleWidgets(double value, TitleMeta meta) {
+    String marker = '';
+    if ((value.toInt() - 1) % widget.markerIntervalY == 0) {
+      marker = widget.verticalMarkers[value.toInt()];
+    }
+
+    return Text(marker,
+        style: textStyleNormalWhite.copyWith(fontSize: 15),
+        textAlign: TextAlign.center);
+  }
+
+  Widget bottomTitleWidgets(double value, TitleMeta meta) {
+    String marker = '';
+    if ((value.toInt() - 1) % widget.markerIntervalX == 0) {
+      marker = widget.verticalMarkers[value.toInt()];
+    }
+
+    return SideTitleWidget(
+      axisSide: meta.axisSide,
+      space: 10,
+      child: Text(
+        marker,
+        style: textStyleNormalWhite.copyWith(fontSize: 15),
+      ),
+    );
+  }
+
+  LineChartBarData lineChartBarData(Color color, List<FlSpot> points) =>
+      LineChartBarData(
+        isCurved: true,
+        color: color,
+        barWidth: 8,
+        isStrokeCapRound: true,
+        dotData: FlDotData(show: false),
+        belowBarData: BarAreaData(show: false),
+        spots: points,
+      );
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -215,8 +184,30 @@ class _DashboardChartState extends State<DashboardChart> {
                     Const.dashboardUIHeightFactor *
                     0.7 /
                     2,
-                child: LineChartCustom()),
-            const SizedBox.shrink()
+                child: lineChartCustom()),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: widget.chartData.entries
+                  .map((entry) => Row(
+                        children: [
+                          Container(
+                            width: 13,
+                            height: 13,
+                            decoration: BoxDecoration(
+                                color: entry.value,
+                                borderRadius: BorderRadius.circular(35.0)),
+                          ),
+                          5.pw,
+                          Text(
+                            entry.key,
+                            style: textStyleNormal.copyWith(
+                                fontSize: 17,
+                                color: Colors.white.withOpacity(0.8)),
+                          ),
+                        ],
+                      ))
+                  .toList(),
+            ),
           ],
         ),
       ),

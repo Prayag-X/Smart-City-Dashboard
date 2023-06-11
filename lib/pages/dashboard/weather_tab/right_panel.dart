@@ -38,7 +38,7 @@ class WeatherTabRight extends ConsumerWidget {
             child: Row(
               children: [
                 Expanded(
-                  flex: 5,
+                  flex: 6,
                   child: Text(
                     TextConst.forecast,
                     style: textStyleNormal.copyWith(
@@ -46,7 +46,7 @@ class WeatherTabRight extends ConsumerWidget {
                   ),
                 ),
                 Expanded(
-                  flex: 6,
+                  flex: 7,
                   child: Text(TextConst.tempMax,
                       style: textStyleNormal.copyWith(
                           fontSize: 17, color: Colors.white.withOpacity(0.5))),

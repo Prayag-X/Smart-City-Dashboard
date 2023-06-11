@@ -118,7 +118,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
           ],
         ),
         Const.dashboardUISpacing.ph,
-        DashboardChart(title: TextConst.hourly,),
+        // DashboardChart(title: TextConst.hourly, chartData: {'Temp': Colors.blue},),
         Const.dashboardUISpacing.ph,
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
