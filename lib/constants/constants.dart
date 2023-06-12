@@ -6,4 +6,6 @@ class Const {
   static double dashboardUIRoundness = 20;
   static double dashboardUISpacing = 15;
   static double dashboardUIHeightFactor = 0.65;
+  static Duration animationDuration = const Duration(milliseconds: 375);
+  static double animationDistance = 50;
 }

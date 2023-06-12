@@ -22,6 +22,7 @@ dependencies:
   connectivity_plus: ^4.0.1
   fl_chart: ^0.62.0
   syncfusion_flutter_charts: ^21.2.4
+  flutter_staggered_animations: ^1.1.0
   cupertino_icons: ^1.0.2
 
 dev_dependencies:

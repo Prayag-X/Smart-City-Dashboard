@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/constants/texts.dart';
@@ -64,12 +65,20 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                         logo: ImageConst.appLogo,
                         size: 170,
                       ),
-                      Text(isHomePage ? TextConst.home : cityData!.cityName,
-                          style: textStyleBoldWhite.copyWith(fontSize: 26)),
-                      Text(isHomePage ? '' : TextConst.goBack,
-                          style: textStyleNormal.copyWith(
-                              fontSize: 16,
-                              color: Themes.darkWhiteColor.withOpacity(0.7)))
+                      AnimatedSwitcher(
+                          duration: Const.animationDuration,
+                          switchInCurve: Curves.easeIn,
+                          switchOutCurve: Curves.easeOut,
+                          child: isHomePage
+                              ? const TextForAnimation1()
+                              : TextForAnimation2(cityData: cityData)),
+                      AnimatedSwitcher(
+                          duration: Const.animationDuration,
+                          switchInCurve: Curves.easeIn,
+                          switchOutCurve: Curves.easeOut,
+                          child: isHomePage
+                              ? const TextForAnimation3()
+                              : const TextForAnimation4()),
                     ],
                   ),
                   Container(
@@ -84,29 +93,67 @@ class _TabPanelState extends ConsumerState<TabPanel> {
           isHomePage
               ? Padding(
                   padding: const EdgeInsets.all(13.0),
+                  child: AnimationLimiter(
+                    child: Column(
+                      children: AnimationConfiguration.toStaggeredList(
+                        duration: Const.animationDuration,
+                        childAnimationBuilder: (widget) => SlideAnimation(
+                          horizontalOffset: -Const.animationDistance,
+                          child: FadeInAnimation(
+                            child: widget,
+                          ),
+                        ),
+                        children: [
+                          Text(
+                            TextConst.welcome,
+                            style: textStyleNormalWhite.copyWith(fontSize: 21),
+                          ),
+                          20.ph,
+                          Text(
+                            TextConst.description,
+                            textAlign: TextAlign.center,
+                            style: textStyleNormalWhite.copyWith(fontSize: 20),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ))
+              : AnimationLimiter(
                   child: Column(
-                    children: [
-                      Text(
-                        TextConst.welcome,
-                        style: textStyleNormalWhite.copyWith(fontSize: 21),
+                    children: AnimationConfiguration.toStaggeredList(
+                      duration: Const.animationDuration,
+                      childAnimationBuilder: (widget) => SlideAnimation(
+                        horizontalOffset: -Const.animationDistance,
+                        child: FadeInAnimation(
+                          child: widget,
+                        ),
                       ),
-                      20.ph,
-                      Text(
-                        TextConst.description,
-                        textAlign: TextAlign.center,
-                        style: textStyleNormalWhite.copyWith(fontSize: 20),
-                      ),
-                    ],
+                      children: ref.read(cityDataProvider)!.availableTabs,
+                    ),
                   ),
-                )
-              : Column(
-            children: ref.read(cityDataProvider)!.availableTabs,
-          ),
+                ),
           Column(
             children: [
               isHomePage
-                  ? TabButton(
-                      logo: ImageConst.helpLogo, name: TextConst.help, tab: -3)
+                  ? AnimationLimiter(
+                      child: Column(
+                        children: AnimationConfiguration.toStaggeredList(
+                          duration: Const.animationDuration,
+                          childAnimationBuilder: (widget) => SlideAnimation(
+                            horizontalOffset: -Const.animationDistance,
+                            child: FadeInAnimation(
+                              child: widget,
+                            ),
+                          ),
+                          children: <Widget>[
+                            TabButton(
+                                logo: ImageConst.helpLogo,
+                                name: TextConst.help,
+                                tab: -3)
+                          ],
+                        ),
+                      ),
+                    )
                   : const SizedBox.shrink(),
               Divider(
                 color: Themes.darkWhiteColor,
@@ -124,5 +171,64 @@ class _TabPanelState extends ConsumerState<TabPanel> {
         ],
       ),
     );
+  }
+}
+
+class TextForAnimation4 extends StatelessWidget {
+  const TextForAnimation4({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(TextConst.goBack,
+        style: textStyleNormal.copyWith(
+            fontSize: 16,
+            color: Themes.darkWhiteColor
+                .withOpacity(0.7)));
+  }
+}
+
+class TextForAnimation3 extends StatelessWidget {
+  const TextForAnimation3({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text('',
+        style: textStyleNormal.copyWith(
+            fontSize: 16,
+            color: Themes.darkWhiteColor
+                .withOpacity(0.7)));
+  }
+}
+
+class TextForAnimation2 extends StatelessWidget {
+  const TextForAnimation2({
+    super.key,
+    required this.cityData,
+  });
+
+  final CityCardModel? cityData;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(cityData!.cityName,
+        style: textStyleBoldWhite.copyWith(
+            fontSize: 26));
+  }
+}
+
+class TextForAnimation1 extends StatelessWidget {
+  const TextForAnimation1({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(TextConst.home,
+        style:
+            textStyleBoldWhite.copyWith(fontSize: 26));
   }
 }
