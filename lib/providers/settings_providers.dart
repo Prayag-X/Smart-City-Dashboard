@@ -16,8 +16,6 @@ setRigs(int rig, WidgetRef ref) {
   ref.read(rigsProvider.notifier).state = rig;
   ref.read(leftmostRigProvider.notifier).state = (rig) ~/ 2 + 2;
   ref.read(rightmostRigProvider.notifier).state = (rig) ~/ 2 + 1;
-  print((rig) ~/ 2 + 2);
-
 }
 
 StateProvider<String> languageProvider = StateProvider((ref) => TextConst.langList.first);

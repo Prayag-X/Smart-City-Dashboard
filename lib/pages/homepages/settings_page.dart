@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_city_dashboard/constants/images.dart';
@@ -82,34 +83,45 @@ class _SettingsState extends ConsumerState<SettingsPage> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Column(
-                children: [
-                  TextFormFieldCustom(
-                    icon: Icons.network_check_rounded,
-                    hintText: 'IP address',
-                    controller: ipController,
+              AnimationLimiter(
+                child: Column(
+                  children: AnimationConfiguration.toStaggeredList(
+                    duration: Const.animationDuration,
+                    childAnimationBuilder: (widget) => SlideAnimation(
+                      horizontalOffset: -Const.animationDistance,
+                      child: FadeInAnimation(
+                        child: widget,
+                      ),
+                    ),
+                    children: [
+                      TextFormFieldCustom(
+                        icon: Icons.network_check_rounded,
+                        hintText: 'IP address',
+                        controller: ipController,
+                      ),
+                      TextFormFieldCustom(
+                        icon: Icons.person,
+                        hintText: 'LG Username',
+                        controller: usernameController,
+                      ),
+                      TextFormFieldCustom(
+                        icon: Icons.key_rounded,
+                        hintText: 'LG Password',
+                        controller: passwordController,
+                      ),
+                      TextFormFieldCustom(
+                        icon: Icons.key_rounded,
+                        hintText: 'SSH Port',
+                        controller: portController,
+                      ),
+                      TextFormFieldCustom(
+                        icon: Icons.key_rounded,
+                        hintText: 'No. of LG rigs',
+                        controller: rigsController,
+                      ),
+                    ],
                   ),
-                  TextFormFieldCustom(
-                    icon: Icons.person,
-                    hintText: 'LG Username',
-                    controller: usernameController,
-                  ),
-                  TextFormFieldCustom(
-                    icon: Icons.key_rounded,
-                    hintText: 'LG Password',
-                    controller: passwordController,
-                  ),
-                  TextFormFieldCustom(
-                    icon: Icons.key_rounded,
-                    hintText: 'SSH Port',
-                    controller: portController,
-                  ),
-                  TextFormFieldCustom(
-                    icon: Icons.key_rounded,
-                    hintText: 'No. of LG rigs',
-                    controller: rigsController,
-                  ),
-                ],
+                ),
               ),
               SizedBox(
                 height: 300,
@@ -119,220 +131,253 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                   endIndent: 30,
                 ),
               ),
-              Column(
-                children: [
-                  100.ph,
-                  // Container(
-                  //   width: screenSize(context).width/2 - 200,
-                  //   child: Row(
-                  //     children: [
-                  //       Text(TextConst.theme,
-                  //       style: textStyleBoldWhite.copyWith(fontSize: 20),
-                  //       )
-                  //     ],
-                  //   )
-                  // ),
-                  20.ph,
-                  SizedBox(
-                    width: screenSize(context).width / 2 - 200,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          TextConst.language,
-                          style: textStyleBoldWhite.copyWith(fontSize: 20),
-                        ),
-                        DropdownButton<String>(
-                          value: dropdownValue,
-                          dropdownColor: darkenColor(Themes.darkColor, 0.02),
-                          elevation: 10,
-                          style: textStyleNormalWhite.copyWith(fontSize: 15),
-                          onChanged: (String? value) {
-                            setState(() {
-                              dropdownValue = value!;
-                            });
-                          },
-                          items: TextConst.langList
-                              .map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        )
-                      ],
+              AnimationLimiter(
+                child: Column(
+                  children: AnimationConfiguration.toStaggeredList(
+                    duration: Const.animationDuration,
+                    childAnimationBuilder: (widget) => SlideAnimation(
+                      horizontalOffset: Const.animationDistance,
+                      child: FadeInAnimation(
+                        child: widget,
+                      ),
                     ),
+                    children: [
+                      100.ph,
+                      // Container(
+                      //   width: screenSize(context).width/2 - 200,
+                      //   child: Row(
+                      //     children: [
+                      //       Text(TextConst.theme,
+                      //       style: textStyleBoldWhite.copyWith(fontSize: 20),
+                      //       )
+                      //     ],
+                      //   )
+                      // ),
+                      20.ph,
+                      SizedBox(
+                        width: screenSize(context).width / 2 - 200,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              TextConst.language,
+                              style: textStyleBoldWhite.copyWith(fontSize: 20),
+                            ),
+                            DropdownButton<String>(
+                              value: dropdownValue,
+                              dropdownColor:
+                                  darkenColor(Themes.darkColor, 0.02),
+                              elevation: 10,
+                              style:
+                                  textStyleNormalWhite.copyWith(fontSize: 15),
+                              onChanged: (String? value) {
+                                setState(() {
+                                  dropdownValue = value!;
+                                });
+                              },
+                              items: TextConst.langList
+                                  .map<DropdownMenuItem<String>>(
+                                      (String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
                   ),
-                ],
+                ),
               ),
             ],
           ),
           20.ph,
-          TextButtonCustom(
-            onPressed: () async {
-              if (!isConnectedToLg) {
-                await setSharedPrefs();
-                await SSH(ref: ref).connect();
-                await SSH(ref: ref).renderInSlave(
-                    ref.read(leftmostRigProvider),
-                    KMLMakers.screenOverlayImage(
-                        ImageConst.splashOnline, Const.splashAspectRatio));
-                await SSH(ref: ref).flyTo(
-                    initialMapPosition.target.latitude,
-                    initialMapPosition.target.longitude,
-                    initialMapPosition.zoom.zoomLG,
-                    initialMapPosition.tilt,
-                    initialMapPosition.bearing);
-              } else {
-                await SSH(ref: ref).disconnect();
-              }
-            },
-            name: isConnectedToLg ? TextConst.disconnect : TextConst.connect,
-            width: screenSize(context).width - 400,
-            color: isConnectedToLg ? Colors.red : Colors.green,
-            ref: ref,
-          ),
-          20.ph,
-          Divider(
-            color: Themes.darkWhiteColor,
-            indent: 100,
-            endIndent: 100,
-          ),
-          20.ph,
-          SizedBox(
-            width: screenSize(context).width - 385,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButtonCustom(
-                  onPressed: () async {
-                    if (isConnectedToLg) {
-                      await SSH(ref: ref).cleanSlaves();
-                    }
-                  },
-                  name: isConnectedToLg ? TextConst.cleanLogo : '--',
-                  width: screenSize(context).width / 3 - 150,
-                  color: isConnectedToLg
-                      ? Colors.yellow
-                      : lightenColor(Themes.darkColor, 0.01),
-                  ref: ref,
+          AnimationLimiter(
+            child: Column(
+              children: AnimationConfiguration.toStaggeredList(
+                duration: Const.animationDuration,
+                childAnimationBuilder: (widget) => SlideAnimation(
+                  verticalOffset: Const.animationDistance,
+                  child: FadeInAnimation(
+                    child: widget,
+                  ),
                 ),
-                TextButtonCustom(
-                  onPressed: () async {
-                    if (isConnectedToLg) {
-                      await SSH(ref: ref).renderInSlave(
-                          ref.read(leftmostRigProvider),
-                          KMLMakers.screenOverlayImage(ImageConst.splashOnline,
-                              Const.splashAspectRatio));
-                    }
-                  },
-                  name: isConnectedToLg ? TextConst.showLogo : '--',
-                  width: screenSize(context).width / 3 - 150,
-                  color: isConnectedToLg
-                      ? Colors.yellow
-                      : lightenColor(Themes.darkColor, 0.01),
-                  ref: ref,
-                ),
-                TextButtonCustom(
-                  onPressed: () async {
-                    if (isConnectedToLg) {
-                      await SSH(ref: ref).cleanKML();
-                    }
-                  },
-                  name: isConnectedToLg ? TextConst.cleanKML : '--',
-                  width: screenSize(context).width / 3 - 150,
-                  color: isConnectedToLg
-                      ? Colors.yellow
-                      : lightenColor(Themes.darkColor, 0.01),
-                  ref: ref,
-                ),
-              ],
+                children: [
+                  TextButtonCustom(
+                    onPressed: () async {
+                      if (!isConnectedToLg) {
+                        await setSharedPrefs();
+                        await SSH(ref: ref).connect();
+                        await SSH(ref: ref).renderInSlave(
+                            ref.read(leftmostRigProvider),
+                            KMLMakers.screenOverlayImage(
+                                ImageConst.splashOnline,
+                                Const.splashAspectRatio));
+                        await SSH(ref: ref).flyTo(
+                            initialMapPosition.target.latitude,
+                            initialMapPosition.target.longitude,
+                            initialMapPosition.zoom.zoomLG,
+                            initialMapPosition.tilt,
+                            initialMapPosition.bearing);
+                      } else {
+                        await SSH(ref: ref).disconnect();
+                      }
+                    },
+                    name: isConnectedToLg
+                        ? TextConst.disconnect
+                        : TextConst.connect,
+                    width: screenSize(context).width - 400,
+                    color: isConnectedToLg ? Colors.red : Colors.green,
+                    ref: ref,
+                  ),
+                  20.ph,
+                  Divider(
+                    color: Themes.darkWhiteColor,
+                    indent: 100,
+                    endIndent: 100,
+                  ),
+                  20.ph,
+                  SizedBox(
+                    width: screenSize(context).width - 385,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButtonCustom(
+                          onPressed: () async {
+                            if (isConnectedToLg) {
+                              await SSH(ref: ref).cleanSlaves();
+                            }
+                          },
+                          name: isConnectedToLg ? TextConst.cleanLogo : '--',
+                          width: screenSize(context).width / 3 - 150,
+                          color: isConnectedToLg
+                              ? Colors.yellow
+                              : lightenColor(Themes.darkColor, 0.01),
+                          ref: ref,
+                        ),
+                        TextButtonCustom(
+                          onPressed: () async {
+                            if (isConnectedToLg) {
+                              await SSH(ref: ref).renderInSlave(
+                                  ref.read(leftmostRigProvider),
+                                  KMLMakers.screenOverlayImage(
+                                      ImageConst.splashOnline,
+                                      Const.splashAspectRatio));
+                            }
+                          },
+                          name: isConnectedToLg ? TextConst.showLogo : '--',
+                          width: screenSize(context).width / 3 - 150,
+                          color: isConnectedToLg
+                              ? Colors.yellow
+                              : lightenColor(Themes.darkColor, 0.01),
+                          ref: ref,
+                        ),
+                        TextButtonCustom(
+                          onPressed: () async {
+                            if (isConnectedToLg) {
+                              await SSH(ref: ref).cleanKML();
+                            }
+                          },
+                          name: isConnectedToLg ? TextConst.cleanKML : '--',
+                          width: screenSize(context).width / 3 - 150,
+                          color: isConnectedToLg
+                              ? Colors.yellow
+                              : lightenColor(Themes.darkColor, 0.01),
+                          ref: ref,
+                        ),
+                      ],
+                    ),
+                  ),
+                  10.ph,
+                  SizedBox(
+                    width: screenSize(context).width - 385,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButtonCustom(
+                          onPressed: () async {
+                            if (isConnectedToLg) {
+                              await SSH(ref: ref).setRefresh();
+                            }
+                          },
+                          name: isConnectedToLg ? TextConst.setRefresh : '--',
+                          width: screenSize(context).width / 2 - 215,
+                          color: isConnectedToLg
+                              ? Colors.blue
+                              : lightenColor(Themes.darkColor, 0.01),
+                          ref: ref,
+                        ),
+                        TextButtonCustom(
+                          onPressed: () async {
+                            if (isConnectedToLg) {
+                              await SSH(ref: ref).resetRefresh();
+                            }
+                          },
+                          name: isConnectedToLg ? TextConst.resetRefresh : '--',
+                          width: screenSize(context).width / 2 - 215,
+                          color: isConnectedToLg
+                              ? Colors.blue
+                              : lightenColor(Themes.darkColor, 0.01),
+                          ref: ref,
+                        ),
+                      ],
+                    ),
+                  ),
+                  10.ph,
+                  SizedBox(
+                    width: screenSize(context).width - 385,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextButtonCustom(
+                          onPressed: () async {
+                            if (isConnectedToLg) {
+                              await SSH(ref: ref).relaunchLG();
+                            }
+                          },
+                          name: isConnectedToLg ? TextConst.relaunchLG : '--',
+                          width: screenSize(context).width / 3 - 150,
+                          color: isConnectedToLg
+                              ? Colors.redAccent
+                              : lightenColor(Themes.darkColor, 0.01),
+                          ref: ref,
+                        ),
+                        TextButtonCustom(
+                          onPressed: () async {
+                            if (isConnectedToLg) {
+                              await SSH(ref: ref).rebootLG();
+                            }
+                          },
+                          name: isConnectedToLg ? TextConst.rebootLG : '--',
+                          width: screenSize(context).width / 3 - 150,
+                          color: isConnectedToLg
+                              ? Colors.redAccent
+                              : lightenColor(Themes.darkColor, 0.01),
+                          ref: ref,
+                        ),
+                        TextButtonCustom(
+                          onPressed: () async {
+                            if (isConnectedToLg) {
+                              await SSH(ref: ref).shutdownLG();
+                            }
+                          },
+                          name: isConnectedToLg ? TextConst.shutdownLG : '--',
+                          width: screenSize(context).width / 3 - 150,
+                          color: isConnectedToLg
+                              ? Colors.redAccent
+                              : lightenColor(Themes.darkColor, 0.01),
+                          ref: ref,
+                        ),
+                      ],
+                    ),
+                  ),
+                  30.ph,
+                ],
+              ),
             ),
           ),
-          10.ph,
-          SizedBox(
-            width: screenSize(context).width - 385,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButtonCustom(
-                  onPressed: () async {
-                    if (isConnectedToLg) {
-                      await SSH(ref: ref).setRefresh();
-                    }
-                  },
-                  name: isConnectedToLg ? TextConst.setRefresh : '--',
-                  width: screenSize(context).width / 2 - 215,
-                  color: isConnectedToLg
-                      ? Colors.blue
-                      : lightenColor(Themes.darkColor, 0.01),
-                  ref: ref,
-                ),
-                TextButtonCustom(
-                  onPressed: () async {
-                    if (isConnectedToLg) {
-                      await SSH(ref: ref).resetRefresh();
-                    }
-                  },
-                  name: isConnectedToLg ? TextConst.resetRefresh : '--',
-                  width: screenSize(context).width / 2 - 215,
-                  color: isConnectedToLg
-                      ? Colors.blue
-                      : lightenColor(Themes.darkColor, 0.01),
-                  ref: ref,
-                ),
-              ],
-            ),
-          ),
-          10.ph,
-          SizedBox(
-            width: screenSize(context).width - 385,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButtonCustom(
-                  onPressed: () async {
-                    if (isConnectedToLg) {
-                      await SSH(ref: ref).relaunchLG();
-                    }
-                  },
-                  name: isConnectedToLg ? TextConst.relaunchLG : '--',
-                  width: screenSize(context).width / 3 - 150,
-                  color: isConnectedToLg
-                      ? Colors.redAccent
-                      : lightenColor(Themes.darkColor, 0.01),
-                  ref: ref,
-                ),
-                TextButtonCustom(
-                  onPressed: () async {
-                    if (isConnectedToLg) {
-                      await SSH(ref: ref).rebootLG();
-                    }
-                  },
-                  name: isConnectedToLg ? TextConst.rebootLG : '--',
-                  width: screenSize(context).width / 3 - 150,
-                  color: isConnectedToLg
-                      ? Colors.redAccent
-                      : lightenColor(Themes.darkColor, 0.01),
-                  ref: ref,
-                ),
-                TextButtonCustom(
-                  onPressed: () async {
-                    if (isConnectedToLg) {
-                      await SSH(ref: ref).shutdownLG();
-                    }
-                  },
-                  name: isConnectedToLg ? TextConst.shutdownLG : '--',
-                  width: screenSize(context).width / 3 - 150,
-                  color: isConnectedToLg
-                      ? Colors.redAccent
-                      : lightenColor(Themes.darkColor, 0.01),
-                  ref: ref,
-                ),
-              ],
-            ),
-          ),
-          30.ph,
         ],
       ),
     );

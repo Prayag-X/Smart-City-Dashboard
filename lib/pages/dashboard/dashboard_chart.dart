@@ -121,7 +121,6 @@ class _DashboardChartState extends State<DashboardChart> {
 
   Widget leftTitleWidgets(double value, TitleMeta meta) {
     Widget marker = Container();
-    print(value.toInt());
     if ((value.toInt() - 1) % widget.markerIntervalY == 0 &&
         value.toInt() != widget.maxY) {
       marker = Column(
