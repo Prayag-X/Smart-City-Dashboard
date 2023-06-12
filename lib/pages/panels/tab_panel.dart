@@ -183,9 +183,7 @@ class TextForAnimation4 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(TextConst.goBack,
         style: textStyleNormal.copyWith(
-            fontSize: 16,
-            color: Themes.darkWhiteColor
-                .withOpacity(0.7)));
+            fontSize: 16, color: Themes.darkWhiteColor.withOpacity(0.7)));
   }
 }
 
@@ -198,9 +196,7 @@ class TextForAnimation3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text('',
         style: textStyleNormal.copyWith(
-            fontSize: 16,
-            color: Themes.darkWhiteColor
-                .withOpacity(0.7)));
+            fontSize: 16, color: Themes.darkWhiteColor.withOpacity(0.7)));
   }
 }
 
@@ -215,8 +211,7 @@ class TextForAnimation2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(cityData!.cityName,
-        style: textStyleBoldWhite.copyWith(
-            fontSize: 26));
+        style: textStyleBoldWhite.copyWith(fontSize: 26));
   }
 }
 
@@ -228,7 +223,6 @@ class TextForAnimation1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(TextConst.home,
-        style:
-            textStyleBoldWhite.copyWith(fontSize: 26));
+        style: textStyleBoldWhite.copyWith(fontSize: 26));
   }
 }

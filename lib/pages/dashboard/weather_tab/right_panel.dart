@@ -59,7 +59,8 @@ class WeatherTabRight extends ConsumerWidget {
                       flex: 7,
                       child: Text(TextConst.tempMax,
                           style: textStyleNormal.copyWith(
-                              fontSize: 17, color: Colors.white.withOpacity(0.5))),
+                              fontSize: 17,
+                              color: Colors.white.withOpacity(0.5))),
                     ),
                     Expanded(
                       flex: 6,
@@ -90,105 +91,136 @@ class WeatherTabRight extends ConsumerWidget {
                     parent: AlwaysScrollableScrollPhysics()),
                 child: weatherData != null
                     ? AnimationLimiter(
-                  child: Column(
-                    children: AnimationConfiguration.toStaggeredList(
-                      duration: Const.animationDuration,
-                      childAnimationBuilder: (widget) => SlideAnimation(
-                        horizontalOffset: Const.animationDistance,
-                        child: FadeInAnimation(
-                          child: widget,
-                        ),
-                      ),
-                      children: [
-                        Column(
-                          children: weatherData.forecast.forecastday
-                              .map(
-                                  (forecast) => Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 5.0),
-                                child: GestureDetector(
-                                  onTap: () => ref.read(weatherDayClickedProvider.notifier).state = weatherData.forecast.forecastday.indexOf(forecast),
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      color: weatherDayClicked == weatherData.forecast.forecastday.indexOf(forecast) ? Themes.darkHighlightColor : null,
-                                      borderRadius: BorderRadius.circular(
-                                          Const.dashboardUIRoundness),
-                                    ),
-                                    child: Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            vertical: 15.0, horizontal: 10.0),
-                                        child: Row(
-                                          children: [
-                                            Expanded(
-                                              flex: 4,
-                                              child: Text(
-                                                weatherData.forecast.forecastday.indexOf(forecast) == 0
-                                                    ? TextConst.today
-                                                    : '${forecast.date.day}/${forecast.date.month}',
-                                                style: textStyleNormalWhite
-                                                    .copyWith(fontSize: 25),
+                        child: Column(
+                          children: AnimationConfiguration.toStaggeredList(
+                            duration: Const.animationDuration,
+                            childAnimationBuilder: (widget) => SlideAnimation(
+                              horizontalOffset: Const.animationDistance,
+                              child: FadeInAnimation(
+                                child: widget,
+                              ),
+                            ),
+                            children: [
+                              Column(
+                                children: weatherData.forecast.forecastday
+                                    .map((forecast) => Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 5.0),
+                                          child: GestureDetector(
+                                            onTap: () => ref
+                                                    .read(
+                                                        weatherDayClickedProvider
+                                                            .notifier)
+                                                    .state =
+                                                weatherData.forecast.forecastday
+                                                    .indexOf(forecast),
+                                            child: Container(
+                                              decoration: BoxDecoration(
+                                                color: weatherDayClicked ==
+                                                        weatherData.forecast
+                                                            .forecastday
+                                                            .indexOf(forecast)
+                                                    ? Themes.darkHighlightColor
+                                                    : null,
+                                                borderRadius:
+                                                    BorderRadius.circular(Const
+                                                        .dashboardUIRoundness),
                                               ),
+                                              child: Padding(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      vertical: 15.0,
+                                                      horizontal: 10.0),
+                                                  child: Row(
+                                                    children: [
+                                                      Expanded(
+                                                        flex: 4,
+                                                        child: Text(
+                                                          weatherData.forecast
+                                                                      .forecastday
+                                                                      .indexOf(
+                                                                          forecast) ==
+                                                                  0
+                                                              ? TextConst.today
+                                                              : '${forecast.date.day}/${forecast.date.month}',
+                                                          style:
+                                                              textStyleNormalWhite
+                                                                  .copyWith(
+                                                                      fontSize:
+                                                                          25),
+                                                        ),
+                                                      ),
+                                                      Expanded(
+                                                          flex: 6,
+                                                          child: Row(
+                                                            children: [
+                                                              const Icon(
+                                                                Icons
+                                                                    .arrow_upward_rounded,
+                                                                size: 25,
+                                                                color:
+                                                                    Colors.red,
+                                                              ),
+                                                              5.pw,
+                                                              Text(
+                                                                '${forecast.day.maxtempC}°C',
+                                                                style: textStyleNormalWhite
+                                                                    .copyWith(
+                                                                        fontSize:
+                                                                            25),
+                                                              ),
+                                                            ],
+                                                          )),
+                                                      Expanded(
+                                                          flex: 6,
+                                                          child: Row(
+                                                            children: [
+                                                              const Icon(
+                                                                Icons
+                                                                    .arrow_downward_rounded,
+                                                                size: 25,
+                                                                color:
+                                                                    Colors.blue,
+                                                              ),
+                                                              5.pw,
+                                                              Text(
+                                                                '${forecast.day.mintempC}°C',
+                                                                style: textStyleNormalWhite
+                                                                    .copyWith(
+                                                                        fontSize:
+                                                                            25),
+                                                              ),
+                                                            ],
+                                                          )),
+                                                      Expanded(
+                                                          flex: 5,
+                                                          child: Row(
+                                                            children: [
+                                                              const AssetLogoShower(
+                                                                  logo: ImageConst
+                                                                      .humidityLogo,
+                                                                  size: 25),
+                                                              5.pw,
+                                                              Text(
+                                                                '${forecast.day.avghumidity}%',
+                                                                style: textStyleNormalWhite
+                                                                    .copyWith(
+                                                                        fontSize:
+                                                                            25),
+                                                              ),
+                                                            ],
+                                                          )),
+                                                    ],
+                                                  )),
                                             ),
-                                            Expanded(
-                                                flex: 6,
-                                                child: Row(
-                                                  children: [
-                                                    const Icon(
-                                                      Icons.arrow_upward_rounded,
-                                                      size: 25,
-                                                      color: Colors.red,
-                                                    ),
-                                                    5.pw,
-                                                    Text(
-                                                      '${forecast.day.maxtempC}°C',
-                                                      style: textStyleNormalWhite
-                                                          .copyWith(fontSize: 25),
-                                                    ),
-                                                  ],
-                                                )),
-                                            Expanded(
-                                                flex: 6,
-                                                child: Row(
-                                                  children: [
-                                                    const Icon(
-                                                      Icons.arrow_downward_rounded,
-                                                      size: 25,
-                                                      color: Colors.blue,
-                                                    ),
-                                                    5.pw,
-                                                    Text(
-                                                      '${forecast.day.mintempC}°C',
-                                                      style: textStyleNormalWhite
-                                                          .copyWith(fontSize: 25),
-                                                    ),
-                                                  ],
-                                                )),
-                                            Expanded(
-                                                flex: 5,
-                                                child: Row(
-                                                  children: [
-                                                    const AssetLogoShower(
-                                                        logo:
-                                                        ImageConst.humidityLogo,
-                                                        size: 25),
-                                                    5.pw,
-                                                    Text(
-                                                      '${forecast.day.avghumidity}%',
-                                                      style: textStyleNormalWhite
-                                                          .copyWith(fontSize: 25),
-                                                    ),
-                                                  ],
-                                                )),
-                                          ],
-                                        )),
-                                  ),),)
-                          )
-                              .toList(),
+                                          ),
+                                        ))
+                                    .toList(),
+                              ),
+                            ],
+                          ),
                         ),
-                      ],
-                    ),
-                  ),
-                )
+                      )
                     : Container(),
               ),
             )

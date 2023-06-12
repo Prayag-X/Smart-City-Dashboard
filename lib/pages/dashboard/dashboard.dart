@@ -50,7 +50,8 @@ class Dashboard extends ConsumerWidget {
                   children: [
                     GoogleMapPart(),
                     ClipRRect(
-                      borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
+                      borderRadius:
+                          BorderRadius.circular(Const.dashboardUIRoundness),
                       child: Container(
                         height:
                             (screenSize(context).height - Const.appBarHeight) /

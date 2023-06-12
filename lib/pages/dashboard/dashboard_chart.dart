@@ -53,13 +53,15 @@ class DashboardChart extends StatefulWidget {
 class _DashboardChartState extends State<DashboardChart> {
   Color lightColor =
       lightenColor(Themes.darkHighlightColor, 0.1).withOpacity(0.5);
+  Color darkColor =
+      lightenColor(Themes.darkHighlightColor, 0.1).withOpacity(0.5);
 
   LineChart lineChartCustom() => LineChart(
         LineChartData(
           lineTouchData: LineTouchData(
             handleBuiltInTouches: true,
             touchTooltipData: LineTouchTooltipData(
-              tooltipBgColor: lightColor,
+              tooltipBgColor: darkColor,
             ),
           ),
           gridData: FlGridData(

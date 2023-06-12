@@ -24,11 +24,11 @@ class HomePage extends StatelessWidget {
             children: AnimationConfiguration.toStaggeredList(
                 duration: Const.animationDuration,
                 childAnimationBuilder: (widget) => SlideAnimation(
-                  verticalOffset: Const.animationDistance,
-                  child: FadeInAnimation(
-                    child: widget,
-                  ),
-                ),
+                      verticalOffset: Const.animationDistance,
+                      child: FadeInAnimation(
+                        child: widget,
+                      ),
+                    ),
                 children: CityCardData.availableCities
                     .map((city) => CityCard(
                           cityData: city,
