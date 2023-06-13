@@ -85,7 +85,11 @@ class WeatherTabRight extends ConsumerWidget {
             const Divider(
               color: Colors.white,
             ),
-            Expanded(
+            SizedBox(
+              height: (screenSize(context).height - Const.appBarHeight) /
+                  2 -
+                  25 -
+                  Const.dashboardUISpacing - 36,
               child: SingleChildScrollView(
                 physics: const BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics()),
