@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:csv/csv.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:smart_city_dashboard/constants/data.dart';
 import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/models/forecast_weather.dart';
@@ -32,12 +35,20 @@ class AboutTabLeft extends ConsumerStatefulWidget {
 }
 
 class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
+  List<List<dynamic>> data = [];
+  loadCSVData() async {
+    Future.delayed(Duration.zero).then((x) async {
+      ref.read(isLoadingProvider.notifier).state = true;
+      final rawData = await rootBundle.loadString(DataConst.about);
+      data = const CsvToListConverter(eol: '\n').convert(rawData);
+      ref.read(isLoadingProvider.notifier).state = false;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
-    Future.delayed(Duration.zero).then((x) async {
-      ref.read(isLoadingProvider.notifier).state = false;
-    });
+    loadCSVData();
   }
   @override
   Widget build(BuildContext context) {

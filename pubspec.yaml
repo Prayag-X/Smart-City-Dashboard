@@ -24,6 +24,7 @@ dependencies:
   syncfusion_flutter_charts: ^21.2.4
   flutter_staggered_animations: ^1.1.0
   flutter_downloader: ^1.10.4
+  csv: ^5.0.2
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
