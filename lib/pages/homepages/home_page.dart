@@ -1,15 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:smart_city_dashboard/constants/available_cities.dart';
 import 'package:smart_city_dashboard/pages/homepages/city_card.dart';
 import 'package:smart_city_dashboard/widgets/helper.dart';
 
 import '../../constants/constants.dart';
+import '../../providers/settings_providers.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends ConsumerStatefulWidget {
   const HomePage({
-    super.key,
-  });
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  ConsumerState createState() => _HomePageState();
+}
+
+class _HomePageState extends ConsumerState<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(Duration.zero).then((x) async {
+      ref.read(isLoadingProvider.notifier).state = false;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

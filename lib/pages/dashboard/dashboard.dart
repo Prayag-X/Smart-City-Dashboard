@@ -7,6 +7,8 @@ import '../../constants/constants.dart';
 import '../../constants/theme.dart';
 import '../../providers/data_providers.dart';
 import '../../providers/page_providers.dart';
+import 'about_tab/left_panel.dart';
+import 'about_tab/right_panel.dart';
 import 'weather_tab/left_panel.dart';
 import 'weather_tab/right_panel.dart';
 
@@ -33,9 +35,12 @@ class Dashboard extends ConsumerWidget {
                 physics: const BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics()),
                 child: (() {
-                  // if(tab == 0) {
-                  return const WeatherTabLeft();
-                  // }
+                  if (tab == 0) {
+                    return const WeatherTabLeft();
+                  }
+                  if (tab == city.availableTabs.length - 1) {
+                    return const AboutTabLeft();
+                  }
                   // switch(city.number) {
                   //   case 1:
                   //     sw
@@ -48,7 +53,7 @@ class Dashboard extends ConsumerWidget {
                 // color: Colors.blue,
                 child: Column(
                   children: [
-                    GoogleMapPart(),
+                    const GoogleMapPart(),
                     ClipRRect(
                       borderRadius:
                           BorderRadius.circular(Const.dashboardUIRoundness),
@@ -67,9 +72,12 @@ class Dashboard extends ConsumerWidget {
                           //           2 -
                           //       40,
                           // );
-                          // if(tab == 0) {
-                          return const WeatherTabRight();
-                          // }
+                          if (tab == 0) {
+                            return const WeatherTabRight();
+                          }
+                          if (tab == city.availableTabs.length - 1) {
+                            return const AboutTabRight();
+                          }
                           // switch(city.number) {
                           //   case 1:
                           //     sw

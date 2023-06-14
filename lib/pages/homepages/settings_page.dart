@@ -67,6 +67,9 @@ class _SettingsState extends ConsumerState<SettingsPage> {
   @override
   void initState() {
     super.initState();
+    Future.delayed(Duration.zero).then((x) async {
+      ref.read(isLoadingProvider.notifier).state = false;
+    });
     initTextControllers();
   }
 
