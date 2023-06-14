@@ -196,7 +196,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
               ),
             ],
           ),
-          20.ph,
+          30.ph,
           AnimationLimiter(
             child: Column(
               children: AnimationConfiguration.toStaggeredList(
@@ -235,152 +235,186 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                     color: isConnectedToLg ? Colors.red : Colors.green,
                     ref: ref,
                   ),
-                  20.ph,
-                  Divider(
-                    color: Themes.darkWhiteColor,
-                    indent: 100,
-                    endIndent: 100,
-                  ),
-                  20.ph,
-                  SizedBox(
-                    width: screenSize(context).width - 385,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButtonCustom(
-                          onPressed: () async {
-                            if (isConnectedToLg) {
-                              await SSH(ref: ref).cleanSlaves();
-                            }
-                          },
-                          name: isConnectedToLg ? TextConst.cleanLogo : '--',
-                          width: screenSize(context).width / 3 - 150,
-                          color: isConnectedToLg
-                              ? Colors.yellow
-                              : lightenColor(Themes.darkColor, 0.01),
-                          ref: ref,
-                        ),
-                        TextButtonCustom(
-                          onPressed: () async {
-                            if (isConnectedToLg) {
-                              await SSH(ref: ref).renderInSlave(
-                                  ref.read(leftmostRigProvider),
-                                  KMLMakers.screenOverlayImage(
-                                      ImageConst.splashOnline,
-                                      Const.splashAspectRatio));
-                            }
-                          },
-                          name: isConnectedToLg ? TextConst.showLogo : '--',
-                          width: screenSize(context).width / 3 - 150,
-                          color: isConnectedToLg
-                              ? Colors.yellow
-                              : lightenColor(Themes.darkColor, 0.01),
-                          ref: ref,
-                        ),
-                        TextButtonCustom(
-                          onPressed: () async {
-                            if (isConnectedToLg) {
-                              await SSH(ref: ref).cleanKML();
-                            }
-                          },
-                          name: isConnectedToLg ? TextConst.cleanKML : '--',
-                          width: screenSize(context).width / 3 - 150,
-                          color: isConnectedToLg
-                              ? Colors.yellow
-                              : lightenColor(Themes.darkColor, 0.01),
-                          ref: ref,
-                        ),
-                      ],
-                    ),
-                  ),
-                  10.ph,
-                  SizedBox(
-                    width: screenSize(context).width - 385,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButtonCustom(
-                          onPressed: () async {
-                            if (isConnectedToLg) {
-                              await SSH(ref: ref).setRefresh();
-                            }
-                          },
-                          name: isConnectedToLg ? TextConst.setRefresh : '--',
-                          width: screenSize(context).width / 2 - 215,
-                          color: isConnectedToLg
-                              ? Colors.blue
-                              : lightenColor(Themes.darkColor, 0.01),
-                          ref: ref,
-                        ),
-                        TextButtonCustom(
-                          onPressed: () async {
-                            if (isConnectedToLg) {
-                              await SSH(ref: ref).resetRefresh();
-                            }
-                          },
-                          name: isConnectedToLg ? TextConst.resetRefresh : '--',
-                          width: screenSize(context).width / 2 - 215,
-                          color: isConnectedToLg
-                              ? Colors.blue
-                              : lightenColor(Themes.darkColor, 0.01),
-                          ref: ref,
-                        ),
-                      ],
-                    ),
-                  ),
-                  10.ph,
-                  SizedBox(
-                    width: screenSize(context).width - 385,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        TextButtonCustom(
-                          onPressed: () async {
-                            if (isConnectedToLg) {
-                              await SSH(ref: ref).relaunchLG();
-                            }
-                          },
-                          name: isConnectedToLg ? TextConst.relaunchLG : '--',
-                          width: screenSize(context).width / 3 - 150,
-                          color: isConnectedToLg
-                              ? Colors.redAccent
-                              : lightenColor(Themes.darkColor, 0.01),
-                          ref: ref,
-                        ),
-                        TextButtonCustom(
-                          onPressed: () async {
-                            if (isConnectedToLg) {
-                              await SSH(ref: ref).rebootLG();
-                            }
-                          },
-                          name: isConnectedToLg ? TextConst.rebootLG : '--',
-                          width: screenSize(context).width / 3 - 150,
-                          color: isConnectedToLg
-                              ? Colors.redAccent
-                              : lightenColor(Themes.darkColor, 0.01),
-                          ref: ref,
-                        ),
-                        TextButtonCustom(
-                          onPressed: () async {
-                            if (isConnectedToLg) {
-                              await SSH(ref: ref).shutdownLG();
-                            }
-                          },
-                          name: isConnectedToLg ? TextConst.shutdownLG : '--',
-                          width: screenSize(context).width / 3 - 150,
-                          color: isConnectedToLg
-                              ? Colors.redAccent
-                              : lightenColor(Themes.darkColor, 0.01),
-                          ref: ref,
-                        ),
-                      ],
-                    ),
-                  ),
-                  30.ph,
                 ],
               ),
             ),
           ),
+          20.ph,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              AnimationLimiter(
+                child: Column(
+                  children: AnimationConfiguration.toStaggeredList(
+                    duration: Const.animationDuration,
+                    childAnimationBuilder: (widget) => SlideAnimation(
+                      horizontalOffset: -Const.animationDistance,
+                      child: FadeInAnimation(
+                        child: widget,
+                      ),
+                    ),
+                    children: [
+                      TextButtonCustom(
+                        onPressed: () async {
+                          if (isConnectedToLg) {
+                            await SSH(ref: ref).cleanSlaves();
+                          }
+                        },
+                        name: isConnectedToLg ? TextConst.cleanLogo : '--',
+                        width: screenSize(context).width / 3 - 150,
+                        color: isConnectedToLg
+                            ? Colors.yellow
+                            : lightenColor(Themes.darkColor, 0.01),
+                        ref: ref,
+                      ),
+                      TextButtonCustom(
+                        onPressed: () async {
+                          if (isConnectedToLg) {
+                            await SSH(ref: ref).renderInSlave(
+                                ref.read(leftmostRigProvider),
+                                KMLMakers.screenOverlayImage(
+                                    ImageConst.splashOnline,
+                                    Const.splashAspectRatio));
+                          }
+                        },
+                        name: isConnectedToLg ? TextConst.showLogo : '--',
+                        width: screenSize(context).width / 3 - 150,
+                        color: isConnectedToLg
+                            ? Colors.yellow
+                            : lightenColor(Themes.darkColor, 0.01),
+                        ref: ref,
+                      ),
+                      TextButtonCustom(
+                        onPressed: () async {
+                          if (isConnectedToLg) {
+                            await SSH(ref: ref).cleanKML();
+                          }
+                        },
+                        name: isConnectedToLg ? TextConst.cleanKML : '--',
+                        width: screenSize(context).width / 3 - 150,
+                        color: isConnectedToLg
+                            ? Colors.yellow
+                            : lightenColor(Themes.darkColor, 0.01),
+                        ref: ref,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 300,
+                child: VerticalDivider(
+                  color: Themes.darkWhiteColor,
+                  indent: 30,
+                  endIndent: 30,
+                ),
+              ),
+              AnimationLimiter(
+                child: Column(
+                  children: AnimationConfiguration.toStaggeredList(
+                    duration: Const.animationDuration,
+                    childAnimationBuilder: (widget) => SlideAnimation(
+                      verticalOffset: Const.animationDistance,
+                      child: FadeInAnimation(
+                        child: widget,
+                      ),
+                    ),
+                    children: [
+                      TextButtonCustom(
+                        onPressed: () async {
+                          if (isConnectedToLg) {
+                            await SSH(ref: ref).setRefresh();
+                          }
+                        },
+                        name: isConnectedToLg ? TextConst.setRefresh : '--',
+                        width: screenSize(context).width / 3 - 150,
+                        color: isConnectedToLg
+                            ? Colors.blue
+                            : lightenColor(Themes.darkColor, 0.01),
+                        ref: ref,
+                      ),
+                      TextButtonCustom(
+                        onPressed: () async {
+                          if (isConnectedToLg) {
+                            await SSH(ref: ref).resetRefresh();
+                          }
+                        },
+                        name: isConnectedToLg ? TextConst.resetRefresh : '--',
+                        width: screenSize(context).width / 3 - 150,
+                        color: isConnectedToLg
+                            ? Colors.blue
+                            : lightenColor(Themes.darkColor, 0.01),
+                        ref: ref,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 300,
+                child: VerticalDivider(
+                  color: Themes.darkWhiteColor,
+                  indent: 30,
+                  endIndent: 30,
+                ),
+              ),
+              AnimationLimiter(
+                child: Column(
+                  children: AnimationConfiguration.toStaggeredList(
+                    duration: Const.animationDuration,
+                    childAnimationBuilder: (widget) => SlideAnimation(
+                      horizontalOffset: Const.animationDistance,
+                      child: FadeInAnimation(
+                        child: widget,
+                      ),
+                    ),
+                    children: [
+                      TextButtonCustom(
+                        onPressed: () async {
+                          if (isConnectedToLg) {
+                            await SSH(ref: ref).relaunchLG();
+                          }
+                        },
+                        name: isConnectedToLg ? TextConst.relaunchLG : '--',
+                        width: screenSize(context).width / 3 - 150,
+                        color: isConnectedToLg
+                            ? Colors.redAccent
+                            : lightenColor(Themes.darkColor, 0.01),
+                        ref: ref,
+                      ),
+                      TextButtonCustom(
+                        onPressed: () async {
+                          if (isConnectedToLg) {
+                            await SSH(ref: ref).rebootLG();
+                          }
+                        },
+                        name: isConnectedToLg ? TextConst.rebootLG : '--',
+                        width: screenSize(context).width / 3 - 150,
+                        color: isConnectedToLg
+                            ? Colors.redAccent
+                            : lightenColor(Themes.darkColor, 0.01),
+                        ref: ref,
+                      ),
+                      TextButtonCustom(
+                        onPressed: () async {
+                          if (isConnectedToLg) {
+                            await SSH(ref: ref).shutdownLG();
+                          }
+                        },
+                        name: isConnectedToLg ? TextConst.shutdownLG : '--',
+                        width: screenSize(context).width / 3 - 150,
+                        color: isConnectedToLg
+                            ? Colors.redAccent
+                            : lightenColor(Themes.darkColor, 0.01),
+                        ref: ref,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
+          ),
+          30.ph,
         ],
       ),
     );
@@ -405,24 +439,27 @@ class TextButtonCustom extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      style: TextButton.styleFrom(
-          backgroundColor: color.withOpacity(0.7),
-          shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(300),
-              side: BorderSide(color: Themes.darkWhiteColor))),
-      onPressed: () async {
-        ref.read(isLoadingProvider.notifier).state = true;
-        await onPressed();
-        ref.read(isLoadingProvider.notifier).state = false;
-      },
-      child: SizedBox(
-        height: 50,
-        width: width,
-        child: Center(
-          child: Text(
-            name,
-            style: textStyleBoldWhite.copyWith(fontSize: 15),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
+      child: TextButton(
+        style: TextButton.styleFrom(
+            backgroundColor: color.withOpacity(0.7),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(300),
+                side: BorderSide(color: Themes.darkWhiteColor))),
+        onPressed: () async {
+          ref.read(isLoadingProvider.notifier).state = true;
+          await onPressed();
+          ref.read(isLoadingProvider.notifier).state = false;
+        },
+        child: SizedBox(
+          height: 50,
+          width: width,
+          child: Center(
+            child: Text(
+              name,
+              style: textStyleBoldWhite.copyWith(fontSize: 15),
+            ),
           ),
         ),
       ),
