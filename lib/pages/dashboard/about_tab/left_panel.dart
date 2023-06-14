@@ -36,11 +36,19 @@ class AboutTabLeft extends ConsumerStatefulWidget {
 
 class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
   List<List<dynamic>> data = [];
+  bool isCityPresent = false;
+
   loadCSVData() async {
     Future.delayed(Duration.zero).then((x) async {
       ref.read(isLoadingProvider.notifier).state = true;
       final rawData = await rootBundle.loadString(DataConst.about);
       data = const CsvToListConverter(eol: '\n').convert(rawData);
+      for (var row in data) {
+        if (row[1].toLowerCase() ==
+            ref.read(cityDataProvider)!.cityName.toLowerCase()) {
+          isCityPresent = true;
+        }
+      }
       ref.read(isLoadingProvider.notifier).state = false;
     });
   }
@@ -50,6 +58,7 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
     super.initState();
     loadCSVData();
   }
+
   @override
   Widget build(BuildContext context) {
     return Container();
