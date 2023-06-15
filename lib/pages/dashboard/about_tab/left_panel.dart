@@ -72,6 +72,9 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
             ),
           ),
           children: [
+            AboutContainer(
+                title: ref.read(cityDataProvider)!.cityName, data: 'Hola'
+            ),
 
           ],
         ),

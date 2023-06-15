@@ -64,6 +64,16 @@ class TextConst {
   static String condition = translate('dashboard.weather.condition');
   static String date = translate('dashboard.weather.date');
   static String cloud = translate('dashboard.weather.cloud');
+  static String latitude = translate('dashboard.about.latitude');
+  static String longitude = translate('dashboard.about.longitude');
+  static String country = translate('dashboard.about.country');
+  static String smartMobility = translate('dashboard.about.smart_mobility');
+  static String smartEnvironment = translate('dashboard.about.smart_environment');
+  static String smartGovernment = translate('dashboard.about.smart_government');
+  static String smartEconomy = translate('dashboard.about.smart_economy');
+  static String smartPeople = translate('dashboard.about.smart_people');
+  static String smartLiving = translate('dashboard.about.smart_living');
+  static String smartCityIndex = translate('dashboard.about.smart_city_index');
 }
 
 

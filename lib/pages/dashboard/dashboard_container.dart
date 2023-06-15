@@ -165,7 +165,7 @@ class _AboutContainerState extends State<AboutContainer> {
             widget.description != null
                 ? Expanded(
                     child: Text(
-                      widget.data,
+                      widget.description!,
                       style: textStyleSemiBoldWhite.copyWith(fontSize: 20),
                     ),
                   )

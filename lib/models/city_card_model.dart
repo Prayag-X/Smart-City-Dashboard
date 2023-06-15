@@ -5,6 +5,7 @@ class CityCardModel {
   String cityName;
   String country;
   String image;
+  String description;
   LatLng location;
   int number;
   List<TabButton> availableTabs;
@@ -17,5 +18,6 @@ class CityCardModel {
         required this.location,
       required this.number,
         required this.availableTabs,
+        required this.description,
       required this.availableData});
 }

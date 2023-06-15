@@ -57,6 +57,18 @@
       "temp_min": "Min Temp",
       "temp_min_full": "Min Temperature",
       "cloud": "Cloud"
+    },
+    "about": {
+      "country": "Country",
+      "latitude": "Latitude",
+      "longitude": "Longitude",
+      "smart_mobility": "Smart Mobility",
+      "smart_environment": "Smart Environment",
+      "smart_government": "Smart Government",
+      "smart_economy": "Smart Economy",
+      "smart_people": "Smart People",
+      "smart_living": "Smart Living",
+      "smart_city_index": "Smart City_index"
     }
   },
   "settings": {
@@ -77,5 +89,12 @@
     "shutdown_lg": "SHUTDOWN LG",
     "language": "Language",
     "theme": "Theme"
+  },
+  "city_data": {
+    "new_york": {
+      "cityName": "New York",
+      "country": "United States of America",
+      "description": "New York, often called New York City or NYC, is the most populous city in the United States. With a 2020 population of 8,804,190 distributed over 300.46 square miles (778.2 km2), New York City is the most densely populated major city in the United States. The city is more than twice as populous as Los Angeles, the nation's second-largest city, and has a larger population than 38 of the nation's 50 states. New York City is located at the southern tip of New York state. The city constitutes the geographical and demographic center of both the Northeast megalopolis and the New York metropolitan area, the largest metropolitan area in the U.S. by both population and urban area. With over 20.1 million people in its metropolitan statistical area and 23.5 million in its combined statistical area as of 2020, New York City is one of the world's most populous megacities in the world."
+    }
   }
 }
