@@ -118,16 +118,16 @@ class AboutContainer extends StatefulWidget {
     super.key,
     this.heightMultiplier = 1,
     this.widthMultiplier = 1,
-    required this.title,
-    required this.data,
+    this.title,
+    this.data,
     this.description,
     this.image,
   });
 
   final double heightMultiplier;
   final double widthMultiplier;
-  final String title;
-  final String data;
+  final String? title;
+  final String? data;
   final String? description;
   final String? image;
 
@@ -150,6 +150,12 @@ class _AboutContainerState extends State<AboutContainer> {
       decoration: BoxDecoration(
         color: Themes.darkHighlightColor,
         borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
+        image: widget.image != null
+            ? DecorationImage(
+                image: AssetImage(widget.image!),
+          fit: BoxFit.fill
+              )
+            : null,
       ),
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 25),
@@ -157,22 +163,24 @@ class _AboutContainerState extends State<AboutContainer> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              widget.title,
-              style: textStyleNormal.copyWith(
-                  fontSize: 17, color: Colors.white.withOpacity(0.5)),
-            ),
-            widget.description != null
-                ? Expanded(
-                    child: Text(
-                      widget.description!,
-                      style: textStyleSemiBoldWhite.copyWith(fontSize: 20),
-                    ),
+            widget.title != null
+                ? Text(
+                    widget.title!,
+                    style: textStyleNormal.copyWith(
+                        fontSize: 17, color: Colors.white.withOpacity(0.5)),
                   )
-                : Text(
-                    widget.data,
-                    style: textStyleSemiBoldWhite.copyWith(fontSize: 40),
-                  ),
+                : const SizedBox.shrink(),
+            widget.description != null
+                ? Text(
+                  widget.description!,
+                  style: textStyleNormalWhite.copyWith(fontSize: 20),
+                )
+                : widget.data != null
+                    ? Text(
+                        widget.data!,
+                        style: textStyleSemiBoldWhite.copyWith(fontSize: 40),
+                      )
+                    : const SizedBox.shrink(),
             const SizedBox.shrink()
           ],
         ),

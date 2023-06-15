@@ -36,7 +36,7 @@ class AboutTabLeft extends ConsumerStatefulWidget {
 
 class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
   List<List<dynamic>> data = [];
-  int cityIndex = -1;
+  int cityIndex = 0;
 
   loadCSVData() async {
     Future.delayed(Duration.zero).then((x) async {
@@ -47,8 +47,11 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
         if (row[1].toLowerCase() ==
             ref.read(cityDataProvider)!.cityName.toLowerCase()) {
           cityIndex = data.indexOf(row);
+          ref.read(isLoadingProvider.notifier).state = false;
+          return;
         }
       }
+      cityIndex = -1;
       ref.read(isLoadingProvider.notifier).state = false;
     });
   }
@@ -73,9 +76,45 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
           ),
           children: [
             AboutContainer(
-                title: ref.read(cityDataProvider)!.cityName, data: 'Hola'
+                widthMultiplier: 2,
+                title: TextConst.smartCity.toUpperCase(), data: ref.read(cityDataProvider)!.cityName
             ),
+            Const.dashboardUISpacing.ph,
+            AboutContainer(
+              widthMultiplier: 2,
+              heightMultiplier: 2,
+              image: ref.read(cityDataProvider)!.image,
+            ),
+            Const.dashboardUISpacing.ph,
+            AboutContainer(
+                widthMultiplier: 2,
+                title: TextConst.country, data: ref.read(cityDataProvider)!.country
+            ),
+            Const.dashboardUISpacing.ph,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                AboutContainer(
+                    title: TextConst.latitude, data: roundDouble(ref.read(cityDataProvider)!.location.latitude, 4).toString()
+                ),
+                AboutContainer(
+                    title: TextConst.longitude, data: roundDouble(ref.read(cityDataProvider)!.location.longitude, 4).toString()
+                ),
 
+              ],
+            ),
+            Const.dashboardUISpacing.ph,
+            AboutContainer(
+              widthMultiplier: 2,
+                heightMultiplier: 3,
+                title: TextConst.aboutDescription, description: ref.read(cityDataProvider)!.description
+            ),
+            Const.dashboardUISpacing.ph,
+            Column(
+              children: [
+                  // DashboardContainer(title: TextConst.smartMobility, data: data)
+              ],
+            )
           ],
         ),
       ),

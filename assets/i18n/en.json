@@ -62,6 +62,7 @@
       "country": "Country",
       "latitude": "Latitude",
       "longitude": "Longitude",
+      "description": "Description",
       "smart_mobility": "Smart Mobility",
       "smart_environment": "Smart Environment",
       "smart_government": "Smart Government",

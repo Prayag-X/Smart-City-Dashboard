@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 
 Size screenSize(context) => MediaQuery.of(context).size;
@@ -29,6 +31,11 @@ Color lightenColor(Color color, [double amount = .1]) {
   final hsl = HSLColor.fromColor(color);
   final hslLight = hsl.withLightness((hsl.lightness + amount).clamp(0.0, 1.0));
   return hslLight.toColor();
+}
+
+double roundDouble(double value, int places) {
+  num mod = pow(10.0, places);
+  return ((value * mod).round().toDouble() / mod);
 }
 
 showSnackBar(context, String message, int duration) =>
