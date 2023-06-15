@@ -113,27 +113,89 @@ class _DashboardContainerState extends State<DashboardContainer> {
   }
 }
 
-class BlankDashboardContainer extends StatefulWidget {
+class AboutContainer extends StatefulWidget {
+  const AboutContainer({
+    super.key,
+    this.heightMultiplier = 1,
+    this.widthMultiplier = 1,
+    required this.title,
+    required this.data,
+    this.description,
+    this.image,
+  });
+
+  final double heightMultiplier;
+  final double widthMultiplier;
+  final String title;
+  final String data;
+  final String? description;
+  final String? image;
+
+  @override
+  State<AboutContainer> createState() => _AboutContainerState();
+}
+
+class _AboutContainerState extends State<AboutContainer> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: (screenSize(context).width - Const.tabBarWidth) *
+              widget.widthMultiplier /
+              4 -
+          (widget.widthMultiplier - 2).abs() * Const.dashboardUISpacing / 2,
+      height: (screenSize(context).width - Const.tabBarWidth) *
+          widget.heightMultiplier *
+          Const.dashboardUIHeightFactor /
+          4,
+      decoration: BoxDecoration(
+        color: Themes.darkHighlightColor,
+        borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 25),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              widget.title,
+              style: textStyleNormal.copyWith(
+                  fontSize: 17, color: Colors.white.withOpacity(0.5)),
+            ),
+            widget.description != null
+                ? Expanded(
+                    child: Text(
+                      widget.data,
+                      style: textStyleSemiBoldWhite.copyWith(fontSize: 20),
+                    ),
+                  )
+                : Text(
+                    widget.data,
+                    style: textStyleSemiBoldWhite.copyWith(fontSize: 40),
+                  ),
+            const SizedBox.shrink()
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class BlankDashboardContainer extends StatelessWidget {
   const BlankDashboardContainer(
       {super.key, this.heightMultiplier = 1, this.widthMultiplier = 1});
   final double heightMultiplier;
   final double widthMultiplier;
 
   @override
-  State<BlankDashboardContainer> createState() =>
-      _BlankDashboardContainerState();
-}
-
-class _BlankDashboardContainerState extends State<BlankDashboardContainer> {
-  @override
   Widget build(BuildContext context) {
     return Container(
         width: (screenSize(context).width - Const.tabBarWidth) *
-                widget.widthMultiplier /
+                widthMultiplier /
                 4 -
-            (widget.widthMultiplier - 2).abs() * Const.dashboardUISpacing / 2,
+            (widthMultiplier - 2).abs() * Const.dashboardUISpacing / 2,
         height: (screenSize(context).width - Const.tabBarWidth) *
-            widget.heightMultiplier *
+            heightMultiplier *
             Const.dashboardUIHeightFactor /
             4,
         decoration: BoxDecoration(

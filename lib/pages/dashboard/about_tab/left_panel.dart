@@ -36,7 +36,7 @@ class AboutTabLeft extends ConsumerStatefulWidget {
 
 class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
   List<List<dynamic>> data = [];
-  bool isCityPresent = false;
+  int cityIndex = -1;
 
   loadCSVData() async {
     Future.delayed(Duration.zero).then((x) async {
@@ -46,7 +46,7 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
       for (var row in data) {
         if (row[1].toLowerCase() ==
             ref.read(cityDataProvider)!.cityName.toLowerCase()) {
-          isCityPresent = true;
+          cityIndex = data.indexOf(row);
         }
       }
       ref.read(isLoadingProvider.notifier).state = false;
@@ -61,6 +61,21 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return AnimationLimiter(
+      child: Column(
+        children: AnimationConfiguration.toStaggeredList(
+          duration: Const.animationDuration,
+          childAnimationBuilder: (widget) => SlideAnimation(
+            horizontalOffset: -Const.animationDistance,
+            child: FadeInAnimation(
+              child: widget,
+            ),
+          ),
+          children: [
+
+          ],
+        ),
+      ),
+    );
   }
 }
