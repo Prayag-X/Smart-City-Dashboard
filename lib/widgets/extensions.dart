@@ -17,6 +17,7 @@ extension SetPercentage on num {
   double get setPressurePercentage => min(max((this - 800) / 500, 0), 1);
   double get setUVPercentage => this / 15;
   double get setPercentage => this / 100;
+  double get setPercentageAbout => this / 10000;
 }
 
 extension Parser on String {

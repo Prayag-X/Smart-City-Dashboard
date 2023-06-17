@@ -36,7 +36,7 @@ class AboutTabLeft extends ConsumerStatefulWidget {
 
 class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
   List<List<dynamic>> data = [];
-  int cityIndex = 0;
+  int cityIndex = -2;
 
   loadCSVData() async {
     Future.delayed(Duration.zero).then((x) async {
@@ -46,12 +46,16 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
       for (var row in data) {
         if (row[1].toLowerCase() ==
             ref.read(cityDataProvider)!.cityName.toLowerCase()) {
-          cityIndex = data.indexOf(row);
+          setState(() {
+            cityIndex = data.indexOf(row);
+          });
           ref.read(isLoadingProvider.notifier).state = false;
           return;
         }
       }
-      cityIndex = -1;
+      setState(() {
+        cityIndex = -1;
+      });
       ref.read(isLoadingProvider.notifier).state = false;
     });
   }
@@ -77,8 +81,8 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
           children: [
             AboutContainer(
                 widthMultiplier: 2,
-                title: TextConst.smartCity.toUpperCase(), data: ref.read(cityDataProvider)!.cityName
-            ),
+                title: TextConst.smartCity.toUpperCase(),
+                data: ref.read(cityDataProvider)!.cityName),
             Const.dashboardUISpacing.ph,
             AboutContainer(
               widthMultiplier: 2,
@@ -88,33 +92,114 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
             Const.dashboardUISpacing.ph,
             AboutContainer(
                 widthMultiplier: 2,
-                title: TextConst.country, data: ref.read(cityDataProvider)!.country
-            ),
+                title: TextConst.country,
+                data: ref.read(cityDataProvider)!.country),
             Const.dashboardUISpacing.ph,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 AboutContainer(
-                    title: TextConst.latitude, data: roundDouble(ref.read(cityDataProvider)!.location.latitude, 4).toString()
-                ),
+                    title: TextConst.latitude,
+                    data: roundDouble(
+                            ref.read(cityDataProvider)!.location.latitude, 4)
+                        .toString()),
                 AboutContainer(
-                    title: TextConst.longitude, data: roundDouble(ref.read(cityDataProvider)!.location.longitude, 4).toString()
-                ),
-
+                    title: TextConst.longitude,
+                    data: roundDouble(
+                            ref.read(cityDataProvider)!.location.longitude, 4)
+                        .toString()),
               ],
             ),
             Const.dashboardUISpacing.ph,
             AboutContainer(
-              widthMultiplier: 2,
+                widthMultiplier: 2,
                 heightMultiplier: 3,
-                title: TextConst.aboutDescription, description: ref.read(cityDataProvider)!.description
-            ),
+                title: TextConst.aboutDescription,
+                description: ref.read(cityDataProvider)!.description),
             Const.dashboardUISpacing.ph,
-            Column(
-              children: [
-                  // DashboardContainer(title: TextConst.smartMobility, data: data)
-              ],
-            )
+            cityIndex > 0
+                ? Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          DashboardContainer(
+                            title: TextConst.smartMobility,
+                            image: ImageConst.mobilityLogo,
+                            showPercentage: true,
+                            progressColor: Colors.white,
+                            percentage: data[cityIndex][3]/10000,
+                            data: data[cityIndex][3].toString(),
+                          ),
+                          DashboardContainer(
+                            title: TextConst.smartGovernment,
+                            image: ImageConst.governmentLogo,
+                            showPercentage: true,
+                            progressColor: Colors.purple,
+                            percentage: data[cityIndex][5]/10000,
+                            data: data[cityIndex][5].toString(),
+                          ),
+                        ],
+                      ),
+                      Const.dashboardUISpacing.ph,
+                      DashboardContainer(
+                        widthMultiplier: 2,
+                        title: TextConst.smartCityIndex,
+                        image: ImageConst.indexLogo,
+                        showPercentage: true,
+                        progressColor: Colors.blue,
+                        percentage: data[cityIndex][8]/10000,
+                        data: data[cityIndex][8].toString(),
+                      ),
+                      Const.dashboardUISpacing.ph,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          DashboardContainer(
+                            title: TextConst.smartEnvironment,
+                            image: ImageConst.environmentLogo,
+                            showPercentage: true,
+                            progressColor: Colors.green,
+                            percentage: data[cityIndex][4]/10000,
+                            data: data[cityIndex][4].toString(),
+                          ),
+                          DashboardContainer(
+                            title: TextConst.smartGovernment,
+                            image: ImageConst.governmentLogo,
+                            showPercentage: true,
+                            progressColor: Colors.yellow,
+                            percentage: data[cityIndex][6]/10000,
+                            data: data[cityIndex][6].toString(),
+                          ),
+                        ],
+                      ),
+                      Const.dashboardUISpacing.ph,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          DashboardContainer(
+                            title: TextConst.smartPeople,
+                            image: ImageConst.peopleLogo,
+                            showPercentage: true,
+                            progressColor: Colors.blueGrey,
+                            percentage: data[cityIndex][7]/10000,
+                            data: data[cityIndex][7].toString(),
+                          ),
+                          DashboardContainer(
+                            title: TextConst.smartLiving,
+                            image: ImageConst.livingLogo,
+                            showPercentage: true,
+                            progressColor: Colors.red,
+                            percentage: data[cityIndex][8]/10000,
+                            data: data[cityIndex][8].toString(),
+                          ),
+                        ],
+                      ),
+                      Const.dashboardUISpacing.ph,
+                    ],
+                  )
+                : const SizedBox.shrink(),
+            Const.dashboardUISpacing.ph,
           ],
         ),
       ),
