@@ -47,11 +47,11 @@ class _DashboardContainerState extends State<DashboardContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: (screenSize(context).width - Const.tabBarWidth) *
+      width: (screenSize(context).width - screenSize(context).width/Const.tabBarWidthDivider) *
               widget.widthMultiplier /
               4 -
           (widget.widthMultiplier - 2).abs() * Const.dashboardUISpacing / 2,
-      height: (screenSize(context).width - Const.tabBarWidth) *
+      height: (screenSize(context).width - screenSize(context).width/Const.tabBarWidthDivider) *
           widget.heightMultiplier *
           Const.dashboardUIHeightFactor /
           4,
@@ -139,11 +139,11 @@ class _AboutContainerState extends State<AboutContainer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: (screenSize(context).width - Const.tabBarWidth) *
+      width: (screenSize(context).width - screenSize(context).width/Const.tabBarWidthDivider) *
               widget.widthMultiplier /
               4 -
           (widget.widthMultiplier - 2).abs() * Const.dashboardUISpacing / 2,
-      height: (screenSize(context).width - Const.tabBarWidth) *
+      height: (screenSize(context).width - screenSize(context).width/Const.tabBarWidthDivider) *
           widget.heightMultiplier *
           Const.dashboardUIHeightFactor /
           4,
@@ -198,11 +198,11 @@ class BlankDashboardContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        width: (screenSize(context).width - Const.tabBarWidth) *
+        width: (screenSize(context).width - screenSize(context).width/Const.tabBarWidthDivider) *
                 widthMultiplier /
                 4 -
             (widthMultiplier - 2).abs() * Const.dashboardUISpacing / 2,
-        height: (screenSize(context).width - Const.tabBarWidth) *
+        height: (screenSize(context).width - screenSize(context).width/Const.tabBarWidthDivider) *
             heightMultiplier *
             Const.dashboardUIHeightFactor /
             4,

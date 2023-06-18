@@ -32,7 +32,7 @@ class _TabPanelState extends ConsumerState<TabPanel> {
     CityCardModel? cityData = ref.watch(cityDataProvider);
     return Container(
       height: screenSize(context).height,
-      width: Const.tabBarWidth,
+      width: screenSize(context).width/Const.tabBarWidthDivider,
       color: Themes.darkTabBarColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

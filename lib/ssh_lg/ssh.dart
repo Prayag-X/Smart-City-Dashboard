@@ -160,4 +160,14 @@ class SSH {
     await ref.read(sshClient)?.run(
         'echo "flytoview=${KMLMakers.lookAt(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
   }
+
+  kmlFileUpload(String fileName, String content) async {
+    await ref.read(sshClient)?.sftp();
+  }
+
+  startOrbit(double latitude, double longitude, double zoom, double tilt,
+      double bearing) async {
+    await ref.read(sshClient)?.run(
+        'echo "flytoview=${KMLMakers.lookAt(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
+  }
 }

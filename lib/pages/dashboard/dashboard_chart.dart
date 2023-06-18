@@ -172,8 +172,8 @@ class _DashboardChartState extends State<DashboardChart> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: (screenSize(context).width - Const.tabBarWidth) / 2,
-      height: (screenSize(context).width - Const.tabBarWidth) *
+      width: (screenSize(context).width - screenSize(context).width/Const.tabBarWidthDivider) / 2,
+      height: (screenSize(context).width - screenSize(context).width/Const.tabBarWidthDivider) *
           Const.dashboardUIHeightFactor /
           2,
       decoration: BoxDecoration(
@@ -192,7 +192,7 @@ class _DashboardChartState extends State<DashboardChart> {
                   fontSize: 17, color: Colors.white.withOpacity(0.5)),
             ),
             SizedBox(
-                height: (screenSize(context).width - Const.tabBarWidth) *
+                height: (screenSize(context).width - screenSize(context).width/Const.tabBarWidthDivider) *
                     Const.dashboardUIHeightFactor *
                     0.7 /
                     2,

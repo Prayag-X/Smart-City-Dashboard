@@ -28,7 +28,7 @@ class Dashboard extends ConsumerWidget {
           children: [
             // const SizedBox.shrink(),
             SizedBox(
-              width: (screenSize(context).width - Const.tabBarWidth) / 2,
+              width: (screenSize(context).width - screenSize(context).width/Const.tabBarWidthDivider) / 2,
               height: screenSize(context).height - Const.appBarHeight,
               // color: Colors.blue,
               child: SingleChildScrollView(
@@ -49,7 +49,7 @@ class Dashboard extends ConsumerWidget {
               ),
             ),
             Container(
-                width: (screenSize(context).width - Const.tabBarWidth) / 2 - 40,
+                width: (screenSize(context).width - screenSize(context).width/Const.tabBarWidthDivider) / 2 - 40,
                 // color: Colors.blue,
                 child: Column(
                   children: [
