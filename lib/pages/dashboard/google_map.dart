@@ -113,7 +113,7 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
                           child: Center(
                               child: Text(
                                 TextConst.mapHybrid,
-                                style: textStyleNormalWhite.copyWith(fontSize: 18),
+                                style: textStyleNormalWhite.copyWith(fontSize: Const.dashboardTextSize-2),
                               )),
                         ),
                       )),
@@ -129,7 +129,7 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
                           child: Center(
                               child: Text(
                                 TextConst.mapNormal,
-                                style: textStyleNormalWhite.copyWith(fontSize: 18),
+                                style: textStyleNormalWhite.copyWith(fontSize: Const.dashboardTextSize-2),
                               )),
                         ),
                       )),
@@ -152,7 +152,7 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
                           child: Center(
                               child: Text(
                                 TextConst.mapTerrain,
-                                style: textStyleNormalWhite.copyWith(fontSize: 18),
+                                style: textStyleNormalWhite.copyWith(fontSize: Const.dashboardTextSize-2),
                               )),
                         ),
                       )),

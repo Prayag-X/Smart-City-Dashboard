@@ -129,7 +129,7 @@ class _DashboardChartState extends State<DashboardChart> {
         children: widget.markerY[value.toInt()]
             .map((marker) => Text(marker,
                 style: textStyleNormal.copyWith(
-                    fontSize: 15,
+                    fontSize: Const.dashboardChartTextSize-5,
                     color: widget.chartData.values.elementAt(
                         widget.markerY[value.toInt()].indexOf(marker))),
                 textAlign: TextAlign.center))
@@ -153,7 +153,7 @@ class _DashboardChartState extends State<DashboardChart> {
       child: Text(
         marker,
         style: textStyleNormal.copyWith(
-            fontSize: 15, color: lightenColor(Themes.darkHighlightColor, 0.4)),
+            fontSize: Const.dashboardChartTextSize-5, color: lightenColor(Themes.darkHighlightColor, 0.4)),
       ),
     );
   }
@@ -189,12 +189,12 @@ class _DashboardChartState extends State<DashboardChart> {
             Text(
               widget.title,
               style: textStyleNormal.copyWith(
-                  fontSize: 17, color: Colors.white.withOpacity(0.5)),
+                  fontSize: Const.dashboardChartTextSize-3, color: Colors.white.withOpacity(0.5)),
             ),
             SizedBox(
                 height: (screenSize(context).width - screenSize(context).width/Const.tabBarWidthDivider) *
                     Const.dashboardUIHeightFactor *
-                    0.7 /
+                    0.6 /
                     2,
                 child: lineChartCustom()),
             Row(
@@ -203,8 +203,8 @@ class _DashboardChartState extends State<DashboardChart> {
                   .map((entry) => Row(
                         children: [
                           Container(
-                            width: 13,
-                            height: 13,
+                            width: Const.dashboardChartTextSize-7,
+                            height: Const.dashboardChartTextSize-7,
                             decoration: BoxDecoration(
                                 color: entry.value,
                                 borderRadius: BorderRadius.circular(35.0)),
@@ -213,7 +213,7 @@ class _DashboardChartState extends State<DashboardChart> {
                           Text(
                             entry.key,
                             style: textStyleNormal.copyWith(
-                                fontSize: 17, color: Colors.white),
+                                fontSize: Const.dashboardChartTextSize-3, color: Colors.white),
                           ),
                         ],
                       ))

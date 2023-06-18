@@ -93,7 +93,7 @@ class _AppBarState extends ConsumerState<CustomAppBar> {
                 ),
                 SizedBox(
                   width: 350,
-                  height: 55,
+                  height: Const.appBarHeight-60,
                   child: TextFormField(
                     decoration: InputDecoration(
                         prefixIcon: Icon(

@@ -12,4 +12,5 @@ class Const {
   static double tabBarTextSize = 17;
   static double homePageTextSize = 17;
   static double dashboardTextSize = 16;
+  static double dashboardChartTextSize = 17;
 }

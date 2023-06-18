@@ -52,14 +52,14 @@ class WeatherTabRight extends ConsumerWidget {
                       child: Text(
                         TextConst.forecast,
                         style: textStyleNormal.copyWith(
-                            fontSize: 17, color: Colors.white.withOpacity(0.5)),
+                            fontSize: Const.dashboardTextSize-3, color: Colors.white.withOpacity(0.5)),
                       ),
                     ),
                     Expanded(
                       flex: 7,
                       child: Text(TextConst.tempMax,
                           style: textStyleNormal.copyWith(
-                              fontSize: 17,
+                              fontSize: Const.dashboardTextSize-3,
                               color: Colors.white.withOpacity(0.5))),
                     ),
                     Expanded(
@@ -67,7 +67,7 @@ class WeatherTabRight extends ConsumerWidget {
                       child: Text(
                         TextConst.tempMin,
                         style: textStyleNormal.copyWith(
-                            fontSize: 17, color: Colors.white.withOpacity(0.5)),
+                            fontSize: Const.dashboardTextSize-3, color: Colors.white.withOpacity(0.5)),
                       ),
                     ),
                     Expanded(
@@ -75,7 +75,7 @@ class WeatherTabRight extends ConsumerWidget {
                       child: Text(
                         TextConst.humidity,
                         style: textStyleNormal.copyWith(
-                            fontSize: 17, color: Colors.white.withOpacity(0.5)),
+                            fontSize: Const.dashboardTextSize-3, color: Colors.white.withOpacity(0.5)),
                       ),
                     ),
                   ],
@@ -151,17 +151,17 @@ class WeatherTabRight extends ConsumerWidget {
                                                               textStyleNormalWhite
                                                                   .copyWith(
                                                                       fontSize:
-                                                                          25),
+                                                                      Const.dashboardTextSize+5),
                                                         ),
                                                       ),
                                                       Expanded(
                                                           flex: 6,
                                                           child: Row(
                                                             children: [
-                                                              const Icon(
+                                                              Icon(
                                                                 Icons
                                                                     .arrow_upward_rounded,
-                                                                size: 25,
+                                                                size: Const.dashboardTextSize+5,
                                                                 color:
                                                                     Colors.red,
                                                               ),
@@ -171,7 +171,7 @@ class WeatherTabRight extends ConsumerWidget {
                                                                 style: textStyleNormalWhite
                                                                     .copyWith(
                                                                         fontSize:
-                                                                            25),
+                                                                        Const.dashboardTextSize+5),
                                                               ),
                                                             ],
                                                           )),
@@ -179,10 +179,10 @@ class WeatherTabRight extends ConsumerWidget {
                                                           flex: 6,
                                                           child: Row(
                                                             children: [
-                                                              const Icon(
+                                                              Icon(
                                                                 Icons
                                                                     .arrow_downward_rounded,
-                                                                size: 25,
+                                                                size: Const.dashboardTextSize+5,
                                                                 color:
                                                                     Colors.blue,
                                                               ),
@@ -192,7 +192,7 @@ class WeatherTabRight extends ConsumerWidget {
                                                                 style: textStyleNormalWhite
                                                                     .copyWith(
                                                                         fontSize:
-                                                                            25),
+                                                                        Const.dashboardTextSize+5),
                                                               ),
                                                             ],
                                                           )),
@@ -200,17 +200,17 @@ class WeatherTabRight extends ConsumerWidget {
                                                           flex: 5,
                                                           child: Row(
                                                             children: [
-                                                              const AssetLogoShower(
+                                                              AssetLogoShower(
                                                                   logo: ImageConst
                                                                       .humidityLogo,
-                                                                  size: 25),
+                                                                  size: Const.dashboardTextSize+5),
                                                               5.pw,
                                                               Text(
                                                                 '${forecast.day.avghumidity}%',
                                                                 style: textStyleNormalWhite
                                                                     .copyWith(
                                                                         fontSize:
-                                                                            25),
+                                                                        Const.dashboardTextSize+5),
                                                               ),
                                                             ],
                                                           )),
