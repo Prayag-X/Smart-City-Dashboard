@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_city_dashboard/constants/images.dart';
@@ -23,7 +25,7 @@ class CityCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    double height = screenSize(context).height - 600;
+    double height = max(min(screenSize(context).height - 600, 200), 150);
     double width = screenSize(context).width - 400;
     return Padding(
       padding: EdgeInsets.symmetric(vertical: Const.homePageTextSize+5),

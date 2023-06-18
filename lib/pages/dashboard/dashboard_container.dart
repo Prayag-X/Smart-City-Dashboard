@@ -167,18 +167,18 @@ class _AboutContainerState extends State<AboutContainer> {
                 ? Text(
                     widget.title!,
                     style: textStyleNormal.copyWith(
-                        fontSize: 17, color: Colors.white.withOpacity(0.5)),
+                        fontSize: Const.dashboardTextSize-3, color: Colors.white.withOpacity(0.5)),
                   )
                 : const SizedBox.shrink(),
             widget.description != null
                 ? Text(
                   widget.description!,
-                  style: textStyleNormalWhite.copyWith(fontSize: 20),
+                  style: textStyleNormalWhite.copyWith(fontSize: Const.dashboardTextSize-1),
                 )
                 : widget.data != null
                     ? Text(
                         widget.data!,
-                        style: textStyleSemiBoldWhite.copyWith(fontSize: 40),
+                        style: textStyleSemiBoldWhite.copyWith(fontSize: Const.dashboardTextSize*2-5),
                       )
                     : const SizedBox.shrink(),
             const SizedBox.shrink()
@@ -213,7 +213,7 @@ class BlankDashboardContainer extends StatelessWidget {
         child: Center(
           child: Text(
             '--',
-            style: textStyleNormalWhite.copyWith(fontSize: 30),
+            style: textStyleNormalWhite.copyWith(fontSize: Const.dashboardTextSize+10),
           ),
         ));
   }

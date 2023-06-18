@@ -48,15 +48,15 @@ class _AppBarState extends ConsumerState<CustomAppBar> {
                   children: [
                     Text(
                       TextConst.title,
-                      style: textStyleBoldWhite.copyWith(fontSize: 30),
+                      style: textStyleBoldWhite.copyWith(fontSize: Const.appBarTextSize+10),
                     ),
                     5.ph,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          width: 13,
-                          height: 13,
+                          width: Const.appBarTextSize-7,
+                          height: Const.appBarTextSize-7,
                           decoration: BoxDecoration(
                               color: isConnectedToInternet ? Colors.green : Colors.red,
                               borderRadius: BorderRadius.circular(35.0)),
@@ -68,12 +68,12 @@ class _AppBarState extends ConsumerState<CustomAppBar> {
                               : TextConst.offline,
                           style: textStyleBold.copyWith(
                               color: isConnectedToInternet ? Colors.green : Colors.red,
-                              fontSize: 14),
+                              fontSize: Const.appBarTextSize-6),
                         ),
                         20.pw,
                         Container(
-                          width: 13,
-                          height: 13,
+                          width: Const.appBarTextSize-7,
+                          height: Const.appBarTextSize-7,
                           decoration: BoxDecoration(
                               color: isConnectedToLg ? Colors.green : Colors.red,
                               borderRadius: BorderRadius.circular(35.0)),
@@ -85,7 +85,7 @@ class _AppBarState extends ConsumerState<CustomAppBar> {
                               : TextConst.disconnected,
                           style: textStyleBold.copyWith(
                               color: isConnectedToLg ? Colors.green : Colors.red,
-                              fontSize: 14),
+                              fontSize: Const.appBarTextSize-6),
                         ),
                       ],
                     )
@@ -93,7 +93,7 @@ class _AppBarState extends ConsumerState<CustomAppBar> {
                 ),
                 SizedBox(
                   width: 350,
-                  height: Const.appBarHeight-60,
+                  height: Const.appBarHeight-30,
                   child: TextFormField(
                     decoration: InputDecoration(
                         prefixIcon: Icon(
