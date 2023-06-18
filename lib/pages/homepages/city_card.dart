@@ -8,6 +8,7 @@ import 'package:smart_city_dashboard/widgets/extensions.dart';
 import 'package:smart_city_dashboard/widgets/helper.dart';
 import 'package:smart_city_dashboard/widgets/logo_shower.dart';
 
+import '../../constants/constants.dart';
 import '../../constants/theme.dart';
 import '../../models/city_card_model.dart';
 import '../../providers/data_providers.dart';
@@ -22,37 +23,39 @@ class CityCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    double height = screenSize(context).height - 600;
+    double width = screenSize(context).width - 400;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 25.0),
+      padding: EdgeInsets.symmetric(vertical: Const.homePageTextSize+5),
       child: GestureDetector(
         onTap: () {
           ref.read(isHomePageProvider.notifier).state = false;
           ref.read(cityDataProvider.notifier).state = cityData;
         },
         child: SizedBox(
-          height: 200+15,
-          width: screenSize(context).width - 500+15,
+          height: height+15,
+          width: width+15,
           child: Stack(
             children: [
               Positioned(
                 top: 15.0,
                 left: 15.0,
                 child: Container(
-                  height: 200,
-                  width: screenSize(context).width - 500,
+                  height: height,
+                  width: width,
                   color: lightenColor(Themes.darkHighlightColor, 0.05),
                 ),
               ),
               Container(
-                height: 200,
-                width: screenSize(context).width - 500,
+                height: height,
+                width: width,
                 color: darkenColor(Themes.darkHighlightColor, 0.05),
                 child: Row(
                   children: [
-                    ImageShower(logo: cityData.image, size: 200),
-                    20.pw,
+                    ImageShower(logo: cityData.image, size: height),
+                    Const.homePageTextSize.pw,
                     SizedBox(
-                      width: screenSize(context).width - 960,
+                      width: width/2 - 60,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -60,19 +63,19 @@ class CityCard extends ConsumerWidget {
                           Text(
                             TextConst.smartCity,
                             style: textStyleNormal.copyWith(
-                                fontSize: 14, color: Colors.white.withOpacity(0.6)),
+                                fontSize: Const.homePageTextSize-6, color: Colors.white.withOpacity(0.6)),
                           ),
                           Text(
                             cityData.cityName,
-                            style: textStyleBoldWhite.copyWith(fontSize: 30),
+                            style: textStyleBoldWhite.copyWith(fontSize: Const.homePageTextSize+10),
                           ),
                           5.ph,
                           Row(
                             children: [
-                              const AssetLogoShower(logo: ImageConst.markerLogo, size: 25),
+                              AssetLogoShower(logo: ImageConst.markerLogo, size: Const.homePageTextSize+5),
                               Text(
                                 cityData.country,
-                                style: textStyleNormalWhite.copyWith(fontSize: 20),
+                                style: textStyleNormalWhite.copyWith(fontSize: Const.homePageTextSize),
                               ),
                             ],
                           )
@@ -86,15 +89,15 @@ class CityCard extends ConsumerWidget {
                     ),
                     5.pw,
                     SizedBox(
-                      height: 150,
-                      width: 200,
+                      height: height-20,
+                      width: 150,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
                             TextConst.availableData,
                             style: textStyleNormal.copyWith(
-                                fontSize: 15, color: Colors.white.withOpacity(0.6)),
+                                fontSize: Const.homePageTextSize-5, color: Colors.white.withOpacity(0.6)),
                           ),
                           SizedBox(
                             height: 90,
@@ -107,12 +110,12 @@ class CityCard extends ConsumerWidget {
                                           5.pw,
                                           AssetLogoShower(
                                               logo: cityData.availableData.keys.elementAt(index),
-                                              size: 15),
+                                              size: Const.homePageTextSize-5),
                                           9.pw,
                                           Text(
                                             cityData.availableData.values.elementAt(index),
                                             style: textStyleNormalWhite.copyWith(
-                                                fontSize: 17),
+                                                fontSize: Const.homePageTextSize-3),
                                           )
                                         ],
                                       ),

@@ -43,7 +43,7 @@ class _TabPanelState extends ConsumerState<TabPanel> {
               ref.read(isHomePageProvider.notifier).state = true;
             },
             child: Container(
-              height: 240,
+              height: screenSize(context).width/Const.tabBarWidthDivider,
               color: homePageTab == 0 && isHomePage
                   ? Themes.darkHighlightColor
                   : Colors.transparent,
@@ -51,7 +51,7 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    height: 240,
+                    height: screenSize(context).width/Const.tabBarWidthDivider,
                     width: 3,
                     color: homePageTab == 0 && isHomePage
                         ? Colors.white
@@ -61,9 +61,9 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      const AssetLogoShower(
+                      AssetLogoShower(
                         logo: ImageConst.appLogo,
-                        size: 170,
+                        size: screenSize(context).width/Const.tabBarWidthDivider-70,
                       ),
                       AnimatedSwitcher(
                           duration: Const.animationDuration,
@@ -82,7 +82,7 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                     ],
                   ),
                   Container(
-                    height: 240,
+                    height: screenSize(context).width/Const.tabBarWidthDivider,
                     width: 3,
                     color: Colors.transparent,
                   ),
@@ -106,13 +106,13 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                         children: [
                           Text(
                             TextConst.welcome,
-                            style: textStyleNormalWhite.copyWith(fontSize: 21),
+                            style: textStyleNormalWhite.copyWith(fontSize: Const.tabBarTextSize+1),
                           ),
-                          20.ph,
+                          Const.tabBarTextSize.ph,
                           Text(
                             TextConst.description,
                             textAlign: TextAlign.center,
-                            style: textStyleNormalWhite.copyWith(fontSize: 20),
+                            style: textStyleNormalWhite.copyWith(fontSize: Const.tabBarTextSize),
                           ),
                         ],
                       ),
@@ -183,7 +183,7 @@ class TextForAnimation4 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(TextConst.goBack,
         style: textStyleNormal.copyWith(
-            fontSize: 16, color: Themes.darkWhiteColor.withOpacity(0.7)));
+            fontSize: Const.tabBarTextSize-4, color: Themes.darkWhiteColor.withOpacity(0.7)));
   }
 }
 
@@ -196,7 +196,7 @@ class TextForAnimation3 extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text('',
         style: textStyleNormal.copyWith(
-            fontSize: 16, color: Themes.darkWhiteColor.withOpacity(0.7)));
+            fontSize: Const.tabBarTextSize-4, color: Themes.darkWhiteColor.withOpacity(0.7)));
   }
 }
 
@@ -211,7 +211,7 @@ class TextForAnimation2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(cityData!.cityName,
-        style: textStyleBoldWhite.copyWith(fontSize: 26));
+        style: textStyleBoldWhite.copyWith(fontSize: Const.tabBarTextSize+6));
   }
 }
 
@@ -223,6 +223,6 @@ class TextForAnimation1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(TextConst.home,
-        style: textStyleBoldWhite.copyWith(fontSize: 26));
+        style: textStyleBoldWhite.copyWith(fontSize: Const.tabBarTextSize+6));
   }
 }

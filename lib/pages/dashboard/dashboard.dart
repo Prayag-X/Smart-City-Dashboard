@@ -49,7 +49,7 @@ class Dashboard extends ConsumerWidget {
               ),
             ),
             Container(
-                width: (screenSize(context).width - screenSize(context).width/Const.tabBarWidthDivider) / 2 - 40,
+                width: (screenSize(context).width - screenSize(context).width/Const.tabBarWidthDivider) / 2 - Const.dashboardUISpacing*2,
                 // color: Colors.blue,
                 child: Column(
                   children: [

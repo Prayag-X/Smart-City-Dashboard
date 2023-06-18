@@ -61,9 +61,9 @@ class _DashboardContainerState extends State<DashboardContainer> {
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(
-            vertical: 12.0,
+            vertical: Const.dashboardTextSize/2 + 2,
             horizontal:
-                widget.data.length > 7 && widget.widthMultiplier == 1 ? 25 : 0),
+                widget.data.length > 7 && widget.widthMultiplier == 1 ? Const.dashboardTextSize+5 : 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -71,37 +71,37 @@ class _DashboardContainerState extends State<DashboardContainer> {
             Text(
               widget.title,
               style: textStyleNormal.copyWith(
-                  fontSize: 17, color: Colors.white.withOpacity(0.5)),
+                  fontSize: Const.dashboardTextSize-3, color: Colors.white.withOpacity(0.5)),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 widget.showPercentage
                     ? CircularPercentIndicator(
-                        radius: 35.0,
+                        radius: Const.dashboardTextSize+13.0,
                         lineWidth: 8.0,
                         animation: true,
                         percent: widget.percentage,
-                        center: AssetLogoShower(logo: widget.image!, size: 35),
+                        center: AssetLogoShower(logo: widget.image!, size: Const.dashboardTextSize+13),
                         circularStrokeCap: CircularStrokeCap.round,
                         progressColor: widget.progressColor,
                         backgroundColor:
                             lightenColor(Themes.darkHighlightColor, 0.1),
                       )
                     : widget.image != null
-                        ? AssetLogoShower(logo: widget.image!, size: 65)
+                        ? AssetLogoShower(logo: widget.image!, size: Const.dashboardTextSize+43)
                         : const SizedBox.shrink(),
-                widget.image != null ? 15.pw : const SizedBox.shrink(),
+                widget.image != null ? (Const.dashboardTextSize-5).pw : const SizedBox.shrink(),
                 widget.data.length > 7 && widget.widthMultiplier == 1
                     ? Expanded(
                         child: Text(
                           widget.data,
-                          style: textStyleSemiBoldWhite.copyWith(fontSize: 25),
+                          style: textStyleSemiBoldWhite.copyWith(fontSize: Const.dashboardTextSize+5),
                         ),
                       )
                     : Text(
                         widget.data,
-                        style: textStyleSemiBoldWhite.copyWith(fontSize: 40),
+                        style: textStyleSemiBoldWhite.copyWith(fontSize: Const.dashboardTextSize*2),
                       ),
               ],
             ),

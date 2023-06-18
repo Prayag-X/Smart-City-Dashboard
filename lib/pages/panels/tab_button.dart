@@ -4,6 +4,7 @@ import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/widgets/extensions.dart';
 import 'package:smart_city_dashboard/widgets/logo_shower.dart';
 
+import '../../constants/constants.dart';
 import '../../constants/theme.dart';
 import '../../providers/page_providers.dart';
 
@@ -27,7 +28,7 @@ class TabButton extends ConsumerWidget {
       child: Container(
         color: homePageTab == tab ? Themes.darkHighlightColor : Colors.transparent,
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 10,),
+          padding: EdgeInsets.symmetric(vertical: Const.tabBarTextSize/2,),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
@@ -36,13 +37,13 @@ class TabButton extends ConsumerWidget {
                 width: 3,
                 color: homePageTab == tab ? Colors.white : Colors.transparent,
               ),
-              20.pw,
-              AssetLogoShower(logo: logo, size: 33),
-              20.pw,
+              Const.tabBarTextSize.pw,
+              AssetLogoShower(logo: logo, size: Const.tabBarTextSize+13),
+              Const.tabBarTextSize.pw,
               Text(
                 name,
                 style: textStyleNormalWhite.copyWith(
-                  fontSize: 25
+                  fontSize: Const.tabBarTextSize+5
                 ),
               )
             ],
