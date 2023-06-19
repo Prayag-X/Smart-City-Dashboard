@@ -26,7 +26,7 @@ class CityCard extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     double height = max(min(screenSize(context).height - 600, 200), 150);
-    double width = screenSize(context).width - 400;
+    double width = min(screenSize(context).width - 400, 700);
     return Padding(
       padding: EdgeInsets.symmetric(vertical: Const.homePageTextSize+5),
       child: GestureDetector(

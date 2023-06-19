@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:dartssh2/dartssh2.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -163,11 +164,26 @@ class SSH {
 
   kmlFileUpload(String fileName, String content) async {
     await ref.read(sshClient)?.sftp();
+    final sftp = await ref.read(sshClient)?.sftp();
+    final file = await sftp?.open('/var/www/html/custom_kml.kml',
+        mode: SftpFileOpenMode.create | SftpFileOpenMode.write);
+    await file?.write(File(fileName).openRead().cast(), onProgress: (x) {
+      print(x);
+    });
+  }
+
+  runKml() async {
+    await ref.read(sshClient)?.run(
+        "echo '\nhttp://lg1:81/custom_kml.kml' >> /var/www/html/kmls.txt");
   }
 
   startOrbit(double latitude, double longitude, double zoom, double tilt,
       double bearing) async {
-    await ref.read(sshClient)?.run(
-        'echo "flytoview=${KMLMakers.lookAt(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
+    await ref.read(sshClient)?.run('echo "playtour=Orbit" > /tmp/query.txt');
+  }
+
+  stopOrbit(double latitude, double longitude, double zoom, double tilt,
+      double bearing) async {
+    await ref.read(sshClient)?.run('echo "playtour=Orbit" > /tmp/query.txt');
   }
 }
