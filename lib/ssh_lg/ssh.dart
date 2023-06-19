@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartssh2/dartssh2.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_city_dashboard/kml_makers/kml_makers.dart';
 import 'package:smart_city_dashboard/providers/settings_providers.dart';
@@ -66,7 +67,7 @@ class SSH {
 
   cleanKML() async {
     try {
-      await ref.read(sshClient)!.run('echo "exittour=true" > /tmp/query.txt');
+      await stopOrbit();
       await ref.read(sshClient)!.run('echo "" > /tmp/query.txt');
       await ref.read(sshClient)!.run("echo '' > /var/www/html/kmls.txt");
     } catch (e) {
@@ -162,28 +163,35 @@ class SSH {
         'echo "flytoview=${KMLMakers.lookAt(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
   }
 
-  kmlFileUpload(String fileName, String content) async {
+  makeFile(String filename, String content) async {
+    var localPath = await getApplicationDocumentsDirectory();
+    File localFile = File('${localPath.path}/filename.kml');
+    await localFile.writeAsString(content);
+
+    return localFile;
+  }
+
+  kmlFileUpload(File inputFile, String kmlName, String content) async {
     await ref.read(sshClient)?.sftp();
     final sftp = await ref.read(sshClient)?.sftp();
-    final file = await sftp?.open('/var/www/html/custom_kml.kml',
+    final file = await sftp?.open('/var/www/html/$kmlName.kml',
         mode: SftpFileOpenMode.create | SftpFileOpenMode.write);
-    await file?.write(File(fileName).openRead().cast(), onProgress: (x) {
+    await file?.write(inputFile.openRead().cast(), onProgress: (x) {
       print(x);
     });
   }
 
-  runKml() async {
-    await ref.read(sshClient)?.run(
-        "echo '\nhttp://lg1:81/custom_kml.kml' >> /var/www/html/kmls.txt");
+  runKml(String kmlName) async {
+    await ref
+        .read(sshClient)
+        ?.run("echo '\nhttp://lg1:81/$kmlName.kml' >> /var/www/html/kmls.txt");
   }
 
-  startOrbit(double latitude, double longitude, double zoom, double tilt,
-      double bearing) async {
+  startOrbit() async {
     await ref.read(sshClient)?.run('echo "playtour=Orbit" > /tmp/query.txt');
   }
 
-  stopOrbit(double latitude, double longitude, double zoom, double tilt,
-      double bearing) async {
-    await ref.read(sshClient)?.run('echo "playtour=Orbit" > /tmp/query.txt');
+  stopOrbit() async {
+    await ref.read(sshClient)?.run('echo "exittour=true" > /tmp/query.txt');
   }
 }

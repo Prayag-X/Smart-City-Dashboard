@@ -25,6 +25,7 @@ dependencies:
   flutter_staggered_animations: ^1.1.0
   flutter_downloader: ^1.10.4
   csv: ^5.0.2
+  path_provider: ^2.0.15
   cupertino_icons: ^1.0.2
 
 dev_dependencies:
