@@ -171,12 +171,13 @@ class SSH {
     return localFile;
   }
 
-  kmlFileUpload(File inputFile, String kmlName, String content) async {
+  kmlFileUpload(File inputFile, String kmlName) async {
     await ref.read(sshClient)?.sftp();
     final sftp = await ref.read(sshClient)?.sftp();
     final file = await sftp?.open('/var/www/html/$kmlName.kml',
-        mode: SftpFileOpenMode.create | SftpFileOpenMode.write);
+        mode: SftpFileOpenMode.create | SftpFileOpenMode.truncate | SftpFileOpenMode.write);
     await file?.write(inputFile.openRead().cast(), onProgress: (x) {
+      print('PROGRESSSSSSSS');
       print(x);
     });
   }
@@ -184,7 +185,7 @@ class SSH {
   runKml(String kmlName) async {
     await ref
         .read(sshClient)
-        ?.run("echo '\nhttp://lg1:81/$kmlName.kml' >> /var/www/html/kmls.txt");
+        ?.run("echo '\nhttp://lg1:81/$kmlName.kml' > /var/www/html/kmls.txt");
   }
 
   startOrbit() async {

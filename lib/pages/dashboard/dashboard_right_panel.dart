@@ -26,12 +26,14 @@ class DashboardRightPanel extends ConsumerWidget {
     required this.headers,
     required this.headersFlex,
     required this.panelList,
+    this.centerHeader = false,
     Key? key,
   }) : super(key: key);
 
   final List<String> headers;
   final List<int> headersFlex;
   final List<Widget>? panelList;
+  final bool centerHeader;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -57,12 +59,20 @@ class DashboardRightPanel extends ConsumerWidget {
                       .map(
                         (header) => Expanded(
                           flex: headersFlex[headers.indexOf(header)],
-                          child: Text(
-                            header,
-                            style: textStyleNormal.copyWith(
-                                fontSize: Const.dashboardTextSize - 3,
-                                color: Colors.white.withOpacity(0.5)),
-                          ),
+                          child: centerHeader
+                              ? Center(
+                                  child: Text(
+                                  header,
+                                  style: textStyleNormal.copyWith(
+                                      fontSize: Const.dashboardTextSize - 3,
+                                      color: Colors.white.withOpacity(0.5)),
+                                ))
+                              : Text(
+                                  header,
+                                  style: textStyleNormal.copyWith(
+                                      fontSize: Const.dashboardTextSize - 3,
+                                      color: Colors.white.withOpacity(0.5)),
+                                ),
                         ),
                       )
                       .toList(),
