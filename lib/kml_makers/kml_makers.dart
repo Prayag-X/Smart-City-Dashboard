@@ -35,8 +35,8 @@ class KMLMakers {
               <gx:duration>1.2</gx:duration>
               <gx:flyToMode>smooth</gx:flyToMode>
               <LookAt>
-                  <longitude>$latitude</longitude>
-                  <latitude>$longitude</latitude>
+                  <latitude>$latitude</latitude>
+                  <longitude>$longitude</longitude>
                   <heading>$heading</heading>
                   <tilt>60</tilt>
                   <range>${Const.orbitRange}</range>

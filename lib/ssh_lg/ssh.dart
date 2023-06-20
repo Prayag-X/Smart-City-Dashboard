@@ -174,12 +174,17 @@ class SSH {
   kmlFileUpload(File inputFile, String kmlName) async {
     await ref.read(sshClient)?.sftp();
     final sftp = await ref.read(sshClient)?.sftp();
+    // await sftp?.remove('/var/www/html/$kmlName.kml');
+    await ref.read(sshClient)?.run(
+        'rm /var/www/html/$kmlName.kml');
     final file = await sftp?.open('/var/www/html/$kmlName.kml',
         mode: SftpFileOpenMode.create | SftpFileOpenMode.truncate | SftpFileOpenMode.write);
-    await file?.write(inputFile.openRead().cast(), onProgress: (x) {
-      print('PROGRESSSSSSSS');
-      print(x);
-    });
+    print("UPASDINBGGGGGGGGG");
+    print(file);
+    SftpFileWriter? uploader = file?.write(inputFile.openRead().cast());
+    print('DFGSDFSFJSFFSDFFSDSFSDFFF');
+    await Future.delayed(Duration(seconds: 5));
+    // await uploader?.done;
   }
 
   runKml(String kmlName) async {

@@ -58,7 +58,7 @@ class _AboutTabRightState extends ConsumerState<AboutTabRight> {
                 try {
                   File file = await SSH(ref: ref).makeFile('Orbit', KMLMakers.buildOrbit(cityData!.location.latitude, cityData.location.longitude, 'Orbit'));
                   print('File UPLADOD');
-                  // await SSH(ref: ref).kmlFileUpload(file, 'Orbit');
+                  await SSH(ref: ref).kmlFileUpload(file, 'Orbit');
                   print('File UPLADOD ENDEDDD');
                   await SSH(ref: ref).runKml('Orbit');
                   await SSH(ref: ref).startOrbit();
