@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
@@ -160,7 +161,7 @@ class SSH {
   flyTo(double latitude, double longitude, double zoom, double tilt,
       double bearing) async {
     await ref.read(sshClient)?.run(
-        'echo "flytoview=${KMLMakers.lookAt(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
+        'echo "flytoview=${KMLMakers.lookAtLinear(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
   }
 
   makeFile(String filename, String content) async {
@@ -172,6 +173,7 @@ class SSH {
   }
 
   kmlFileUpload(File inputFile, String kmlName) async {
+    bool done = true;
     await ref.read(sshClient)?.sftp();
     final sftp = await ref.read(sshClient)?.sftp();
     // await sftp?.remove('/var/www/html/$kmlName.kml');
@@ -180,11 +182,16 @@ class SSH {
     final file = await sftp?.open('/var/www/html/$kmlName.kml',
         mode: SftpFileOpenMode.create | SftpFileOpenMode.truncate | SftpFileOpenMode.write);
     print("UPASDINBGGGGGGGGG");
-    print(file);
-    SftpFileWriter? uploader = file?.write(inputFile.openRead().cast());
+    // var f = await inputFile.length();
+    // print(f);
+    SftpFileWriter? uploader = file?.write(inputFile.openRead().cast(), onProgress: (x) {
+      print(x);
+      // if(f==x ) {
+      //   done = false;
+      // }
+    });
+    // await waitWhile(() => done);
     print('DFGSDFSFJSFFSDFFSDSFSDFFF');
-    await Future.delayed(Duration(seconds: 5));
-    // await uploader?.done;
   }
 
   runKml(String kmlName) async {
@@ -199,5 +206,18 @@ class SSH {
 
   stopOrbit() async {
     await ref.read(sshClient)?.run('echo "exittour=true" > /tmp/query.txt');
+  }
+
+  Future waitWhile(bool Function() test, [Duration pollInterval = Duration.zero]) {
+    var completer = Completer();
+    check() {
+      if (!test()) {
+        completer.complete();
+      } else {
+        Timer(pollInterval, check);
+      }
+    }
+    check();
+    return completer.future;
   }
 }

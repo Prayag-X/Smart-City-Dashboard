@@ -15,14 +15,31 @@ class CityCardData {
         image: ImageConst.newYork,
         number: 0,
         location: const LatLng(40.730610, -73.935242),
-        availableTabs:[
-          TabButton(logo: ImageConst.weatherLogo, name: TextConst.weather, tab: 0,),
-          TabButton(logo: ImageConst.aboutLogo, name: TextConst.about, tab: 1,),
+        availableTabs: [
+          TabButton(
+            logo: ImageConst.weatherLogo,
+            name: TextConst.weather,
+            tab: 0,
+          ),
+          TabButton(
+            logo: ImageConst.aboutLogo,
+            name: TextConst.about,
+            tab: 1,
+          ),
         ],
         availableData: {
           ImageConst.weatherLogo: TextConst.weather,
           ImageConst.aboutLogo: TextConst.about,
-        }),
+        },
+        availableTours: [
+          const LatLng(40.74847707639803, -73.98563946566026),
+        ],
+        availableToursName: [
+          'Empire State Building'
+        ],
+        availableToursDescription: [
+          ''
+        ]),
     // CityCardModel(
     //     cityName: 'New York',
     //     country: 'USA',
