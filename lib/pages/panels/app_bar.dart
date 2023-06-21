@@ -32,6 +32,7 @@ class _AppBarState extends ConsumerState<CustomAppBar> {
     bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
     bool isConnectedToInternet = ref.watch(isConnectedToInternetProvider);
     bool isLoading = ref.watch(isLoadingProvider);
+    double? loadingPercentage = ref.watch(loadingPercentageProvider);
     return Column(
       children: [
         Container(
@@ -124,8 +125,9 @@ class _AppBarState extends ConsumerState<CustomAppBar> {
         SizedBox(
             height: 3,
             child: isLoading ? LinearProgressIndicator(
+              value: loadingPercentage,
               backgroundColor: Themes.darkColor,
-              color: lightenColor(Themes.darkHighlightColor, 0.2),
+              color: loadingPercentage == null ? lightenColor(Themes.darkHighlightColor, 0.2) : Colors.green,
             ) : const SizedBox.shrink()
         ),
         7.ph

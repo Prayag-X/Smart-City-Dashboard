@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -18,6 +19,19 @@ nextScreenOnly(context, String pageName) async => await Navigator.of(context)
     .pushNamedAndRemoveUntil('/$pageName', ModalRoute.withName('/'));
 
 screenPop(context) => Navigator.of(context).pop();
+
+Future waitWhile(bool Function() test, [Duration pollInterval = Duration.zero]) {
+  var completer = Completer();
+  check() {
+    if (!test()) {
+      completer.complete();
+    } else {
+      Timer(pollInterval, check);
+    }
+  }
+  check();
+  return completer.future;
+}
 
 Color darkenColor(Color color, [double amount = .1]) {
   assert(amount >= 0 && amount <= 1);

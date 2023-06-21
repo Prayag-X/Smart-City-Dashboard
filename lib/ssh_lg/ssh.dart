@@ -8,6 +8,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_city_dashboard/kml_makers/kml_makers.dart';
 import 'package:smart_city_dashboard/providers/settings_providers.dart';
 
+import '../widgets/helper.dart';
+
 class SSH {
   final encoder = const Utf8Encoder();
   final WidgetRef ref;
@@ -173,25 +175,24 @@ class SSH {
   }
 
   kmlFileUpload(File inputFile, String kmlName) async {
+    ref.read(loadingPercentageProvider.notifier).state = 0;
     bool done = true;
     await ref.read(sshClient)?.sftp();
     final sftp = await ref.read(sshClient)?.sftp();
-    // await sftp?.remove('/var/www/html/$kmlName.kml');
-    await ref.read(sshClient)?.run(
-        'rm /var/www/html/$kmlName.kml');
+    await sftp?.remove('/var/www/html/$kmlName.kml');
     final file = await sftp?.open('/var/www/html/$kmlName.kml',
-        mode: SftpFileOpenMode.create | SftpFileOpenMode.truncate | SftpFileOpenMode.write);
-    print("UPASDINBGGGGGGGGG");
-    // var f = await inputFile.length();
-    // print(f);
-    SftpFileWriter? uploader = file?.write(inputFile.openRead().cast(), onProgress: (x) {
-      print(x);
-      // if(f==x ) {
-      //   done = false;
-      // }
+        mode: SftpFileOpenMode.create |
+            SftpFileOpenMode.truncate |
+            SftpFileOpenMode.write);
+    var fileSize = await inputFile.length();
+    file?.write(inputFile.openRead().cast(), onProgress: (progress) {
+      ref.read(loadingPercentageProvider.notifier).state = progress/fileSize;
+      if (fileSize == progress) {
+        done = false;
+      }
     });
-    // await waitWhile(() => done);
-    print('DFGSDFSFJSFFSDFFSDSFSDFFF');
+    await waitWhile(() => done);
+    ref.read(loadingPercentageProvider.notifier).state = null;
   }
 
   runKml(String kmlName) async {
@@ -206,18 +207,5 @@ class SSH {
 
   stopOrbit() async {
     await ref.read(sshClient)?.run('echo "exittour=true" > /tmp/query.txt');
-  }
-
-  Future waitWhile(bool Function() test, [Duration pollInterval = Duration.zero]) {
-    var completer = Completer();
-    check() {
-      if (!test()) {
-        completer.complete();
-      } else {
-        Timer(pollInterval, check);
-      }
-    }
-    check();
-    return completer.future;
   }
 }

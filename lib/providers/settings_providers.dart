@@ -4,6 +4,7 @@ import 'package:dartssh2/dartssh2.dart';
 import '../constants/texts.dart';
 
 StateProvider<bool> isLoadingProvider = StateProvider((ref) => false);
+StateProvider<double?> loadingPercentageProvider = StateProvider((ref) => null);
 StateProvider<String> ipProvider = StateProvider((ref) => '');
 StateProvider<String> usernameProvider = StateProvider((ref) => '');
 StateProvider<String> passwordProvider = StateProvider((ref) => '');
