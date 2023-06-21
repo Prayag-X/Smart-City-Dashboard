@@ -56,17 +56,16 @@ class _AboutTabRightState extends ConsumerState<AboutTabRight> {
                   selectedTask = 0;
                 });
                 try {
-                  File file = await SSH(ref: ref).makeFile('Orbit', KMLMakers.buildOrbit2(cityData!.location.latitude, cityData.location.longitude));
+                  // File file = await SSH(ref: ref).makeFile('Orbit', KMLMakers.buildOrbit(cityData!.location.latitude, cityData.location.longitude));
                   // File file = await SSH(ref: ref).makeFile('Orbit', KMLMakers.buildExample());
-                  print('File UPLADOD');
+                  File file = await SSH(ref: ref).makeFile('Orbit', KMLMakers.buildOrbit(ref));
                   await SSH(ref: ref).kmlFileUpload(file, 'Orbit');
-                  print('File UPLADOD ENDEDDD');
                   await SSH(ref: ref).runKml('Orbit');
                   await SSH(ref: ref).startOrbit();
                 } catch (e) {
+                  print("EAFDAFASF");
                   print(e);
                 }
-
                 ref.read(isLoadingProvider.notifier).state = false;
               },
               child: Container(

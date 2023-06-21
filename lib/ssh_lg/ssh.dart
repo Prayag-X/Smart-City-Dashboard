@@ -18,7 +18,6 @@ class SSH {
 
   Future<bool> connect() async {
     SSHSocket socket;
-
     try {
       socket = await SSHSocket.connect(
           ref.read(ipProvider), ref.read(portProvider),
@@ -26,7 +25,6 @@ class SSH {
     } catch (e) {
       ref.read(isConnectedToLGProvider.notifier).state = false;
       print(e);
-
       return false;
     }
 
@@ -36,7 +34,6 @@ class SSH {
       onPasswordRequest: () => ref.read(passwordProvider)!,
     );
 
-    print('CONNECTED');
     ref.read(isConnectedToLGProvider.notifier).state = true;
     return true;
   }
@@ -170,7 +167,6 @@ class SSH {
     var localPath = await getApplicationDocumentsDirectory();
     File localFile = File('${localPath.path}/filename.kml');
     await localFile.writeAsString(content);
-
     return localFile;
   }
 
