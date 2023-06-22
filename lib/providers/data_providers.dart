@@ -7,3 +7,4 @@ StateProvider<MapType> mapTypeProvider = StateProvider((ref) => MapType.hybrid);
 StateProvider<CityCardModel?> cityDataProvider = StateProvider((ref) => null);
 StateProvider<ForecastWeather?> weatherDataProvider = StateProvider((ref) => null);
 StateProvider<int> weatherDayClickedProvider = StateProvider((ref) => 0);
+StateProvider<CameraPosition?> lastGMapPositionProvider = StateProvider((ref) => null);

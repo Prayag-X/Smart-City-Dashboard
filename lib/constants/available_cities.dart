@@ -33,6 +33,10 @@ class CityCardData {
         },
         availableTours: [
           const LatLng(40.74847707639803, -73.98563946566026),
+          const LatLng(40.70671461961566, -73.99707640509378),
+          const LatLng(40.70482771858912, -74.013791931433),
+          const LatLng(40.78027830508383, -73.96330202877064),
+          const LatLng(40.821568328698696, -73.94909704948456),
         ],
         availableToursName: [
           'Empire State Building'

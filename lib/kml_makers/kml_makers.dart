@@ -1,4 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/widgets/extensions.dart';
 
@@ -28,49 +29,14 @@ class KMLMakers {
           double tilt, double bearing) =>
       '<LookAt><longitude>$longitude</longitude><latitude>$latitude</latitude><range>$zoom</range><tilt>$tilt</tilt><heading>$bearing</heading><gx:altitudeMode>relativeToGround</gx:altitudeMode></LookAt>';
 
-  static String lookAt(double latitude, double longitude, double zoom,
-          double tilt, double bearing) =>
-      '''<LookAt>
-  <longitude>$longitude</longitude>
-  <latitude>$latitude</latitude>
-  <range>$zoom</range>
-  <tilt>$tilt</tilt>
-  <heading>$bearing</heading>
+  static String lookAt(CameraPosition camera, bool scaleZoom) => '''<LookAt>
+  <longitude>${camera.target.longitude}</longitude>
+  <latitude>${camera.target.latitude}</latitude>
+  <range>${scaleZoom ? camera.zoom.zoomLG : camera.zoom}</range>
+  <tilt>${camera.tilt}</tilt>
+  <heading>${camera.bearing}</heading>
   <gx:altitudeMode>relativeToGround</gx:altitudeMode>
 </LookAt>''';
-
-//   static String buildOrbit(double latitude, double longitude) => '''
-// <?xml version="1.0" encoding="UTF-8"?>
-//       <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
-//         <gx:Tour>
-//           <name>Orbit</name>
-//           <gx:Playlist>
-//             <gx:FlyTo>
-//               <gx:duration>10.2</gx:duration>
-//               <gx:flyToMode>smooth</gx:flyToMode>
-//               <Camera>
-//                   <latitude>$latitude</latitude>
-//                   <longitude>$longitude</longitude>
-//                   <roll>-180</roll>
-//                   <altitude>1000</altitude>
-//                   <gx:altitudeMode>relativeToGround</gx:altitudeMode>
-//               </Camera>
-//             </gx:FlyTo>
-//             <gx:FlyTo>
-//               <gx:duration>2.2</gx:duration>
-//               <gx:flyToMode>smooth</gx:flyToMode>
-//               <Camera>
-//                   <latitude>$latitude</latitude>
-//                   <longitude>$longitude</longitude>
-//                   <roll>180</roll>
-//                   <altitude>999</altitude>
-//                   <gx:altitudeMode>relativeToGround</gx:altitudeMode>
-//               </Camera>
-//             </gx:FlyTo>
-//           </gx:Playlist>
-//         </gx:Tour>
-//       </kml>
-//     ''';
 
   static String buildOrbit(WidgetRef ref) {
     String lookAts = '';
@@ -78,11 +44,18 @@ class KMLMakers {
     for (var location in ref.read(cityDataProvider)!.availableTours) {
       lookAts += '''<gx:FlyTo>
   <gx:duration>5.0</gx:duration>
-  <gx:flyToMode>smooth</gx:flyToMode>
-  ${lookAt(location.latitude, location.longitude, 16.zoomLG, 30, 0)}
+  <gx:flyToMode>bounce</gx:flyToMode>
+  ${lookAt(CameraPosition(target: location, zoom: 16, tilt: 30), true)}
 </gx:FlyTo>
-      ''';
+''';
     }
+
+    lookAts += '''<gx:FlyTo>
+  <gx:duration>5.0</gx:duration>
+  <gx:flyToMode>bounce</gx:flyToMode>
+  ${lookAt(ref.read(lastGMapPositionProvider)!, false)}
+</gx:FlyTo>
+''';
 
     return '''<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">

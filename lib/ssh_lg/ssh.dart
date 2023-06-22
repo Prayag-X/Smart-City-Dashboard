@@ -3,9 +3,11 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartssh2/dartssh2.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_city_dashboard/kml_makers/kml_makers.dart';
+import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/providers/settings_providers.dart';
 
 import '../widgets/helper.dart';
@@ -159,6 +161,12 @@ class SSH {
 
   flyTo(double latitude, double longitude, double zoom, double tilt,
       double bearing) async {
+    ref.read(lastGMapPositionProvider.notifier).state = CameraPosition(
+      target: LatLng(latitude, longitude),
+      zoom: zoom,
+      tilt: tilt,
+      bearing: bearing,
+    );
     await ref.read(sshClient)?.run(
         'echo "flytoview=${KMLMakers.lookAtLinear(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
   }
