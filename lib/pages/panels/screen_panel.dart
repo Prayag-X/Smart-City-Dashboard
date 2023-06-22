@@ -1,17 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:smart_city_dashboard/constants/text_styles.dart';
-import 'package:smart_city_dashboard/constants/texts.dart';
 import 'package:smart_city_dashboard/pages/homepages/about_page.dart';
 import 'package:smart_city_dashboard/pages/dashboard/dashboard.dart';
 import 'package:smart_city_dashboard/pages/homepages/help_page.dart';
 import 'package:smart_city_dashboard/pages/homepages/settings_page.dart';
 import 'package:smart_city_dashboard/pages/panels/app_bar.dart';
-import 'package:smart_city_dashboard/providers/settings_providers.dart';
-import 'package:smart_city_dashboard/widgets/extensions.dart';
-import 'package:smart_city_dashboard/widgets/helper.dart';
 
-import '../../constants/constants.dart';
 import '../../constants/theme.dart';
 import '../../providers/page_providers.dart';
 import '../homepages/home_page.dart';

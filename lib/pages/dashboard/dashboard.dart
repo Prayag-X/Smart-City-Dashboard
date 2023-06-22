@@ -4,7 +4,6 @@ import 'package:smart_city_dashboard/models/city_card_model.dart';
 import 'package:smart_city_dashboard/pages/dashboard/google_map.dart';
 import 'package:smart_city_dashboard/widgets/helper.dart';
 import '../../constants/constants.dart';
-import '../../constants/theme.dart';
 import '../../providers/data_providers.dart';
 import '../../providers/page_providers.dart';
 import 'about_tab/left_panel.dart';

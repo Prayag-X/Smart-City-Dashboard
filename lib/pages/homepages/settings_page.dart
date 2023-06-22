@@ -13,8 +13,7 @@ import 'package:smart_city_dashboard/widgets/helper.dart';
 
 import '../../constants/constants.dart';
 import '../../constants/theme.dart';
-import '../../providers/page_providers.dart';
-import '../../ssh_lg/ssh.dart';
+import '../../connections/ssh.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({

@@ -3,8 +3,6 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/widgets/extensions.dart';
 
-import '../constants/constants.dart';
-
 class KMLMakers {
   static screenOverlayImage(String imageUrl, List<double> aspectRatio) =>
       '''<?xml version="1.0" encoding="UTF-8"?>
