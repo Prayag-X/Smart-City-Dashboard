@@ -6,6 +6,7 @@ import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/kml_makers/kml_makers.dart';
 import 'package:smart_city_dashboard/pages/dashboard/dashboard_right_panel.dart';
 import 'package:smart_city_dashboard/providers/data_providers.dart';
+import 'package:smart_city_dashboard/services/nyc_api.dart';
 import 'package:smart_city_dashboard/widgets/extensions.dart';
 
 import '../../../constants/constants.dart';
@@ -44,7 +45,7 @@ class _AboutTabRightState extends ConsumerState<AboutTabRight> {
                   selectedTask = 0;
                 });
                 try {
-                  await Downloader(ref: ref).downloadKml('https://i.pinimg.com/1200x/0e/50/39/0e503918829c61bd24803ce064546cee.jpg');
+                  // await Downloader(ref: ref).downloadKml('https://i.pinimg.com/1200x/0e/50/39/0e503918829c61bd24803ce064546cee.jpg');
 
                   // File file = await SSH(ref: ref).makeFile(Const.kmlOrbitFileName, KMLMakers.buildOrbit(cityData!.location.latitude, cityData.location.longitude));
                   // File file = await SSH(ref: ref).makeFile(Const.kmlOrbitFileName, KMLMakers.buildExample());
@@ -53,6 +54,9 @@ class _AboutTabRightState extends ConsumerState<AboutTabRight> {
                   // await SSH(ref: ref).kmlFileUpload(file, Const.kmlOrbitFileName);
                   // await SSH(ref: ref).runKml(Const.kmlOrbitFileName);
                   // await SSH(ref: ref).startOrbit();
+
+                  await NYCApi().getData('resource/uvpi-gqnh.json', 2000);
+                  print("DONEE");
 
                 } catch (e) {
                   print("EAFDAFASF");

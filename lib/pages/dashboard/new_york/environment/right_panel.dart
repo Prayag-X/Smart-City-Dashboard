@@ -14,3 +14,17 @@ import '../../../../constants/theme.dart';
 import '../../../../models/city_card_model.dart';
 import '../../../../providers/settings_providers.dart';
 import '../../../../connections/ssh.dart';
+
+class NYCEnvironmentTabRight extends ConsumerStatefulWidget {
+  const NYCEnvironmentTabRight({super.key});
+
+  @override
+  ConsumerState createState() => _NYCEnvironmentTabRightState();
+}
+
+class _NYCEnvironmentTabRightState extends ConsumerState<NYCEnvironmentTabRight> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
