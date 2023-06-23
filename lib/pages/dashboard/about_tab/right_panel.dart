@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:smart_city_dashboard/connections/downloader.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/kml_makers/kml_makers.dart';
 import 'package:smart_city_dashboard/pages/dashboard/dashboard_right_panel.dart';
@@ -43,12 +44,16 @@ class _AboutTabRightState extends ConsumerState<AboutTabRight> {
                   selectedTask = 0;
                 });
                 try {
-                  // File file = await SSH(ref: ref).makeFile('Orbit', KMLMakers.buildOrbit(cityData!.location.latitude, cityData.location.longitude));
-                  // File file = await SSH(ref: ref).makeFile('Orbit', KMLMakers.buildExample());
-                  File file = await SSH(ref: ref).makeFile('Orbit', KMLMakers.buildOrbit(ref));
-                  await SSH(ref: ref).kmlFileUpload(file, 'Orbit');
-                  await SSH(ref: ref).runKml('Orbit');
-                  await SSH(ref: ref).startOrbit();
+                  await Downloader(ref: ref).downloadKml('https://i.pinimg.com/1200x/0e/50/39/0e503918829c61bd24803ce064546cee.jpg');
+
+                  // File file = await SSH(ref: ref).makeFile(Const.kmlOrbitFileName, KMLMakers.buildOrbit(cityData!.location.latitude, cityData.location.longitude));
+                  // File file = await SSH(ref: ref).makeFile(Const.kmlOrbitFileName, KMLMakers.buildExample());
+
+                  // File file = await SSH(ref: ref).makeFile(Const.kmlOrbitFileName, KMLMakers.buildOrbit(ref));
+                  // await SSH(ref: ref).kmlFileUpload(file, Const.kmlOrbitFileName);
+                  // await SSH(ref: ref).runKml(Const.kmlOrbitFileName);
+                  // await SSH(ref: ref).startOrbit();
+
                 } catch (e) {
                   print("EAFDAFASF");
                   print(e);
