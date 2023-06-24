@@ -50,13 +50,13 @@ class _AboutTabRightState extends ConsumerState<AboutTabRight> {
                   // File file = await SSH(ref: ref).makeFile(Const.kmlOrbitFileName, KMLMakers.buildOrbit(cityData!.location.latitude, cityData.location.longitude));
                   // File file = await SSH(ref: ref).makeFile(Const.kmlOrbitFileName, KMLMakers.buildExample());
 
-                  // File file = await SSH(ref: ref).makeFile(Const.kmlOrbitFileName, KMLMakers.buildOrbit(ref));
-                  // await SSH(ref: ref).kmlFileUpload(file, Const.kmlOrbitFileName);
-                  // await SSH(ref: ref).runKml(Const.kmlOrbitFileName);
-                  // await SSH(ref: ref).startOrbit();
+                  File file = await SSH(ref: ref).makeFile(Const.kmlOrbitFileName, KMLMakers.buildOrbit(ref));
+                  await SSH(ref: ref).kmlFileUpload(file, Const.kmlOrbitFileName);
+                  await SSH(ref: ref).runKml(Const.kmlOrbitFileName);
+                  await SSH(ref: ref).startOrbit();
 
-                  await NYCApi().getData('resource/uvpi-gqnh.json', 2000);
-                  print("DONEE");
+                  // await NYCApi().getData('resource/uvpi-gqnh.json', 2000);
+                  // print("DONEE");
 
                 } catch (e) {
                   print("EAFDAFASF");
