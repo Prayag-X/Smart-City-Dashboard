@@ -8,12 +8,13 @@ import 'package:smart_city_dashboard/constants/data.dart';
 import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/pages/dashboard/dashboard_container.dart';
 import 'package:smart_city_dashboard/providers/data_providers.dart';
-import 'package:smart_city_dashboard/widgets/extensions.dart';
-import 'package:smart_city_dashboard/widgets/helper.dart';
+import 'package:smart_city_dashboard/utils/extensions.dart';
+import 'package:smart_city_dashboard/utils/helper.dart';
 
 import '../../../constants/constants.dart';
 import '../../../constants/texts.dart';
 import '../../../providers/settings_providers.dart';
+import '../../../utils/csv_parser.dart';
 
 class AboutTabLeft extends ConsumerStatefulWidget {
   const AboutTabLeft({
@@ -28,11 +29,12 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
   List<List<dynamic>> data = [];
   int cityIndex = -2;
 
+
+
   loadCSVData() async {
     Future.delayed(Duration.zero).then((x) async {
       ref.read(isLoadingProvider.notifier).state = true;
-      final rawData = await rootBundle.loadString(DataConst.about);
-      data = const CsvToListConverter(eol: '\n').convert(rawData);
+      data = await FileParser.parseCSV(DataConst.about);
       for (var row in data) {
         if (row[1].toLowerCase() ==
             ref.read(cityDataProvider)!.cityName.toLowerCase()) {

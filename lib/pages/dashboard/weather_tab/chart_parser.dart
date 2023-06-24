@@ -2,7 +2,7 @@ import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_city_dashboard/models/forecast_weather.dart';
-import 'package:smart_city_dashboard/widgets/helper.dart';
+import 'package:smart_city_dashboard/utils/helper.dart';
 
 import '../../../constants/texts.dart';
 import '../dashboard_chart.dart';

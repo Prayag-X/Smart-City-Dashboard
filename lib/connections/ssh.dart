@@ -10,7 +10,7 @@ import 'package:smart_city_dashboard/kml_makers/kml_makers.dart';
 import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/providers/settings_providers.dart';
 
-import '../widgets/helper.dart';
+import '../utils/helper.dart';
 
 class SSH {
   final encoder = const Utf8Encoder();

@@ -4,8 +4,8 @@ import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/models/forecast_weather.dart';
 import 'package:smart_city_dashboard/pages/dashboard/dashboard_right_panel.dart';
-import 'package:smart_city_dashboard/widgets/extensions.dart';
-import 'package:smart_city_dashboard/widgets/logo_shower.dart';
+import 'package:smart_city_dashboard/utils/extensions.dart';
+import 'package:smart_city_dashboard/utils/logo_shower.dart';
 
 import '../../../constants/constants.dart';
 import '../../../constants/texts.dart';

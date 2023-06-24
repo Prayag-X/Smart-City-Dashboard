@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
-import 'package:smart_city_dashboard/widgets/extensions.dart';
-import 'package:smart_city_dashboard/widgets/logo_shower.dart';
+import 'package:smart_city_dashboard/utils/extensions.dart';
+import 'package:smart_city_dashboard/utils/logo_shower.dart';
 
 import '../../constants/constants.dart';
 import '../../constants/theme.dart';

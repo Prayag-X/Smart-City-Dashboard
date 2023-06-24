@@ -6,7 +6,7 @@ import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/kml_makers/kml_makers.dart';
 import 'package:smart_city_dashboard/pages/dashboard/dashboard_right_panel.dart';
 import 'package:smart_city_dashboard/providers/data_providers.dart';
-import 'package:smart_city_dashboard/widgets/extensions.dart';
+import 'package:smart_city_dashboard/utils/extensions.dart';
 
 import '../../../../constants/constants.dart';
 import '../../../../constants/texts.dart';

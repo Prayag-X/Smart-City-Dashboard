@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/models/forecast_weather.dart';
-import 'package:smart_city_dashboard/widgets/helper.dart';
+import 'package:smart_city_dashboard/utils/helper.dart';
 
 import '../../../constants/constants.dart';
 import '../../../providers/data_providers.dart';

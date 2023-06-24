@@ -1,7 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_city_dashboard/providers/data_providers.dart';
-import 'package:smart_city_dashboard/widgets/extensions.dart';
+import 'package:smart_city_dashboard/utils/extensions.dart';
 
 class KMLMakers {
   static screenOverlayImage(String imageUrl, List<double> aspectRatio) =>

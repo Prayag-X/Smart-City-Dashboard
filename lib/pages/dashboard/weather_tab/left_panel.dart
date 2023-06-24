@@ -8,7 +8,7 @@ import 'package:smart_city_dashboard/pages/dashboard/dashboard_container.dart';
 import 'package:smart_city_dashboard/pages/dashboard/weather_tab/chart_parser.dart';
 import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/services/weather_api.dart';
-import 'package:smart_city_dashboard/widgets/extensions.dart';
+import 'package:smart_city_dashboard/utils/extensions.dart';
 
 import '../../../constants/constants.dart';
 import '../../../constants/texts.dart';

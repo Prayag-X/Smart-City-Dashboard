@@ -8,8 +8,8 @@ import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/constants/texts.dart';
 import 'package:smart_city_dashboard/kml_makers/kml_makers.dart';
 import 'package:smart_city_dashboard/providers/settings_providers.dart';
-import 'package:smart_city_dashboard/widgets/extensions.dart';
-import 'package:smart_city_dashboard/widgets/helper.dart';
+import 'package:smart_city_dashboard/utils/extensions.dart';
+import 'package:smart_city_dashboard/utils/helper.dart';
 
 import '../../constants/constants.dart';
 import '../../constants/theme.dart';

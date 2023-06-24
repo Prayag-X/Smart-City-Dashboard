@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:smart_city_dashboard/constants/available_cities.dart';
-import 'package:smart_city_dashboard/widgets/extensions.dart';
-import 'package:smart_city_dashboard/widgets/helper.dart';
+import 'package:smart_city_dashboard/utils/extensions.dart';
+import 'package:smart_city_dashboard/utils/helper.dart';
 
 import '../../constants/constants.dart';
 import '../../constants/images.dart';
@@ -16,7 +16,7 @@ import '../../models/city_card_model.dart';
 import '../../providers/data_providers.dart';
 import '../../providers/page_providers.dart';
 import '../../providers/settings_providers.dart';
-import '../../widgets/logo_shower.dart';
+import '../../utils/logo_shower.dart';
 
 class HomePage extends ConsumerStatefulWidget {
   const HomePage({

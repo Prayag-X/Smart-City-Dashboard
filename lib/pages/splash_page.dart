@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/images.dart';
 import '../constants/theme.dart';
 import '../providers/settings_providers.dart';
-import '../widgets/helper.dart';
+import '../utils/helper.dart';
 
 class SplashPage extends ConsumerStatefulWidget {
   const SplashPage({
