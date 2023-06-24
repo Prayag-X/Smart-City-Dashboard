@@ -50,7 +50,6 @@ class _RoutesState extends State<Routes> {
         routes: {
           '/': (context) => const SplashPage(),
           '/HomePage': (context) => const MainPage(),
-          // '/ChatPage': (context) => const ChatPage(),
         },
       ),
     );
