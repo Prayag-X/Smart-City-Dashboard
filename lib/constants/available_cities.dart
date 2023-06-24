@@ -44,14 +44,5 @@ class CityCardData {
         availableToursDescription: [
           ''
         ]),
-    // CityCardModel(
-    //     cityName: 'New York',
-    //     country: 'USA',
-    //     image: ImageConst.newYork,
-    //     number: 0,
-    //     availableData: {
-    //       ImageConst.weatherLogo: TextConst.weather,
-    //       ImageConst.aboutLogo: TextConst.about,
-    //     })
   ];
 }

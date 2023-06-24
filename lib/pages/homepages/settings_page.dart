@@ -231,6 +231,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                         ? TextConst.disconnect
                         : TextConst.connect,
                     width: screenSize(context).width - 400,
+                    icon: isConnectedToLg ? Icons.cloud_off : Icons.cast_connected_rounded,
                     color: isConnectedToLg ? Colors.red : Colors.green,
                     ref: ref,
                   ),
@@ -238,7 +239,95 @@ class _SettingsState extends ConsumerState<SettingsPage> {
               ),
             ),
           ),
-          20.ph,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [AnimationLimiter(
+              child: Column(
+                children: AnimationConfiguration.toStaggeredList(
+                  duration: Const.animationDuration,
+                  childAnimationBuilder: (widget) => SlideAnimation(
+                    horizontalOffset: -Const.animationDistance,
+                    child: FadeInAnimation(
+                      child: widget,
+                    ),
+                  ),
+                  children: [
+                    TextButtonCustom(
+                      onPressed: () async {
+                      },
+                      name: isConnectedToLg
+                          ? TextConst.disconnect
+                          : TextConst.connect,
+                      width: screenSize(context).width / 2 - 200,
+                      icon: Icons.delete_forever_rounded,
+                      color: darkenColor(Colors.red),
+                      ref: ref,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+              SizedBox(
+                height: 150,
+                child: VerticalDivider(
+                  color: Themes.darkWhiteColor,
+                  indent: 30,
+                  endIndent: 30,
+                ),
+              ),
+              AnimationLimiter(
+                child: Column(
+                  children: AnimationConfiguration.toStaggeredList(
+                    duration: Const.animationDuration,
+                    childAnimationBuilder: (widget) => SlideAnimation(
+                      verticalOffset: Const.animationDistance,
+                      child: FadeInAnimation(
+                        child: widget,
+                      ),
+                    ),
+                    children: [
+                      TextButtonCustom(
+                        onPressed: () async {
+                        },
+                        name: isConnectedToLg
+                            ? TextConst.disconnect
+                            : TextConst.connect,
+                        width: screenSize(context).width / 2 - 200,
+                        icon: Icons.delete_forever_rounded,
+                        color: darkenColor(Colors.red),
+                        ref: ref,
+                      ),
+                    ],
+                  ),
+                ),
+              ),],
+          ),
+          AnimationLimiter(
+            child: Column(
+              children: AnimationConfiguration.toStaggeredList(
+                duration: Const.animationDuration,
+                childAnimationBuilder: (widget) => SlideAnimation(
+                  verticalOffset: Const.animationDistance,
+                  child: FadeInAnimation(
+                    child: widget,
+                  ),
+                ),
+                children: [
+                  TextButtonCustom(
+                    onPressed: () async {
+                    },
+                    name: isConnectedToLg
+                        ? TextConst.disconnect
+                        : TextConst.connect,
+                    width: screenSize(context).width - 400,
+                    icon: Icons.download_rounded,
+                    color: darkenColor(Colors.blue),
+                    ref: ref,
+                  ),
+                ],
+              ),
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -261,8 +350,9 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                         },
                         name: isConnectedToLg ? TextConst.cleanLogo : '--',
                         width: screenSize(context).width / 3 - 150,
+                        icon: Icons.cleaning_services_rounded,
                         color: isConnectedToLg
-                            ? Colors.yellow
+                            ? darkenColor(Colors.orange, 0.05)
                             : lightenColor(Themes.darkColor, 0.01),
                         ref: ref,
                       ),
@@ -278,8 +368,9 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                         },
                         name: isConnectedToLg ? TextConst.showLogo : '--',
                         width: screenSize(context).width / 3 - 150,
+                        icon: Icons.logo_dev_rounded,
                         color: isConnectedToLg
-                            ? Colors.yellow
+                            ? darkenColor(Colors.orange, 0.05)
                             : lightenColor(Themes.darkColor, 0.01),
                         ref: ref,
                       ),
@@ -291,8 +382,9 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                         },
                         name: isConnectedToLg ? TextConst.cleanKML : '--',
                         width: screenSize(context).width / 3 - 150,
+                        icon: Icons.cleaning_services_rounded,
                         color: isConnectedToLg
-                            ? Colors.yellow
+                            ? darkenColor(Colors.orange, 0.05)
                             : lightenColor(Themes.darkColor, 0.01),
                         ref: ref,
                       ),
@@ -327,6 +419,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                         },
                         name: isConnectedToLg ? TextConst.setRefresh : '--',
                         width: screenSize(context).width / 3 - 150,
+                        icon: Icons.restart_alt_rounded,
                         color: isConnectedToLg
                             ? Colors.blue
                             : lightenColor(Themes.darkColor, 0.01),
@@ -340,6 +433,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                         },
                         name: isConnectedToLg ? TextConst.resetRefresh : '--',
                         width: screenSize(context).width / 3 - 150,
+                        icon: Icons.restart_alt_rounded,
                         color: isConnectedToLg
                             ? Colors.blue
                             : lightenColor(Themes.darkColor, 0.01),
@@ -376,6 +470,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                         },
                         name: isConnectedToLg ? TextConst.relaunchLG : '--',
                         width: screenSize(context).width / 3 - 150,
+                        icon: Icons.power_rounded,
                         color: isConnectedToLg
                             ? Colors.redAccent
                             : lightenColor(Themes.darkColor, 0.01),
@@ -389,6 +484,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                         },
                         name: isConnectedToLg ? TextConst.rebootLG : '--',
                         width: screenSize(context).width / 3 - 150,
+                        icon: Icons.settings_power_rounded,
                         color: isConnectedToLg
                             ? Colors.redAccent
                             : lightenColor(Themes.darkColor, 0.01),
@@ -402,6 +498,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                         },
                         name: isConnectedToLg ? TextConst.shutdownLG : '--',
                         width: screenSize(context).width / 3 - 150,
+                        icon: Icons.power_settings_new_rounded,
                         color: isConnectedToLg
                             ? Colors.redAccent
                             : lightenColor(Themes.darkColor, 0.01),
@@ -413,7 +510,8 @@ class _SettingsState extends ConsumerState<SettingsPage> {
               ),
             ],
           ),
-          30.ph,
+
+
         ],
       ),
     );
@@ -427,11 +525,12 @@ class TextButtonCustom extends StatelessWidget {
     required this.name,
     required this.width,
     required this.color,
-    required this.ref,
+    required this.ref, required this.icon,
   }) : super(key: key);
 
   final Function onPressed;
   final String name;
+  final IconData icon;
   final double width;
   final Color color;
   final WidgetRef ref;
@@ -442,10 +541,13 @@ class TextButtonCustom extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextButton(
         style: TextButton.styleFrom(
-            backgroundColor: color.withOpacity(0.7),
+            backgroundColor: color.withOpacity(1),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(300),
-                side: BorderSide(color: Themes.darkWhiteColor))),
+              side: name == '--' ? BorderSide(
+                color: lightenColor(Themes.darkColor)
+              ) : BorderSide.none
+            )),
         onPressed: () async {
           ref.read(isLoadingProvider.notifier).state = true;
           await onPressed();
@@ -454,11 +556,18 @@ class TextButtonCustom extends StatelessWidget {
         child: SizedBox(
           height: 50,
           width: width,
-          child: Center(
-            child: Text(
-              name,
-              style: textStyleBoldWhite.copyWith(fontSize: 15),
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              name != '--' ? Row(
+                children: [Icon(icon, size: 25, color: Colors.white,),
+                  5.pw,],
+              ) : const SizedBox.shrink(),
+              Text(
+                name,
+                style: textStyleBoldWhite.copyWith(fontSize: 15),
+              ),
+            ],
           ),
         ),
       ),
