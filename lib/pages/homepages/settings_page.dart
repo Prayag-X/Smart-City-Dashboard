@@ -201,7 +201,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
               children: AnimationConfiguration.toStaggeredList(
                 duration: Const.animationDuration,
                 childAnimationBuilder: (widget) => SlideAnimation(
-                  verticalOffset: Const.animationDistance,
+                  verticalOffset: -Const.animationDistance,
                   child: FadeInAnimation(
                     child: widget,
                   ),
@@ -231,7 +231,9 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                         ? TextConst.disconnect
                         : TextConst.connect,
                     width: screenSize(context).width - 400,
-                    icon: isConnectedToLg ? Icons.cloud_off : Icons.cast_connected_rounded,
+                    icon: isConnectedToLg
+                        ? Icons.cloud_off
+                        : Icons.cast_connected_rounded,
                     color: isConnectedToLg ? Colors.red : Colors.green,
                     ref: ref,
                   ),
@@ -241,32 +243,30 @@ class _SettingsState extends ConsumerState<SettingsPage> {
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [AnimationLimiter(
-              child: Column(
-                children: AnimationConfiguration.toStaggeredList(
-                  duration: Const.animationDuration,
-                  childAnimationBuilder: (widget) => SlideAnimation(
-                    horizontalOffset: -Const.animationDistance,
-                    child: FadeInAnimation(
-                      child: widget,
+            children: [
+              AnimationLimiter(
+                child: Column(
+                  children: AnimationConfiguration.toStaggeredList(
+                    duration: Const.animationDuration,
+                    childAnimationBuilder: (widget) => SlideAnimation(
+                      horizontalOffset: -Const.animationDistance,
+                      child: FadeInAnimation(
+                        child: widget,
+                      ),
                     ),
+                    children: [
+                      TextButtonCustom(
+                        onPressed: () async {},
+                        name: TextConst.deleteCSV,
+                        width: screenSize(context).width / 2 - 200,
+                        icon: Icons.delete_forever_rounded,
+                        color: darkenColor(Colors.red),
+                        ref: ref,
+                      ),
+                    ],
                   ),
-                  children: [
-                    TextButtonCustom(
-                      onPressed: () async {
-                      },
-                      name: isConnectedToLg
-                          ? TextConst.disconnect
-                          : TextConst.connect,
-                      width: screenSize(context).width / 2 - 200,
-                      icon: Icons.delete_forever_rounded,
-                      color: darkenColor(Colors.red),
-                      ref: ref,
-                    ),
-                  ],
                 ),
               ),
-            ),
               SizedBox(
                 height: 150,
                 child: VerticalDivider(
@@ -280,18 +280,15 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                   children: AnimationConfiguration.toStaggeredList(
                     duration: Const.animationDuration,
                     childAnimationBuilder: (widget) => SlideAnimation(
-                      verticalOffset: Const.animationDistance,
+                      horizontalOffset: Const.animationDistance,
                       child: FadeInAnimation(
                         child: widget,
                       ),
                     ),
                     children: [
                       TextButtonCustom(
-                        onPressed: () async {
-                        },
-                        name: isConnectedToLg
-                            ? TextConst.disconnect
-                            : TextConst.connect,
+                        onPressed: () async {},
+                        name: TextConst.deleteCSV,
                         width: screenSize(context).width / 2 - 200,
                         icon: Icons.delete_forever_rounded,
                         color: darkenColor(Colors.red),
@@ -300,7 +297,8 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                     ],
                   ),
                 ),
-              ),],
+              ),
+            ],
           ),
           AnimationLimiter(
             child: Column(
@@ -314,11 +312,8 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                 ),
                 children: [
                   TextButtonCustom(
-                    onPressed: () async {
-                    },
-                    name: isConnectedToLg
-                        ? TextConst.disconnect
-                        : TextConst.connect,
+                    onPressed: () async {},
+                    name: TextConst.download,
                     width: screenSize(context).width - 400,
                     icon: Icons.download_rounded,
                     color: darkenColor(Colors.blue),
@@ -510,8 +505,6 @@ class _SettingsState extends ConsumerState<SettingsPage> {
               ),
             ],
           ),
-
-
         ],
       ),
     );
@@ -525,7 +518,8 @@ class TextButtonCustom extends StatelessWidget {
     required this.name,
     required this.width,
     required this.color,
-    required this.ref, required this.icon,
+    required this.ref,
+    required this.icon,
   }) : super(key: key);
 
   final Function onPressed;
@@ -544,10 +538,9 @@ class TextButtonCustom extends StatelessWidget {
             backgroundColor: color.withOpacity(1),
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(300),
-              side: name == '--' ? BorderSide(
-                color: lightenColor(Themes.darkColor)
-              ) : BorderSide.none
-            )),
+                side: name == '--'
+                    ? BorderSide(color: lightenColor(Themes.darkColor))
+                    : BorderSide.none)),
         onPressed: () async {
           ref.read(isLoadingProvider.notifier).state = true;
           await onPressed();
@@ -559,10 +552,18 @@ class TextButtonCustom extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              name != '--' ? Row(
-                children: [Icon(icon, size: 25, color: Colors.white,),
-                  5.pw,],
-              ) : const SizedBox.shrink(),
+              name != '--'
+                  ? Row(
+                      children: [
+                        Icon(
+                          icon,
+                          size: 25,
+                          color: Colors.white,
+                        ),
+                        5.pw,
+                      ],
+                    )
+                  : const SizedBox.shrink(),
               Text(
                 name,
                 style: textStyleBoldWhite.copyWith(fontSize: 15),

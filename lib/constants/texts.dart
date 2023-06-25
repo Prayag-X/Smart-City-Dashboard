@@ -37,6 +37,9 @@ class TextConst {
   static String relaunchLG = translate('settings.relaunch_lg');
   static String rebootLG = translate('settings.reboot_lg');
   static String shutdownLG = translate('settings.shutdown_lg');
+  static String download = translate('settings.download');
+  static String deleteCSV = translate('settings.delete_csv');
+  static String deleteKML = translate('settings.delete_kml');
   static String language = translate('settings.language');
   static String theme = translate('settings.theme');
   static String goBack = translate('city_page.go_back');
