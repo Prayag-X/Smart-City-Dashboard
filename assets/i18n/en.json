@@ -58,6 +58,9 @@
       "temp_min_full": "Min Temperature",
       "cloud": "Cloud"
     },
+    "environment": {
+      "environment": "Environment"
+    },
     "about": {
       "country": "Country",
       "latitude": "Latitude",

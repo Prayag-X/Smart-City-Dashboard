@@ -25,6 +25,7 @@ class ImageConst {
   static const mobilityLogo = 'assets/logos/car.png';
   static const economyLogo = 'assets/logos/economy.png';
   static const environmentLogo = 'assets/logos/environment.png';
+  static const environmentTabLogo = 'assets/logos/environment_tab.png';
   static const governmentLogo = 'assets/logos/government.png';
   static const indexLogo = 'assets/logos/index.png';
   static const livingLogo = 'assets/logos/living.png';

@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:smart_city_dashboard/connections/downloader.dart';
+import 'package:smart_city_dashboard/constants/downloadable_content.dart';
 import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/constants/texts.dart';
@@ -312,7 +314,11 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                 ),
                 children: [
                   TextButtonCustom(
-                    onPressed: () async {},
+                    onPressed: () async {
+                      await Downloader(ref: ref).downloadAllContent(DownloadableContent.content);
+                      ref.read(downloadableContentAvailableProvider.notifier).state = true;
+                      await prefs.setBool('downloadableContent', true);
+                    },
                     name: TextConst.download,
                     width: screenSize(context).width - 400,
                     icon: Icons.download_rounded,

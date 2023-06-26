@@ -22,13 +22,19 @@ class CityCardData {
             tab: 0,
           ),
           TabButton(
+            logo: ImageConst.environmentTabLogo,
+            name: TextConst.environment,
+            tab: 1,
+          ),
+          TabButton(
             logo: ImageConst.aboutLogo,
             name: TextConst.about,
-            tab: 1,
+            tab: 2,
           ),
         ],
         availableData: {
           ImageConst.weatherLogo: TextConst.weather,
+          ImageConst.environmentTabLogo: TextConst.environment,
           ImageConst.aboutLogo: TextConst.about,
         },
         availableTours: [

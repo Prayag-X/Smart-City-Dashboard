@@ -24,3 +24,4 @@ StateProvider<String> languageProvider = StateProvider((ref) => TextConst.langLi
 StateProvider<SSHClient?> sshClient = StateProvider((ref) => null);
 StateProvider<bool> isConnectedToLGProvider = StateProvider((ref) => false);
 StateProvider<bool> isConnectedToInternetProvider = StateProvider((ref) => false);
+StateProvider<bool> downloadableContentAvailableProvider = StateProvider((ref) => false);

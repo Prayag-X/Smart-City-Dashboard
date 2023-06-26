@@ -79,6 +79,7 @@ class TextConst {
   static String smartCityIndex = translate('dashboard.about.smart_city_index');
   static String aboutDescription = translate('dashboard.about.description');
   static String availableOptions = translate('dashboard.about.available_options');
+  static String environment = translate('dashboard.environment.environment');
 }
 
 

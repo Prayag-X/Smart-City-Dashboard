@@ -26,6 +26,8 @@ class _SplashScreenState extends ConsumerState<SplashPage> {
     ref.read(passwordProvider.notifier).state =
         prefs.getString('password') ?? '';
     ref.read(portProvider.notifier).state = prefs.getInt('port') ?? 22;
+    ref.read(downloadableContentAvailableProvider.notifier).state =
+        prefs.getBool('downloadableContent') ?? false;
     setRigs(prefs.getInt('rigsController') ?? 3, ref);
   }
 
@@ -44,9 +46,7 @@ class _SplashScreenState extends ConsumerState<SplashPage> {
       decoration: BoxDecoration(
         color: Themes.darkColor,
         image: const DecorationImage(
-            image: AssetImage(ImageConst.splash),
-            fit: BoxFit.fitHeight
-        ),
+            image: AssetImage(ImageConst.splash), fit: BoxFit.fitHeight),
       ),
     );
   }
