@@ -130,7 +130,7 @@ class _DashboardChartState extends State<DashboardChart> {
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
     String marker = '';
-    if ((value.toInt() - 1) % widget.markerIntervalX == 0 &&
+    if ((value.toInt()) % widget.markerIntervalX == 0 &&
         value.toInt() != widget.maxX) {
       marker = widget.markerX[value.toInt()];
     }

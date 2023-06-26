@@ -55,8 +55,6 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
 
   @override
   Widget build(BuildContext context) {
-    bool downloadableContentAvailable =
-        ref.watch(downloadableContentAvailableProvider);
     return AnimationLimiter(
       child: Column(
         children: AnimationConfiguration.toStaggeredList(
@@ -67,28 +65,8 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
               child: widget,
             ),
           ),
-          children: downloadableContentAvailable
-              ? []
-              : [
-                  Container(
-                    height: screenSize(context).height - Const.appBarHeight*2,
-                    child:  Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.downloading_rounded,
-                            size: 70,
-                            color: Colors.red,
-                          ),
-                          5.ph,
-                          Text(
-                          TextConst.contentUnavailable,
-                          textAlign: TextAlign.center,
-                          style: textStyleNormalWhite.copyWith(fontSize: 16),
-                        ),],
-                    ),
-                  )
-                ],
+          children: [
+          ],
         ),
       ),
     );

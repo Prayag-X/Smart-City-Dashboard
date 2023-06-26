@@ -5,7 +5,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/models/forecast_weather.dart';
 import 'package:smart_city_dashboard/pages/dashboard/dashboard_container.dart';
-import 'package:smart_city_dashboard/pages/dashboard/weather_tab/chart_parser.dart';
+import 'package:smart_city_dashboard/pages/dashboard/weather_tab/weather_chart_parser.dart';
 import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/services/weather_api.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
@@ -122,7 +122,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
             ),
             Const.dashboardUISpacing.ph,
             weatherData != null
-                ? ChartParser().hourlyDataParser(weatherData, 0)
+                ? WeatherChartParser().hourlyDataParser(weatherData, 0)
                 : const BlankDashboardContainer(
                     heightMultiplier: 2,
                     widthMultiplier: 2,
@@ -264,7 +264,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
             ),
             Const.dashboardUISpacing.ph,
             weatherData != null
-                ? ChartParser().hourlyDataParser(weatherData, weatherDayClicked)
+                ? WeatherChartParser().hourlyDataParser(weatherData, weatherDayClicked)
                 : const BlankDashboardContainer(
                     heightMultiplier: 2,
                     widthMultiplier: 2,
