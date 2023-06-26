@@ -36,6 +36,7 @@
       "normal": "Normal",
       "terrain": "Terrain"
     },
+    "downloadable_content_unavailable": "Content Unavailable. Please go to the settings and download all the available content.",
     "weather": {
       "now": "Now",
       "wind": "Wind",

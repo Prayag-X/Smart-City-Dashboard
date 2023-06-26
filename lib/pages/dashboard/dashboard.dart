@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_city_dashboard/models/city_card_model.dart';
 import 'package:smart_city_dashboard/pages/dashboard/google_map.dart';
+import 'package:smart_city_dashboard/pages/dashboard/new_york/environment/right_panel.dart';
 import 'package:smart_city_dashboard/utils/helper.dart';
 import '../../constants/constants.dart';
 import '../../providers/data_providers.dart';
 import '../../providers/page_providers.dart';
 import 'about_tab/left_panel.dart';
 import 'about_tab/right_panel.dart';
+import 'new_york/environment/left_panel.dart';
 import 'weather_tab/left_panel.dart';
 import 'weather_tab/right_panel.dart';
 
@@ -40,10 +42,13 @@ class Dashboard extends ConsumerWidget {
                   if (tab == city.availableTabs.length - 1) {
                     return const AboutTabLeft();
                   }
-                  // switch(city.number) {
-                  //   case 1:
-                  //     sw
-                  // }
+                  switch(city.number) {
+                    case 0:
+                      switch(tab) {
+                        case 1:
+                          return const NYCEnvironmentTabLeft();
+                      }
+                  }
                 }()),
               ),
             ),
@@ -77,10 +82,13 @@ class Dashboard extends ConsumerWidget {
                           if (tab == city.availableTabs.length - 1) {
                             return const AboutTabRight();
                           }
-                          // switch(city.number) {
-                          //   case 1:
-                          //     sw
-                          // }
+                          switch(city.number) {
+                            case 0:
+                              switch(tab) {
+                                case 1:
+                                  return const NYCEnvironmentTabRight();
+                              }
+                          }
                         }()),
                       ),
                     ),
