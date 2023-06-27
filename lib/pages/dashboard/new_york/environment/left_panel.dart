@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:smart_city_dashboard/connections/downloader.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/kml_makers/kml_makers.dart';
@@ -10,11 +11,14 @@ import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 
 import '../../../../constants/constants.dart';
+import '../../../../constants/data.dart';
+import '../../../../constants/downloadable_content.dart';
 import '../../../../constants/texts.dart';
 import '../../../../constants/theme.dart';
 import '../../../../models/city_card_model.dart';
 import '../../../../providers/settings_providers.dart';
 import '../../../../connections/ssh.dart';
+import '../../../../utils/csv_parser.dart';
 import '../../../../utils/helper.dart';
 import '../../dashboard_container.dart';
 
@@ -26,23 +30,14 @@ class NYCEnvironmentTabLeft extends ConsumerStatefulWidget {
 }
 
 class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
+  List<List<dynamic>> data = [];
+
   loadCSVData() async {
     Future.delayed(Duration.zero).then((x) async {
       ref.read(isLoadingProvider.notifier).state = true;
-      // data = await FileParser.parseCSV(DataConst.about);
-      // for (var row in data) {
-      //   if (row[1].toLowerCase() ==
-      //       ref.read(cityDataProvider)!.cityName.toLowerCase()) {
-      //     setState(() {
-      //       cityIndex = data.indexOf(row);
-      //     });
-      //     ref.read(isLoadingProvider.notifier).state = false;
-      //     return;
-      //   }
-      // }
-      // setState(() {
-      //   cityIndex = -1;
-      // });
+      data = await FileParser.parseCSVFromStorage(DownloadableContent.generateFileName(
+          DownloadableContent.content['Water Consumption']!));
+      print(data);
       ref.read(isLoadingProvider.notifier).state = false;
     });
   }
@@ -65,8 +60,7 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
               child: widget,
             ),
           ),
-          children: [
-          ],
+          children: [],
         ),
       ),
     );

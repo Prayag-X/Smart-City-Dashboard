@@ -41,7 +41,6 @@ class _SettingsState extends ConsumerState<SettingsPage> {
   late String dropdownValue;
 
   setSharedPrefs() async {
-    prefs = await SharedPreferences.getInstance();
     await prefs.setString('ip', ipController.text);
     await prefs.setString('username', usernameController.text);
     await prefs.setString('password', passwordController.text);
@@ -54,7 +53,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
     setRigs(int.parse(rigsController.text), ref);
   }
 
-  initTextControllers() {
+  initTextControllers() async {
     setState(() {
       dropdownValue = ref.read(languageProvider);
       ipController.text = ref.read(ipProvider);
@@ -63,6 +62,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
       portController.text = ref.read(portProvider).toString();
       rigsController.text = ref.read(rigsProvider).toString();
     });
+    prefs = await SharedPreferences.getInstance();
   }
 
   @override
@@ -316,8 +316,8 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                   TextButtonCustom(
                     onPressed: () async {
                       await Downloader(ref: ref).downloadAllContent(DownloadableContent.content);
-                      ref.read(downloadableContentAvailableProvider.notifier).state = true;
                       await prefs.setBool('downloadableContent', true);
+                      ref.read(downloadableContentAvailableProvider.notifier).state = true;
                     },
                     name: TextConst.download,
                     width: screenSize(context).width - 400,

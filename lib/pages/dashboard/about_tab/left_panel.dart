@@ -29,12 +29,10 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
   List<List<dynamic>> data = [];
   int cityIndex = -2;
 
-
-
   loadCSVData() async {
     Future.delayed(Duration.zero).then((x) async {
       ref.read(isLoadingProvider.notifier).state = true;
-      data = await FileParser.parseCSV(DataConst.about);
+      data = await FileParser.parseCSVAssets(DataConst.about);
       for (var row in data) {
         if (row[1].toLowerCase() ==
             ref.read(cityDataProvider)!.cityName.toLowerCase()) {
