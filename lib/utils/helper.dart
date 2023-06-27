@@ -19,7 +19,8 @@ nextScreenOnly(context, String pageName) async => await Navigator.of(context)
 
 screenPop(context) => Navigator.of(context).pop();
 
-Future waitWhile(bool Function() test, [Duration pollInterval = Duration.zero]) {
+Future waitWhile(bool Function() test,
+    [Duration pollInterval = Duration.zero]) {
   var completer = Completer();
   check() {
     if (!test()) {
@@ -28,6 +29,7 @@ Future waitWhile(bool Function() test, [Duration pollInterval = Duration.zero]) 
       Timer(pollInterval, check);
     }
   }
+
   check();
   return completer.future;
 }
@@ -49,6 +51,17 @@ Color lightenColor(Color color, [double amount = .1]) {
 double roundDouble(double value, int places) {
   num mod = pow(10.0, places);
   return ((value * mod).round().toDouble() / mod);
+}
+
+String shortenNum(double value) {
+  int length = value.toStringAsFixed(0).length;
+  for (MapEntry<String, int> plot
+      in {'B': 9, 'C': 8, 'M': 7, 'L': 6, 'K': 3}.entries) {
+    if (length > plot.value) {
+      return '${value.toStringAsFixed(0).substring(0, length - plot.value)}.${value.toStringAsFixed(0).substring(length - plot.value, length - plot.value + 1)}${plot.key}';
+    }
+  }
+  return value.toStringAsFixed(1);
 }
 
 showSnackBar(context, String message, int duration) =>

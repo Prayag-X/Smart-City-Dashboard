@@ -7,12 +7,13 @@ import 'package:smart_city_dashboard/utils/helper.dart';
 import '../../constants/texts.dart';
 import 'dashboard_chart.dart';
 
-class WeatherChartParser {
+class ChartParser {
   late String title;
   late Map<String, Color> chartData;
-  List<List<FlSpot>> points = [[], []];
+  List<List<FlSpot>> points = [];
   List<String> markerX = [];
   List<List<String>> markerY = [];
+  bool shortenX = false;
   double minX = 0;
   double minY = 0;
   double maxX = 25;
@@ -20,7 +21,7 @@ class WeatherChartParser {
   int markerIntervalX = 4;
   int markerIntervalY = 4;
 
-  Widget hourlyDataParser(
+  Widget chartParser(
       {required List<dynamic> dataX, required List<List<num>> dataY}) {
     List<List<double>> dataArranged = [];
     List<double> maxValues = [];
@@ -29,11 +30,12 @@ class WeatherChartParser {
 
     for (int i = 0; i < dataY[0].length; i++) {
       dataArranged.add([]);
+      points.add([]);
     }
 
-    for (var x in dataY) {
+    for (List<num> x in dataY) {
       int c = 0;
-      for (var y in x) {
+      for (num y in x) {
         dataArranged[c++].add(y.toDouble());
       }
     }
@@ -46,41 +48,35 @@ class WeatherChartParser {
       minValues.add(minValue);
       interval.add((maxValue - minValue) / maxY);
     }
-   // this much
-    List<double> temperatures = [];
-    List<double> humidity = [];
-    List<Hour> forecastData = weather.forecast.forecastday[day].hour;
 
-    forecastData.asMap().forEach((index, data) {
-      markerX.add(data.time.split(' ').last);
-      temperatures.add(data.tempC);
-      humidity.add(data.humidity.toDouble());
-    });
+    double intervalXFactor = dataX.length / maxX;
 
-    double maxTemp = temperatures.reduce(max);
-    double minTemp = temperatures.reduce(min);
-    double interval = (maxTemp - minTemp) / 10;
-    double maxHumid = humidity.reduce(max);
-    double minHumid = humidity.reduce(min);
-    double intervalHumid = (maxHumid - minHumid) / 10;
+    for (int i = 0; i < maxX; i++) {
+      if (shortenX) {
+        markerX.add(shortenNum(dataX[(i * intervalXFactor).round()]));
+      } else {
+        markerX.add(dataX[(i * intervalXFactor).round()].toString());
+      }
+    }
 
-    forecastData.asMap().forEach((index, data) {
-      points[0].add(FlSpot(
-          index.toDouble(), roundDouble((data.tempC - minTemp) / interval, 2)));
-      points[1].add(FlSpot(
-          index.toDouble(),
-          roundDouble(
-              (data.humidity.toDouble() - minHumid) / intervalHumid, 2)));
-    });
+    for (int i = 0; i < dataX.length; i++) {
+      for (int j = 0; j < dataArranged.length; j++) {
+        points[j].add(FlSpot(dataX[i].toDouble(),
+            roundDouble((dataArranged[j][i] - minValues[j]) / interval[j], 2)));
+      }
+    }
 
-    for (var i = 0; i < 10; i++) {
-      markerY.add([minTemp.toStringAsFixed(1), minHumid.toStringAsFixed(1)]);
-      minTemp += interval;
-      minHumid += intervalHumid;
+    for (int i = 0; i < maxY; i++) {
+      List<String> row = [];
+      for (int j = 0; j < minValues.length; j++) {
+        row.add(shortenNum(minValues[j]));
+        minValues[j] += interval[j];
+      }
+      markerY.add(row);
     }
 
     return DashboardChart(
-        title: TextConst.hourly,
+        title: title,
         chartData: chartData,
         points: points,
         markerY: markerY,
