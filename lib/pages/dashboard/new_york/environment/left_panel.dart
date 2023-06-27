@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:smart_city_dashboard/connections/downloader.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/kml_makers/kml_makers.dart';
-import 'package:smart_city_dashboard/pages/dashboard/dashboard_right_panel.dart';
+import 'package:smart_city_dashboard/pages/dashboard/widgets/dashboard_right_panel.dart';
 import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 
@@ -20,8 +20,8 @@ import '../../../../providers/settings_providers.dart';
 import '../../../../connections/ssh.dart';
 import '../../../../utils/csv_parser.dart';
 import '../../../../utils/helper.dart';
-import '../../chart_parser.dart';
-import '../../dashboard_container.dart';
+import '../../widgets/chart_parser.dart';
+import '../../widgets/dashboard_container.dart';
 
 class NYCEnvironmentTabLeft extends ConsumerStatefulWidget {
   const NYCEnvironmentTabLeft({super.key});

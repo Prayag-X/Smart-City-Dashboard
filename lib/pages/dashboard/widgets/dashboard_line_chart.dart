@@ -4,8 +4,8 @@ import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 import 'package:smart_city_dashboard/utils/helper.dart';
 
-import '../../constants/constants.dart';
-import '../../constants/theme.dart';
+import '../../../constants/constants.dart';
+import '../../../constants/theme.dart';
 
 class DashboardChart extends StatefulWidget {
   const DashboardChart(

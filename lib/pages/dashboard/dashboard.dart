@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:smart_city_dashboard/models/city_card_model.dart';
-import 'package:smart_city_dashboard/pages/dashboard/google_map.dart';
+import 'package:smart_city_dashboard/pages/dashboard/widgets/google_map.dart';
 import 'package:smart_city_dashboard/pages/dashboard/new_york/environment/right_panel.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 import 'package:smart_city_dashboard/utils/helper.dart';

@@ -5,8 +5,8 @@ import 'package:smart_city_dashboard/utils/helper.dart';
 import 'package:smart_city_dashboard/utils/logo_shower.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
-import '../../constants/constants.dart';
-import '../../constants/theme.dart';
+import '../../../constants/constants.dart';
+import '../../../constants/theme.dart';
 
 class DashboardContainer extends StatefulWidget {
   const DashboardContainer(

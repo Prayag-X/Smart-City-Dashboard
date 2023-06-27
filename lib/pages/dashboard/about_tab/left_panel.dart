@@ -6,7 +6,7 @@ import 'package:csv/csv.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:smart_city_dashboard/constants/data.dart';
 import 'package:smart_city_dashboard/constants/images.dart';
-import 'package:smart_city_dashboard/pages/dashboard/dashboard_container.dart';
+import 'package:smart_city_dashboard/pages/dashboard/widgets/dashboard_container.dart';
 import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 import 'package:smart_city_dashboard/utils/helper.dart';
