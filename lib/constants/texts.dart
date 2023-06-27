@@ -81,6 +81,9 @@ class TextConst {
   static String aboutDescription = translate('dashboard.about.description');
   static String availableOptions = translate('dashboard.about.available_options');
   static String environment = translate('dashboard.environment.environment');
+  static String waterConsumptionTitle = translate('city_data.new_york.environment.water_consumption_title');
+  static String population = translate('city_data.new_york.environment.population');
+  static String waterConsumption = translate('city_data.new_york.environment.water_consumption');
 }
 
 

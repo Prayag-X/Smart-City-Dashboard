@@ -20,6 +20,7 @@ import '../../../../providers/settings_providers.dart';
 import '../../../../connections/ssh.dart';
 import '../../../../utils/csv_parser.dart';
 import '../../../../utils/helper.dart';
+import '../../chart_parser.dart';
 import '../../dashboard_container.dart';
 
 class NYCEnvironmentTabLeft extends ConsumerStatefulWidget {
@@ -30,14 +31,15 @@ class NYCEnvironmentTabLeft extends ConsumerStatefulWidget {
 }
 
 class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
-  List<List<dynamic>> data = [];
+  List<List<dynamic>>? waterConsumptionData;
 
   loadCSVData() async {
     Future.delayed(Duration.zero).then((x) async {
       ref.read(isLoadingProvider.notifier).state = true;
-      data = await FileParser.parseCSVFromStorage(DownloadableContent.generateFileName(
-          DownloadableContent.content['Water Consumption']!));
-      print(data);
+      waterConsumptionData = await FileParser.parseCSVFromStorage(
+          DownloadableContent.generateFileName(
+              DownloadableContent.content['Water Consumption']!));
+      waterConsumptionData = FileParser.transformer(waterConsumptionData!);
       ref.read(isLoadingProvider.notifier).state = false;
     });
   }
@@ -50,6 +52,7 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
 
   @override
   Widget build(BuildContext context) {
+    bool isLoading = ref.watch(isLoadingProvider);
     return AnimationLimiter(
       child: Column(
         children: AnimationConfiguration.toStaggeredList(
@@ -60,7 +63,20 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
               child: widget,
             ),
           ),
-          children: [],
+          children: [
+            waterConsumptionData != null && !isLoading
+                ? ChartParser(title: TextConst.waterConsumptionTitle, chartData: {
+                    TextConst.population: Colors.red,
+                    TextConst.waterConsumption: Colors.blue
+                  }).chartParser(
+                    dataX: waterConsumptionData![0],
+                    dataY: [waterConsumptionData![1], waterConsumptionData![2]])
+                : const BlankDashboardContainer(
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
+            Const.dashboardUISpacing.ph,
+          ],
         ),
       ),
     );

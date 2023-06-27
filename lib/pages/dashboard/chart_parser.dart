@@ -21,56 +21,66 @@ class ChartParser {
   int markerIntervalX = 4;
   int markerIntervalY = 4;
 
-  Widget chartParser(
-      {required List<dynamic> dataX, required List<List<num>> dataY}) {
-    List<List<double>> dataArranged = [];
-    List<double> maxValues = [];
-    List<double> minValues = [];
-    List<double> interval = [];
+  ChartParser({required this.title, required this.chartData});
 
-    for (int i = 0; i < dataY[0].length; i++) {
-      dataArranged.add([]);
+  Widget chartParser(
+      {required List<dynamic> dataX, required List<List<dynamic>> dataY}) {
+    List<double> dataXNum = [];
+    List<List<double>> dataYNum = [];
+    List<double> maxValuesY = [];
+    List<double> minValuesY = [];
+    List<double> intervalY = [];
+
+    for (dynamic x in dataX) {
+      dataXNum.add(x.toDouble());
+    }
+    
+    double maxValueX = dataXNum.reduce(max);
+    double minValueX = dataXNum.reduce(min);
+    double intervalX = (maxValueX - minValueX) / maxX;
+
+    for (int i = 0; i < dataY.length; i++) {
+      dataYNum.add([]);
       points.add([]);
     }
 
-    for (List<num> x in dataY) {
-      int c = 0;
-      for (num y in x) {
-        dataArranged[c++].add(y.toDouble());
+    for (int i = 0; i < dataY.length; i++) {
+      for (dynamic y in dataY[i]) {
+        dataYNum[i].add(y.toDouble());
       }
     }
 
-    for (List<double> x in dataArranged) {
+    for (List<double> x in dataYNum) {
       double maxValue = x.reduce(max);
       double minValue = x.reduce(min);
 
-      maxValues.add(maxValue);
-      minValues.add(minValue);
-      interval.add((maxValue - minValue) / maxY);
+      maxValuesY.add(maxValue);
+      minValuesY.add(minValue);
+      intervalY.add((maxValue - minValue) / maxY);
     }
 
     double intervalXFactor = dataX.length / maxX;
 
     for (int i = 0; i < maxX; i++) {
       if (shortenX) {
-        markerX.add(shortenNum(dataX[(i * intervalXFactor).round()]));
+        markerX.add(shortenNum(dataXNum[(i * intervalXFactor).round()]));
       } else {
-        markerX.add(dataX[(i * intervalXFactor).round()].toString());
+        markerX.add(dataXNum[(i * intervalXFactor).round()].toStringAsFixed(0));
       }
     }
 
     for (int i = 0; i < dataX.length; i++) {
-      for (int j = 0; j < dataArranged.length; j++) {
-        points[j].add(FlSpot(dataX[i].toDouble(),
-            roundDouble((dataArranged[j][i] - minValues[j]) / interval[j], 2)));
+      for (int j = 0; j < dataYNum.length; j++) {
+        points[j].add(FlSpot(roundDouble((dataXNum[i] - minValueX) / intervalX , 2),
+            roundDouble((dataYNum[j][i] - minValuesY[j]) / intervalY[j], 2)));
       }
     }
 
     for (int i = 0; i < maxY; i++) {
       List<String> row = [];
-      for (int j = 0; j < minValues.length; j++) {
-        row.add(shortenNum(minValues[j]));
-        minValues[j] += interval[j];
+      for (int j = 0; j < minValuesY.length; j++) {
+        row.add(shortenNum(minValuesY[j]));
+        minValuesY[j] += intervalY[j];
       }
       markerY.add(row);
     }
@@ -85,5 +95,54 @@ class ChartParser {
         maxY: maxY,
         markerIntervalX: markerIntervalX,
         markerIntervalY: markerIntervalY);
+  }
+
+  Widget weatherHourlyDataParser(ForecastWeather weather, int day) {
+    maxX = 24;
+    points = [[], []];
+
+    List<double> temperatures = [];
+    List<double> humidity = [];
+    List<Hour> forecastData = weather.forecast.forecastday[day].hour;
+
+    forecastData.asMap().forEach((index, data) {
+      markerX.add(data.time.split(' ').last);
+      temperatures.add(data.tempC);
+      humidity.add(data.humidity.toDouble());
+    });
+
+    double maxTemp = temperatures.reduce(max);
+    double minTemp = temperatures.reduce(min);
+    double interval = (maxTemp - minTemp) / 10;
+    double maxHumid = humidity.reduce(max);
+    double minHumid = humidity.reduce(min);
+    double intervalHumid = (maxHumid - minHumid) / 10;
+
+    forecastData.asMap().forEach((index, data) {
+      points[0].add(FlSpot(
+          index.toDouble(), roundDouble((data.tempC - minTemp) / interval, 2)));
+      points[1].add(FlSpot(
+          index.toDouble(),
+          roundDouble(
+              (data.humidity.toDouble() - minHumid) / intervalHumid, 2)));
+    });
+
+    for (var i = 0; i < 10; i++) {
+      markerY.add([minTemp.toStringAsFixed(1), minHumid.toStringAsFixed(1)]);
+      minTemp += interval;
+      minHumid += intervalHumid;
+    }
+
+    return DashboardChart(
+      title: TextConst.hourly,
+      chartData: chartData,
+      points: points,
+      markerY: markerY,
+      markerX: markerX,
+      maxX: maxX,
+      maxY: maxY,
+      markerIntervalX: markerIntervalX,
+      markerIntervalY: markerIntervalY,
+    );
   }
 }

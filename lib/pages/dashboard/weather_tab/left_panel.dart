@@ -4,8 +4,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/models/forecast_weather.dart';
+import 'package:smart_city_dashboard/pages/dashboard/chart_parser.dart';
 import 'package:smart_city_dashboard/pages/dashboard/dashboard_container.dart';
-import 'package:smart_city_dashboard/pages/dashboard/weather_tab/weather_chart_parser.dart';
 import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/services/weather_api.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
@@ -122,7 +122,11 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
             ),
             Const.dashboardUISpacing.ph,
             weatherData != null
-                ? WeatherChartParser().hourlyDataParser(weatherData, 0)
+                ? ChartParser(chartData: {
+                    TextConst.temperature: Colors.red,
+                    TextConst.humidity: Colors.blue
+                  }, title: TextConst.hourly)
+                    .weatherHourlyDataParser(weatherData, 0)
                 : const BlankDashboardContainer(
                     heightMultiplier: 2,
                     widthMultiplier: 2,
@@ -264,7 +268,11 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
             ),
             Const.dashboardUISpacing.ph,
             weatherData != null
-                ? WeatherChartParser().hourlyDataParser(weatherData, weatherDayClicked)
+                ? ChartParser(chartData: {
+                    TextConst.temperature: Colors.red,
+                    TextConst.humidity: Colors.blue
+                  }, title: TextConst.hourly)
+                    .weatherHourlyDataParser(weatherData, weatherDayClicked)
                 : const BlankDashboardContainer(
                     heightMultiplier: 2,
                     widthMultiplier: 2,
