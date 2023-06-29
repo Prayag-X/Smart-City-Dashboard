@@ -37,10 +37,10 @@ packages:
     dependency: "direct main"
     description:
       name: background_downloader
-      sha256: "72a96d1fdea44932163a2411af998884eb1e87586031cbdd48bb150ea913dab2"
+      sha256: a5745c887a43099c2f5660761c022ade6f3595eebf73eb0cae087e419b16bf17
       url: "https://pub.dev"
     source: hosted
-    version: "5.6.0"
+    version: "6.2.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -349,14 +349,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
-  localstore:
-    dependency: transitive
-    description:
-      name: localstore
-      sha256: "42a0afb7696cfab1b4bd7d08355b4ee01f975fd364553b28d51496eccaf11cce"
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.3.5"
   logging:
     dependency: transitive
     description:
