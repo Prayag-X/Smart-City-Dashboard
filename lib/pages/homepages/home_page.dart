@@ -96,16 +96,30 @@ class CityCard extends ConsumerWidget {
                 child: Container(
                   height: height,
                   width: width,
-                  color: lightenColor(Themes.darkHighlightColor, 0.05),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.only(
+                        bottomRight: Radius.circular(Const.dashboardUIRoundness),
+                    ),
+                    color: lightenColor(Themes.darkHighlightColor, 0.05),
+                  ),
                 ),
               ),
               Container(
                 height: height,
                 width: width,
-                color: darkenColor(Themes.darkHighlightColor, 0.05),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(Const.dashboardUIRoundness),
+                    bottomRight: Radius.circular(Const.dashboardUIRoundness),
+                  ),
+                  color: darkenColor(Themes.darkHighlightColor, 0.05),
+                ),
                 child: Row(
                   children: [
-                    ImageShower(logo: cityData.image, size: height),
+                    ImageShower(logo: cityData.image, size: height, curve: BorderRadius.only(
+                      topLeft: Radius.circular(Const.dashboardUIRoundness),
+                    ),
+                    ),
                     Const.homePageTextSize.pw,
                     SizedBox(
                       width: width/2 - 60,

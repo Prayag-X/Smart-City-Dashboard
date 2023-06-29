@@ -52,11 +52,12 @@ class ImageShower extends StatelessWidget {
   const ImageShower({
     Key? key,
     required this.logo,
-    required this.size,
+    required this.size, this.curve,
   }) : super(key: key);
 
   final String logo;
   final double size;
+  final BorderRadiusGeometry? curve;
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +65,7 @@ class ImageShower extends StatelessWidget {
       height: size,
       width: size,
       decoration: BoxDecoration(
+        borderRadius: curve,
         image: DecorationImage(
           image: AssetImage(logo),
           fit: BoxFit.fitHeight
