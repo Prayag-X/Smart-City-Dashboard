@@ -62,7 +62,7 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       AssetLogoShower(
-                        logo: ImageConst.appLogo,
+                        logo: ImageConst.app,
                         size: screenSize(context).width/Const.tabBarWidthDivider-70,
                       ),
                       AnimatedSwitcher(
@@ -147,7 +147,7 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                           ),
                           children: <Widget>[
                             TabButton(
-                                logo: ImageConst.helpLogo,
+                                logo: ImageConst.help,
                                 name: TextConst.help,
                                 tab: -3)
                           ],
@@ -161,11 +161,11 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                 endIndent: 10,
               ),
               TabButton(
-                  logo: ImageConst.settingLogo,
+                  logo: ImageConst.setting,
                   name: TextConst.settings,
                   tab: -1),
               TabButton(
-                  logo: ImageConst.aboutLogo, name: TextConst.about, tab: -2),
+                  logo: ImageConst.about, name: TextConst.about, tab: -2),
             ],
           ),
         ],

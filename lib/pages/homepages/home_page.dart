@@ -139,7 +139,7 @@ class CityCard extends ConsumerWidget {
                           5.ph,
                           Row(
                             children: [
-                              AssetLogoShower(logo: ImageConst.markerLogo, size: Const.homePageTextSize+5),
+                              AssetLogoShower(logo: ImageConst.marker, size: Const.homePageTextSize+5),
                               Text(
                                 cityData.country,
                                 style: textStyleNormalWhite.copyWith(fontSize: Const.homePageTextSize),

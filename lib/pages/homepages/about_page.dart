@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
+import 'package:smart_city_dashboard/constants/texts.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 import 'package:smart_city_dashboard/utils/logo_shower.dart';
 
@@ -36,33 +37,53 @@ class _AboutPageState extends ConsumerState<AboutPage> {
         Column(
           children: [
             Const.appBarHeight.ph,
-            AnimationLimiter(
-              child: Column(
-                children: AnimationConfiguration.toStaggeredList(
-                  duration: Const.animationDuration,
-                  childAnimationBuilder: (widget) => SlideAnimation(
-                    horizontalOffset: -Const.animationDistance,
-                    child: FadeInAnimation(
-                      child: widget,
-                    ),
-                  ),
-                  children: [
-                    Container(
-                      height: 140,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
-                        color: Themes.darkHighlightColor,
+            SingleChildScrollView(
+              physics: const BouncingScrollPhysics(
+                  parent: AlwaysScrollableScrollPhysics()),
+              child: AnimationLimiter(
+                child: Column(
+                  children: AnimationConfiguration.toStaggeredList(
+                    duration: Const.animationDuration,
+                    childAnimationBuilder: (widget) => SlideAnimation(
+                      horizontalOffset: -Const.animationDistance,
+                      child: FadeInAnimation(
+                        child: widget,
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: Row(
-                          children: [
-                            LogoShower(logo: AssetImage(ImageConst.appLogo), size: 140),
-                          ],
+                    ),
+                    children: [
+                      Container(
+                        height: 140,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
+                          color: Themes.darkHighlightColor,
+                        ),
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              AssetLogoShower(logo: ImageConst.app, size: 140),
+                              Text(
+                                TextConst.title,
+                                style: textStyleBoldWhite.copyWith(fontSize: 40),
+                              ),
+                              const SizedBox.shrink()
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                      30.ph,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          AboutLogoShower(logo: ImageConst.gsoc, height: 100, width: 200,),
+                          AboutLogoShower(logo: ImageConst.lgAbout, height: 100, width: 200,),
+                          AboutLogoShower(logo: ImageConst.flutter, height: 100, width: 230,),
+                        ],
+                      ),
+                      200.ph
+                    ],
+                  ),
                 ),
               ),
             ),

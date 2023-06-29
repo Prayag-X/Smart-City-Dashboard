@@ -115,7 +115,7 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
                         children: [
                           DashboardContainer(
                             title: TextConst.smartMobility,
-                            image: ImageConst.mobilityLogo,
+                            image: ImageConst.mobility,
                             showPercentage: true,
                             progressColor: Colors.white,
                             percentage: data[cityIndex][3]/10000,
@@ -123,7 +123,7 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
                           ),
                           DashboardContainer(
                             title: TextConst.smartGovernment,
-                            image: ImageConst.governmentLogo,
+                            image: ImageConst.government,
                             showPercentage: true,
                             progressColor: Colors.purple,
                             percentage: data[cityIndex][5]/10000,
@@ -135,7 +135,7 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
                       DashboardContainer(
                         widthMultiplier: 2,
                         title: TextConst.smartCityIndex,
-                        image: ImageConst.indexLogo,
+                        image: ImageConst.index,
                         showPercentage: true,
                         progressColor: Colors.blue,
                         percentage: data[cityIndex][8]/10000,
@@ -147,7 +147,7 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
                         children: [
                           DashboardContainer(
                             title: TextConst.smartEnvironment,
-                            image: ImageConst.environmentLogo,
+                            image: ImageConst.environment,
                             showPercentage: true,
                             progressColor: Colors.green,
                             percentage: data[cityIndex][4]/10000,
@@ -155,7 +155,7 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
                           ),
                           DashboardContainer(
                             title: TextConst.smartGovernment,
-                            image: ImageConst.governmentLogo,
+                            image: ImageConst.government,
                             showPercentage: true,
                             progressColor: Colors.yellow,
                             percentage: data[cityIndex][6]/10000,
@@ -169,7 +169,7 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
                         children: [
                           DashboardContainer(
                             title: TextConst.smartPeople,
-                            image: ImageConst.peopleLogo,
+                            image: ImageConst.people,
                             showPercentage: true,
                             progressColor: Colors.blueGrey,
                             percentage: data[cityIndex][7]/10000,
@@ -177,7 +177,7 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
                           ),
                           DashboardContainer(
                             title: TextConst.smartLiving,
-                            image: ImageConst.livingLogo,
+                            image: ImageConst.living,
                             showPercentage: true,
                             progressColor: Colors.red,
                             percentage: data[cityIndex][8]/10000,

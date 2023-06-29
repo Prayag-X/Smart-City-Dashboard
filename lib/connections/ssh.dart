@@ -183,7 +183,6 @@ class SSH {
     bool uploading = true;
     await ref.read(sshClient)?.sftp();
     final sftp = await ref.read(sshClient)?.sftp();
-    await sftp?.remove('/var/www/html/$kmlName.kml');
     final file = await sftp?.open('/var/www/html/$kmlName.kml',
         mode: SftpFileOpenMode.create |
             SftpFileOpenMode.truncate |

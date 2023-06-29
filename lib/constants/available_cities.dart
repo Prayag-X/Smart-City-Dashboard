@@ -17,25 +17,25 @@ class CityCardData {
         location: const LatLng(40.730610, -73.935242),
         availableTabs: [
           TabButton(
-            logo: ImageConst.weatherLogo,
+            logo: ImageConst.weather,
             name: TextConst.weather,
             tab: 0,
           ),
           TabButton(
-            logo: ImageConst.environmentTabLogo,
+            logo: ImageConst.environmentTab,
             name: TextConst.environment,
             tab: 1,
           ),
           TabButton(
-            logo: ImageConst.aboutLogo,
+            logo: ImageConst.about,
             name: TextConst.about,
             tab: 2,
           ),
         ],
         availableData: {
-          ImageConst.weatherLogo: TextConst.weather,
-          ImageConst.environmentTabLogo: TextConst.environment,
-          ImageConst.aboutLogo: TextConst.about,
+          ImageConst.weather: TextConst.weather,
+          ImageConst.environmentTab: TextConst.environment,
+          ImageConst.about: TextConst.about,
         },
         availableTours: [
           const LatLng(40.74847707639803, -73.98563946566026),

@@ -74,8 +74,8 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
                         title: TextConst.time,
                         data: weatherData.location.localtime.parseTime,
                         image: weatherData.current.isDay == 1
-                            ? ImageConst.dayLogo
-                            : ImageConst.nightLogo,
+                            ? ImageConst.day
+                            : ImageConst.night,
                       )
                     : const BlankDashboardContainer(),
               ],
@@ -87,7 +87,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
                     title: TextConst.wind,
                     data:
                         '${weatherData.current.windKph} Km/h ${weatherData.current.windDegree}°${weatherData.current.windDir}',
-                    image: ImageConst.windLogo,
+                    image: ImageConst.wind,
                   )
                 : const BlankDashboardContainer(
                     widthMultiplier: 2,
@@ -100,7 +100,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
                     ? DashboardContainer(
                         title: TextConst.temperature,
                         data: '${weatherData.current.tempC}°C',
-                        image: ImageConst.temperatureLogo,
+                        image: ImageConst.temperature,
                         showPercentage: true,
                         percentage:
                             weatherData.current.tempC.setTemperaturePercentage,
@@ -111,7 +111,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
                     ? DashboardContainer(
                         title: TextConst.feels,
                         data: '${weatherData.current.feelslikeC}°C',
-                        image: ImageConst.temperatureLogo,
+                        image: ImageConst.temperature,
                         showPercentage: true,
                         percentage: weatherData
                             .current.feelslikeC.setTemperaturePercentage,
@@ -139,7 +139,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
                     ? DashboardContainer(
                         title: TextConst.humidity,
                         data: '${weatherData.current.humidity}%',
-                        image: ImageConst.humidityLogo,
+                        image: ImageConst.humidity,
                         showPercentage: true,
                         percentage: weatherData.current.humidity.setPercentage,
                         progressColor: Colors.blue,
@@ -149,7 +149,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
                     ? DashboardContainer(
                         title: TextConst.cloud,
                         data: '${weatherData.current.cloud}%',
-                        image: ImageConst.cloudLogo,
+                        image: ImageConst.cloud,
                         showPercentage: true,
                         percentage: weatherData.current.cloud.setPercentage,
                         progressColor: Colors.purple,
@@ -165,7 +165,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
                     ? DashboardContainer(
                         title: TextConst.uv,
                         data: '${weatherData.current.uv}',
-                        image: ImageConst.uvLogo,
+                        image: ImageConst.uv,
                         showPercentage: true,
                         percentage: weatherData.current.uv.setUVPercentage,
                         progressColor: Colors.yellow,
@@ -175,7 +175,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
                     ? DashboardContainer(
                         title: TextConst.pressure,
                         data: '${weatherData.current.pressureMb} mb',
-                        image: ImageConst.pressureLogo,
+                        image: ImageConst.pressure,
                         showPercentage: true,
                         percentage: weatherData
                             .current.pressureMb.setPressurePercentage,
@@ -222,7 +222,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
                         title: TextConst.date,
                         data:
                             '${forecastData!.date.day}/${forecastData.date.month}',
-                        image: ImageConst.calenderLogo,
+                        image: ImageConst.calender,
                       )
                     : const BlankDashboardContainer(),
               ],
@@ -233,7 +233,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
                     widthMultiplier: 2,
                     title: TextConst.windMax,
                     data: '${forecastData!.day.maxwindKph} Km/h',
-                    image: ImageConst.windLogo,
+                    image: ImageConst.wind,
                   )
                 : const BlankDashboardContainer(
                     widthMultiplier: 2,
@@ -246,7 +246,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
                     ? DashboardContainer(
                         title: TextConst.tempMaxFull,
                         data: '${forecastData!.day.maxtempC}°C',
-                        image: ImageConst.temperatureLogo,
+                        image: ImageConst.temperature,
                         showPercentage: true,
                         percentage:
                             forecastData.day.maxtempC.setTemperaturePercentage,
@@ -257,7 +257,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
                     ? DashboardContainer(
                         title: TextConst.tempMinFull,
                         data: '${forecastData!.day.mintempC}°C',
-                        image: ImageConst.temperatureLogo,
+                        image: ImageConst.temperature,
                         showPercentage: true,
                         percentage:
                             forecastData.day.mintempC.setTemperaturePercentage,
@@ -285,7 +285,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
                     ? DashboardContainer(
                         title: TextConst.uv,
                         data: forecastData!.day.uv.toString(),
-                        image: ImageConst.uvLogo,
+                        image: ImageConst.uv,
                         showPercentage: true,
                         percentage: forecastData.day.uv.setUVPercentage,
                         progressColor: Colors.yellow,
@@ -295,7 +295,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
                     ? DashboardContainer(
                         title: TextConst.humidityAvg,
                         data: '${forecastData!.day.avghumidity}%',
-                        image: ImageConst.humidityLogo,
+                        image: ImageConst.humidity,
                         showPercentage: true,
                         percentage: forecastData.day.avghumidity.setPercentage,
                         progressColor: Colors.blue,

@@ -104,7 +104,7 @@ class WeatherTabRight extends ConsumerWidget {
                                   child: Row(
                                     children: [
                                       AssetLogoShower(
-                                          logo: ImageConst.humidityLogo,
+                                          logo: ImageConst.humidity,
                                           size: Const.dashboardTextSize + 5),
                                       5.pw,
                                       Text(
