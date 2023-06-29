@@ -255,7 +255,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
                     : const BlankDashboardContainer(),
                 weatherData != null
                     ? DashboardContainer(
-                        title: TextConst.tempMaxFull,
+                        title: TextConst.tempMinFull,
                         data: '${forecastData!.day.mintempC}°C',
                         image: ImageConst.temperatureLogo,
                         showPercentage: true,
