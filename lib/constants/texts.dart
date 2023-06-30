@@ -84,6 +84,15 @@ class TextConst {
   static String waterConsumptionTitle = translate('city_data.new_york.environment.water_consumption_title');
   static String population = translate('city_data.new_york.environment.population');
   static String waterConsumption = translate('city_data.new_york.environment.water_consumption');
+  static String aboutPageDescription = translate('homepage.about_page.description');
+  static String aboutPageMadeBy = translate('homepage.about_page.made_by');
+  static String aboutPagePrayag = translate('homepage.about_page.prayag');
+  static String aboutPageOrganisation = translate('homepage.about_page.organization');
+  static String aboutPageLiquidGalaxy = translate('homepage.about_page.liquid_galaxy');
+  static String aboutPageOrgAdmin = translate('homepage.about_page.organization_admin');
+  static String aboutPageAndrew = translate('homepage.about_page.andrew');
+  static String aboutPageMentor = translate('homepage.about_page.mentor');
+  static String aboutPageMerul = translate('homepage.about_page.merul');
 }
 
 
