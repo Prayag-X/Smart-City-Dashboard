@@ -32,15 +32,15 @@ class _AboutPageState extends ConsumerState<AboutPage> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
         child:
-        Column(
-          children: [
-            Const.appBarHeight.ph,
-            SingleChildScrollView(
-              physics: const BouncingScrollPhysics(
-                  parent: AlwaysScrollableScrollPhysics()),
-              child: AnimationLimiter(
+        SingleChildScrollView(
+          physics: const BouncingScrollPhysics(
+              parent: AlwaysScrollableScrollPhysics()),
+          child: Column(
+            children: [
+              Const.appBarHeight.ph,
+              AnimationLimiter(
                 child: Column(
                   children: AnimationConfiguration.toStaggeredList(
                     duration: Const.animationDuration,
@@ -81,13 +81,40 @@ class _AboutPageState extends ConsumerState<AboutPage> {
                           AboutLogoShower(logo: ImageConst.flutter, height: 100, width: 230,),
                         ],
                       ),
-                      200.ph
+                      500.ph,
+                      Divider(
+                        thickness: 1,
+                        color: Colors.white.withOpacity(0.5),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            AboutLogoShower(logo: ImageConst.lgEu, height: 100, width: 210,),
+                            AboutLogoShower(logo: ImageConst.lgLab, height: 100, width: 200,),
+                            AboutLogoShower(logo: ImageConst.gdg, height: 100, width: 200,),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            AboutLogoShower(logo: ImageConst.tic, height: 80, width: 120,),
+                            AboutLogoShower(logo: ImageConst.womenTechmakers, height: 100, width: 250,),
+                            AboutLogoShower(logo: ImageConst.parcLleida, height: 100, width: 200,),
+                          ],
+                        ),
+                      ),
+                      20.ph
                     ],
                   ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         )
     );
   }

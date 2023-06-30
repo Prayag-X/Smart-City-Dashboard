@@ -24,7 +24,16 @@
     "settings": "Settings",
     "option": "LG Options",
     "about": "About",
-    "available_data": "Available Data"
+    "available_data": "Available Data",
+    "about_page": {
+      "description": "Smart City Dashboard is a Flutter app to visualize many available public data of various smart cities through various visually appealing dashboards and charts. It can show realtime weather along with hourly data, various analytic data of the cities and other important data like environment, population etc. The app supports an integrated Google Map to control the Liquid Galaxy. It automatically travels to the location of the city selected and also facilitates the tour of the city's major locations. It can also visualize various KML data in the bigger screen of Liquid Galaxy for better analysis. One of the major feature of the app is that even though the size of the app is small, it can show data of many GBs as it downloads it in realtime and also features to clean those data so that the device does not get clogged of unnecessary large data. The app supports 2 themes and many languages as well.",
+      "made_by": "Made by",
+      "prayag": "Prayag Biswas",
+      "organization": "Organization",
+      "liquid_galaxy": "Liquid Galaxy",
+      "mentor": "Mentor",
+      "merul": "Merul Dhiman"
+    }
   },
   "city_page": {
     "go_back": "(Tap to go back to home)",

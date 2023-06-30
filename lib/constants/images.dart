@@ -34,4 +34,10 @@ class ImageConst {
   static const flutter = 'assets/logos/flutter.png';
   static const gsoc = 'assets/logos/gsoc.png';
   static const lgAbout = 'assets/logos/lg_about.png';
+  static const lgEu = 'assets/logos/lg_eu.png';
+  static const lgLab = 'assets/logos/lg_lab.png';
+  static const gdg = 'assets/logos/gdg.png';
+  static const tic = 'assets/logos/tic.png';
+  static const womenTechmakers = 'assets/logos/women_techmakers.png';
+  static const parcLleida = 'assets/logos/parc_lleida.png';
 }
