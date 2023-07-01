@@ -52,6 +52,7 @@
       "terrain": "Terrain"
     },
     "downloadable_content_unavailable": "Content Unavailable. Please go to the settings and download all the available content.",
+    "available_kml": "Available KML data to download and visualize",
     "weather": {
       "now": "Now",
       "wind": "Wind",

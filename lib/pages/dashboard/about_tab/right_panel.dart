@@ -30,7 +30,6 @@ class _AboutTabRightState extends ConsumerState<AboutTabRight> {
 
   @override
   Widget build(BuildContext context) {
-    CityCardModel? cityData = ref.watch(cityDataProvider);
     return DashboardRightPanel(
         headers: [TextConst.availableOptions],
         headersFlex: const [1],

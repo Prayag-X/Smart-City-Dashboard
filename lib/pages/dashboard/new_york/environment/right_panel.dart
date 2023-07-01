@@ -25,6 +25,110 @@ class NYCEnvironmentTabRight extends ConsumerStatefulWidget {
 class _NYCEnvironmentTabRightState extends ConsumerState<NYCEnvironmentTabRight> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return DashboardRightPanel(
+        headers: [TextConst.availableKml],
+        headersFlex: const [1],
+        centerHeader: true,
+        panelList: const [
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(vertical: 5.0),
+          //   child: GestureDetector(
+          //     onTap: () async {
+          //       ref.read(isLoadingProvider.notifier).state = true;
+          //       setState(() {
+          //         selectedTask = 0;
+          //       });
+          //       try {
+          //         // await Downloader(ref: ref).downloadKml('https://i.pinimg.com/1200x/0e/50/39/0e503918829c61bd24803ce064546cee.jpg');
+          //
+          //         // File file = await SSH(ref: ref).makeFile(Const.kmlOrbitFileName, KMLMakers.buildOrbit(cityData!.location.latitude, cityData.location.longitude));
+          //         // File file = await SSH(ref: ref).makeFile(Const.kmlOrbitFileName, KMLMakers.buildExample());
+          //
+          //         File file = await SSH(ref: ref).makeFile(Const.kmlOrbitFileName, KMLMakers.buildOrbit(ref));
+          //         await SSH(ref: ref).kmlFileUpload(file, Const.kmlOrbitFileName);
+          //         await SSH(ref: ref).runKml(Const.kmlOrbitFileName);
+          //         await SSH(ref: ref).startOrbit();
+          //
+          //         // await NYCApi().getData('resource/uvpi-gqnh.json', 2000);
+          //         // print("DONEE");
+          //
+          //       } catch (e) {
+          //         print("EAFDAFASF");
+          //         print(e);
+          //       }
+          //       ref.read(isLoadingProvider.notifier).state = false;
+          //     },
+          //     child: Container(
+          //       decoration: BoxDecoration(
+          //         color: selectedTask == 0
+          //             ? Themes.darkHighlightColor
+          //             : null,
+          //         borderRadius:
+          //         BorderRadius.circular(Const.dashboardUIRoundness),
+          //       ),
+          //       child: Padding(
+          //           padding: const EdgeInsets.symmetric(
+          //               vertical: 15.0, horizontal: 10.0),
+          //           child: Row(
+          //             children: [
+          //               Icon(
+          //                 Icons.play_arrow_rounded,
+          //                 size: Const.dashboardTextSize+5,
+          //                 color: Colors.white,
+          //               ),
+          //               10.pw,
+          //               Text(
+          //                 'Play Tour',
+          //                 style: textStyleNormalWhite.copyWith(
+          //                     fontSize:
+          //                     Const.dashboardTextSize + 5),
+          //               ),
+          //             ],
+          //           )),
+          //     ),
+          //   ),
+          // ),
+          // Padding(
+          //   padding: const EdgeInsets.symmetric(vertical: 5.0),
+          //   child: GestureDetector(
+          //     onTap: () async {
+          //       ref.read(isLoadingProvider.notifier).state = true;
+          //       setState(() {
+          //         selectedTask = 1;
+          //       });
+          //       await SSH(ref: ref).stopOrbit();
+          //       ref.read(isLoadingProvider.notifier).state = false;
+          //     },
+          //     child: Container(
+          //       decoration: BoxDecoration(
+          //         color: selectedTask == 1
+          //             ? Themes.darkHighlightColor
+          //             : null,
+          //         borderRadius:
+          //         BorderRadius.circular(Const.dashboardUIRoundness),
+          //       ),
+          //       child: Padding(
+          //           padding: const EdgeInsets.symmetric(
+          //               vertical: 15.0, horizontal: 10.0),
+          //           child: Row(
+          //             children: [
+          //               Icon(
+          //                 Icons.stop_rounded,
+          //                 size: Const.dashboardTextSize+5,
+          //                 color: Colors.white,
+          //               ),
+          //               10.pw,
+          //               Text(
+          //                 'Stop Tour',
+          //                 style: textStyleNormalWhite.copyWith(
+          //                     fontSize:
+          //                     Const.dashboardTextSize + 5),
+          //               ),
+          //             ],
+          //           )),
+          //     ),
+          //   ),
+          // )
+        ]);
   }
 }
