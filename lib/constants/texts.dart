@@ -93,6 +93,10 @@ class TextConst {
   static String aboutPageAndrew = translate('homepage.about_page.andrew');
   static String aboutPageMentor = translate('homepage.about_page.mentor');
   static String aboutPageMerul = translate('homepage.about_page.merul');
+  static String aboutPageGithub = translate('homepage.about_page.project_github');
+  static String aboutPageLicense = translate('homepage.about_page.license');
+  static String aboutPageLGSite = translate('homepage.about_page.lg_site');
+  static String aboutPageLinkedin = translate('homepage.about_page.linkedin');
 }
 
 

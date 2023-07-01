@@ -105,14 +105,41 @@ class _AboutPageState extends ConsumerState<AboutPage> {
                           style: textStyleNormalWhite.copyWith(fontSize: 17),
                         ),
                       ),
-                      50.ph,
+                      30.ph,
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
-                        child: Container(
-                          color: Colors.black,
-                          height: 150,
+                        child: SizedBox(
+                          height: 80,
                           child: Row(
                             children: [
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    UrlLauncher(
+                                        text: TextConst.aboutPageGithub,
+                                        url:
+                                            'https://github.com/Prayag-X/Smart-City-Dashboard'),
+                                    UrlLauncher(
+                                        text: TextConst.aboutPageLicense,
+                                        url:
+                                            'https://github.com/Prayag-X/Smart-City-Dashboard/blob/main/LICENSE'),
+                                    UrlLauncher(
+                                        text: TextConst.aboutPageLGSite,
+                                        url: 'https://www.liquidgalaxy.eu/'),
+                                    UrlLauncher(
+                                        text: TextConst.aboutPageLinkedin,
+                                        url:
+                                            'https://www.linkedin.com/in/prayag-biswas-293644215/'),
+                                  ],
+                                ),
+                              ),
+                              VerticalDivider(
+                                thickness: 1,
+                                width: 60,
+                                color: Colors.white.withOpacity(0.5),
+                              ),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -141,26 +168,11 @@ class _AboutPageState extends ConsumerState<AboutPage> {
                                   ],
                                 ),
                               ),
-                              VerticalDivider(
-                                thickness: 1,
-                                color: Colors.white.withOpacity(0.5),
-                              ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    UrlLauncher(text: 'hola', url: 'hola'),
-                                    UrlLauncher(text: 'hola', url: 'hola'),
-                                    UrlLauncher(text: 'hola', url: 'hola'),
-                                  ],
-                                ),
-                              ),
                             ],
                           ),
                         ),
                       ),
-                      50.ph,
+                      30.ph,
                       Divider(
                         thickness: 1,
                         color: Colors.white.withOpacity(0.5),

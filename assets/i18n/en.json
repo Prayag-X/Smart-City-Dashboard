@@ -34,7 +34,11 @@
       "organization_admin": "Organisation Admin",
       "andrew": "Andreu Ibáñez",
       "mentor": "Mentor",
-      "merul": "Merul Dhiman"
+      "merul": "Merul Dhiman",
+      "project_github": "Project Github",
+      "license": "License",
+      "lg_site": "Liquid Galaxy Website",
+      "linkedin": "My LinkedIn"
     }
   },
   "city_page": {
