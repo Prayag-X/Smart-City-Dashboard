@@ -97,7 +97,7 @@ class TextConst {
   static String aboutPageLicense = translate('homepage.about_page.license');
   static String aboutPageLGSite = translate('homepage.about_page.lg_site');
   static String aboutPageLinkedin = translate('homepage.about_page.linkedin');
-  static String availableKml = translate('homepage.about_page.available_kml');
+  static String availableKml = translate('dashboard.available_kml');
 }
 
 
