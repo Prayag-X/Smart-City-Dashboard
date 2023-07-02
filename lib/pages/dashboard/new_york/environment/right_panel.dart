@@ -24,14 +24,17 @@ class NYCEnvironmentTabRight extends ConsumerStatefulWidget {
   ConsumerState createState() => _NYCEnvironmentTabRightState();
 }
 
-class _NYCEnvironmentTabRightState extends ConsumerState<NYCEnvironmentTabRight> {
+class _NYCEnvironmentTabRightState
+    extends ConsumerState<NYCEnvironmentTabRight> {
   @override
   Widget build(BuildContext context) {
     return DashboardRightPanel(
         headers: [TextConst.availableKml],
         headersFlex: const [1],
         centerHeader: true,
-        panelList: DownloadableContent.nycEnvironment.map((data) => KmlDownloaderButton(data, 1)).toList()
-    );
+        panelList: DownloadableContent.nycEnvironment
+            .map((data) => KmlDownloaderButton(
+                data, DownloadableContent.nycEnvironment.indexOf(data)))
+            .toList());
   }
 }

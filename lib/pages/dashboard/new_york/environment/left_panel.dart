@@ -64,7 +64,7 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
             ),
           ),
           children: [
-            waterConsumptionData != null && !isLoading
+            waterConsumptionData != null
                 ? ChartParser(title: TextConst.waterConsumptionTitle, chartData: {
                     TextConst.population: Colors.red,
                     TextConst.waterConsumption: Colors.blue
