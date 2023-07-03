@@ -6,6 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:smart_city_dashboard/connections/downloader.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/kml_makers/kml_makers.dart';
+import 'package:smart_city_dashboard/pages/dashboard/widgets/dashboard_pie_chart.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/dashboard_right_panel.dart';
 import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
@@ -31,15 +32,16 @@ class NYCEnvironmentTabLeft extends ConsumerStatefulWidget {
 }
 
 class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
+  List<List<dynamic>>? data;
   List<List<dynamic>>? waterConsumptionData;
 
   loadCSVData() async {
     Future.delayed(Duration.zero).then((x) async {
       ref.read(isLoadingProvider.notifier).state = true;
-      waterConsumptionData = await FileParser.parseCSVFromStorage(
+       data = await FileParser.parseCSVFromStorage(
           DownloadableContent.generateFileName(
               DownloadableContent.content['Water Consumption']!));
-      waterConsumptionData = FileParser.transformer(waterConsumptionData!);
+      waterConsumptionData = FileParser.transformer(data!);
       ref.read(isLoadingProvider.notifier).state = false;
     });
   }
@@ -52,7 +54,6 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
 
   @override
   Widget build(BuildContext context) {
-    bool isLoading = ref.watch(isLoadingProvider);
     return AnimationLimiter(
       child: Column(
         children: AnimationConfiguration.toStaggeredList(
@@ -76,6 +77,7 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
                     widthMultiplier: 2,
                   ),
             Const.dashboardUISpacing.ph,
+            // DashboardPieChart()
           ],
         ),
       ),

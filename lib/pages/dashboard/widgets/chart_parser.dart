@@ -85,7 +85,7 @@ class ChartParser {
       markerY.add(row);
     }
 
-    return DashboardChart(
+    return DashboardLineChart(
         title: title,
         chartData: chartData,
         points: points,
@@ -133,7 +133,7 @@ class ChartParser {
       minHumid += intervalHumid;
     }
 
-    return DashboardChart(
+    return DashboardLineChart(
       title: TextConst.hourly,
       chartData: chartData,
       points: points,

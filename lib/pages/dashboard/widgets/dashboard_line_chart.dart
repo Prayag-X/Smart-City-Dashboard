@@ -7,8 +7,8 @@ import 'package:smart_city_dashboard/utils/helper.dart';
 import '../../../constants/constants.dart';
 import '../../../constants/theme.dart';
 
-class DashboardChart extends StatefulWidget {
-  const DashboardChart(
+class DashboardLineChart extends StatefulWidget {
+  const DashboardLineChart(
       {super.key,
       required this.title,
       required this.chartData,
@@ -35,10 +35,10 @@ class DashboardChart extends StatefulWidget {
   final double maxY;
 
   @override
-  State<DashboardChart> createState() => _DashboardChartState();
+  State<DashboardLineChart> createState() => _DashboardLineChartState();
 }
 
-class _DashboardChartState extends State<DashboardChart> {
+class _DashboardLineChartState extends State<DashboardLineChart> {
   Color lightColor =
       lightenColor(Themes.darkHighlightColor, 0.1).withOpacity(0.5);
   Color darkColor =
