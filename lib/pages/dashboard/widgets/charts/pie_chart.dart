@@ -30,7 +30,7 @@ class DashboardPieChart extends StatefulWidget {
 
 class _DashboardPieChartState extends State<DashboardPieChart> {
   int touchedIndex = -1;
-  Color chartColor = const Color(0xFF1A254D);
+  Color chartColor = const Color(0xFF00104B);
 
   pieChart() => PieChart(
         PieChartData(
@@ -51,8 +51,8 @@ class _DashboardPieChartState extends State<DashboardPieChart> {
             borderData: FlBorderData(
               show: false,
             ),
-            sectionsSpace: 0,
-            centerSpaceRadius: 40,
+            sectionsSpace: 5,
+            centerSpaceRadius: 35,
             sections: widget.headers
                 .map((header) => PieChartSectionData(
                       color: lightenColor(
@@ -61,13 +61,14 @@ class _DashboardPieChartState extends State<DashboardPieChart> {
                               100 *
                               0.7),
                       value: widget.percentages[widget.headers.indexOf(header)],
-                      title: header,
+                      title: '${widget.percentages[widget.headers.indexOf(header)].toStringAsFixed(0)}%',
+                      showTitle: widget.percentages[widget.headers.indexOf(header)] > 3 ? true : false,
                       radius: widget.headers.indexOf(header) == touchedIndex
-                          ? 60.0
+                          ? 57.0
                           : 50.0,
                       titleStyle: TextStyle(
                         fontSize: widget.headers.indexOf(header) == touchedIndex
-                            ? 25.0
+                            ? 20.0
                             : 16.0,
                         fontWeight: FontWeight.bold,
                         color: Colors.white,
@@ -123,46 +124,48 @@ class _DashboardPieChartState extends State<DashboardPieChart> {
                   30.pw,
                   Expanded(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
                           '${TextConst.total} ${widget.subTitle}: ${widget.total}',
-                          style: textStyleNormal.copyWith(
-                              fontSize: Const.dashboardChartTextSize - 2,
-                              color: Colors.white),
+                          style: textStyleBoldWhite.copyWith(
+                              fontSize: Const.dashboardChartTextSize - 2),
                         ),
-                        10.ph,
+                        15.ph,
                         Column(
                             children: widget.headers
                                 .map(
-                                  (header) => Row(
-                                    children: [
-                                      Container(
-                                        width: Const.dashboardChartTextSize - 7,
-                                        height:
-                                            Const.dashboardChartTextSize - 7,
-                                        decoration: BoxDecoration(
-                                            color: lightenColor(
-                                                chartColor,
-                                                widget.percentages[widget
-                                                        .headers
-                                                        .indexOf(header)] /
-                                                    100 *
-                                                    0.7),
-                                            borderRadius:
-                                                BorderRadius.circular(35.0)),
-                                      ),
-                                      5.pw,
-                                      Text(
-                                        header,
-                                        style: textStyleNormal.copyWith(
-                                            fontSize:
-                                                Const.dashboardChartTextSize -
-                                                    3,
-                                            color: Colors.white),
-                                      ),
-                                    ],
+                                  (header) => Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 2.0),
+                                    child: Row(
+                                      children: [
+                                        Container(
+                                          width: Const.dashboardChartTextSize - 5,
+                                          height:
+                                              Const.dashboardChartTextSize - 5,
+                                          decoration: BoxDecoration(
+                                              color: lightenColor(
+                                                  chartColor,
+                                                  widget.percentages[widget
+                                                          .headers
+                                                          .indexOf(header)] /
+                                                      100 *
+                                                      0.7),
+                                              borderRadius:
+                                                  BorderRadius.circular(35.0)),
+                                        ),
+                                        8.pw,
+                                        Text(
+                                          header,
+                                          style: textStyleNormal.copyWith(
+                                              fontSize:
+                                                  Const.dashboardChartTextSize - 2
+                                                      ,
+                                              color: Colors.white),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 )
                                 .toList()),

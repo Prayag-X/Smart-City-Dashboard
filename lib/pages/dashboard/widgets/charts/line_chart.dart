@@ -200,8 +200,8 @@ class _DashboardLineChartState extends State<DashboardLineChart> {
                           5.pw,
                           Text(
                             entry.key,
-                            style: textStyleNormal.copyWith(
-                                fontSize: Const.dashboardChartTextSize-3, color: Colors.white),
+                            style: textStyleNormalWhite.copyWith(
+                                fontSize: Const.dashboardChartTextSize-3),
                           ),
                         ],
                       ))

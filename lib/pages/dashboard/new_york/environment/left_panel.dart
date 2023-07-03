@@ -7,6 +7,7 @@ import 'package:smart_city_dashboard/connections/downloader.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/kml_makers/kml_makers.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/charts/pie_chart.dart';
+import 'package:smart_city_dashboard/pages/dashboard/widgets/charts/pie_chart_parser.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/dashboard_right_panel.dart';
 import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
@@ -34,16 +35,23 @@ class NYCEnvironmentTabLeft extends ConsumerStatefulWidget {
 class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
   List<List<dynamic>>? data;
   List<List<dynamic>>? waterConsumptionData;
+  List<List<dynamic>>? squirrelData;
 
   loadCSVData() async {
     Future.delayed(Duration.zero).then((x) async {
       ref.read(isLoadingProvider.notifier).state = true;
-       data = await FileParser.parseCSVFromStorage(
+      data = await FileParser.parseCSVFromStorage(
           DownloadableContent.generateFileName(
               DownloadableContent.content['Water Consumption']!));
-       setState(() {
-         waterConsumptionData = FileParser.transformer(data!);
-       });
+      setState(() {
+        waterConsumptionData = FileParser.transformer(data!);
+      });
+      data = await FileParser.parseCSVFromStorage(
+          DownloadableContent.generateFileName(
+              DownloadableContent.content['Squirrel Data']!));
+      setState(() {
+        squirrelData = FileParser.transformer(data!);
+      });
       ref.read(isLoadingProvider.notifier).state = false;
     });
   }
@@ -68,10 +76,12 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
           ),
           children: [
             waterConsumptionData != null
-                ? LineChartParser(title: TextConst.waterConsumptionTitle, chartData: {
-                    TextConst.population: Colors.red,
-                    TextConst.waterConsumption: Colors.blue
-                  }).chartParser(
+                ? LineChartParser(
+                    title: TextConst.waterConsumptionTitle,
+                    chartData: {
+                        TextConst.population: Colors.red,
+                        TextConst.waterConsumption: Colors.blue
+                      }).chartParser(
                     dataX: waterConsumptionData![0],
                     dataY: [waterConsumptionData![1], waterConsumptionData![2]])
                 : const BlankDashboardContainer(
@@ -79,7 +89,15 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
                     widthMultiplier: 2,
                   ),
             Const.dashboardUISpacing.ph,
-            // DashboardPieChart(title: 'hola',)
+            squirrelData != null
+                ? PieChartParser(
+                        title: TextConst.squirrelTitle,
+                        subTitle: TextConst.squirrelSubTitle)
+                    .chartParser(data: squirrelData![7])
+                : const BlankDashboardContainer(
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
           ],
         ),
       ),
