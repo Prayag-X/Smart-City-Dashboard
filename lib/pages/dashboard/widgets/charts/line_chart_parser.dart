@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_city_dashboard/models/forecast_weather.dart';
 import 'package:smart_city_dashboard/utils/helper.dart';
 
-import '../../../constants/texts.dart';
+import '../../../../constants/texts.dart';
 import 'dashboard_line_chart.dart';
 
 class ChartParser {

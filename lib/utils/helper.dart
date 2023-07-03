@@ -48,6 +48,14 @@ Color lightenColor(Color color, [double amount = .1]) {
   return hslLight.toColor();
 }
 
+Color invertColor(Color color) {
+  final r = 255 - color.red;
+  final g = 255 - color.green;
+  final b = 255 - color.blue;
+
+  return lightenColor(Color.fromARGB((color.opacity * 255).round(), r, g, b), 0.4);
+}
+
 double roundDouble(double value, int places) {
   num mod = pow(10.0, places);
   return ((value * mod).round().toDouble() / mod);
