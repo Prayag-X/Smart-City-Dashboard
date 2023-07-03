@@ -10,7 +10,7 @@ class Downloader {
   Downloader({required this.ref});
 
   downloadKml(String url) async {
-    ref.read(loadingPercentageProvider.notifier).state = null;
+    ref.read(loadingPercentageProvider.notifier).state = -1;
     await FileDownloader().download(
         DownloadTask(
           url: url,
@@ -21,7 +21,6 @@ class Downloader {
           allowPause: true,
         ),
         onProgress: (progress) {
-          print(progress);
           if (progress != 0) {
             ref.read(loadingPercentageProvider.notifier).state = progress;
           }

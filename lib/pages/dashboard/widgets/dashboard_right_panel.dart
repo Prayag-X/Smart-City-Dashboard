@@ -25,8 +25,6 @@ class DashboardRightPanel extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ForecastWeather? weatherData = ref.watch(weatherDataProvider);
-    int weatherDayClicked = ref.watch(weatherDayClickedProvider);
     return AnimationLimiter(
       child: Column(
         children: AnimationConfiguration.toStaggeredList(

@@ -179,7 +179,6 @@ class SSH {
   }
 
   kmlFileUpload(File inputFile, String kmlName) async {
-    ref.read(loadingPercentageProvider.notifier).state = 0;
     bool uploading = true;
     await ref.read(sshClient)?.sftp();
     final sftp = await ref.read(sshClient)?.sftp();
@@ -194,6 +193,9 @@ class SSH {
         uploading = false;
       }
     });
+    if(file == null) {
+      return;
+    }
     await waitWhile(() => uploading);
     ref.read(loadingPercentageProvider.notifier).state = null;
   }

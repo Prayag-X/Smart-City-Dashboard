@@ -30,7 +30,7 @@ class _AppBarState extends ConsumerState<CustomAppBar> {
     return Column(
       children: [
         Container(
-          height: Const.appBarHeight-10,
+          height: Const.appBarHeight - 10,
           color: Themes.darkColor,
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -43,17 +43,20 @@ class _AppBarState extends ConsumerState<CustomAppBar> {
                   children: [
                     Text(
                       TextConst.title,
-                      style: textStyleBoldWhite.copyWith(fontSize: Const.appBarTextSize+10),
+                      style: textStyleBoldWhite.copyWith(
+                          fontSize: Const.appBarTextSize + 10),
                     ),
                     5.ph,
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Container(
-                          width: Const.appBarTextSize-7,
-                          height: Const.appBarTextSize-7,
+                          width: Const.appBarTextSize - 7,
+                          height: Const.appBarTextSize - 7,
                           decoration: BoxDecoration(
-                              color: isConnectedToInternet ? Colors.green : Colors.red,
+                              color: isConnectedToInternet
+                                  ? Colors.green
+                                  : Colors.red,
                               borderRadius: BorderRadius.circular(35.0)),
                         ),
                         5.pw,
@@ -62,15 +65,18 @@ class _AppBarState extends ConsumerState<CustomAppBar> {
                               ? TextConst.online
                               : TextConst.offline,
                           style: textStyleBold.copyWith(
-                              color: isConnectedToInternet ? Colors.green : Colors.red,
-                              fontSize: Const.appBarTextSize-6),
+                              color: isConnectedToInternet
+                                  ? Colors.green
+                                  : Colors.red,
+                              fontSize: Const.appBarTextSize - 6),
                         ),
                         20.pw,
                         Container(
-                          width: Const.appBarTextSize-7,
-                          height: Const.appBarTextSize-7,
+                          width: Const.appBarTextSize - 7,
+                          height: Const.appBarTextSize - 7,
                           decoration: BoxDecoration(
-                              color: isConnectedToLg ? Colors.green : Colors.red,
+                              color:
+                                  isConnectedToLg ? Colors.green : Colors.red,
                               borderRadius: BorderRadius.circular(35.0)),
                         ),
                         5.pw,
@@ -79,8 +85,9 @@ class _AppBarState extends ConsumerState<CustomAppBar> {
                               ? TextConst.connected
                               : TextConst.disconnected,
                           style: textStyleBold.copyWith(
-                              color: isConnectedToLg ? Colors.green : Colors.red,
-                              fontSize: Const.appBarTextSize-6),
+                              color:
+                                  isConnectedToLg ? Colors.green : Colors.red,
+                              fontSize: Const.appBarTextSize - 6),
                         ),
                       ],
                     )
@@ -88,7 +95,7 @@ class _AppBarState extends ConsumerState<CustomAppBar> {
                 ),
                 SizedBox(
                   width: 350,
-                  height: Const.appBarHeight-30,
+                  height: Const.appBarHeight - 30,
                   child: TextFormField(
                     decoration: InputDecoration(
                         prefixIcon: Icon(
@@ -98,16 +105,17 @@ class _AppBarState extends ConsumerState<CustomAppBar> {
                         contentPadding: const EdgeInsets.symmetric(
                             vertical: 15, horizontal: 25),
                         focusedBorder: OutlineInputBorder(
-                            borderSide:
-                            BorderSide(color: Themes.darkWhiteColor, width: 3),
+                            borderSide: BorderSide(
+                                color: Themes.darkWhiteColor, width: 3),
                             borderRadius: BorderRadius.circular(35.0)),
                         enabledBorder: OutlineInputBorder(
-                            borderSide:
-                            BorderSide(color: Themes.darkWhiteColor, width: 1),
+                            borderSide: BorderSide(
+                                color: Themes.darkWhiteColor, width: 1),
                             borderRadius: BorderRadius.circular(35.0)),
                         hintText: TextConst.search,
                         hintStyle: textStyleNormal.copyWith(
-                            color: Colors.white.withOpacity(0.5), fontSize: 16)),
+                            color: Colors.white.withOpacity(0.5),
+                            fontSize: 16)),
                     style: textStyleNormalWhite.copyWith(fontSize: 16),
                     controller: searchController,
                   ),
@@ -118,12 +126,17 @@ class _AppBarState extends ConsumerState<CustomAppBar> {
         ),
         SizedBox(
             height: 3,
-            child: isLoading ? LinearProgressIndicator(
-              value: loadingPercentage,
-              backgroundColor: Themes.darkColor,
-              color: loadingPercentage == null ? lightenColor(Themes.darkHighlightColor, 0.2) : Colors.green,
-            ) : const SizedBox.shrink()
-        ),
+            child: isLoading
+                ? LinearProgressIndicator(
+                    value: loadingPercentage != -1 ? loadingPercentage : null,
+                    backgroundColor: Themes.darkColor,
+                    color: loadingPercentage == null
+                        ? loadingPercentage != -1
+                            ? lightenColor(Themes.darkHighlightColor, 0.2)
+                            : Colors.green
+                        : Colors.green,
+                  )
+                : const SizedBox.shrink()),
         7.ph
       ],
     );

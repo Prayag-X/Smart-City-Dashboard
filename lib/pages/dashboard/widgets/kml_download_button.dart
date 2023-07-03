@@ -35,7 +35,7 @@ class KmlDownloaderButton extends ConsumerWidget {
                 builder: (BuildContext context, BoxConstraints constraints) =>
                     Container(
                         width: loadingPercentage != null
-                            ? constraints.maxWidth * loadingPercentage
+                            ? constraints.maxWidth * (loadingPercentage != -1 ? loadingPercentage : 1)
                             : constraints.maxWidth,
                         height: 42,
                         decoration: BoxDecoration(
@@ -43,7 +43,10 @@ class KmlDownloaderButton extends ConsumerWidget {
                               ? Themes.darkHighlightColor
                               : null,
                           borderRadius:
-                              BorderRadius.circular(Const.dashboardUIRoundness/2),
+                              BorderRadius.circular(Const.dashboardUIRoundness),
+                            border: kmlClicked == index
+                                ? Border.all(color: Themes.darkHighlightColor)
+                                : null,
                         ))),
           ),
           TextButton(
