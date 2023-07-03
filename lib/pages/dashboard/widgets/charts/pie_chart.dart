@@ -12,11 +12,11 @@ class DashboardPieChart extends StatefulWidget {
   const DashboardPieChart(
       {super.key,
       required this.title,
-      required this.data,
+      required this.headers,
       required this.percentages});
 
   final String title;
-  final List<String> data;
+  final List<String> headers;
   final List<double> percentages;
 
   @override
@@ -47,20 +47,20 @@ class _DashboardPieChartState extends State<DashboardPieChart> {
             ),
             sectionsSpace: 0,
             centerSpaceRadius: 40,
-            sections: widget.data
-                .map((data) => PieChartSectionData(
+            sections: widget.headers
+                .map((header) => PieChartSectionData(
                       color: lightenColor(
                           const Color(0xFF1A254D),
-                          widget.percentages[widget.data.indexOf(data)] /
+                          widget.percentages[widget.headers.indexOf(header)] /
                               100 *
                               0.7),
-                      value: widget.percentages[widget.data.indexOf(data)],
-                      title: data,
-                      radius: widget.data.indexOf(data) == touchedIndex
+                      value: widget.percentages[widget.headers.indexOf(header)],
+                      title: header,
+                      radius: widget.headers.indexOf(header) == touchedIndex
                           ? 60.0
                           : 50.0,
                       titleStyle: TextStyle(
-                        fontSize: widget.data.indexOf(data) == touchedIndex
+                        fontSize: widget.headers.indexOf(header) == touchedIndex
                             ? 25.0
                             : 16.0,
                         fontWeight: FontWeight.bold,

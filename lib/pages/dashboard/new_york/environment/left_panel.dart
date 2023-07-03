@@ -6,7 +6,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:smart_city_dashboard/connections/downloader.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/kml_makers/kml_makers.dart';
-import 'package:smart_city_dashboard/pages/dashboard/widgets/charts/dashboard_pie_chart.dart';
+import 'package:smart_city_dashboard/pages/dashboard/widgets/charts/pie_chart.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/dashboard_right_panel.dart';
 import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
@@ -68,7 +68,7 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
           ),
           children: [
             waterConsumptionData != null
-                ? ChartParser(title: TextConst.waterConsumptionTitle, chartData: {
+                ? LineChartParser(title: TextConst.waterConsumptionTitle, chartData: {
                     TextConst.population: Colors.red,
                     TextConst.waterConsumption: Colors.blue
                   }).chartParser(

@@ -122,7 +122,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
             ),
             Const.dashboardUISpacing.ph,
             weatherData != null
-                ? ChartParser(chartData: {
+                ? LineChartParser(chartData: {
                     TextConst.temperature: Colors.red,
                     TextConst.humidity: Colors.blue
                   }, title: TextConst.hourly)
@@ -268,7 +268,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
             ),
             Const.dashboardUISpacing.ph,
             weatherData != null
-                ? ChartParser(chartData: {
+                ? LineChartParser(chartData: {
                     TextConst.temperature: Colors.red,
                     TextConst.humidity: Colors.blue
                   }, title: TextConst.hourly)

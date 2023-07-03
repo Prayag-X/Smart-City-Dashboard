@@ -5,9 +5,9 @@ import 'package:smart_city_dashboard/models/forecast_weather.dart';
 import 'package:smart_city_dashboard/utils/helper.dart';
 
 import '../../../../constants/texts.dart';
-import 'dashboard_line_chart.dart';
+import 'line_chart.dart';
 
-class ChartParser {
+class LineChartParser {
   late String title;
   late Map<String, Color> chartData;
   List<List<FlSpot>> points = [];
@@ -21,7 +21,7 @@ class ChartParser {
   int markerIntervalX = 4;
   int markerIntervalY = 4;
 
-  ChartParser({required this.title, required this.chartData});
+  LineChartParser({required this.title, required this.chartData});
 
   Widget chartParser(
       {required List<dynamic> dataX, required List<List<dynamic>> dataY}) {
