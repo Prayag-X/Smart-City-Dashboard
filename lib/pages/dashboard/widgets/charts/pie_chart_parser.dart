@@ -3,10 +3,11 @@ import 'package:smart_city_dashboard/pages/dashboard/widgets/charts/pie_chart.da
 
 class PieChartParser {
   late String title;
+  late String subTitle;
   List<String> headers = [];
   List<double> percentages = [];
 
-  PieChartParser({required this.title});
+  PieChartParser({required this.title, required this.subTitle});
 
   Widget chartParser({required List<dynamic> data}) {
     List<int> frequency = [];
@@ -25,6 +26,11 @@ class PieChartParser {
     }
 
     return DashboardPieChart(
-        title: title, headers: headers, percentages: percentages);
+      title: title,
+      subTitle: subTitle,
+      headers: headers,
+      percentages: percentages,
+      total: data.length,
+    );
   }
 }

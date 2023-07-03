@@ -53,6 +53,7 @@
     },
     "downloadable_content_unavailable": "Content Unavailable. Please go to the settings and download all the available content.",
     "available_kml": "Available KML data to download and visualize",
+    "total": "Total",
     "weather": {
       "now": "Now",
       "wind": "Wind",
@@ -123,6 +124,8 @@
       "environment" : {
         "water_consumption_title": "Population and Water Consumption",
         "population": "Population",
+        "squirrel_data": "Central Park Squirrel data",
+        "squirrel": "Squirrel",
         "water_consumption": "Water consumption per day"
       }
     }

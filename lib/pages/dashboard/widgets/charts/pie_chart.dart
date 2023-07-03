@@ -1,5 +1,6 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_city_dashboard/constants/texts.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 
 import '../../../../constants/constants.dart';
@@ -12,10 +13,14 @@ class DashboardPieChart extends StatefulWidget {
   const DashboardPieChart(
       {super.key,
       required this.title,
+      required this.subTitle,
       required this.headers,
-      required this.percentages});
+      required this.percentages,
+      required this.total});
 
   final String title;
+  final String subTitle;
+  final int total;
   final List<String> headers;
   final List<double> percentages;
 
@@ -25,6 +30,7 @@ class DashboardPieChart extends StatefulWidget {
 
 class _DashboardPieChartState extends State<DashboardPieChart> {
   int touchedIndex = -1;
+  Color chartColor = const Color(0xFF1A254D);
 
   pieChart() => PieChart(
         PieChartData(
@@ -50,7 +56,7 @@ class _DashboardPieChartState extends State<DashboardPieChart> {
             sections: widget.headers
                 .map((header) => PieChartSectionData(
                       color: lightenColor(
-                          const Color(0xFF1A254D),
+                          chartColor,
                           widget.percentages[widget.headers.indexOf(header)] /
                               100 *
                               0.7),
@@ -121,11 +127,45 @@ class _DashboardPieChartState extends State<DashboardPieChart> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'this is a very very this is a very very this is a very very this is a very very long text',
+                          '${TextConst.total} ${widget.subTitle}: ${widget.total}',
                           style: textStyleNormal.copyWith(
-                              fontSize: Const.dashboardChartTextSize - 3,
-                              color: Colors.white.withOpacity(0.5)),
+                              fontSize: Const.dashboardChartTextSize - 2,
+                              color: Colors.white),
                         ),
+                        10.ph,
+                        Column(
+                            children: widget.headers
+                                .map(
+                                  (header) => Row(
+                                    children: [
+                                      Container(
+                                        width: Const.dashboardChartTextSize - 7,
+                                        height:
+                                            Const.dashboardChartTextSize - 7,
+                                        decoration: BoxDecoration(
+                                            color: lightenColor(
+                                                chartColor,
+                                                widget.percentages[widget
+                                                        .headers
+                                                        .indexOf(header)] /
+                                                    100 *
+                                                    0.7),
+                                            borderRadius:
+                                                BorderRadius.circular(35.0)),
+                                      ),
+                                      5.pw,
+                                      Text(
+                                        header,
+                                        style: textStyleNormal.copyWith(
+                                            fontSize:
+                                                Const.dashboardChartTextSize -
+                                                    3,
+                                            color: Colors.white),
+                                      ),
+                                    ],
+                                  ),
+                                )
+                                .toList()),
                       ],
                     ),
                   ),
