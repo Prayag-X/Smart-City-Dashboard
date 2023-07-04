@@ -36,6 +36,7 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
   List<List<dynamic>>? data;
   List<List<dynamic>>? waterConsumptionData;
   List<List<dynamic>>? squirrelData;
+  int trees = 683788;
 
   loadCSVData() async {
     Future.delayed(Duration.zero).then((x) async {

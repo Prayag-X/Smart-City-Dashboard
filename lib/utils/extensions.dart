@@ -21,6 +21,7 @@ extension SetPercentage on num {
   double get setUVPercentage => this / 15; // Max uv = 15
   double get setPercentage => this / 100; // Max 100
   double get setPercentageAbout => this / 10000; // Max point = 10000
+  double get setTreePercentage => this / 300000000000; // Max point = 10000
 }
 
 extension Parser on String {

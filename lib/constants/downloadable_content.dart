@@ -14,7 +14,20 @@ class DownloadableContent {
           'https://data.cityofnewyork.us/api/views/ia2d-e54m/rows.csv?accessType=DOWNLOAD',
       'filename': 'water_consumption.csv',
       'directory': 'NYC/environment'
-    }
+    },
+    'Drinking water quality': {
+      'url':
+          'https://data.cityofnewyork.us/api/views/bkwf-xfky/rows.csv?accessType=DOWNLOAD',
+      'filename': 'water_quality.csv',
+      'directory': 'NYC/environment'
+    },
+    'Natural gas consumption': {
+      'url':
+          'https://data.cityofnewyork.us/api/views/uedp-fegm/rows.csv?accessType=DOWNLOAD',
+      'filename': 'gas_consumption.csv',
+      'directory': 'NYC/environment'
+    },
+
   };
 
   static List<Map<String, String>> nycEnvironment = [
