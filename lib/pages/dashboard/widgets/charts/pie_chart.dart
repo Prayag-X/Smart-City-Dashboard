@@ -1,11 +1,12 @@
-import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:smart_city_dashboard/constants/texts.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 
 import '../../../../constants/constants.dart';
 import '../../../../constants/text_styles.dart';
 import '../../../../constants/theme.dart';
+import '../../../../models/pie_chart_model.dart';
 import '../../../../utils/helper.dart';
 import '../../../../utils/extensions.dart';
 
@@ -30,54 +31,82 @@ class DashboardPieChart extends StatefulWidget {
 
 class _DashboardPieChartState extends State<DashboardPieChart> {
   int touchedIndex = -1;
-  Color chartColor = const Color(0xFF00104B);
+  Color chartColor = const Color(0xFF0021C7);
+  List<Color> chartColors = [
+    const Color(0xFF4660D9),
+    const Color(0xFFFF0005),
+    const Color(0xFFFFEB00),
+    const Color(0xFF5B6A88),
+    const Color(0xFF887859),
+    const Color(0xFFFFDF00),
+    const Color(0xFF0E2185),
+    const Color(0xFFFF0000),
+    const Color(0xFF00104B),
+    const Color(0xFF00104B),
+    const Color(0xFF00104B),
+    const Color(0xFF00104B),
+    const Color(0xFF00104B),
+    const Color(0xFF00104B),
+    const Color(0xFF00104B),
+  ];
 
-  pieChart() => PieChart(
-        PieChartData(
-            pieTouchData: PieTouchData(
-              touchCallback: (FlTouchEvent event, pieTouchResponse) {
-                setState(() {
-                  if (!event.isInterestedForInteractions ||
-                      pieTouchResponse == null ||
-                      pieTouchResponse.touchedSection == null) {
-                    touchedIndex = -1;
-                    return;
-                  }
-                  touchedIndex =
-                      pieTouchResponse.touchedSection!.touchedSectionIndex;
-                });
-              },
-            ),
-            borderData: FlBorderData(
-              show: false,
-            ),
-            sectionsSpace: 5,
-            centerSpaceRadius: 35,
-            sections: widget.headers
-                .map((header) => PieChartSectionData(
-                      color: lightenColor(
-                          chartColor,
-                          widget.percentages[widget.headers.indexOf(header)] /
-                              100 *
-                              0.7),
-                      value: widget.percentages[widget.headers.indexOf(header)],
-                      title: '${widget.percentages[widget.headers.indexOf(header)].toStringAsFixed(0)}%',
-                      showTitle: widget.percentages[widget.headers.indexOf(header)] > 3 ? true : false,
-                      radius: widget.headers.indexOf(header) == touchedIndex
-                          ? 57.0
-                          : 50.0,
-                      titleStyle: TextStyle(
-                        fontSize: widget.headers.indexOf(header) == touchedIndex
-                            ? 20.0
-                            : 16.0,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                        shadows: const [
-                          // Shadow(color: Colors.black, blurRadius: 2343)
-                        ],
-                      ),
-                    ))
-                .toList()),
+  final List<ChartData> chartData = [
+    ChartData('David', 25, Color.fromRGBO(9, 0, 136, 1)),
+    ChartData('Steve', 38, Color.fromRGBO(147, 0, 119, 1)),
+    ChartData('Jack', 34, Color.fromRGBO(228, 0, 124, 1)),
+    ChartData('Othsdsders', 52, Color.fromRGBO(255, 189, 57, 1))
+  ];
+
+  pieChart() => Stack(
+        children: [
+          SfCircularChart(series: <CircularSeries>[
+            // Renders doughnut chart
+            DoughnutSeries<ChartData, String>(
+                dataSource: chartData,
+                pointColorMapper: (ChartData data, _) => data.color,
+                xValueMapper: (ChartData data, _) => data.x,
+                yValueMapper: (ChartData data, _) => data.y,
+                dataLabelMapper: (ChartData data, _) => data.x,
+                dataLabelSettings: DataLabelSettings(
+                    isVisible: true,
+                    labelPosition: ChartDataLabelPosition.outside,
+                    textStyle: textStyleNormal.copyWith(fontSize: 12),
+                    useSeriesColor: true),
+                innerRadius: '100%',
+                radius: '80%',
+                // explodeGesture: ActivationMode.none,
+                // explode: true,
+                // explodeIndex: touchedIndex,
+                animationDuration: 1000)
+          ]),
+          SfCircularChart(series: <CircularSeries>[
+            // Renders doughnut chart
+            DoughnutSeries<ChartData, String>(
+              dataSource: chartData,
+              pointColorMapper: (ChartData data, _) => data.color,
+              xValueMapper: (ChartData data, _) => data.x,
+              yValueMapper: (ChartData data, _) => data.y,
+              dataLabelSettings: DataLabelSettings(
+                isVisible: true,
+                labelPosition: ChartDataLabelPosition.inside,
+                textStyle: textStyleBold.copyWith(fontSize: 14),
+                  overflowMode: OverflowMode.hide
+              ),
+              // onPointTap: (x) {
+              //   if (x.pointIndex != null) {
+              //     setState(() {
+              //       touchedIndex = x.pointIndex!;
+              //     });
+              //   }
+              // },
+              innerRadius: '40%',
+              radius: '80%',
+              explodeGesture: ActivationMode.singleTap,
+              explode: true,
+              animationDuration: 1000,
+            )
+          ]),
+        ],
       );
 
   @override
@@ -107,73 +136,22 @@ class _DashboardPieChartState extends State<DashboardPieChart> {
                   color: Colors.white.withOpacity(0.5)),
             ),
             SizedBox(
-              height: (screenSize(context).width -
-                          screenSize(context).width /
-                              Const.tabBarWidthDivider) *
-                      Const.dashboardUIHeightFactor /
-                      2 -
-                  60,
-              width: (screenSize(context).width -
-                          screenSize(context).width /
-                              Const.tabBarWidthDivider) /
-                      2 -
-                  50,
-              child: Row(
-                children: [
-                  Expanded(child: pieChart()),
-                  30.pw,
-                  Expanded(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Text(
-                          '${TextConst.total} ${widget.subTitle}: ${widget.total}',
-                          style: textStyleBoldWhite.copyWith(
-                              fontSize: Const.dashboardChartTextSize - 2),
-                        ),
-                        15.ph,
-                        Column(
-                            children: widget.headers
-                                .map(
-                                  (header) => Padding(
-                                    padding: const EdgeInsets.symmetric(vertical: 2.0),
-                                    child: Row(
-                                      children: [
-                                        Container(
-                                          width: Const.dashboardChartTextSize - 5,
-                                          height:
-                                              Const.dashboardChartTextSize - 5,
-                                          decoration: BoxDecoration(
-                                              color: lightenColor(
-                                                  chartColor,
-                                                  widget.percentages[widget
-                                                          .headers
-                                                          .indexOf(header)] /
-                                                      100 *
-                                                      0.7),
-                                              borderRadius:
-                                                  BorderRadius.circular(35.0)),
-                                        ),
-                                        8.pw,
-                                        Text(
-                                          header,
-                                          style: textStyleNormal.copyWith(
-                                              fontSize:
-                                                  Const.dashboardChartTextSize - 2
-                                                      ,
-                                              color: Colors.white),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                )
-                                .toList()),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+                height: (screenSize(context).width -
+                            screenSize(context).width /
+                                Const.tabBarWidthDivider) *
+                        Const.dashboardUIHeightFactor /
+                        2 -
+                    60,
+                width: (screenSize(context).width -
+                            screenSize(context).width /
+                                Const.tabBarWidthDivider) /
+                        2 -
+                    50,
+                child: pieChart()),
+            Text(
+              '${TextConst.total} ${widget.subTitle}: ${widget.total}',
+              style: textStyleBoldWhite.copyWith(
+                  fontSize: Const.dashboardChartTextSize - 2),
             ),
           ],
         ),
