@@ -93,7 +93,7 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
                 ? PieChartParser(
                         title: TextConst.squirrelTitle,
                         subTitle: TextConst.squirrelSubTitle)
-                    .chartParser(data: squirrelData![7])
+                    .chartParser(data: squirrelData![9])
                 : const BlankDashboardContainer(
                     heightMultiplier: 2,
                     widthMultiplier: 2,

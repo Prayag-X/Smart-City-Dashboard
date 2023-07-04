@@ -15,15 +15,13 @@ class DashboardPieChart extends StatefulWidget {
       {super.key,
       required this.title,
       required this.subTitle,
-      required this.headers,
-      required this.percentages,
+      required this.chartData,
       required this.total});
 
   final String title;
   final String subTitle;
   final int total;
-  final List<String> headers;
-  final List<double> percentages;
+  final List<ChartData> chartData;
 
   @override
   State<DashboardPieChart> createState() => _DashboardPieChartState();
@@ -50,26 +48,23 @@ class _DashboardPieChartState extends State<DashboardPieChart> {
     const Color(0xFF00104B),
   ];
 
-  final List<ChartData> chartData = [
-    ChartData('David', 25, Color.fromRGBO(9, 0, 136, 1)),
-    ChartData('Steve', 38, Color.fromRGBO(147, 0, 119, 1)),
-    ChartData('Jack', 34, Color.fromRGBO(228, 0, 124, 1)),
-    ChartData('Othsdsders', 52, Color.fromRGBO(255, 189, 57, 1))
-  ];
-
   pieChart() => Stack(
         children: [
           SfCircularChart(series: <CircularSeries>[
             // Renders doughnut chart
             DoughnutSeries<ChartData, String>(
-                dataSource: chartData,
+                dataSource: widget.chartData,
                 pointColorMapper: (ChartData data, _) => data.color,
                 xValueMapper: (ChartData data, _) => data.x,
                 yValueMapper: (ChartData data, _) => data.y,
                 dataLabelMapper: (ChartData data, _) => data.x,
                 dataLabelSettings: DataLabelSettings(
                     isVisible: true,
+                    showZeroValue: true,
+                    borderRadius: 5,
+                    overflowMode: OverflowMode.hide,
                     labelPosition: ChartDataLabelPosition.outside,
+                    connectorLineSettings: ConnectorLineSettings(color: Colors.white),
                     textStyle: textStyleNormal.copyWith(fontSize: 12),
                     useSeriesColor: true),
                 innerRadius: '100%',
@@ -82,14 +77,16 @@ class _DashboardPieChartState extends State<DashboardPieChart> {
           SfCircularChart(series: <CircularSeries>[
             // Renders doughnut chart
             DoughnutSeries<ChartData, String>(
-              dataSource: chartData,
+              dataSource: widget.chartData,
               pointColorMapper: (ChartData data, _) => data.color,
               xValueMapper: (ChartData data, _) => data.x,
               yValueMapper: (ChartData data, _) => data.y,
+              dataLabelMapper: (ChartData data, _) => '${data.y.toStringAsFixed(0)}%',
               dataLabelSettings: DataLabelSettings(
-                isVisible: true,
-                labelPosition: ChartDataLabelPosition.inside,
-                textStyle: textStyleBold.copyWith(fontSize: 14),
+                  isVisible: true,
+                  showZeroValue: true,
+                  labelPosition: ChartDataLabelPosition.inside,
+                  textStyle: textStyleBold.copyWith(fontSize: 14),
                   overflowMode: OverflowMode.hide
               ),
               // onPointTap: (x) {
@@ -101,8 +98,8 @@ class _DashboardPieChartState extends State<DashboardPieChart> {
               // },
               innerRadius: '40%',
               radius: '80%',
-              explodeGesture: ActivationMode.singleTap,
-              explode: true,
+              // explodeGesture: ActivationMode.singleTap,
+              // explode: true,
               animationDuration: 1000,
             )
           ]),
@@ -135,19 +132,21 @@ class _DashboardPieChartState extends State<DashboardPieChart> {
                   fontSize: Const.dashboardChartTextSize - 3,
                   color: Colors.white.withOpacity(0.5)),
             ),
-            SizedBox(
-                height: (screenSize(context).width -
-                            screenSize(context).width /
-                                Const.tabBarWidthDivider) *
-                        Const.dashboardUIHeightFactor /
-                        2 -
-                    60,
-                width: (screenSize(context).width -
-                            screenSize(context).width /
-                                Const.tabBarWidthDivider) /
-                        2 -
-                    50,
-                child: pieChart()),
+            ClipRRect(
+              child: SizedBox(
+                  height: (screenSize(context).width -
+                              screenSize(context).width /
+                                  Const.tabBarWidthDivider) *
+                          Const.dashboardUIHeightFactor /
+                          2 -
+                      70,
+                  width: (screenSize(context).width -
+                              screenSize(context).width /
+                                  Const.tabBarWidthDivider) /
+                          2 -
+                      50,
+                  child: pieChart()),
+            ),
             Text(
               '${TextConst.total} ${widget.subTitle}: ${widget.total}',
               style: textStyleBoldWhite.copyWith(
