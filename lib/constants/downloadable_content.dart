@@ -27,15 +27,26 @@ class DownloadableContent {
       'filename': 'gas_consumption.csv',
       'directory': 'NYC/environment'
     },
-
   };
 
   static List<Map<String, String>> nycEnvironment = [
     {
       'url':
           'https://data.cityofnewyork.us/api/geospatial/uyj8-7rv5?method=export&format=KML',
-      'name': 'Sandy Inundation Zone',
+      'name': 'Sandy inundation zone',
       'size': '100 MB',
+    },
+    {
+      'url':
+          'https://data.cityofnewyork.us/api/geospatial/b9ze-z4u4?method=export&format=KML',
+      'name': 'Citywide outfalls',
+      'size': '4.20 MB',
+    },
+    {
+      'url':
+          'https://data.cityofnewyork.us/api/geospatial/ajyu-7sgg?method=export&format=KML',
+      'name': 'Sea level rising',
+      'size': '24 MB',
     },
   ];
 }
