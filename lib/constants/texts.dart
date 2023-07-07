@@ -86,6 +86,8 @@ class TextConst {
   static String waterConsumption = translate('city_data.new_york.environment.water_consumption');
   static String squirrelTitle = translate('city_data.new_york.environment.squirrel_data');
   static String squirrelSubTitle = translate('city_data.new_york.environment.squirrel');
+  static String trees = translate('city_data.new_york.environment.trees');
+  static String bins = translate('city_data.new_york.environment.bins');
   static String aboutPageDescription = translate('homepage.about_page.description');
   static String aboutPageMadeBy = translate('homepage.about_page.made_by');
   static String aboutPagePrayag = translate('homepage.about_page.prayag');

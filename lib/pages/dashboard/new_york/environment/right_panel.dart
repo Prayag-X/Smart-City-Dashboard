@@ -32,9 +32,9 @@ class _NYCEnvironmentTabRightState
         headers: [TextConst.availableKml],
         headersFlex: const [1],
         centerHeader: true,
-        panelList: DownloadableContent.nycEnvironment
+        panelList: DownloadableContent.nycEnvironmentKml
             .map((data) => KmlDownloaderButton(
-                data, DownloadableContent.nycEnvironment.indexOf(data)))
+                data, DownloadableContent.nycEnvironmentKml.indexOf(data)))
             .toList());
   }
 }

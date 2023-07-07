@@ -40,4 +40,6 @@ class ImageConst {
   static const tic = 'assets/logos/tic.png';
   static const womenTechmakers = 'assets/logos/women_techmakers.png';
   static const parcLleida = 'assets/logos/parc_lleida.png';
+  static const tree = 'assets/logos/tree.png';
+  static const bin = 'assets/logos/bin.png';
 }

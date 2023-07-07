@@ -25,7 +25,7 @@ class KmlDownloaderButton extends ConsumerWidget {
     int kmlClicked = ref.watch(kmlClickedProvider);
     double? loadingPercentage = ref.watch(loadingPercentageProvider);
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 5.0),
+      padding: const EdgeInsets.symmetric(vertical: 2.0),
       child: Stack(
         alignment: AlignmentDirectional.centerStart,
         children: [
@@ -37,7 +37,7 @@ class KmlDownloaderButton extends ConsumerWidget {
                         width: loadingPercentage != null
                             ? constraints.maxWidth * (loadingPercentage != -1 ? loadingPercentage : 1)
                             : constraints.maxWidth,
-                        height: 42,
+                        height: 40,
                         decoration: BoxDecoration(
                           color: kmlClicked == index
                               ? Themes.darkHighlightColor
@@ -68,7 +68,7 @@ class KmlDownloaderButton extends ConsumerWidget {
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(
-                  vertical: 10.0, horizontal: 10.0),
+                  vertical: 8.0, horizontal: 10.0),
               child: Row(
                 children: [
                   const Icon(

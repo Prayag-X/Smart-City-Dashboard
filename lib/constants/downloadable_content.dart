@@ -29,7 +29,7 @@ class DownloadableContent {
     },
   };
 
-  static List<Map<String, String>> nycEnvironment = [
+  static List<Map<String, String>> nycEnvironmentKml = [
     {
       'url':
           'https://data.cityofnewyork.us/api/geospatial/uyj8-7rv5?method=export&format=KML',

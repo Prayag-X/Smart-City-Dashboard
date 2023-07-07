@@ -15,6 +15,7 @@ import 'package:smart_city_dashboard/utils/extensions.dart';
 import '../../../../constants/constants.dart';
 import '../../../../constants/data.dart';
 import '../../../../constants/downloadable_content.dart';
+import '../../../../constants/images.dart';
 import '../../../../constants/texts.dart';
 import '../../../../constants/theme.dart';
 import '../../../../models/city_card_model.dart';
@@ -37,6 +38,7 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
   List<List<dynamic>>? waterConsumptionData;
   List<List<dynamic>>? squirrelData;
   int trees = 683788;
+  int recycleBins = 135;
 
   loadCSVData() async {
     Future.delayed(Duration.zero).then((x) async {
@@ -76,6 +78,27 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
             ),
           ),
           children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                DashboardContainer(
+                  title: TextConst.trees,
+                  data: trees.toString(),
+                  image: ImageConst.tree,
+                  showPercentage: true,
+                  percentage: trees.setTreePercentage,
+                  progressColor: Colors.green,
+                ),
+                DashboardContainer(
+                  title: TextConst.bins,
+                  data: recycleBins.toString(),
+                  image: ImageConst.bin,
+                  showPercentage: true,
+                  percentage: 0,
+                ),
+              ],
+            ),
+            Const.dashboardUISpacing.ph,
             waterConsumptionData != null
                 ? LineChartParser(
                     title: TextConst.waterConsumptionTitle,

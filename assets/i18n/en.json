@@ -126,6 +126,8 @@
         "population": "Population",
         "squirrel_data": "Central Park Squirrel data",
         "squirrel": "Squirrel",
+        "trees": " Trees",
+        "bins": "Public Recycle Bins",
         "water_consumption": "Water consumption per day"
       }
     }

@@ -145,26 +145,18 @@ class _AboutPageState extends ConsumerState<AboutPage> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text(
-                                      '${TextConst.aboutPageMadeBy}: ${TextConst.aboutPagePrayag}',
-                                      style: textStyleNormalWhite.copyWith(
-                                          fontSize: 17),
-                                    ),
-                                    Text(
-                                      '${TextConst.aboutPageOrganisation}: ${TextConst.aboutPageLiquidGalaxy}',
-                                      style: textStyleNormalWhite.copyWith(
-                                          fontSize: 17),
-                                    ),
-                                    Text(
-                                      '${TextConst.aboutPageOrgAdmin}: ${TextConst.aboutPageAndrew}',
-                                      style: textStyleNormalWhite.copyWith(
-                                          fontSize: 17),
-                                    ),
-                                    Text(
-                                      '${TextConst.aboutPageMentor}: ${TextConst.aboutPageMerul}',
-                                      style: textStyleNormalWhite.copyWith(
-                                          fontSize: 17),
-                                    ),
+                                    AboutText(
+                                        text1: TextConst.aboutPageMadeBy,
+                                        text2: TextConst.aboutPagePrayag),
+                                    AboutText(
+                                        text1: TextConst.aboutPageOrganisation,
+                                        text2: TextConst.aboutPageLiquidGalaxy),
+                                    AboutText(
+                                        text1: TextConst.aboutPageOrgAdmin,
+                                        text2: TextConst.aboutPageAndrew),
+                                    AboutText(
+                                        text1: TextConst.aboutPageMentor,
+                                        text2: TextConst.aboutPageMerul),
                                   ],
                                 ),
                               ),
@@ -253,6 +245,33 @@ class UrlLauncher extends StatelessWidget {
         text,
         style: textStyleNormal.copyWith(fontSize: 17, color: Colors.blue),
       ),
+    );
+  }
+}
+
+class AboutText extends StatelessWidget {
+  const AboutText({super.key, required this.text1, required this.text2});
+
+  final String text1;
+  final String text2;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Text(
+          text1,
+          style: textStyleNormal.copyWith(fontSize: 17, color: Colors.green),
+        ),
+        Text(
+          ': ',
+          style: textStyleNormal.copyWith(fontSize: 17, color: Colors.yellow),
+        ),
+        Text(
+          text2,
+          style: textStyleNormalWhite.copyWith(fontSize: 17),
+        ),
+      ],
     );
   }
 }
