@@ -37,6 +37,7 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
   List<List<dynamic>>? data;
   List<List<dynamic>>? waterConsumptionData;
   List<List<dynamic>>? squirrelData;
+  List<List<dynamic>>? gasData;
   int trees = 683788;
   int recycleBins = 135;
 
@@ -54,6 +55,12 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
               DownloadableContent.content['Squirrel Data']!));
       setState(() {
         squirrelData = FileParser.transformer(data!);
+      });
+      data = await FileParser.parseCSVFromStorage(
+          DownloadableContent.generateFileName(
+              DownloadableContent.content['Natural gas consumption']!));
+      setState(() {
+        gasData = FileParser.transformer(data!);
       });
       ref.read(isLoadingProvider.notifier).state = false;
     });
@@ -102,12 +109,29 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
             waterConsumptionData != null
                 ? LineChartParser(
                     title: TextConst.waterConsumptionTitle,
+                    legendX: TextConst.year,
                     chartData: {
                         TextConst.population: Colors.red,
                         TextConst.waterConsumption: Colors.blue
                       }).chartParser(
                     dataX: waterConsumptionData![0],
                     dataY: [waterConsumptionData![1], waterConsumptionData![2]])
+                : const BlankDashboardContainer(
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
+            Const.dashboardUISpacing.ph,
+            gasData != null
+                ? LineChartParser(
+                        title: TextConst.gas,
+                        chartData: {
+                          TextConst.consumption: Colors.greenAccent,
+                        },
+                        legendX: TextConst.zip,
+                        barWidth: 3)
+                    .chartParser(limitMarkerX: 5, dataX: gasData![0], dataY: [
+                    gasData![2],
+                  ])
                 : const BlankDashboardContainer(
                     heightMultiplier: 2,
                     widthMultiplier: 2,

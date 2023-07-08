@@ -20,9 +20,11 @@ class DashboardLineChart extends StatefulWidget {
       required this.markerY,
       required this.markerX,
       this.markerIntervalX = 5,
-      this.markerIntervalY = 2});
+      this.markerIntervalY = 2, required this.legendX, required this.barWidth});
 
   final String title;
+  final String legendX;
+  final double barWidth;
   final Map<String, Color> chartData;
   final List<List<FlSpot>> points;
   final List<String> markerX;
@@ -150,12 +152,20 @@ class _DashboardLineChartState extends State<DashboardLineChart> {
       LineChartBarData(
         isCurved: true,
         color: color,
-        barWidth: 8,
+        barWidth: widget.barWidth,
         isStrokeCapRound: true,
         dotData: FlDotData(show: false),
         belowBarData: BarAreaData(show: false),
         spots: points,
       );
+
+  @override
+  void initState() {
+    super.initState();
+    setState(() {
+      widget.chartData.addEntries({widget.legendX: lightenColor(Themes.darkHighlightColor, 0.3)}.entries);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {

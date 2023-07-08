@@ -9,7 +9,9 @@ import 'line_chart.dart';
 
 class LineChartParser {
   late String title;
+  String legendX;
   late Map<String, Color> chartData;
+  double barWidth;
   List<List<FlSpot>> points = [];
   List<String> markerX = [];
   List<List<String>> markerY = [];
@@ -21,23 +23,21 @@ class LineChartParser {
   int markerIntervalX = 4;
   int markerIntervalY = 4;
 
-  LineChartParser({required this.title, required this.chartData});
+  LineChartParser(
+      {required this.title,
+      required this.chartData,
+      this.legendX = '',
+      this.barWidth = 8});
 
   Widget chartParser(
-      {required List<dynamic> dataX, required List<List<dynamic>> dataY}) {
-    List<double> dataXNum = [];
+      {required List<dynamic> dataX,
+      required List<List<dynamic>> dataY,
+      int? limitMarkerX}) {
     List<List<double>> dataYNum = [];
     List<double> maxValuesY = [];
     List<double> minValuesY = [];
     List<double> intervalY = [];
-
-    for (dynamic x in dataX) {
-      dataXNum.add(x.toDouble());
-    }
-    
-    double maxValueX = dataXNum.reduce(max);
-    double minValueX = dataXNum.reduce(min);
-    double intervalX = (maxValueX - minValueX) / maxX;
+    double minValueX = 0;
 
     for (int i = 0; i < dataY.length; i++) {
       dataYNum.add([]);
@@ -46,7 +46,11 @@ class LineChartParser {
 
     for (int i = 0; i < dataY.length; i++) {
       for (dynamic y in dataY[i]) {
-        dataYNum[i].add(y.toDouble());
+        if (y == '') {
+          dataYNum[i].add(0);
+        } else {
+          dataYNum[i].add(y.toDouble());
+        }
       }
     }
 
@@ -63,17 +67,22 @@ class LineChartParser {
 
     for (int i = 0; i < maxX; i++) {
       if (shortenX) {
-        markerX.add(shortenNum(dataXNum[(i * intervalXFactor).round()]));
+        markerX.add(dataX[(i * intervalXFactor).round()].toString());
       } else {
-        markerX.add(dataXNum[(i * intervalXFactor).round()].toStringAsFixed(0));
+        markerX.add(limitMarkerX == null
+            ? dataX[(i * intervalXFactor).round()].toString()
+            : dataX[(i * intervalXFactor).round()]
+                .toString()
+                .substring(0, limitMarkerX));
       }
     }
 
     for (int i = 0; i < dataX.length; i++) {
       for (int j = 0; j < dataYNum.length; j++) {
-        points[j].add(FlSpot(roundDouble((dataXNum[i] - minValueX) / intervalX , 2),
+        points[j].add(FlSpot(minValueX,
             roundDouble((dataYNum[j][i] - minValuesY[j]) / intervalY[j], 2)));
       }
+      minValueX += 1 / intervalXFactor;
     }
 
     for (int i = 0; i < maxY; i++) {
@@ -86,19 +95,23 @@ class LineChartParser {
     }
 
     return DashboardLineChart(
-        title: title,
-        chartData: chartData,
-        points: points,
-        markerY: markerY,
-        markerX: markerX,
-        maxX: maxX,
-        maxY: maxY,
-        markerIntervalX: markerIntervalX,
-        markerIntervalY: markerIntervalY);
+      title: title,
+      legendX: legendX,
+      chartData: chartData,
+      points: points,
+      markerY: markerY,
+      markerX: markerX,
+      maxX: maxX,
+      maxY: maxY,
+      markerIntervalX: markerIntervalX,
+      markerIntervalY: markerIntervalY,
+      barWidth: barWidth,
+    );
   }
 
   Widget weatherHourlyDataParser(ForecastWeather weather, int day) {
     maxX = 24;
+    markerIntervalX = 4;
     points = [[], []];
 
     List<double> temperatures = [];
@@ -134,15 +147,16 @@ class LineChartParser {
     }
 
     return DashboardLineChart(
-      title: TextConst.hourly,
-      chartData: chartData,
-      points: points,
-      markerY: markerY,
-      markerX: markerX,
-      maxX: maxX,
-      maxY: maxY,
-      markerIntervalX: markerIntervalX,
-      markerIntervalY: markerIntervalY,
-    );
+        title: TextConst.hourly,
+        legendX: TextConst.time,
+        chartData: chartData,
+        points: points,
+        markerY: markerY,
+        markerX: markerX,
+        maxX: maxX,
+        maxY: maxY,
+        markerIntervalX: markerIntervalX,
+        markerIntervalY: markerIntervalY,
+        barWidth: barWidth);
   }
 }

@@ -128,6 +128,10 @@
         "squirrel": "Squirrel",
         "trees": " Trees",
         "bins": "Public Recycle Bins",
+        "gas": "Natural Gas Consumption",
+        "zip": "Zip Code",
+        "year": "Year",
+        "consumption": "Consumption (Therms)",
         "water_consumption": "Water consumption per day"
       }
     }
