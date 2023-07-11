@@ -29,7 +29,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
       ref.read(isLoadingProvider.notifier).state = true;
       ref.read(weatherDataProvider.notifier).state = null;
       ref.read(weatherDataProvider.notifier).state = await WeatherApi()
-          .getForecastWeather(ref.read(cityDataProvider)!.cityName);
+          .getForecastWeather(ref.read(cityDataProvider)!.cityNameEnglish);
       ref.read(isLoadingProvider.notifier).state = false;
     });
   }

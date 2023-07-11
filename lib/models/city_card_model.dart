@@ -3,6 +3,7 @@ import 'package:smart_city_dashboard/models/tab_button.dart';
 
 class CityCardModel {
   String cityName;
+  String cityNameEnglish;
   String country;
   String image;
   String description;
@@ -15,6 +16,7 @@ class CityCardModel {
 
   CityCardModel({
     required this.cityName,
+    required this.cityNameEnglish,
     required this.country,
     required this.image,
     required this.location,

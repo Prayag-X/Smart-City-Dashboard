@@ -38,30 +38,33 @@ class _HomePageState extends ConsumerState<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      physics:
-          const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-      child: SizedBox(
-        height: screenSize(context).height,
-        child: AnimationLimiter(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: AnimationConfiguration.toStaggeredList(
-                duration: Const.animationDuration,
-                childAnimationBuilder: (widget) => SlideAnimation(
-                      verticalOffset: Const.animationDistance,
-                      child: FadeInAnimation(
-                        child: widget,
-                      ),
+    return AnimationLimiter(
+      child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: AnimationConfiguration.toStaggeredList(
+              duration: Const.animationDuration,
+              childAnimationBuilder: (widget) => SlideAnimation(
+                    verticalOffset: Const.animationDistance,
+                    child: FadeInAnimation(
+                      child: widget,
                     ),
-                children: CityCardData.availableCities
-                    .map((city) => CityCard(
-                          cityData: city,
-                        ))
-                    .toList()),
-          ),
-        ),
-      ),
+                  ),
+              children: [
+                Const.appBarHeight.ph,
+                SizedBox(
+                  height: screenSize(context).height - Const.appBarHeight,
+                  child: SingleChildScrollView(
+                    physics:
+                    const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
+                    child: Column(
+                        children: CityCardData.availableCities
+                            .map((city) => CityCard(
+                                  cityData: city,
+                                ))
+                            .toList()),
+                  ),
+                ),
+              ])),
     );
   }
 }
@@ -79,15 +82,15 @@ class CityCard extends ConsumerWidget {
     double height = max(min(screenSize(context).height - 600, 200), 150);
     double width = min(screenSize(context).width - 400, 700);
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: Const.homePageTextSize+5),
+      padding: EdgeInsets.symmetric(vertical: Const.homePageTextSize + 5),
       child: GestureDetector(
         onTap: () {
           ref.read(isHomePageProvider.notifier).state = false;
           ref.read(cityDataProvider.notifier).state = cityData;
         },
         child: SizedBox(
-          height: height+15,
-          width: width+15,
+          height: height + 15,
+          width: width + 15,
           child: Stack(
             children: [
               Positioned(
@@ -98,7 +101,7 @@ class CityCard extends ConsumerWidget {
                   width: width,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.only(
-                        bottomRight: Radius.circular(Const.dashboardUIRoundness),
+                      bottomRight: Radius.circular(Const.dashboardUIRoundness),
                     ),
                     color: lightenColor(Themes.darkHighlightColor, 0.05),
                   ),
@@ -116,13 +119,16 @@ class CityCard extends ConsumerWidget {
                 ),
                 child: Row(
                   children: [
-                    ImageShower(logo: cityData.image, size: height, curve: BorderRadius.only(
-                      topLeft: Radius.circular(Const.dashboardUIRoundness),
-                    ),
+                    ImageShower(
+                      logo: cityData.image,
+                      size: height,
+                      curve: BorderRadius.only(
+                        topLeft: Radius.circular(Const.dashboardUIRoundness),
+                      ),
                     ),
                     Const.homePageTextSize.pw,
                     SizedBox(
-                      width: width/2 - 60,
+                      width: width / 2 - 60,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -130,19 +136,24 @@ class CityCard extends ConsumerWidget {
                           Text(
                             TextConst.smartCity,
                             style: textStyleNormal.copyWith(
-                                fontSize: Const.homePageTextSize-6, color: Colors.white.withOpacity(0.6)),
+                                fontSize: Const.homePageTextSize - 6,
+                                color: Colors.white.withOpacity(0.6)),
                           ),
                           Text(
                             cityData.cityName,
-                            style: textStyleBoldWhite.copyWith(fontSize: Const.homePageTextSize+10),
+                            style: textStyleBoldWhite.copyWith(
+                                fontSize: Const.homePageTextSize + 10),
                           ),
                           5.ph,
                           Row(
                             children: [
-                              AssetLogoShower(logo: ImageConst.marker, size: Const.homePageTextSize+5),
+                              AssetLogoShower(
+                                  logo: ImageConst.marker,
+                                  size: Const.homePageTextSize + 5),
                               Text(
                                 cityData.country,
-                                style: textStyleNormalWhite.copyWith(fontSize: Const.homePageTextSize),
+                                style: textStyleNormalWhite.copyWith(
+                                    fontSize: Const.homePageTextSize),
                               ),
                             ],
                           )
@@ -156,7 +167,7 @@ class CityCard extends ConsumerWidget {
                     ),
                     5.pw,
                     SizedBox(
-                      height: height-20,
+                      height: height - 20,
                       width: 150,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -164,28 +175,36 @@ class CityCard extends ConsumerWidget {
                           Text(
                             TextConst.availableData,
                             style: textStyleNormal.copyWith(
-                                fontSize: Const.homePageTextSize-5, color: Colors.white.withOpacity(0.6)),
+                                fontSize: Const.homePageTextSize - 5,
+                                color: Colors.white.withOpacity(0.6)),
                           ),
                           SizedBox(
                             height: 90,
                             child: ListView(
-                              children: cityData.availableTabs.map((tab) => Padding(
-                                  padding: const EdgeInsets.symmetric(vertical: 1.0),
-                                  child: Row(
-                                    children: [
-                                      5.pw,
-                                      AssetLogoShower(
-                                          logo: tab.logo!,
-                                          size: Const.homePageTextSize-5),
-                                      9.pw,
-                                      Text(
-                                        tab.name!,
-                                        style: textStyleNormalWhite.copyWith(
-                                            fontSize: Const.homePageTextSize-3),
-                                      )
-                                    ],
-                                  ),
-                                )).toList()),
+                                children: cityData.availableTabs
+                                    .map((tab) => Padding(
+                                          padding: const EdgeInsets.symmetric(
+                                              vertical: 1.0),
+                                          child: Row(
+                                            children: [
+                                              5.pw,
+                                              AssetLogoShower(
+                                                  logo: tab.logo!,
+                                                  size: Const.homePageTextSize -
+                                                      5),
+                                              9.pw,
+                                              Text(
+                                                tab.name!,
+                                                style: textStyleNormalWhite
+                                                    .copyWith(
+                                                        fontSize: Const
+                                                                .homePageTextSize -
+                                                            3),
+                                              )
+                                            ],
+                                          ),
+                                        ))
+                                    .toList()),
                           ),
                           const SizedBox.shrink()
                         ],
