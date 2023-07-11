@@ -128,7 +128,7 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                           child: widget,
                         ),
                       ),
-                      children: ref.read(cityDataProvider)!.availableTabs,
+                      children: ref.read(cityDataProvider)!.availableTabs.map((tab) => TabButton(logo: tab.logo!, name: tab.name!, tab: tab.tab)).toList(),
                     ),
                   ),
                 ),

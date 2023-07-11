@@ -168,25 +168,24 @@ class CityCard extends ConsumerWidget {
                           ),
                           SizedBox(
                             height: 90,
-                            child: ListView.builder(
-                                itemCount: cityData.availableData.length,
-                                itemBuilder: (_, index) => Padding(
+                            child: ListView(
+                              children: cityData.availableTabs.map((tab) => Padding(
                                   padding: const EdgeInsets.symmetric(vertical: 1.0),
                                   child: Row(
                                     children: [
                                       5.pw,
                                       AssetLogoShower(
-                                          logo: cityData.availableData.keys.elementAt(index),
+                                          logo: tab.logo!,
                                           size: Const.homePageTextSize-5),
                                       9.pw,
                                       Text(
-                                        cityData.availableData.values.elementAt(index),
+                                        tab.name!,
                                         style: textStyleNormalWhite.copyWith(
                                             fontSize: Const.homePageTextSize-3),
                                       )
                                     ],
                                   ),
-                                )),
+                                )).toList()),
                           ),
                           const SizedBox.shrink()
                         ],

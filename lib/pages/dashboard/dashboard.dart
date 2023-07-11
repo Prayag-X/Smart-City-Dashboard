@@ -52,12 +52,10 @@ class Dashboard extends ConsumerWidget {
                     return const AboutTabLeft();
                   }
                   if (downloadableContentAvailable) {
-                    switch (city.number) {
-                      case 0:
-                        switch (tab) {
-                          case 1:
-                            return const NYCEnvironmentTabLeft();
-                        }
+                    for(var pageTab in city.availableTabs) {
+                      if(pageTab.tab == tab) {
+                        return pageTab.leftTab!;
+                      }
                     }
                   }
                   Future.delayed(Duration.zero).then((x) async {
@@ -136,12 +134,10 @@ class Dashboard extends ConsumerWidget {
                           if (tab == city.availableTabs.length - 1) {
                             return const AboutTabRight();
                           }
-                          switch (city.number) {
-                            case 0:
-                              switch (tab) {
-                                case 1:
-                                  return const NYCEnvironmentTabRight();
-                              }
+                          for(var pageTab in city.availableTabs) {
+                            if(pageTab.tab == tab) {
+                              return pageTab.rightTab!;
+                            }
                           }
                         }()),
                       ),
