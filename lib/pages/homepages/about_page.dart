@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
-import 'package:smart_city_dashboard/constants/texts.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 import 'package:smart_city_dashboard/utils/logo_shower.dart';
 
@@ -32,6 +32,10 @@ class _AboutPageState extends ConsumerState<AboutPage> {
 
   @override
   Widget build(BuildContext context) {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
@@ -56,7 +60,7 @@ class _AboutPageState extends ConsumerState<AboutPage> {
                         decoration: BoxDecoration(
                           borderRadius:
                               BorderRadius.circular(Const.dashboardUIRoundness),
-                          color: Themes.darkHighlightColor,
+                          color: highlightColor,
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -66,9 +70,9 @@ class _AboutPageState extends ConsumerState<AboutPage> {
                               const AssetLogoShower(
                                   logo: ImageConst.app, size: 140),
                               Text(
-                                TextConst.title,
-                                style:
-                                    textStyleBoldWhite.copyWith(fontSize: 40),
+                                translate('title'),
+                                style: textStyleBold.copyWith(
+                                    color: oppositeColor, fontSize: 40),
                               ),
                               const SizedBox.shrink()
                             ],
@@ -100,9 +104,10 @@ class _AboutPageState extends ConsumerState<AboutPage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: Text(
-                          TextConst.aboutPageDescription,
+                          translate('homepage.about_page.description'),
                           textAlign: TextAlign.justify,
-                          style: textStyleNormalWhite.copyWith(fontSize: 17),
+                          style: textStyleNormal.copyWith(
+                              color: oppositeColor, fontSize: 17),
                         ),
                       ),
                       30.ph,
@@ -118,18 +123,22 @@ class _AboutPageState extends ConsumerState<AboutPage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     UrlLauncher(
-                                        text: TextConst.aboutPageGithub,
+                                        text: translate(
+                                            'homepage.about_page.project_github'),
                                         url:
                                             'https://github.com/Prayag-X/Smart-City-Dashboard'),
                                     UrlLauncher(
-                                        text: TextConst.aboutPageLicense,
+                                        text: translate(
+                                            'homepage.about_page.license'),
                                         url:
                                             'https://github.com/Prayag-X/Smart-City-Dashboard/blob/main/LICENSE'),
                                     UrlLauncher(
-                                        text: TextConst.aboutPageLGSite,
+                                        text: translate(
+                                            'homepage.about_page.lg_site'),
                                         url: 'https://www.liquidgalaxy.eu/'),
                                     UrlLauncher(
-                                        text: TextConst.aboutPageLinkedin,
+                                        text: translate(
+                                            'homepage.about_page.linkedin'),
                                         url:
                                             'https://www.linkedin.com/in/prayag-biswas-293644215/'),
                                   ],
@@ -146,17 +155,25 @@ class _AboutPageState extends ConsumerState<AboutPage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     AboutText(
-                                        text1: TextConst.aboutPageMadeBy,
-                                        text2: TextConst.aboutPagePrayag),
+                                        text1: translate(
+                                            'homepage.about_page.made_by'),
+                                        text2: translate(
+                                            'homepage.about_page.prayag')),
                                     AboutText(
-                                        text1: TextConst.aboutPageOrganisation,
-                                        text2: TextConst.aboutPageLiquidGalaxy),
+                                        text1: translate(
+                                            'homepage.about_page.organization'),
+                                        text2: translate(
+                                            'homepage.about_page.liquid_galaxy')),
                                     AboutText(
-                                        text1: TextConst.aboutPageOrgAdmin,
-                                        text2: TextConst.aboutPageAndrew),
+                                        text1: translate(
+                                            'homepage.about_page.organization_admin'),
+                                        text2: translate(
+                                            'homepage.about_page.andrew')),
                                     AboutText(
-                                        text1: TextConst.aboutPageMentor,
-                                        text2: TextConst.aboutPageMerul),
+                                        text1: translate(
+                                            'homepage.about_page.mentor'),
+                                        text2: translate(
+                                            'homepage.about_page.merul')),
                                   ],
                                 ),
                               ),
@@ -249,14 +266,18 @@ class UrlLauncher extends StatelessWidget {
   }
 }
 
-class AboutText extends StatelessWidget {
+class AboutText extends ConsumerWidget {
   const AboutText({super.key, required this.text1, required this.text2});
 
   final String text1;
   final String text2;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
     return Row(
       children: [
         Text(
@@ -269,7 +290,7 @@ class AboutText extends StatelessWidget {
         ),
         Text(
           text2,
-          style: textStyleNormalWhite.copyWith(fontSize: 17),
+          style: textStyleNormal.copyWith(color: oppositeColor, fontSize: 17),
         ),
       ],
     );

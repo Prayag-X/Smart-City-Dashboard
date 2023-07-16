@@ -3,11 +3,12 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_city_dashboard/models/city_card_model.dart';
 import 'package:smart_city_dashboard/pages/panels/tab_button.dart';
 
-import '../models/tab_button.dart';
-import '../pages/dashboard/new_york/environment/left_panel.dart';
-import '../pages/dashboard/new_york/environment/right_panel.dart';
-import 'texts.dart';
-import 'images.dart';
+import '../../models/tab_button.dart';
+import 'new_york/environment/left_panel.dart';
+import 'new_york/environment/right_panel.dart';
+import '../../constants/images.dart';
+import 'new_york/health/left_panel.dart';
+import 'new_york/health/right_panel.dart';
 
 class CityCardData {
   static List<CityCardModel> availableCities = [
@@ -22,20 +23,27 @@ class CityCardData {
         availableTabs: [
           TabButtonModel(
             logo: ImageConst.weather,
-            name: TextConst.weather,
+            name: translate('city_page.weather'),
             tab: 0,
           ),
           TabButtonModel(
             logo: ImageConst.environmentTab,
-            name: TextConst.environment,
+            name: translate('dashboard.environment.environment'),
             tab: 1,
             leftTab: const NYCEnvironmentTabLeft(),
             rightTab: const NYCEnvironmentTabRight(),
           ),
           TabButtonModel(
-            logo: ImageConst.about,
-            name: TextConst.about,
+            logo: ImageConst.health,
+            name: translate('city_data.new_york.health.health'),
             tab: 2,
+            leftTab: const NYCHealthTabLeft(),
+            rightTab: const NYCHealthTabRight(),
+          ),
+          TabButtonModel(
+            logo: ImageConst.about,
+            name: translate('homepage.about'),
+            tab: 3,
           ),
         ],
         availableTours: [
@@ -62,12 +70,12 @@ class CityCardData {
         availableTabs: [
           TabButtonModel(
             logo: ImageConst.weather,
-            name: TextConst.weather,
+            name: translate('city_page.weather'),
             tab: 0,
           ),
           TabButtonModel(
             logo: ImageConst.about,
-            name: TextConst.about,
+            name: translate('homepage.about'),
             tab: 1,
           ),
         ],
@@ -89,12 +97,12 @@ class CityCardData {
         availableTabs: [
           TabButtonModel(
             logo: ImageConst.weather,
-            name: TextConst.weather,
+            name: translate('city_page.weather'),
             tab: 0,
           ),
           TabButtonModel(
             logo: ImageConst.about,
-            name: TextConst.about,
+            name: translate('homepage.about'),
             tab: 1,
           ),
         ],
@@ -116,12 +124,12 @@ class CityCardData {
         availableTabs: [
           TabButtonModel(
             logo: ImageConst.weather,
-            name: TextConst.weather,
+            name: translate('city_page.weather'),
             tab: 0,
           ),
           TabButtonModel(
             logo: ImageConst.about,
-            name: TextConst.about,
+            name: translate('homepage.about'),
             tab: 1,
           ),
         ],
@@ -143,12 +151,12 @@ class CityCardData {
         availableTabs: [
           TabButtonModel(
             logo: ImageConst.weather,
-            name: TextConst.weather,
+            name: translate('city_page.weather'),
             tab: 0,
           ),
           TabButtonModel(
             logo: ImageConst.about,
-            name: TextConst.about,
+            name: translate('homepage.about'),
             tab: 1,
           ),
         ],

@@ -1,13 +1,16 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:flutter_switch/flutter_switch.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_city_dashboard/connections/downloader.dart';
-import 'package:smart_city_dashboard/constants/downloadable_content.dart';
+import 'package:smart_city_dashboard/pages/dashboard/downloadable_content.dart';
 import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
-import 'package:smart_city_dashboard/constants/texts.dart';
 import 'package:smart_city_dashboard/kml_makers/kml_makers.dart';
 import 'package:smart_city_dashboard/providers/settings_providers.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
@@ -76,7 +79,12 @@ class _SettingsState extends ConsumerState<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
     bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
+    bool darkMode = ref.watch(darkModeOnProvider);
     return SingleChildScrollView(
       physics:
           const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
@@ -114,12 +122,12 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                         controller: passwordController,
                       ),
                       TextFormFieldCustom(
-                        icon: Icons.key_rounded,
+                        icon: Icons.private_connectivity_rounded,
                         hintText: 'SSH Port',
                         controller: portController,
                       ),
                       TextFormFieldCustom(
-                        icon: Icons.key_rounded,
+                        icon: Icons.monitor,
                         hintText: 'No. of LG rigs',
                         controller: rigsController,
                       ),
@@ -130,7 +138,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
               SizedBox(
                 height: 300,
                 child: VerticalDivider(
-                  color: Themes.darkWhiteColor,
+                  color: oppositeColor,
                   indent: 30,
                   endIndent: 30,
                 ),
@@ -147,16 +155,45 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                     ),
                     children: [
                       100.ph,
-                      // Container(
-                      //   width: screenSize(context).width/2 - 200,
-                      //   child: Row(
-                      //     children: [
-                      //       Text(TextConst.theme,
-                      //       style: textStyleBoldWhite.copyWith(fontSize: 20),
-                      //       )
-                      //     ],
-                      //   )
-                      // ),
+                      Container(
+                          width: screenSize(context).width / 2 - 200,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                translate('settings.theme'),
+                                style: textStyleBold.copyWith(
+                                    color: oppositeColor, fontSize: 20),
+                              ),
+                              FlutterSwitch(
+                                width: 70.0,
+                                height: 35.0,
+                                valueFontSize: 10.0,
+                                toggleSize: 25.0,
+                                activeColor: Colors.black,
+                                inactiveColor: Colors.white,
+                                toggleColor: Colors.blue,
+                                value: darkMode,
+                                borderRadius: 30.0,
+                                padding: 8.0,
+                                showOnOff: false,
+                                onToggle: (val) async {
+                                  setState(() {
+                                    ref
+                                        .read(darkModeOnProvider.notifier)
+                                        .state = val;
+                                  });
+                                  if (val == true) {
+                                    await prefs.setBool('theme', true);
+                                    setDarkTheme(ref);
+                                  } else {
+                                    await prefs.setBool('theme', false);
+                                    setLightTheme(ref);
+                                  }
+                                },
+                              ),
+                            ],
+                          )),
                       20.ph,
                       SizedBox(
                         width: screenSize(context).width / 2 - 200,
@@ -164,24 +201,24 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
-                              TextConst.language,
-                              style: textStyleBoldWhite.copyWith(fontSize: 20),
+                              translate('settings.language'),
+                              style: textStyleBold.copyWith(
+                                  color: oppositeColor, fontSize: 20),
                             ),
                             DropdownButton<String>(
                               value: dropdownValue,
-                              dropdownColor:
-                                  darkenColor(Themes.darkColor, 0.02),
+                              dropdownColor: darkenColor(normalColor, 0.02),
                               elevation: 10,
-                              style:
-                                  textStyleNormalWhite.copyWith(fontSize: 15),
+                              style: textStyleNormal.copyWith(
+                                  color: oppositeColor, fontSize: 15),
                               onChanged: (String? value) {
                                 setState(() {
                                   dropdownValue = value!;
                                 });
                               },
-                              items: TextConst.langList
-                                  .map<DropdownMenuItem<String>>(
-                                      (String value) {
+                              items: [
+                                translate('language.en')
+                              ].map<DropdownMenuItem<String>>((String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
                                   child: Text(value),
@@ -214,6 +251,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       if (!isConnectedToLg) {
                         await setSharedPrefs();
                         await SSH(ref: ref).connect();
+                        await SSH(ref: ref).cleanBalloon();
                         await SSH(ref: ref).renderInSlave(
                             ref.read(leftmostRigProvider),
                             KMLMakers.screenOverlayImage(
@@ -230,8 +268,8 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       }
                     },
                     name: isConnectedToLg
-                        ? TextConst.disconnect
-                        : TextConst.connect,
+                        ? translate('settings.disconnect')
+                        : translate('settings.connect'),
                     width: screenSize(context).width - 400,
                     icon: isConnectedToLg
                         ? Icons.cloud_off
@@ -258,8 +296,29 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                     ),
                     children: [
                       TextButtonCustom(
-                        onPressed: () async {},
-                        name: TextConst.deleteCSV,
+                        onPressed: () async {
+                          var localPath =
+                              await getApplicationDocumentsDirectory();
+                          for (MapEntry<String, Map<String, String>> fileData
+                              in DownloadableContent.content.entries) {
+                            print(
+                                "${localPath.path}/${fileData.value['directory']}/${fileData.value['filename']}");
+                            File file = File(
+                                "${localPath.path}/${fileData.value['directory']}/${fileData.value['filename']}");
+                            print(file);
+                            try {
+                              await file.delete();
+                            } catch (e) {
+                              print(e);
+                            }
+                          }
+                          await prefs.setBool('downloadableContent', false);
+                          ref
+                              .read(
+                                  downloadableContentAvailableProvider.notifier)
+                              .state = false;
+                        },
+                        name: translate('settings.delete_csv'),
                         width: screenSize(context).width / 2 - 200,
                         icon: Icons.delete_forever_rounded,
                         color: darkenColor(Colors.red),
@@ -272,7 +331,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
               SizedBox(
                 height: 150,
                 child: VerticalDivider(
-                  color: Themes.darkWhiteColor,
+                  color: oppositeColor,
                   indent: 30,
                   endIndent: 30,
                 ),
@@ -289,8 +348,19 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                     ),
                     children: [
                       TextButtonCustom(
-                        onPressed: () async {},
-                        name: TextConst.deleteCSV,
+                        onPressed: () async {
+                          var localPath =
+                          await getApplicationDocumentsDirectory();
+                          File file = File(
+                              "${localPath.path}/${Const.kmlCustomFileName}.kml");
+                          try {
+                            await file.delete();
+                          } catch (e) {
+                            print(e);
+                          }
+                          await SSH(ref: ref).fileDelete("${Const.kmlCustomFileName}.kml");
+                        },
+                        name: translate('settings.delete_kml'),
                         width: screenSize(context).width / 2 - 200,
                         icon: Icons.delete_forever_rounded,
                         color: darkenColor(Colors.red),
@@ -315,11 +385,14 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                 children: [
                   TextButtonCustom(
                     onPressed: () async {
-                      await Downloader(ref: ref).downloadAllContent(DownloadableContent.content);
+                      await Downloader(ref: ref)
+                          .downloadAllContent(DownloadableContent.content);
                       await prefs.setBool('downloadableContent', true);
-                      ref.read(downloadableContentAvailableProvider.notifier).state = true;
+                      ref
+                          .read(downloadableContentAvailableProvider.notifier)
+                          .state = true;
                     },
-                    name: TextConst.download,
+                    name: translate('settings.download'),
                     width: screenSize(context).width - 400,
                     icon: Icons.download_rounded,
                     color: darkenColor(Colors.blue),
@@ -349,12 +422,14 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                             await SSH(ref: ref).cleanSlaves();
                           }
                         },
-                        name: isConnectedToLg ? TextConst.cleanLogo : '--',
+                        name: isConnectedToLg
+                            ? translate('settings.clean_logo')
+                            : '--',
                         width: screenSize(context).width / 3 - 150,
                         icon: Icons.cleaning_services_rounded,
                         color: isConnectedToLg
                             ? darkenColor(Colors.orange, 0.05)
-                            : lightenColor(Themes.darkColor, 0.01),
+                            : lightenColor(normalColor, 0.01),
                         ref: ref,
                       ),
                       TextButtonCustom(
@@ -367,12 +442,14 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                                     Const.splashAspectRatio));
                           }
                         },
-                        name: isConnectedToLg ? TextConst.showLogo : '--',
+                        name: isConnectedToLg
+                            ? translate('settings.show_logo')
+                            : '--',
                         width: screenSize(context).width / 3 - 150,
                         icon: Icons.logo_dev_rounded,
                         color: isConnectedToLg
                             ? darkenColor(Colors.orange, 0.05)
-                            : lightenColor(Themes.darkColor, 0.01),
+                            : lightenColor(normalColor, 0.01),
                         ref: ref,
                       ),
                       TextButtonCustom(
@@ -381,12 +458,14 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                             await SSH(ref: ref).cleanKML();
                           }
                         },
-                        name: isConnectedToLg ? TextConst.cleanKML : '--',
+                        name: isConnectedToLg
+                            ? translate('settings.clean_kml')
+                            : '--',
                         width: screenSize(context).width / 3 - 150,
                         icon: Icons.cleaning_services_rounded,
                         color: isConnectedToLg
                             ? darkenColor(Colors.orange, 0.05)
-                            : lightenColor(Themes.darkColor, 0.01),
+                            : lightenColor(normalColor, 0.01),
                         ref: ref,
                       ),
                     ],
@@ -396,7 +475,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
               SizedBox(
                 height: 300,
                 child: VerticalDivider(
-                  color: Themes.darkWhiteColor,
+                  color: oppositeColor,
                   indent: 30,
                   endIndent: 30,
                 ),
@@ -418,12 +497,14 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                             await SSH(ref: ref).setRefresh();
                           }
                         },
-                        name: isConnectedToLg ? TextConst.setRefresh : '--',
+                        name: isConnectedToLg
+                            ? translate('settings.set_refresh')
+                            : '--',
                         width: screenSize(context).width / 3 - 150,
                         icon: Icons.restart_alt_rounded,
                         color: isConnectedToLg
                             ? Colors.blue
-                            : lightenColor(Themes.darkColor, 0.01),
+                            : lightenColor(normalColor, 0.01),
                         ref: ref,
                       ),
                       TextButtonCustom(
@@ -432,12 +513,14 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                             await SSH(ref: ref).resetRefresh();
                           }
                         },
-                        name: isConnectedToLg ? TextConst.resetRefresh : '--',
+                        name: isConnectedToLg
+                            ? translate('settings.reset_refresh')
+                            : '--',
                         width: screenSize(context).width / 3 - 150,
                         icon: Icons.restart_alt_rounded,
                         color: isConnectedToLg
                             ? Colors.blue
-                            : lightenColor(Themes.darkColor, 0.01),
+                            : lightenColor(normalColor, 0.01),
                         ref: ref,
                       ),
                     ],
@@ -447,7 +530,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
               SizedBox(
                 height: 300,
                 child: VerticalDivider(
-                  color: Themes.darkWhiteColor,
+                  color: oppositeColor,
                   indent: 30,
                   endIndent: 30,
                 ),
@@ -469,12 +552,14 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                             await SSH(ref: ref).relaunchLG();
                           }
                         },
-                        name: isConnectedToLg ? TextConst.relaunchLG : '--',
+                        name: isConnectedToLg
+                            ? translate('settings.relaunch_lg')
+                            : '--',
                         width: screenSize(context).width / 3 - 150,
                         icon: Icons.power_rounded,
                         color: isConnectedToLg
                             ? Colors.redAccent
-                            : lightenColor(Themes.darkColor, 0.01),
+                            : lightenColor(normalColor, 0.01),
                         ref: ref,
                       ),
                       TextButtonCustom(
@@ -483,12 +568,14 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                             await SSH(ref: ref).rebootLG();
                           }
                         },
-                        name: isConnectedToLg ? TextConst.rebootLG : '--',
+                        name: isConnectedToLg
+                            ? translate('settings.reboot_lg')
+                            : '--',
                         width: screenSize(context).width / 3 - 150,
                         icon: Icons.settings_power_rounded,
                         color: isConnectedToLg
                             ? Colors.redAccent
-                            : lightenColor(Themes.darkColor, 0.01),
+                            : lightenColor(normalColor, 0.01),
                         ref: ref,
                       ),
                       TextButtonCustom(
@@ -497,12 +584,14 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                             await SSH(ref: ref).shutdownLG();
                           }
                         },
-                        name: isConnectedToLg ? TextConst.shutdownLG : '--',
+                        name: isConnectedToLg
+                            ? translate('settings.shutdown_lg')
+                            : '--',
                         width: screenSize(context).width / 3 - 150,
                         icon: Icons.power_settings_new_rounded,
                         color: isConnectedToLg
                             ? Colors.redAccent
-                            : lightenColor(Themes.darkColor, 0.01),
+                            : lightenColor(normalColor, 0.01),
                         ref: ref,
                       ),
                     ],
@@ -517,7 +606,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
   }
 }
 
-class TextButtonCustom extends StatelessWidget {
+class TextButtonCustom extends ConsumerWidget {
   const TextButtonCustom({
     Key? key,
     required this.onPressed,
@@ -536,7 +625,11 @@ class TextButtonCustom extends StatelessWidget {
   final WidgetRef ref;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextButton(
@@ -545,7 +638,7 @@ class TextButtonCustom extends StatelessWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(300),
                 side: name == '--'
-                    ? BorderSide(color: lightenColor(Themes.darkColor))
+                    ? BorderSide(color: lightenColor(normalColor))
                     : BorderSide.none)),
         onPressed: () async {
           ref.read(isLoadingProvider.notifier).state = true;
@@ -572,7 +665,8 @@ class TextButtonCustom extends StatelessWidget {
                   : const SizedBox.shrink(),
               Text(
                 name,
-                style: textStyleBoldWhite.copyWith(fontSize: 15),
+                style:
+                    textStyleBold.copyWith(color: oppositeColor, fontSize: 15),
               ),
             ],
           ),
@@ -582,7 +676,7 @@ class TextButtonCustom extends StatelessWidget {
   }
 }
 
-class TextFormFieldCustom extends StatelessWidget {
+class TextFormFieldCustom extends ConsumerWidget {
   const TextFormFieldCustom({
     Key? key,
     required this.controller,
@@ -595,7 +689,11 @@ class TextFormFieldCustom extends StatelessWidget {
   final String hintText;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: SizedBox(
@@ -604,12 +702,12 @@ class TextFormFieldCustom extends StatelessWidget {
           decoration: InputDecoration(
             prefixIcon: Icon(
               icon,
-              color: Themes.darkWhiteColor,
+              color: oppositeColor,
               size: 20,
             ),
             labelText: hintText,
             labelStyle: textStyleNormal.copyWith(
-                fontSize: 17, color: Themes.darkWhiteColor.withOpacity(0.5)),
+                fontSize: 17, color: oppositeColor.withOpacity(0.5)),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
             focusedBorder: OutlineInputBorder(
@@ -618,10 +716,10 @@ class TextFormFieldCustom extends StatelessWidget {
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: Themes.darkWhiteColor, width: 1),
+              borderSide: BorderSide(color: oppositeColor, width: 1),
             ),
           ),
-          style: textStyleNormalWhite.copyWith(fontSize: 17),
+          style: textStyleNormal.copyWith(color: oppositeColor, fontSize: 17),
           controller: controller,
         ),
       ),

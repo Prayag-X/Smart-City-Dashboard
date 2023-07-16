@@ -8,6 +8,7 @@ import 'package:smart_city_dashboard/pages/panels/app_bar.dart';
 
 import '../../constants/theme.dart';
 import '../../providers/page_providers.dart';
+import '../../providers/settings_providers.dart';
 import '../homepages/home_page.dart';
 
 class ScreenPanel extends ConsumerStatefulWidget {
@@ -20,16 +21,18 @@ class ScreenPanel extends ConsumerStatefulWidget {
 }
 
 class _ScreenPanelState extends ConsumerState<ScreenPanel> {
-
-
   @override
   Widget build(BuildContext context) {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
     bool isHomePage = ref.watch(isHomePageProvider);
     int homePageTab = ref.watch(tabProvider);
     return Stack(
       children: [
         Container(
-          color: Themes.darkColor,
+          color: normalColor,
           child: Center(
             child: isHomePage
                 ? (() {
@@ -44,19 +47,18 @@ class _ScreenPanelState extends ConsumerState<ScreenPanel> {
                         return const AboutPage();
                     }
                   }())
-                :
-            (() {
-              switch (homePageTab) {
-                case -3:
-                  return const HelpPage();
-                case -1:
-                  return const SettingsPage();
-                case -2:
-                  return const AboutPage();
-                default:
-                  return const Dashboard();
-              }
-            }()),
+                : (() {
+                    switch (homePageTab) {
+                      case -3:
+                        return const HelpPage();
+                      case -1:
+                        return const SettingsPage();
+                      case -2:
+                        return const AboutPage();
+                      default:
+                        return const Dashboard();
+                    }
+                  }()),
           ),
         ),
         const CustomAppBar(),

@@ -27,6 +27,8 @@ dependencies:
   csv: ^5.0.2
   path_provider: ^2.0.15
   url_launcher: ^6.1.11
+  flutter_switch: ^0.3.2
+  speech_to_text: ^6.1.1
   cupertino_icons: ^1.0.2
 
 dev_dependencies:

@@ -2,11 +2,7 @@ class ImageConst {
   //
   static const splash = 'assets/images/splash.png';
   static const splashOnline = 'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/images/splash.png';
-  static const bhubaneswar = 'assets/images/bhubaneswar.jpg';
-  static const london = 'assets/images/london.png';
   static const newYork = 'assets/images/new_york.png';
-  static const pune = 'assets/images/pune.jpg';
-  static const vienna = 'assets/images/vienna.png';
   static const austin = 'assets/images/austin.jpg';
   static const charlotte = 'assets/images/charlotte.jpg';
   static const seattle = 'assets/images/seattle.jpg';
@@ -19,6 +15,15 @@ class ImageConst {
   static const setting = 'assets/logos/settings.png';
   static const help = 'assets/logos/help.png';
   static const marker = 'assets/logos/marker.jpg';
+
+  //
+  static const cloudOnline = 'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/logos/cloud.png';
+  static const windOnline = 'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/logos/wind.png';
+  static const uvOnline = 'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/logos/uv.png';
+  static const temperatureOnline = 'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/logos/temperature.png';
+  static const humidityOnline = 'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/logos/humidity.png';
+  static const pressureOnline = 'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/logos/pressure.png';
+  static const allWeatherOnline = 'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/logos/weather/';
 
   //
   static const weather = 'assets/logos/weather.png';
@@ -39,6 +44,7 @@ class ImageConst {
   static const index = 'assets/logos/index.png';
   static const living = 'assets/logos/living.png';
   static const people = 'assets/logos/people.png';
+  static const health = 'assets/logos/health.png';
   static const allWeather = 'assets/logos/weather/';
 
   //
@@ -55,4 +61,5 @@ class ImageConst {
   //
   static const tree = 'assets/logos/tree.png';
   static const bin = 'assets/logos/bin.png';
+  static const corona = 'assets/logos/corona.png';
 }

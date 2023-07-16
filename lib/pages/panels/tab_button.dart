@@ -7,6 +7,7 @@ import 'package:smart_city_dashboard/utils/logo_shower.dart';
 import '../../constants/constants.dart';
 import '../../constants/theme.dart';
 import '../../providers/page_providers.dart';
+import '../../providers/settings_providers.dart';
 
 class TabButton extends ConsumerWidget {
   const TabButton({
@@ -15,36 +16,41 @@ class TabButton extends ConsumerWidget {
     required this.name,
     required this.tab,
   }) : super(key: key);
-  
+
   final String logo;
   final String name;
   final int tab;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
     int homePageTab = ref.watch(tabProvider);
     return GestureDetector(
       onTap: () => ref.read(tabProvider.notifier).state = tab,
       child: Container(
-        color: homePageTab == tab ? Themes.darkHighlightColor : Colors.transparent,
+        color: homePageTab == tab ? highlightColor : Colors.transparent,
         child: Padding(
-          padding: EdgeInsets.symmetric(vertical: Const.tabBarTextSize/2,),
+          padding: EdgeInsets.symmetric(
+            vertical: Const.tabBarTextSize / 2,
+          ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
               Container(
                 height: 40,
                 width: 3,
-                color: homePageTab == tab ? Colors.white : Colors.transparent,
+                color: homePageTab == tab ? oppositeColor : Colors.transparent,
               ),
               Const.tabBarTextSize.pw,
-              AssetLogoShower(logo: logo, size: Const.tabBarTextSize+13),
+              AssetLogoShower(logo: logo, size: Const.tabBarTextSize + 13),
               Const.tabBarTextSize.pw,
               Text(
                 name,
-                style: textStyleNormalWhite.copyWith(
-                  fontSize: Const.tabBarTextSize+5
-                ),
+                style: textStyleNormal.copyWith(
+                    color: oppositeColor, fontSize: Const.tabBarTextSize + 5),
               )
             ],
           ),
@@ -53,4 +59,3 @@ class TabButton extends ConsumerWidget {
     );
   }
 }
-

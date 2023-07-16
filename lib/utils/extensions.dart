@@ -26,7 +26,9 @@ extension SetPercentage on num {
 
 extension Parser on String {
   String get parseIcon =>
-      '${ImageConst.allWeather}${split('/').reversed.elementAt(1)}/${split('/').last}'; // Return a string like this "assets/logos/weather/day/mist.png"
+      '${ImageConst.allWeather}${split('/').reversed.elementAt(1)}/${split('/').last}'; // Retu
+  String get parseIconOnline =>
+      '${ImageConst.allWeatherOnline}${split('/').reversed.elementAt(1)}/${split('/').last}'; // // rn a string like this "assets/logos/weather/day/mist.png"
   String get parseTime =>
       split(' ').last; // Parse time from "MM-DD-YYYY TT:TT" format
   String get parseDay =>

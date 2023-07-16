@@ -5,24 +5,23 @@ import 'package:smart_city_dashboard/pages/dashboard/downloadable_content.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/dashboard_right_panel.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/kml_download_button.dart';
 
-class NYCEnvironmentTabRight extends ConsumerStatefulWidget {
-  const NYCEnvironmentTabRight({super.key});
+class NYCHealthTabRight extends ConsumerStatefulWidget {
+  const NYCHealthTabRight({super.key});
 
   @override
-  ConsumerState createState() => _NYCEnvironmentTabRightState();
+  ConsumerState createState() => _NYCHealthTabRightState();
 }
 
-class _NYCEnvironmentTabRightState
-    extends ConsumerState<NYCEnvironmentTabRight> {
+class _NYCHealthTabRightState extends ConsumerState<NYCHealthTabRight> {
   @override
   Widget build(BuildContext context) {
     return DashboardRightPanel(
         headers: [translate('dashboard.available_kml')],
         headersFlex: const [1],
         centerHeader: true,
-        panelList: DownloadableContent.nycEnvironmentKml
+        panelList: DownloadableContent.nycHealthKml
             .map((data) => KmlDownloaderButton(
-                data, DownloadableContent.nycEnvironmentKml.indexOf(data)))
+            data, DownloadableContent.nycHealthKml.indexOf(data)))
             .toList());
   }
 }

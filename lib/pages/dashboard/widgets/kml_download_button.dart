@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:smart_city_dashboard/connections/downloader.dart';
 import 'package:smart_city_dashboard/providers/data_providers.dart';
@@ -13,15 +14,21 @@ import '../../../connections/ssh.dart';
 import '../../../constants/constants.dart';
 import '../../../constants/text_styles.dart';
 import '../../../constants/theme.dart';
+import '../../../kml_makers/balloon_makers.dart';
+import '../../../models/downloadable_kml.dart';
 
 class KmlDownloaderButton extends ConsumerWidget {
   const KmlDownloaderButton(this.data, this.index, {super.key});
 
-  final Map<String, String> data;
+  final DownloadableKML data;
   final int index;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
     int kmlClicked = ref.watch(kmlClickedProvider);
     double? loadingPercentage = ref.watch(loadingPercentageProvider);
     return Padding(
@@ -35,18 +42,19 @@ class KmlDownloaderButton extends ConsumerWidget {
                 builder: (BuildContext context, BoxConstraints constraints) =>
                     Container(
                         width: loadingPercentage != null
-                            ? constraints.maxWidth * (loadingPercentage != -1 ? loadingPercentage : 1)
+                            ? constraints.maxWidth *
+                                (loadingPercentage != -1
+                                    ? loadingPercentage
+                                    : 1)
                             : constraints.maxWidth,
                         height: 40,
                         decoration: BoxDecoration(
-                          color: kmlClicked == index
-                              ? Themes.darkHighlightColor
-                              : null,
+                          color: kmlClicked == index ? highlightColor : null,
                           borderRadius:
                               BorderRadius.circular(Const.dashboardUIRoundness),
-                            border: kmlClicked == index
-                                ? Border.all(color: Themes.darkHighlightColor)
-                                : null,
+                          border: kmlClicked == index
+                              ? Border.all(color: highlightColor)
+                              : null,
                         ))),
           ),
           TextButton(
@@ -59,16 +67,27 @@ class KmlDownloaderButton extends ConsumerWidget {
               ref.watch(kmlClickedProvider.notifier).state = index;
               ref.read(isLoadingProvider.notifier).state = true;
               var localPath = await getApplicationDocumentsDirectory();
-              await Downloader(ref: ref).downloadKml(data['url']!);
+              await Downloader(ref: ref).downloadKml(data.url);
               await SSH(ref: ref).kmlFileUpload(
                   File('${localPath.path}/${Const.kmlCustomFileName}.kml'),
                   Const.kmlCustomFileName);
               await SSH(ref: ref).runKml(Const.kmlCustomFileName);
+              var initialMapPosition = CameraPosition(
+                target: ref.read(cityDataProvider)!.location,
+                zoom: 11,
+              );
+              await SSH(ref: ref).renderInSlave(
+                  ref.read(rightmostRigProvider),
+                  BalloonMakers.kmlBalloon(
+                      initialMapPosition,
+                      ref.read(cityDataProvider)!.image,
+                      data.name,
+                      data.size,));
               ref.read(isLoadingProvider.notifier).state = false;
             },
             child: Padding(
-              padding: const EdgeInsets.symmetric(
-                  vertical: 8.0, horizontal: 10.0),
+              padding:
+                  const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
               child: Row(
                 children: [
                   const Icon(
@@ -80,14 +99,15 @@ class KmlDownloaderButton extends ConsumerWidget {
                   Row(
                     children: [
                       Text(
-                        data['size']!,
+                        data.size,
                         style: textStyleNormal.copyWith(
                             fontSize: 18,
                             color: Colors.redAccent.withOpacity(0.7)),
                       ),
                       Text(
-                        '  ${data['name']!}',
-                        style: textStyleNormalWhite.copyWith(fontSize: 18),
+                        '  ${data.name}',
+                        style: textStyleNormal.copyWith(
+                            color: oppositeColor, fontSize: 18),
                       ),
                     ],
                   ),

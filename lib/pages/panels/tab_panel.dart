@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
-import 'package:smart_city_dashboard/constants/texts.dart';
 import 'package:smart_city_dashboard/pages/panels/tab_button.dart';
 import 'package:smart_city_dashboard/providers/page_providers.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
@@ -11,9 +11,9 @@ import 'package:smart_city_dashboard/utils/helper.dart';
 import 'package:smart_city_dashboard/utils/logo_shower.dart';
 
 import '../../constants/constants.dart';
-import '../../constants/theme.dart';
 import '../../models/city_card_model.dart';
 import '../../providers/data_providers.dart';
+import '../../providers/settings_providers.dart';
 
 class TabPanel extends ConsumerStatefulWidget {
   const TabPanel({
@@ -27,13 +27,17 @@ class TabPanel extends ConsumerStatefulWidget {
 class _TabPanelState extends ConsumerState<TabPanel> {
   @override
   Widget build(BuildContext context) {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
     bool isHomePage = ref.watch(isHomePageProvider);
     int homePageTab = ref.watch(tabProvider);
     CityCardModel? cityData = ref.watch(cityDataProvider);
     return Container(
       height: screenSize(context).height,
-      width: screenSize(context).width/Const.tabBarWidthDivider,
-      color: Themes.darkTabBarColor,
+      width: screenSize(context).width / Const.tabBarWidthDivider,
+      color: tabBarColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -43,18 +47,19 @@ class _TabPanelState extends ConsumerState<TabPanel> {
               ref.read(isHomePageProvider.notifier).state = true;
             },
             child: Container(
-              height: screenSize(context).width/Const.tabBarWidthDivider,
+              height: screenSize(context).width / Const.tabBarWidthDivider,
               color: homePageTab == 0 && isHomePage
-                  ? Themes.darkHighlightColor
+                  ? highlightColor
                   : Colors.transparent,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    height: screenSize(context).width/Const.tabBarWidthDivider,
+                    height:
+                        screenSize(context).width / Const.tabBarWidthDivider,
                     width: 3,
                     color: homePageTab == 0 && isHomePage
-                        ? Colors.white
+                        ? oppositeColor
                         : Colors.transparent,
                   ),
                   Column(
@@ -63,7 +68,9 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                     children: [
                       AssetLogoShower(
                         logo: ImageConst.app,
-                        size: screenSize(context).width/Const.tabBarWidthDivider-70,
+                        size: screenSize(context).width /
+                                Const.tabBarWidthDivider -
+                            70,
                       ),
                       AnimatedSwitcher(
                           duration: Const.animationDuration,
@@ -82,7 +89,8 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                     ],
                   ),
                   Container(
-                    height: screenSize(context).width/Const.tabBarWidthDivider,
+                    height:
+                        screenSize(context).width / Const.tabBarWidthDivider,
                     width: 3,
                     color: Colors.transparent,
                   ),
@@ -105,14 +113,18 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                         ),
                         children: [
                           Text(
-                            TextConst.welcome,
-                            style: textStyleNormalWhite.copyWith(fontSize: Const.tabBarTextSize+1),
+                            translate('homepage.welcome'),
+                            style: textStyleNormal.copyWith(
+                                color: oppositeColor,
+                                fontSize: Const.tabBarTextSize + 1),
                           ),
                           Const.tabBarTextSize.ph,
                           Text(
-                            TextConst.description,
+                            translate('homepage.description'),
                             textAlign: TextAlign.center,
-                            style: textStyleNormalWhite.copyWith(fontSize: Const.tabBarTextSize),
+                            style: textStyleNormal.copyWith(
+                                color: oppositeColor,
+                                fontSize: Const.tabBarTextSize),
                           ),
                         ],
                       ),
@@ -128,7 +140,12 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                           child: widget,
                         ),
                       ),
-                      children: ref.read(cityDataProvider)!.availableTabs.map((tab) => TabButton(logo: tab.logo!, name: tab.name!, tab: tab.tab)).toList(),
+                      children: ref
+                          .read(cityDataProvider)!
+                          .availableTabs
+                          .map((tab) => TabButton(
+                              logo: tab.logo!, name: tab.name!, tab: tab.tab))
+                          .toList(),
                     ),
                   ),
                 ),
@@ -148,7 +165,7 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                           children: <Widget>[
                             TabButton(
                                 logo: ImageConst.help,
-                                name: TextConst.help,
+                                name: translate('homepage.help'),
                                 tab: -3)
                           ],
                         ),
@@ -156,16 +173,18 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                     )
                   : const SizedBox.shrink(),
               Divider(
-                color: Themes.darkWhiteColor,
+                color: oppositeColor,
                 indent: 10,
                 endIndent: 10,
               ),
               TabButton(
                   logo: ImageConst.setting,
-                  name: TextConst.settings,
+                  name: translate('homepage.settings'),
                   tab: -1),
               TabButton(
-                  logo: ImageConst.about, name: TextConst.about, tab: -2),
+                  logo: ImageConst.about,
+                  name: translate('homepage.about'),
+                  tab: -2),
             ],
           ),
         ],
@@ -174,33 +193,37 @@ class _TabPanelState extends ConsumerState<TabPanel> {
   }
 }
 
-class TextForAnimation4 extends StatelessWidget {
+class TextForAnimation4 extends ConsumerWidget {
   const TextForAnimation4({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Text(TextConst.goBack,
+  Widget build(BuildContext context, WidgetRef ref) {
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    return Text(translate('city_page.go_back'),
         style: textStyleNormal.copyWith(
-            fontSize: Const.tabBarTextSize-4, color: Themes.darkWhiteColor.withOpacity(0.7)));
+            fontSize: Const.tabBarTextSize - 4,
+            color: oppositeColor.withOpacity(0.7)));
   }
 }
 
-class TextForAnimation3 extends StatelessWidget {
+class TextForAnimation3 extends ConsumerWidget {
   const TextForAnimation3({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    Color oppositeColor = ref.watch(oppositeColorProvider);
     return Text('',
         style: textStyleNormal.copyWith(
-            fontSize: Const.tabBarTextSize-4, color: Themes.darkWhiteColor.withOpacity(0.7)));
+            fontSize: Const.tabBarTextSize - 4,
+            color: oppositeColor.withOpacity(0.7)));
   }
 }
 
-class TextForAnimation2 extends StatelessWidget {
+class TextForAnimation2 extends ConsumerWidget {
   const TextForAnimation2({
     super.key,
     required this.cityData,
@@ -209,20 +232,24 @@ class TextForAnimation2 extends StatelessWidget {
   final CityCardModel? cityData;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    Color oppositeColor = ref.watch(oppositeColorProvider);
     return Text(cityData!.cityName,
-        style: textStyleBoldWhite.copyWith(fontSize: Const.tabBarTextSize+6));
+        style: textStyleBold.copyWith(
+            color: oppositeColor, fontSize: Const.tabBarTextSize + 6));
   }
 }
 
-class TextForAnimation1 extends StatelessWidget {
+class TextForAnimation1 extends ConsumerWidget {
   const TextForAnimation1({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
-    return Text(TextConst.home,
-        style: textStyleBoldWhite.copyWith(fontSize: Const.tabBarTextSize+6));
+  Widget build(BuildContext context, WidgetRef ref) {
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    return Text(translate('homepage.home'),
+        style: textStyleBold.copyWith(
+            color: oppositeColor, fontSize: Const.tabBarTextSize + 6));
   }
 }

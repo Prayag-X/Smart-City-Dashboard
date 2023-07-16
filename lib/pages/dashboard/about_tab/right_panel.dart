@@ -1,18 +1,13 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:smart_city_dashboard/connections/downloader.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/kml_makers/kml_makers.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/dashboard_right_panel.dart';
-import 'package:smart_city_dashboard/providers/data_providers.dart';
-import 'package:smart_city_dashboard/services/nyc_api.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 
 import '../../../constants/constants.dart';
-import '../../../constants/texts.dart';
-import '../../../constants/theme.dart';
-import '../../../models/city_card_model.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../connections/ssh.dart';
 
@@ -30,8 +25,12 @@ class _AboutTabRightState extends ConsumerState<AboutTabRight> {
 
   @override
   Widget build(BuildContext context) {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
     return DashboardRightPanel(
-        headers: [TextConst.availableOptions],
+        headers: [translate('dashboard.about.available_options')],
         headersFlex: const [1],
         centerHeader: true,
         panelList: [
@@ -49,14 +48,15 @@ class _AboutTabRightState extends ConsumerState<AboutTabRight> {
                   // File file = await SSH(ref: ref).makeFile(Const.kmlOrbitFileName, KMLMakers.buildOrbit(cityData!.location.latitude, cityData.location.longitude));
                   // File file = await SSH(ref: ref).makeFile(Const.kmlOrbitFileName, KMLMakers.buildExample());
 
-                  File file = await SSH(ref: ref).makeFile(Const.kmlOrbitFileName, KMLMakers.buildOrbit(ref));
-                  await SSH(ref: ref).kmlFileUpload(file, Const.kmlOrbitFileName);
+                  File file = await SSH(ref: ref).makeFile(
+                      Const.kmlOrbitFileName, KMLMakers.buildOrbit(ref));
+                  await SSH(ref: ref)
+                      .kmlFileUpload(file, Const.kmlOrbitFileName);
                   await SSH(ref: ref).runKml(Const.kmlOrbitFileName);
                   await SSH(ref: ref).startOrbit();
 
                   // await NYCApi().getData('resource/uvpi-gqnh.json', 2000);
                   // print("DONEE");
-
                 } catch (e) {
                   print("EAFDAFASF");
                   print(e);
@@ -65,9 +65,7 @@ class _AboutTabRightState extends ConsumerState<AboutTabRight> {
               },
               child: Container(
                 decoration: BoxDecoration(
-                  color: selectedTask == 0
-                      ? Themes.darkHighlightColor
-                      : null,
+                  color: selectedTask == 0 ? highlightColor : null,
                   borderRadius:
                       BorderRadius.circular(Const.dashboardUIRoundness),
                 ),
@@ -78,15 +76,15 @@ class _AboutTabRightState extends ConsumerState<AboutTabRight> {
                       children: [
                         Icon(
                           Icons.play_arrow_rounded,
-                          size: Const.dashboardTextSize+5,
-                          color: Colors.white,
+                          size: Const.dashboardTextSize + 5,
+                          color: oppositeColor,
                         ),
                         10.pw,
                         Text(
                           'Play Tour',
-                          style: textStyleNormalWhite.copyWith(
-                              fontSize:
-                              Const.dashboardTextSize + 5),
+                          style: textStyleNormal.copyWith(
+                              color: oppositeColor,
+                              fontSize: Const.dashboardTextSize + 5),
                         ),
                       ],
                     )),
@@ -106,11 +104,9 @@ class _AboutTabRightState extends ConsumerState<AboutTabRight> {
               },
               child: Container(
                 decoration: BoxDecoration(
-                  color: selectedTask == 1
-                      ? Themes.darkHighlightColor
-                      : null,
+                  color: selectedTask == 1 ? highlightColor : null,
                   borderRadius:
-                  BorderRadius.circular(Const.dashboardUIRoundness),
+                      BorderRadius.circular(Const.dashboardUIRoundness),
                 ),
                 child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -119,15 +115,15 @@ class _AboutTabRightState extends ConsumerState<AboutTabRight> {
                       children: [
                         Icon(
                           Icons.stop_rounded,
-                          size: Const.dashboardTextSize+5,
-                          color: Colors.white,
+                          size: Const.dashboardTextSize + 5,
+                          color: oppositeColor,
                         ),
                         10.pw,
                         Text(
                           'Stop Tour',
-                          style: textStyleNormalWhite.copyWith(
-                              fontSize:
-                              Const.dashboardTextSize + 5),
+                          style: textStyleNormal.copyWith(
+                              color: oppositeColor,
+                              fontSize: Const.dashboardTextSize + 5),
                         ),
                       ],
                     )),

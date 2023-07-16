@@ -4,7 +4,7 @@
   },
   "title": "Smart City Dashboard",
   "smart_city": "Smart City",
-  "search": "Search of speak anything",
+  "search": "Search city name or data",
   "city": {
     "bhubaneswar": "Bhubaneswar",
     "london": "London",
@@ -133,6 +133,23 @@
         "year": "Year",
         "consumption": "Consumption (Therms)",
         "water_consumption": "Water consumption per day"
+      },
+      "health": {
+        "health": "Health",
+        "hiv_title": "HIV AIDS Diagnosis",
+        "hiv": "HIV Diagnosis",
+        "year": "Year",
+        "date": "Date",
+        "covid_title": "Covid Cases",
+        "case": "Case Count",
+        "death": "Death Count",
+        "sars_title": "SARS-CoV2 Concentration",
+        "concentration": "Concentration",
+        "served": "Population Served",
+        "infant_title": "Infant Mortality",
+        "infant_death": "Infant Deaths",
+        "live_birth": "Live births",
+        "aids": "AIDS Diagnosis"
       }
     },
     "charlotte": {

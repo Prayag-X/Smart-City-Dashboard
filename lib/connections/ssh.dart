@@ -10,6 +10,7 @@ import 'package:smart_city_dashboard/kml_makers/kml_makers.dart';
 import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/providers/settings_providers.dart';
 
+import '../kml_makers/balloon_makers.dart';
 import '../utils/helper.dart';
 
 class SSH {
@@ -45,15 +46,7 @@ class SSH {
     ref.read(isConnectedToLGProvider.notifier).state = false;
   }
 
-  renderInSlave(int slaveNo, String imageKML) async {
-    try {
-      await ref
-          .read(sshClient)
-          ?.run("echo '$imageKML' > /var/www/html/kml/slave_$slaveNo.kml");
-    } catch (e) {
-      print(e);
-    }
-  }
+  //
 
   cleanSlaves() async {
     try {
@@ -65,6 +58,11 @@ class SSH {
     } catch (e) {
       print(e);
     }
+  }
+
+  cleanBalloon() async {
+    await ref.read(sshClient)?.run(
+        "echo '${BalloonMakers.blankBalloon()}' > /var/www/html/kml/slave_${ref.read(rightmostRigProvider)}.kml");
   }
 
   cleanKML() async {
@@ -159,6 +157,18 @@ class SSH {
     }
   }
 
+  //
+
+  renderInSlave(int slaveNo, String kml) async {
+    try {
+      await ref
+          .read(sshClient)
+          ?.run("echo '$kml' > /var/www/html/kml/slave_$slaveNo.kml");
+    } catch (e) {
+      print(e);
+    }
+  }
+
   flyTo(double latitude, double longitude, double zoom, double tilt,
       double bearing) async {
     ref.read(lastGMapPositionProvider.notifier).state = CameraPosition(
@@ -180,7 +190,6 @@ class SSH {
 
   kmlFileUpload(File inputFile, String kmlName) async {
     bool uploading = true;
-    await ref.read(sshClient)?.sftp();
     final sftp = await ref.read(sshClient)?.sftp();
     final file = await sftp?.open('/var/www/html/$kmlName.kml',
         mode: SftpFileOpenMode.create |
@@ -188,16 +197,21 @@ class SSH {
             SftpFileOpenMode.write);
     var fileSize = await inputFile.length();
     file?.write(inputFile.openRead().cast(), onProgress: (progress) {
-      ref.read(loadingPercentageProvider.notifier).state = progress/fileSize;
+      ref.read(loadingPercentageProvider.notifier).state = progress / fileSize;
       if (fileSize == progress) {
         uploading = false;
       }
     });
-    if(file == null) {
+    if (file == null) {
       return;
     }
     await waitWhile(() => uploading);
     ref.read(loadingPercentageProvider.notifier).state = null;
+  }
+
+  fileDelete(String filename) async {
+    final sftp = await ref.read(sshClient)?.sftp();
+    await sftp?.remove("/var/www/html/$filename");
   }
 
   runKml(String kmlName) async {

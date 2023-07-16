@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 import 'package:smart_city_dashboard/utils/helper.dart';
@@ -7,8 +8,9 @@ import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../../constants/constants.dart';
 import '../../../constants/theme.dart';
+import '../../../providers/settings_providers.dart';
 
-class DashboardContainer extends StatefulWidget {
+class DashboardContainer extends ConsumerStatefulWidget {
   const DashboardContainer(
       {super.key,
       this.heightMultiplier = 1,
@@ -30,30 +32,39 @@ class DashboardContainer extends StatefulWidget {
   final String? image;
 
   @override
-  State<DashboardContainer> createState() => _DashboardContainerState();
+  ConsumerState<DashboardContainer> createState() =>
+      _DashboardContainerConsumerState();
 }
 
-class _DashboardContainerState extends State<DashboardContainer> {
+class _DashboardContainerConsumerState
+    extends ConsumerState<DashboardContainer> {
   @override
   Widget build(BuildContext context) {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
     return Container(
-      width: (screenSize(context).width - screenSize(context).width/Const.tabBarWidthDivider) *
+      width: (screenSize(context).width -
+                  screenSize(context).width / Const.tabBarWidthDivider) *
               widget.widthMultiplier /
               4 -
           (widget.widthMultiplier - 2).abs() * Const.dashboardUISpacing / 2,
-      height: (screenSize(context).width - screenSize(context).width/Const.tabBarWidthDivider) *
+      height: (screenSize(context).width -
+              screenSize(context).width / Const.tabBarWidthDivider) *
           widget.heightMultiplier *
           Const.dashboardUIHeightFactor /
           4,
       decoration: BoxDecoration(
-        color: Themes.darkHighlightColor,
+        color: highlightColor,
         borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(
-            vertical: Const.dashboardTextSize/2 + 2,
-            horizontal:
-                widget.data.length > 7 && widget.widthMultiplier == 1 ? Const.dashboardTextSize+5 : 0),
+            vertical: Const.dashboardTextSize / 2 + 2,
+            horizontal: widget.data.length > 7 && widget.widthMultiplier == 1
+                ? Const.dashboardTextSize + 5
+                : 0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -61,37 +72,47 @@ class _DashboardContainerState extends State<DashboardContainer> {
             Text(
               widget.title,
               style: textStyleNormal.copyWith(
-                  fontSize: Const.dashboardTextSize-3, color: Colors.white.withOpacity(0.5)),
+                  fontSize: Const.dashboardTextSize - 3,
+                  color: oppositeColor.withOpacity(0.5)),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 widget.showPercentage
                     ? CircularPercentIndicator(
-                        radius: Const.dashboardTextSize+13.0,
+                        radius: Const.dashboardTextSize + 13.0,
                         lineWidth: 8.0,
                         animation: true,
                         percent: widget.percentage,
-                        center: AssetLogoShower(logo: widget.image!, size: Const.dashboardTextSize+13),
+                        center: AssetLogoShower(
+                            logo: widget.image!,
+                            size: Const.dashboardTextSize + 13),
                         circularStrokeCap: CircularStrokeCap.round,
                         progressColor: widget.progressColor,
-                        backgroundColor:
-                            lightenColor(Themes.darkHighlightColor, 0.1),
+                        backgroundColor: lightenColor(highlightColor, 0.1),
                       )
                     : widget.image != null
-                        ? AssetLogoShower(logo: widget.image!, size: Const.dashboardTextSize+43)
+                        ? AssetLogoShower(
+                            logo: widget.image!,
+                            size: Const.dashboardTextSize + 43)
                         : const SizedBox.shrink(),
-                widget.image != null ? (Const.dashboardTextSize-5).pw : const SizedBox.shrink(),
+                widget.image != null
+                    ? (Const.dashboardTextSize - 5).pw
+                    : const SizedBox.shrink(),
                 widget.data.length > 7 && widget.widthMultiplier == 1
                     ? Expanded(
                         child: Text(
                           widget.data,
-                          style: textStyleSemiBoldWhite.copyWith(fontSize: Const.dashboardTextSize+5),
+                          style: textStyleSemiBold.copyWith(
+                              color: oppositeColor,
+                              fontSize: Const.dashboardTextSize + 5),
                         ),
                       )
                     : Text(
                         widget.data,
-                        style: textStyleSemiBoldWhite.copyWith(fontSize: Const.dashboardTextSize*2),
+                        style: textStyleSemiBold.copyWith(
+                            color: oppositeColor,
+                            fontSize: Const.dashboardTextSize * 2),
                       ),
               ],
             ),
@@ -103,7 +124,7 @@ class _DashboardContainerState extends State<DashboardContainer> {
   }
 }
 
-class AboutContainer extends StatefulWidget {
+class AboutContainer extends ConsumerStatefulWidget {
   const AboutContainer({
     super.key,
     this.heightMultiplier = 1,
@@ -122,29 +143,33 @@ class AboutContainer extends StatefulWidget {
   final String? image;
 
   @override
-  State<AboutContainer> createState() => _AboutContainerState();
+  ConsumerState<AboutContainer> createState() => _AboutContainerConsumerState();
 }
 
-class _AboutContainerState extends State<AboutContainer> {
+class _AboutContainerConsumerState extends ConsumerState<AboutContainer> {
   @override
   Widget build(BuildContext context) {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
     return Container(
-      width: (screenSize(context).width - screenSize(context).width/Const.tabBarWidthDivider) *
+      width: (screenSize(context).width -
+                  screenSize(context).width / Const.tabBarWidthDivider) *
               widget.widthMultiplier /
               4 -
           (widget.widthMultiplier - 2).abs() * Const.dashboardUISpacing / 2,
-      height: (screenSize(context).width - screenSize(context).width/Const.tabBarWidthDivider) *
+      height: (screenSize(context).width -
+              screenSize(context).width / Const.tabBarWidthDivider) *
           widget.heightMultiplier *
           Const.dashboardUIHeightFactor /
           4,
       decoration: BoxDecoration(
-        color: Themes.darkHighlightColor,
+        color: highlightColor,
         borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
         image: widget.image != null
             ? DecorationImage(
-                image: AssetImage(widget.image!),
-          fit: BoxFit.fill
-              )
+                image: AssetImage(widget.image!), fit: BoxFit.fill)
             : null,
       ),
       child: Padding(
@@ -157,18 +182,23 @@ class _AboutContainerState extends State<AboutContainer> {
                 ? Text(
                     widget.title!,
                     style: textStyleNormal.copyWith(
-                        fontSize: Const.dashboardTextSize-3, color: Colors.white.withOpacity(0.5)),
+                        fontSize: Const.dashboardTextSize - 3,
+                        color: oppositeColor.withOpacity(0.5)),
                   )
                 : const SizedBox.shrink(),
             widget.description != null
                 ? Text(
-                  widget.description!,
-                  style: textStyleNormalWhite.copyWith(fontSize: Const.dashboardTextSize-1),
-                )
+                    widget.description!,
+                    style: textStyleNormal.copyWith(
+                        color: oppositeColor,
+                        fontSize: Const.dashboardTextSize - 1),
+                  )
                 : widget.data != null
                     ? Text(
                         widget.data!,
-                        style: textStyleSemiBoldWhite.copyWith(fontSize: Const.dashboardTextSize*2-5),
+                        style: textStyleSemiBold.copyWith(
+                            color: oppositeColor,
+                            fontSize: Const.dashboardTextSize * 2 - 5),
                       )
                     : const SizedBox.shrink(),
             const SizedBox.shrink()
@@ -179,31 +209,38 @@ class _AboutContainerState extends State<AboutContainer> {
   }
 }
 
-class BlankDashboardContainer extends StatelessWidget {
+class BlankDashboardContainer extends ConsumerWidget {
   const BlankDashboardContainer(
       {super.key, this.heightMultiplier = 1, this.widthMultiplier = 1});
   final double heightMultiplier;
   final double widthMultiplier;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
     return Container(
-        width: (screenSize(context).width - screenSize(context).width/Const.tabBarWidthDivider) *
+        width: (screenSize(context).width -
+                    screenSize(context).width / Const.tabBarWidthDivider) *
                 widthMultiplier /
                 4 -
             (widthMultiplier - 2).abs() * Const.dashboardUISpacing / 2,
-        height: (screenSize(context).width - screenSize(context).width/Const.tabBarWidthDivider) *
+        height: (screenSize(context).width -
+                screenSize(context).width / Const.tabBarWidthDivider) *
             heightMultiplier *
             Const.dashboardUIHeightFactor /
             4,
         decoration: BoxDecoration(
-          color: Themes.darkHighlightColor,
+          color: highlightColor,
           borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
         ),
         child: Center(
           child: Text(
             '--',
-            style: textStyleNormalWhite.copyWith(fontSize: Const.dashboardTextSize+10),
+            style: textStyleNormal.copyWith(
+                color: oppositeColor, fontSize: Const.dashboardTextSize + 10),
           ),
         ));
   }

@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:smart_city_dashboard/models/city_card_model.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/google_map.dart';
 import 'package:smart_city_dashboard/pages/dashboard/new_york/environment/right_panel.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 import 'package:smart_city_dashboard/utils/helper.dart';
+import '../../connections/ssh.dart';
 import '../../constants/constants.dart';
 import '../../constants/text_styles.dart';
-import '../../constants/texts.dart';
+import '../../kml_makers/balloon_makers.dart';
 import '../../providers/data_providers.dart';
 import '../../providers/page_providers.dart';
 import '../../providers/settings_providers.dart';
@@ -23,6 +25,10 @@ class Dashboard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
     CityCardModel city = ref.watch(cityDataProvider)!;
     int tab = ref.watch(tabProvider);
     bool downloadableContentAvailable =
@@ -51,16 +57,18 @@ class Dashboard extends ConsumerWidget {
                   if (tab == city.availableTabs.length - 1) {
                     return const AboutTabLeft();
                   }
+                  Future.delayed(Duration.zero).then((x) async {
+                    ref.read(isLoadingProvider.notifier).state = false;
+                  });
+                  SSH(ref: ref).cleanBalloon();
+                  SSH(ref: ref).cleanKML();
                   if (downloadableContentAvailable) {
-                    for(var pageTab in city.availableTabs) {
-                      if(pageTab.tab == tab) {
+                    for (var pageTab in city.availableTabs) {
+                      if (pageTab.tab == tab) {
                         return pageTab.leftTab!;
                       }
                     }
                   }
-                  Future.delayed(Duration.zero).then((x) async {
-                    ref.read(isLoadingProvider.notifier).state = false;
-                  });
                   return AnimationLimiter(
                     child: Column(
                       children: AnimationConfiguration.toStaggeredList(
@@ -85,10 +93,11 @@ class Dashboard extends ConsumerWidget {
                                 ),
                                 5.ph,
                                 Text(
-                                  TextConst.contentUnavailable,
+                                  translate(
+                                      'dashboard.downloadable_content_unavailable'),
                                   textAlign: TextAlign.center,
-                                  style: textStyleNormalWhite.copyWith(
-                                      fontSize: 16),
+                                  style: textStyleNormal.copyWith(
+                                      color: oppositeColor, fontSize: 16),
                                 ),
                               ],
                             ),
@@ -134,8 +143,8 @@ class Dashboard extends ConsumerWidget {
                           if (tab == city.availableTabs.length - 1) {
                             return const AboutTabRight();
                           }
-                          for(var pageTab in city.availableTabs) {
-                            if(pageTab.tab == tab) {
+                          for (var pageTab in city.availableTabs) {
+                            if (pageTab.tab == tab) {
                               return pageTab.rightTab!;
                             }
                           }

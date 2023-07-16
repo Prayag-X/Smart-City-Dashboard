@@ -29,6 +29,13 @@ class _SplashScreenState extends ConsumerState<SplashPage> {
     ref.read(downloadableContentAvailableProvider.notifier).state =
         prefs.getBool('downloadableContent') ?? false;
     setRigs(prefs.getInt('rigsController') ?? 3, ref);
+    ref.read(darkModeOnProvider.notifier).state =
+        prefs.getBool('theme') ?? true;
+    if (ref.read(darkModeOnProvider) == true) {
+      setDarkTheme(ref);
+    } else {
+      setLightTheme(ref);
+    }
   }
 
   @override
@@ -44,7 +51,7 @@ class _SplashScreenState extends ConsumerState<SplashPage> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Themes.darkColor,
+        color: ThemesDark.normalColor,
         image: const DecorationImage(
             image: AssetImage(ImageConst.splash), fit: BoxFit.fitHeight),
       ),

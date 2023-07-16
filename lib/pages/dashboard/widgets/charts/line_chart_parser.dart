@@ -1,10 +1,10 @@
 import 'dart:math';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:smart_city_dashboard/models/forecast_weather.dart';
 import 'package:smart_city_dashboard/utils/helper.dart';
 
-import '../../../../constants/texts.dart';
 import 'line_chart.dart';
 
 class LineChartParser {
@@ -27,7 +27,61 @@ class LineChartParser {
       {required this.title,
       required this.chartData,
       this.legendX = '',
-      this.barWidth = 8});
+      this.barWidth = 8,
+      this.markerIntervalX = 4});
+
+  Widget chartParserWithDuplicate(
+      {required List<dynamic> dataX,
+      required List<List<dynamic>> dataY,
+      bool sortX = false}) {
+    List<dynamic> uniqueX = [];
+    List<List<double>> uniqueY = [];
+
+    for (int i = 0; i < dataY.length; i++) {
+      uniqueY.add([]);
+    }
+
+    for (int i = 0; i < dataX.length; i++) {
+      if (!uniqueX.contains(dataX[i])) {
+        uniqueX.add(dataX[i]);
+        for (int j = 0; j < dataY.length; j++) {
+          try {
+            uniqueY[j].add(double.parse(dataY[j][i].toString()));
+          } catch (e) {
+            uniqueY[j].add(0);
+          }
+        }
+      } else {
+        for (int j = 0; j < dataY.length; j++) {
+          try {
+            uniqueY[j][uniqueX.indexOf(dataX[i])] +=
+                double.parse(dataY[j][i].toString());
+          } catch (e) {}
+        }
+      }
+    }
+
+    if (sortX) {
+      int lengthOfArray = uniqueX.length;
+      for (int i = 0; i < lengthOfArray - 1; i++) {
+        for (int j = 0; j < lengthOfArray - i - 1; j++) {
+          if (double.parse(uniqueX[j].toString()) >
+              double.parse(uniqueX[j + 1].toString())) {
+            var temp = uniqueX[j];
+            uniqueX[j] = uniqueX[j + 1];
+            uniqueX[j + 1] = temp;
+            for (int k = 0; k < uniqueY.length; k++) {
+              var temp = uniqueY[k][j];
+              uniqueY[k][j] = uniqueY[k][j + 1];
+              uniqueY[k][j + 1] = temp;
+            }
+          }
+        }
+      }
+    }
+
+    return chartParser(dataX: uniqueX, dataY: uniqueY);
+  }
 
   Widget chartParser(
       {required List<dynamic> dataX,
@@ -38,6 +92,8 @@ class LineChartParser {
     List<double> minValuesY = [];
     List<double> intervalY = [];
     double minValueX = 0;
+
+    maxX = min(dataX.length.toDouble(), 25);
 
     for (int i = 0; i < dataY.length; i++) {
       dataYNum.add([]);
@@ -64,6 +120,7 @@ class LineChartParser {
     }
 
     double intervalXFactor = dataX.length / maxX;
+    double intervalXFactorExpand = dataX.length / (maxX + 1);
 
     for (int i = 0; i < maxX; i++) {
       if (shortenX) {
@@ -82,7 +139,10 @@ class LineChartParser {
         points[j].add(FlSpot(minValueX,
             roundDouble((dataYNum[j][i] - minValuesY[j]) / intervalY[j], 2)));
       }
-      minValueX += 1 / intervalXFactor;
+      minValueX += 1 /
+          (dataX.length.toDouble() < 25
+              ? intervalXFactorExpand
+              : intervalXFactor);
     }
 
     for (int i = 0; i < maxY; i++) {
@@ -147,8 +207,8 @@ class LineChartParser {
     }
 
     return DashboardLineChart(
-        title: TextConst.hourly,
-        legendX: TextConst.time,
+        title: translate('dashboard.weather.hourly'),
+        legendX: translate('dashboard.weather.time'),
         chartData: chartData,
         points: points,
         markerY: markerY,

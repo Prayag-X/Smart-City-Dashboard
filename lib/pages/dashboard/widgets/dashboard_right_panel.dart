@@ -8,6 +8,7 @@ import 'package:smart_city_dashboard/utils/helper.dart';
 
 import '../../../../constants/constants.dart';
 import '../../../../providers/data_providers.dart';
+import '../../../providers/settings_providers.dart';
 
 class DashboardRightPanel extends ConsumerWidget {
   const DashboardRightPanel({
@@ -25,6 +26,10 @@ class DashboardRightPanel extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
     return AnimationLimiter(
       child: Column(
         children: AnimationConfiguration.toStaggeredList(
@@ -51,13 +56,13 @@ class DashboardRightPanel extends ConsumerWidget {
                                   header,
                                   style: textStyleNormal.copyWith(
                                       fontSize: Const.dashboardTextSize - 3,
-                                      color: Colors.white.withOpacity(0.5)),
+                                      color: oppositeColor.withOpacity(0.5)),
                                 ))
                               : Text(
                                   header,
                                   style: textStyleNormal.copyWith(
                                       fontSize: Const.dashboardTextSize - 3,
-                                      color: Colors.white.withOpacity(0.5)),
+                                      color: oppositeColor.withOpacity(0.5)),
                                 ),
                         ),
                       )
@@ -65,8 +70,8 @@ class DashboardRightPanel extends ConsumerWidget {
                 ),
               ),
             ),
-            const Divider(
-              color: Colors.white,
+            Divider(
+              color: oppositeColor,
             ),
             SizedBox(
               height: (screenSize(context).height - Const.appBarHeight) / 2 -

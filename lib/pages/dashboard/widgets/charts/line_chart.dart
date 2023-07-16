@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 import 'package:smart_city_dashboard/utils/helper.dart';
 
 import '../../../../constants/constants.dart';
 import '../../../../constants/theme.dart';
+import '../../../../providers/settings_providers.dart';
 
-class DashboardLineChart extends StatefulWidget {
+class DashboardLineChart extends ConsumerStatefulWidget {
   const DashboardLineChart(
       {super.key,
       required this.title,
@@ -20,7 +22,9 @@ class DashboardLineChart extends StatefulWidget {
       required this.markerY,
       required this.markerX,
       this.markerIntervalX = 5,
-      this.markerIntervalY = 2, required this.legendX, required this.barWidth});
+      this.markerIntervalY = 2,
+      required this.legendX,
+      required this.barWidth});
 
   final String title;
   final String legendX;
@@ -37,14 +41,14 @@ class DashboardLineChart extends StatefulWidget {
   final double maxY;
 
   @override
-  State<DashboardLineChart> createState() => _DashboardLineChartState();
+  ConsumerState<DashboardLineChart> createState() => _DashboardLineChartState();
 }
 
-class _DashboardLineChartState extends State<DashboardLineChart> {
+class _DashboardLineChartState extends ConsumerState<DashboardLineChart> {
   Color lightColor =
-      lightenColor(Themes.darkHighlightColor, 0.1).withOpacity(0.5);
+      lightenColor(ThemesDark.highlightColor, 0.1).withOpacity(0.5);
   Color darkColor =
-      lightenColor(Themes.darkHighlightColor, 0.1).withOpacity(0.5);
+      lightenColor(ThemesDark.highlightColor, 0.1).withOpacity(0.5);
 
   LineChart lineChartCustom() => LineChart(
         LineChartData(
@@ -119,7 +123,7 @@ class _DashboardLineChartState extends State<DashboardLineChart> {
         children: widget.markerY[value.toInt()]
             .map((marker) => Text(marker,
                 style: textStyleNormal.copyWith(
-                    fontSize: Const.dashboardChartTextSize-5,
+                    fontSize: Const.dashboardChartTextSize - 5,
                     color: widget.chartData.values.elementAt(
                         widget.markerY[value.toInt()].indexOf(marker))),
                 textAlign: TextAlign.center))
@@ -143,7 +147,8 @@ class _DashboardLineChartState extends State<DashboardLineChart> {
       child: Text(
         marker,
         style: textStyleNormal.copyWith(
-            fontSize: Const.dashboardChartTextSize-5, color: lightenColor(Themes.darkHighlightColor, 0.4)),
+            fontSize: Const.dashboardChartTextSize - 5,
+            color: lightenColor(ThemesDark.highlightColor, 0.4)),
       ),
     );
   }
@@ -160,22 +165,21 @@ class _DashboardLineChartState extends State<DashboardLineChart> {
       );
 
   @override
-  void initState() {
-    super.initState();
-    setState(() {
-      widget.chartData.addEntries({widget.legendX: lightenColor(Themes.darkHighlightColor, 0.3)}.entries);
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
     return Container(
-      width: (screenSize(context).width - screenSize(context).width/Const.tabBarWidthDivider) / 2,
-      height: (screenSize(context).width - screenSize(context).width/Const.tabBarWidthDivider) *
+      width: (screenSize(context).width -
+              screenSize(context).width / Const.tabBarWidthDivider) /
+          2,
+      height: (screenSize(context).width -
+              screenSize(context).width / Const.tabBarWidthDivider) *
           Const.dashboardUIHeightFactor /
           2,
       decoration: BoxDecoration(
-        color: Themes.darkHighlightColor,
+        color: highlightColor,
         borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
       ),
       child: Padding(
@@ -187,36 +191,67 @@ class _DashboardLineChartState extends State<DashboardLineChart> {
             Text(
               widget.title,
               style: textStyleNormal.copyWith(
-                  fontSize: Const.dashboardChartTextSize-3, color: Colors.white.withOpacity(0.5)),
+                  fontSize: Const.dashboardChartTextSize - 3,
+                  color: Colors.white.withOpacity(0.5)),
             ),
             SizedBox(
-                height: (screenSize(context).width - screenSize(context).width/Const.tabBarWidthDivider) *
+                height: (screenSize(context).width -
+                        screenSize(context).width / Const.tabBarWidthDivider) *
                     Const.dashboardUIHeightFactor *
                     0.6 /
                     2,
                 child: lineChartCustom()),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: widget.chartData.entries
-                  .map((entry) => Row(
-                        children: [
-                          Container(
-                            width: Const.dashboardChartTextSize-7,
-                            height: Const.dashboardChartTextSize-7,
-                            decoration: BoxDecoration(
-                                color: entry.value,
-                                borderRadius: BorderRadius.circular(35.0)),
-                          ),
-                          5.pw,
-                          Text(
-                            entry.key,
-                            style: textStyleNormalWhite.copyWith(
-                                fontSize: Const.dashboardChartTextSize-3),
-                          ),
-                        ],
-                      ))
-                  .toList(),
-            ),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+              Row(
+                children: [
+                  Row(
+                    children: widget.chartData.entries
+                        .map((entry) => Row(
+                              children: [
+                                Container(
+                                  width: Const.dashboardChartTextSize - 7,
+                                  height: Const.dashboardChartTextSize - 7,
+                                  decoration: BoxDecoration(
+                                      color: entry.value,
+                                      borderRadius:
+                                          BorderRadius.circular(35.0)),
+                                ),
+                                5.pw,
+                                Text(
+                                  entry.key,
+                                  style: textStyleNormal.copyWith(
+                                      color: oppositeColor,
+                                      fontSize:
+                                          Const.dashboardChartTextSize - 3),
+                                ),
+                                15.pw,
+                              ],
+                            ))
+                        .toList(),
+                  ),
+                  Row(
+                    children: [
+                      Container(
+                        width: Const.dashboardChartTextSize - 7,
+                        height: Const.dashboardChartTextSize - 7,
+                        decoration: BoxDecoration(
+                            color: lightenColor(ThemesDark.highlightColor, 0.3),
+                            borderRadius:
+                            BorderRadius.circular(35.0)),
+                      ),
+                      5.pw,
+                      Text(
+                        widget.legendX,
+                        style: textStyleNormal.copyWith(
+                            color: oppositeColor,
+                            fontSize:
+                            Const.dashboardChartTextSize - 3),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ]),
           ],
         ),
       ),

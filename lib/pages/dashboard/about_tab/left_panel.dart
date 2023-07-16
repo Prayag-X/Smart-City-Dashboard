@@ -1,9 +1,9 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:csv/csv.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:flutter_translate/flutter_translate.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_city_dashboard/constants/data.dart';
 import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/dashboard_container.dart';
@@ -11,8 +11,9 @@ import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 import 'package:smart_city_dashboard/utils/helper.dart';
 
+import '../../../connections/ssh.dart';
 import '../../../constants/constants.dart';
-import '../../../constants/texts.dart';
+import '../../../kml_makers/balloon_makers.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../utils/csv_parser.dart';
 
@@ -50,10 +51,27 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
     });
   }
 
+  showBalloon() {
+    var initialMapPosition = CameraPosition(
+      target: ref.read(cityDataProvider)!.location,
+      zoom: 11,
+    );
+    SSH(ref: ref).renderInSlave(
+        ref.read(rightmostRigProvider),
+        BalloonMakers.aboutBalloon(
+          initialMapPosition,
+          ref.read(cityDataProvider)!.cityNameEnglish,
+          ref.read(cityDataProvider)!.country,
+          ref.read(cityDataProvider)!.image,
+          ref.read(cityDataProvider)!.description,
+        ));
+  }
+
   @override
   void initState() {
     super.initState();
     loadCSVData();
+    showBalloon();
   }
 
   @override
@@ -71,7 +89,7 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
           children: [
             AboutContainer(
                 widthMultiplier: 2,
-                title: TextConst.smartCity.toUpperCase(),
+                title: translate('smart_city').toUpperCase(),
                 data: ref.read(cityDataProvider)!.cityName),
             Const.dashboardUISpacing.ph,
             AboutContainer(
@@ -82,19 +100,19 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
             Const.dashboardUISpacing.ph,
             AboutContainer(
                 widthMultiplier: 2,
-                title: TextConst.country,
+                title: translate('dashboard.about.country'),
                 data: ref.read(cityDataProvider)!.country),
             Const.dashboardUISpacing.ph,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 AboutContainer(
-                    title: TextConst.latitude,
+                    title: translate('dashboard.about.latitude'),
                     data: roundDouble(
                             ref.read(cityDataProvider)!.location.latitude, 4)
                         .toString()),
                 AboutContainer(
-                    title: TextConst.longitude,
+                    title: translate('dashboard.about.longitude'),
                     data: roundDouble(
                             ref.read(cityDataProvider)!.location.longitude, 4)
                         .toString()),
@@ -104,7 +122,7 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
             AboutContainer(
                 widthMultiplier: 2,
                 heightMultiplier: 3,
-                title: TextConst.aboutDescription,
+                title: translate('dashboard.about.description'),
                 description: ref.read(cityDataProvider)!.description),
             Const.dashboardUISpacing.ph,
             cityIndex > 0
@@ -114,19 +132,20 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           DashboardContainer(
-                            title: TextConst.smartMobility,
+                            title: translate('dashboard.about.smart_mobility'),
                             image: ImageConst.mobility,
                             showPercentage: true,
                             progressColor: Colors.white,
-                            percentage: data[cityIndex][3]/10000,
+                            percentage: data[cityIndex][3] / 10000,
                             data: data[cityIndex][3].toString(),
                           ),
                           DashboardContainer(
-                            title: TextConst.smartGovernment,
+                            title:
+                                translate('dashboard.about.smart_government'),
                             image: ImageConst.government,
                             showPercentage: true,
                             progressColor: Colors.purple,
-                            percentage: data[cityIndex][5]/10000,
+                            percentage: data[cityIndex][5] / 10000,
                             data: data[cityIndex][5].toString(),
                           ),
                         ],
@@ -134,11 +153,11 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
                       Const.dashboardUISpacing.ph,
                       DashboardContainer(
                         widthMultiplier: 2,
-                        title: TextConst.smartCityIndex,
+                        title: translate('dashboard.about.smart_city_index'),
                         image: ImageConst.index,
                         showPercentage: true,
                         progressColor: Colors.blue,
-                        percentage: data[cityIndex][8]/10000,
+                        percentage: data[cityIndex][8] / 10000,
                         data: data[cityIndex][8].toString(),
                       ),
                       Const.dashboardUISpacing.ph,
@@ -146,19 +165,20 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           DashboardContainer(
-                            title: TextConst.smartEnvironment,
+                            title:
+                                translate('dashboard.about.smart_environment'),
                             image: ImageConst.environment,
                             showPercentage: true,
                             progressColor: Colors.green,
-                            percentage: data[cityIndex][4]/10000,
+                            percentage: data[cityIndex][4] / 10000,
                             data: data[cityIndex][4].toString(),
                           ),
                           DashboardContainer(
-                            title: TextConst.smartGovernment,
-                            image: ImageConst.government,
+                            title: translate('dashboard.about.smart_economy'),
+                            image: ImageConst.economy,
                             showPercentage: true,
                             progressColor: Colors.yellow,
-                            percentage: data[cityIndex][6]/10000,
+                            percentage: data[cityIndex][6] / 10000,
                             data: data[cityIndex][6].toString(),
                           ),
                         ],
@@ -168,19 +188,19 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           DashboardContainer(
-                            title: TextConst.smartPeople,
+                            title: translate('dashboard.about.smart_people'),
                             image: ImageConst.people,
                             showPercentage: true,
                             progressColor: Colors.blueGrey,
-                            percentage: data[cityIndex][7]/10000,
+                            percentage: data[cityIndex][7] / 10000,
                             data: data[cityIndex][7].toString(),
                           ),
                           DashboardContainer(
-                            title: TextConst.smartLiving,
+                            title: translate('dashboard.about.smart_living'),
                             image: ImageConst.living,
                             showPercentage: true,
                             progressColor: Colors.red,
-                            percentage: data[cityIndex][8]/10000,
+                            percentage: data[cityIndex][8] / 10000,
                             data: data[cityIndex][8].toString(),
                           ),
                         ],

@@ -3,15 +3,16 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:smart_city_dashboard/constants/available_cities.dart';
+import 'package:flutter_translate/flutter_translate.dart';
+import 'package:smart_city_dashboard/pages/dashboard/available_cities.dart';
+import 'package:smart_city_dashboard/models/tab_button.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 import 'package:smart_city_dashboard/utils/helper.dart';
 
+import '../../connections/ssh.dart';
 import '../../constants/constants.dart';
 import '../../constants/images.dart';
 import '../../constants/text_styles.dart';
-import '../../constants/texts.dart';
-import '../../constants/theme.dart';
 import '../../models/city_card_model.dart';
 import '../../providers/data_providers.dart';
 import '../../providers/page_providers.dart';
@@ -34,10 +35,12 @@ class _HomePageState extends ConsumerState<HomePage> {
     Future.delayed(Duration.zero).then((x) async {
       ref.read(isLoadingProvider.notifier).state = false;
     });
+    SSH(ref: ref).cleanBalloon();
   }
 
   @override
   Widget build(BuildContext context) {
+    String search = ref.watch(searchProvider);
     return AnimationLimiter(
       child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -54,14 +57,41 @@ class _HomePageState extends ConsumerState<HomePage> {
                 SizedBox(
                   height: screenSize(context).height - Const.appBarHeight,
                   child: SingleChildScrollView(
-                    physics:
-                    const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
-                    child: Column(
-                        children: CityCardData.availableCities
-                            .map((city) => CityCard(
+                    physics: const BouncingScrollPhysics(
+                        parent: AlwaysScrollableScrollPhysics()),
+                    child: search != ''
+                        ? Column(
+                            children: CityCardData.availableCities.map((city) {
+                            if (city.cityName
+                                    .toLowerCase()
+                                    .contains(search.toLowerCase()) ||
+                                search
+                                    .toLowerCase()
+                                    .contains(city.cityName.toLowerCase())) {
+                              return CityCard(
+                                cityData: city,
+                              );
+                            }
+                            for (TabButtonModel tab in city.availableTabs) {
+                              if (tab.name!
+                                      .toLowerCase()
+                                      .contains(search.toLowerCase()) ||
+                                  search
+                                      .toLowerCase()
+                                      .contains(tab.name!.toLowerCase())) {
+                                return CityCard(
                                   cityData: city,
-                                ))
-                            .toList()),
+                                );
+                              }
+                            }
+                            return Container();
+                          }).toList())
+                        : Column(
+                            children: CityCardData.availableCities
+                                .map((city) => CityCard(
+                                      cityData: city,
+                                    ))
+                                .toList()),
                   ),
                 ),
               ])),
@@ -79,6 +109,10 @@ class CityCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
     double height = max(min(screenSize(context).height - 600, 200), 150);
     double width = min(screenSize(context).width - 400, 700);
     return Padding(
@@ -103,7 +137,7 @@ class CityCard extends ConsumerWidget {
                     borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(Const.dashboardUIRoundness),
                     ),
-                    color: lightenColor(Themes.darkHighlightColor, 0.05),
+                    color: lightenColor(highlightColor, 0.05),
                   ),
                 ),
               ),
@@ -115,7 +149,7 @@ class CityCard extends ConsumerWidget {
                     topLeft: Radius.circular(Const.dashboardUIRoundness),
                     bottomRight: Radius.circular(Const.dashboardUIRoundness),
                   ),
-                  color: darkenColor(Themes.darkHighlightColor, 0.05),
+                  color: darkenColor(highlightColor, 0.05),
                 ),
                 child: Row(
                   children: [
@@ -134,14 +168,15 @@ class CityCard extends ConsumerWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            TextConst.smartCity,
+                            translate('smart_city'),
                             style: textStyleNormal.copyWith(
                                 fontSize: Const.homePageTextSize - 6,
-                                color: Colors.white.withOpacity(0.6)),
+                                color: oppositeColor.withOpacity(0.6)),
                           ),
                           Text(
                             cityData.cityName,
-                            style: textStyleBoldWhite.copyWith(
+                            style: textStyleBold.copyWith(
+                                color: oppositeColor,
                                 fontSize: Const.homePageTextSize + 10),
                           ),
                           5.ph,
@@ -152,7 +187,8 @@ class CityCard extends ConsumerWidget {
                                   size: Const.homePageTextSize + 5),
                               Text(
                                 cityData.country,
-                                style: textStyleNormalWhite.copyWith(
+                                style: textStyleNormal.copyWith(
+                                    color: oppositeColor,
                                     fontSize: Const.homePageTextSize),
                               ),
                             ],
@@ -160,8 +196,8 @@ class CityCard extends ConsumerWidget {
                         ],
                       ),
                     ),
-                    const VerticalDivider(
-                      color: Colors.white,
+                    VerticalDivider(
+                      color: oppositeColor,
                       indent: 15,
                       endIndent: 15,
                     ),
@@ -173,10 +209,10 @@ class CityCard extends ConsumerWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            TextConst.availableData,
+                            translate('homepage.available_data'),
                             style: textStyleNormal.copyWith(
                                 fontSize: Const.homePageTextSize - 5,
-                                color: Colors.white.withOpacity(0.6)),
+                                color: oppositeColor.withOpacity(0.6)),
                           ),
                           SizedBox(
                             height: 90,
@@ -195,10 +231,10 @@ class CityCard extends ConsumerWidget {
                                               9.pw,
                                               Text(
                                                 tab.name!,
-                                                style: textStyleNormalWhite
-                                                    .copyWith(
-                                                        fontSize: Const
-                                                                .homePageTextSize -
+                                                style: textStyleNormal.copyWith(
+                                                    color: oppositeColor,
+                                                    fontSize:
+                                                        Const.homePageTextSize -
                                                             3),
                                               )
                                             ],

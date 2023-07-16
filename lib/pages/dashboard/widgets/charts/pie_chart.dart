@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:smart_city_dashboard/constants/texts.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 
 import '../../../../constants/constants.dart';
 import '../../../../constants/text_styles.dart';
 import '../../../../constants/theme.dart';
 import '../../../../models/pie_chart_model.dart';
+import '../../../../providers/settings_providers.dart';
 import '../../../../utils/helper.dart';
 import '../../../../utils/extensions.dart';
 
-class DashboardPieChart extends StatefulWidget {
+class DashboardPieChart extends ConsumerStatefulWidget {
   const DashboardPieChart(
       {super.key,
       required this.title,
@@ -24,30 +26,10 @@ class DashboardPieChart extends StatefulWidget {
   final List<ChartData> chartData;
 
   @override
-  State<DashboardPieChart> createState() => _DashboardPieChartState();
+  ConsumerState<DashboardPieChart> createState() => _DashboardPieChartState();
 }
 
-class _DashboardPieChartState extends State<DashboardPieChart> {
-  int touchedIndex = -1;
-  Color chartColor = const Color(0xFF0021C7);
-  List<Color> chartColors = [
-    const Color(0xFF4660D9),
-    const Color(0xFFFF0005),
-    const Color(0xFFFFEB00),
-    const Color(0xFF5B6A88),
-    const Color(0xFF887859),
-    const Color(0xFFFFDF00),
-    const Color(0xFF0E2185),
-    const Color(0xFFFF0000),
-    const Color(0xFF00104B),
-    const Color(0xFF00104B),
-    const Color(0xFF00104B),
-    const Color(0xFF00104B),
-    const Color(0xFF00104B),
-    const Color(0xFF00104B),
-    const Color(0xFF00104B),
-  ];
-
+class _DashboardPieChartState extends ConsumerState<DashboardPieChart> {
   pieChart() => Stack(
         children: [
           SfCircularChart(series: <CircularSeries>[
@@ -64,7 +46,8 @@ class _DashboardPieChartState extends State<DashboardPieChart> {
                     borderRadius: 5,
                     overflowMode: OverflowMode.hide,
                     labelPosition: ChartDataLabelPosition.outside,
-                    connectorLineSettings: ConnectorLineSettings(color: Colors.white),
+                    connectorLineSettings:
+                        const ConnectorLineSettings(color: Colors.red),
                     textStyle: textStyleNormal.copyWith(fontSize: 12),
                     useSeriesColor: true),
                 innerRadius: '100%',
@@ -81,14 +64,14 @@ class _DashboardPieChartState extends State<DashboardPieChart> {
               pointColorMapper: (ChartData data, _) => data.color,
               xValueMapper: (ChartData data, _) => data.x,
               yValueMapper: (ChartData data, _) => data.y,
-              dataLabelMapper: (ChartData data, _) => '${data.y.toStringAsFixed(0)}%',
+              dataLabelMapper: (ChartData data, _) =>
+                  '${data.y.toStringAsFixed(0)}%',
               dataLabelSettings: DataLabelSettings(
                   isVisible: true,
                   showZeroValue: true,
                   labelPosition: ChartDataLabelPosition.inside,
                   textStyle: textStyleBold.copyWith(fontSize: 14),
-                  overflowMode: OverflowMode.hide
-              ),
+                  overflowMode: OverflowMode.hide),
               // onPointTap: (x) {
               //   if (x.pointIndex != null) {
               //     setState(() {
@@ -108,6 +91,10 @@ class _DashboardPieChartState extends State<DashboardPieChart> {
 
   @override
   Widget build(BuildContext context) {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
     return Container(
       width: (screenSize(context).width -
               screenSize(context).width / Const.tabBarWidthDivider) /
@@ -117,7 +104,7 @@ class _DashboardPieChartState extends State<DashboardPieChart> {
           Const.dashboardUIHeightFactor /
           2,
       decoration: BoxDecoration(
-        color: Themes.darkHighlightColor,
+        color: highlightColor,
         borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
       ),
       child: Padding(
@@ -148,8 +135,9 @@ class _DashboardPieChartState extends State<DashboardPieChart> {
                   child: pieChart()),
             ),
             Text(
-              '${TextConst.total} ${widget.subTitle}: ${widget.total}',
-              style: textStyleBoldWhite.copyWith(
+              '${translate('dashboard.total')} ${widget.subTitle}: ${widget.total}',
+              style: textStyleBold.copyWith(
+                  color: oppositeColor,
                   fontSize: Const.dashboardChartTextSize - 2),
             ),
           ],

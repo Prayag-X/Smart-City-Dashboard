@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:flutter_translate/flutter_translate.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/models/forecast_weather.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/charts/line_chart_parser.dart';
@@ -10,8 +12,9 @@ import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/services/weather_api.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 
+import '../../../connections/ssh.dart';
 import '../../../constants/constants.dart';
-import '../../../constants/texts.dart';
+import '../../../kml_makers/balloon_makers.dart';
 import '../../../providers/settings_providers.dart';
 
 class WeatherTabLeft extends ConsumerStatefulWidget {
@@ -32,6 +35,26 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
           .getForecastWeather(ref.read(cityDataProvider)!.cityNameEnglish);
       ref.read(isLoadingProvider.notifier).state = false;
     });
+    var initialMapPosition = CameraPosition(
+      target: ref.read(cityDataProvider)!.location,
+      zoom: 11,
+    );
+    ForecastWeather? weatherData = ref.read(weatherDataProvider)!;
+    await SSH(ref: ref).renderInSlave(
+        ref.read(rightmostRigProvider),
+        BalloonMakers.weatherBalloon(
+            initialMapPosition,
+            ref.read(cityDataProvider)!.cityNameEnglish,
+            ref.read(cityDataProvider)!.image,
+            weatherData.current.condition.text!,
+            weatherData.current.condition.icon!.parseIconOnline,
+            '${weatherData.current.tempC.toString()}°C',
+            '${weatherData.current.windKph} Km/h',
+            '${weatherData.current.windDegree}°${ref.read(weatherDataProvider)!.current.windDir}',
+            '${weatherData.current.humidity}%',
+            '${weatherData.current.cloud}%',
+            '${weatherData.current.uv}',
+            '${weatherData.current.pressureMb} mb'));
   }
 
   @override
@@ -64,14 +87,14 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
               children: [
                 weatherData != null
                     ? DashboardContainer(
-                        title: TextConst.now,
+                        title: translate('dashboard.weather.now'),
                         data: weatherData.current.condition.text!,
                         image: weatherData.current.condition.icon!.parseIcon,
                       )
                     : const BlankDashboardContainer(),
                 weatherData != null
                     ? DashboardContainer(
-                        title: TextConst.time,
+                        title: translate('dashboard.weather.time'),
                         data: weatherData.location.localtime.parseTime,
                         image: weatherData.current.isDay == 1
                             ? ImageConst.day
@@ -84,7 +107,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
             weatherData != null
                 ? DashboardContainer(
                     widthMultiplier: 2,
-                    title: TextConst.wind,
+                    title: translate('dashboard.weather.wind'),
                     data:
                         '${weatherData.current.windKph} Km/h ${weatherData.current.windDegree}°${weatherData.current.windDir}',
                     image: ImageConst.wind,
@@ -98,7 +121,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
               children: [
                 weatherData != null
                     ? DashboardContainer(
-                        title: TextConst.temperature,
+                        title: translate('dashboard.weather.temperature'),
                         data: '${weatherData.current.tempC}°C',
                         image: ImageConst.temperature,
                         showPercentage: true,
@@ -109,7 +132,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
                     : const BlankDashboardContainer(),
                 weatherData != null
                     ? DashboardContainer(
-                        title: TextConst.feels,
+                        title: translate('dashboard.weather.feels'),
                         data: '${weatherData.current.feelslikeC}°C',
                         image: ImageConst.temperature,
                         showPercentage: true,
@@ -123,9 +146,9 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
             Const.dashboardUISpacing.ph,
             weatherData != null
                 ? LineChartParser(chartData: {
-                    TextConst.temperature: Colors.red,
-                    TextConst.humidity: Colors.blue
-                  }, title: TextConst.hourly)
+                    translate('dashboard.weather.temperature'): Colors.red,
+                    translate('dashboard.weather.humidity'): Colors.blue
+                  }, title: translate('dashboard.weather.hourly'))
                     .weatherHourlyDataParser(weatherData, 0)
                 : const BlankDashboardContainer(
                     heightMultiplier: 2,
@@ -137,7 +160,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
               children: [
                 weatherData != null
                     ? DashboardContainer(
-                        title: TextConst.humidity,
+                        title: translate('dashboard.weather.humidity'),
                         data: '${weatherData.current.humidity}%',
                         image: ImageConst.humidity,
                         showPercentage: true,
@@ -147,7 +170,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
                     : const BlankDashboardContainer(),
                 weatherData != null
                     ? DashboardContainer(
-                        title: TextConst.cloud,
+                        title: translate('dashboard.weather.cloud'),
                         data: '${weatherData.current.cloud}%',
                         image: ImageConst.cloud,
                         showPercentage: true,
@@ -163,7 +186,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
               children: [
                 weatherData != null
                     ? DashboardContainer(
-                        title: TextConst.uv,
+                        title: translate('dashboard.weather.uv'),
                         data: '${weatherData.current.uv}',
                         image: ImageConst.uv,
                         showPercentage: true,
@@ -173,7 +196,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
                     : const BlankDashboardContainer(),
                 weatherData != null
                     ? DashboardContainer(
-                        title: TextConst.pressure,
+                        title: translate('dashboard.weather.pressure'),
                         data: '${weatherData.current.pressureMb} mb',
                         image: ImageConst.pressure,
                         showPercentage: true,
@@ -212,14 +235,14 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
               children: [
                 weatherData != null
                     ? DashboardContainer(
-                        title: TextConst.condition,
+                        title: translate('dashboard.weather.condition'),
                         data: forecastData!.day.condition.text!,
                         image: forecastData.day.condition.icon!.parseIcon,
                       )
                     : const BlankDashboardContainer(),
                 weatherData != null
                     ? DashboardContainer(
-                        title: TextConst.date,
+                        title: translate('dashboard.weather.date'),
                         data:
                             '${forecastData!.date.day}/${forecastData.date.month}',
                         image: ImageConst.calender,
@@ -231,7 +254,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
             weatherData != null
                 ? DashboardContainer(
                     widthMultiplier: 2,
-                    title: TextConst.windMax,
+                    title: translate('dashboard.weather.wind_max'),
                     data: '${forecastData!.day.maxwindKph} Km/h',
                     image: ImageConst.wind,
                   )
@@ -244,7 +267,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
               children: [
                 weatherData != null
                     ? DashboardContainer(
-                        title: TextConst.tempMaxFull,
+                        title: translate('dashboard.weather.temp_max_full'),
                         data: '${forecastData!.day.maxtempC}°C',
                         image: ImageConst.temperature,
                         showPercentage: true,
@@ -255,7 +278,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
                     : const BlankDashboardContainer(),
                 weatherData != null
                     ? DashboardContainer(
-                        title: TextConst.tempMinFull,
+                        title: translate('dashboard.weather.temp_min_full'),
                         data: '${forecastData!.day.mintempC}°C',
                         image: ImageConst.temperature,
                         showPercentage: true,
@@ -269,9 +292,9 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
             Const.dashboardUISpacing.ph,
             weatherData != null
                 ? LineChartParser(chartData: {
-                    TextConst.temperature: Colors.red,
-                    TextConst.humidity: Colors.blue
-                  }, title: TextConst.hourly)
+                    translate('dashboard.weather.temperature'): Colors.red,
+                    translate('dashboard.weather.humidity'): Colors.blue
+                  }, title: translate('dashboard.weather.hourly'))
                     .weatherHourlyDataParser(weatherData, weatherDayClicked)
                 : const BlankDashboardContainer(
                     heightMultiplier: 2,
@@ -283,7 +306,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
               children: [
                 weatherData != null
                     ? DashboardContainer(
-                        title: TextConst.uv,
+                        title: translate('dashboard.weather.uv'),
                         data: forecastData!.day.uv.toString(),
                         image: ImageConst.uv,
                         showPercentage: true,
@@ -293,7 +316,7 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
                     : const BlankDashboardContainer(),
                 weatherData != null
                     ? DashboardContainer(
-                        title: TextConst.humidityAvg,
+                        title: translate('dashboard.weather.humidity_avg'),
                         data: '${forecastData!.day.avghumidity}%',
                         image: ImageConst.humidity,
                         showPercentage: true,

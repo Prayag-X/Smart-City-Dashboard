@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/models/forecast_weather.dart';
@@ -8,9 +9,9 @@ import 'package:smart_city_dashboard/utils/extensions.dart';
 import 'package:smart_city_dashboard/utils/logo_shower.dart';
 
 import '../../../constants/constants.dart';
-import '../../../constants/texts.dart';
 import '../../../constants/theme.dart';
 import '../../../providers/data_providers.dart';
+import '../../../providers/settings_providers.dart';
 
 class WeatherTabRight extends ConsumerWidget {
   const WeatherTabRight({
@@ -19,16 +20,25 @@ class WeatherTabRight extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
     ForecastWeather? weatherData = ref.watch(weatherDataProvider);
     int weatherDayClicked = ref.watch(weatherDayClickedProvider);
     return DashboardRightPanel(
         headers: [
-          TextConst.forecast,
-          TextConst.tempMax,
-          TextConst.tempMin,
-          TextConst.humidity
+          translate('dashboard.weather.forecast'),
+          translate('dashboard.weather.temp_max'),
+          translate('dashboard.weather.temp_min'),
+          translate('dashboard.weather.humidity')
         ],
-        headersFlex: const [6, 7, 6, 5],
+        headersFlex: const [
+          6,
+          7,
+          6,
+          5
+        ],
         panelList: weatherData?.forecast.forecastday
             .map((forecast) => Padding(
                   padding: const EdgeInsets.symmetric(vertical: 5.0),
@@ -41,7 +51,7 @@ class WeatherTabRight extends ConsumerWidget {
                         color: weatherDayClicked ==
                                 weatherData.forecast.forecastday
                                     .indexOf(forecast)
-                            ? Themes.darkHighlightColor
+                            ? highlightColor
                             : null,
                         borderRadius:
                             BorderRadius.circular(Const.dashboardUIRoundness),
@@ -57,9 +67,10 @@ class WeatherTabRight extends ConsumerWidget {
                                   weatherData.forecast.forecastday
                                               .indexOf(forecast) ==
                                           0
-                                      ? TextConst.today
+                                      ? translate('dashboard.weather.today')
                                       : '${forecast.date.day}/${forecast.date.month}',
-                                  style: textStyleNormalWhite.copyWith(
+                                  style: textStyleNormal.copyWith(
+                                      color: oppositeColor,
                                       fontSize: Const.dashboardTextSize + 5),
                                 ),
                               ),
@@ -75,7 +86,8 @@ class WeatherTabRight extends ConsumerWidget {
                                       5.pw,
                                       Text(
                                         '${forecast.day.maxtempC}°C',
-                                        style: textStyleNormalWhite.copyWith(
+                                        style: textStyleNormal.copyWith(
+                                            color: oppositeColor,
                                             fontSize:
                                                 Const.dashboardTextSize + 5),
                                       ),
@@ -93,7 +105,8 @@ class WeatherTabRight extends ConsumerWidget {
                                       5.pw,
                                       Text(
                                         '${forecast.day.mintempC}°C',
-                                        style: textStyleNormalWhite.copyWith(
+                                        style: textStyleNormal.copyWith(
+                                            color: oppositeColor,
                                             fontSize:
                                                 Const.dashboardTextSize + 5),
                                       ),
@@ -109,7 +122,8 @@ class WeatherTabRight extends ConsumerWidget {
                                       5.pw,
                                       Text(
                                         '${forecast.day.avghumidity}%',
-                                        style: textStyleNormalWhite.copyWith(
+                                        style: textStyleNormal.copyWith(
+                                            color: oppositeColor,
                                             fontSize:
                                                 Const.dashboardTextSize + 5),
                                       ),

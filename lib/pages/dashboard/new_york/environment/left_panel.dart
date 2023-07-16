@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:smart_city_dashboard/connections/downloader.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
@@ -14,9 +15,8 @@ import 'package:smart_city_dashboard/utils/extensions.dart';
 
 import '../../../../constants/constants.dart';
 import '../../../../constants/data.dart';
-import '../../../../constants/downloadable_content.dart';
+import '../../downloadable_content.dart';
 import '../../../../constants/images.dart';
-import '../../../../constants/texts.dart';
 import '../../../../constants/theme.dart';
 import '../../../../models/city_card_model.dart';
 import '../../../../providers/settings_providers.dart';
@@ -45,20 +45,18 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
     Future.delayed(Duration.zero).then((x) async {
       ref.read(isLoadingProvider.notifier).state = true;
       data = await FileParser.parseCSVFromStorage(
-          DownloadableContent.generateFileName(
-              DownloadableContent.content['Water Consumption']!));
+
+              DownloadableContent.content['Water Consumption']!);
       setState(() {
         waterConsumptionData = FileParser.transformer(data!);
       });
       data = await FileParser.parseCSVFromStorage(
-          DownloadableContent.generateFileName(
-              DownloadableContent.content['Squirrel Data']!));
+              DownloadableContent.content['Squirrel Data']!);
       setState(() {
         squirrelData = FileParser.transformer(data!);
       });
       data = await FileParser.parseCSVFromStorage(
-          DownloadableContent.generateFileName(
-              DownloadableContent.content['Natural gas consumption']!));
+              DownloadableContent.content['Natural gas consumption']!);
       setState(() {
         gasData = FileParser.transformer(data!);
       });
@@ -89,7 +87,7 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 DashboardContainer(
-                  title: TextConst.trees,
+                  title: translate('city_data.new_york.environment.trees'),
                   data: trees.toString(),
                   image: ImageConst.tree,
                   showPercentage: true,
@@ -97,7 +95,7 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
                   progressColor: Colors.green,
                 ),
                 DashboardContainer(
-                  title: TextConst.bins,
+                  title: translate('city_data.new_york.environment.bins'),
                   data: recycleBins.toString(),
                   image: ImageConst.bin,
                   showPercentage: true,
@@ -108,11 +106,15 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
             Const.dashboardUISpacing.ph,
             waterConsumptionData != null
                 ? LineChartParser(
-                    title: TextConst.waterConsumptionTitle,
-                    legendX: TextConst.year,
+                    title: translate(
+                        'city_data.new_york.environment.water_consumption_title'),
+                    legendX: translate('city_data.new_york.environment.year'),
                     chartData: {
-                        TextConst.population: Colors.red,
-                        TextConst.waterConsumption: Colors.blue
+                        translate('city_data.new_york.environment.population'):
+                            Colors.red,
+                        translate(
+                                'city_data.new_york.environment.water_consumption'):
+                            Colors.blue
                       }).chartParser(
                     dataX: waterConsumptionData![0],
                     dataY: [waterConsumptionData![1], waterConsumptionData![2]])
@@ -123,11 +125,14 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
             Const.dashboardUISpacing.ph,
             gasData != null
                 ? LineChartParser(
-                        title: TextConst.gas,
+                        title: translate('city_data.new_york.environment.gas'),
                         chartData: {
-                          TextConst.consumption: Colors.greenAccent,
+                          translate(
+                                  'city_data.new_york.environment.consumption'):
+                              Colors.greenAccent,
                         },
-                        legendX: TextConst.zip,
+                        legendX:
+                            translate('city_data.new_york.environment.zip'),
                         barWidth: 3)
                     .chartParser(limitMarkerX: 5, dataX: gasData![0], dataY: [
                     gasData![2],
@@ -139,8 +144,10 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
             Const.dashboardUISpacing.ph,
             squirrelData != null
                 ? PieChartParser(
-                        title: TextConst.squirrelTitle,
-                        subTitle: TextConst.squirrelSubTitle)
+                        title: translate(
+                            'city_data.new_york.environment.squirrel_data'),
+                        subTitle: translate(
+                            'city_data.new_york.environment.squirrel'))
                     .chartParser(data: squirrelData![9])
                 : const BlankDashboardContainer(
                     heightMultiplier: 2,
