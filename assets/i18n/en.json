@@ -175,7 +175,10 @@
     "charlotte": {
       "cityName": "Charlotte",
       "country": "United States of America",
-      "description": "Charlotte is the most populous city in the U.S. state of North Carolina. Located in the Piedmont region, it is the county seat of Mecklenburg County. The population was 874,579 at the 2020 census, making Charlotte the 15th-most populous city in the U.S., the seventh-most populous city in the South, and the second-most populous city in the Southeast behind Jacksonville, Florida. The city is the cultural, economic, and transportation center of the Charlotte metropolitan area, whose 2020 population of 2,660,329 ranked 22nd in the U.S. Metrolina is part of a sixteen-county market region or combined statistical area with a 2020 census-estimated population of 2,846,550."
+      "description": "Charlotte is the most populous city in the U.S. state of North Carolina. Located in the Piedmont region, it is the county seat of Mecklenburg County. The population was 874,579 at the 2020 census, making Charlotte the 15th-most populous city in the U.S., the seventh-most populous city in the South, and the second-most populous city in the Southeast behind Jacksonville, Florida. The city is the cultural, economic, and transportation center of the Charlotte metropolitan area, whose 2020 population of 2,660,329 ranked 22nd in the U.S. Metrolina is part of a sixteen-county market region or combined statistical area with a 2020 census-estimated population of 2,846,550.",
+      "production": {
+        "production": "Production"
+      }
     },
     "austin": {
       "cityName": "Austin",

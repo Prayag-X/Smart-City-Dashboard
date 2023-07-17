@@ -26,6 +26,7 @@ class ImageConst {
   static const allWeatherOnline = 'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/logos/weather/';
 
   //
+  static const allWeather = 'assets/logos/weather/';
   static const weather = 'assets/logos/weather.png';
   static const cloud = 'assets/logos/cloud.png';
   static const wind = 'assets/logos/wind.png';
@@ -46,7 +47,7 @@ class ImageConst {
   static const people = 'assets/logos/people.png';
   static const health = 'assets/logos/health.png';
   static const education = 'assets/logos/education.png';
-  static const allWeather = 'assets/logos/weather/';
+  static const production = 'assets/logos/production.png';
 
   //
   static const flutter = 'assets/logos/flutter.png';

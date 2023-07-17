@@ -82,6 +82,14 @@ class DownloadableContent {
       'filename': 'bilingual.csv',
       'directory': 'NYC/education'
     },
+
+    //Charlotte production
+    'Violent crimes': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/83fb31d4a9be463daa4f0dc37482c259_4/downloads/data?format=csv&spatialRefId=2264&where=1%3D1',
+      'filename': 'crimes.csv',
+      'directory': 'Charlotte/production'
+    },
   };
 
   static List<DownloadableKML> nycEnvironmentKml = [
@@ -145,5 +153,28 @@ class DownloadableContent {
             'https://data.cityofnewyork.us/api/geospatial/jzhx-pept?method=export&format=KML',
         name: '2017-18 High School Zones',
         size: '828.3 KB'),
+  ];
+
+  static List<DownloadableKML> charlotteProductionKml = [
+    DownloadableKML(
+        url:
+            'https://opendata.arcgis.com/api/v3/datasets/aeb1c5ada5a34ad79bed4d6baaa695de_0/downloads/data?format=kml&spatialRefId=4326&where=1%3D1',
+        name: 'Environmental Justice 2020',
+        size: '1.81 MB'),
+    DownloadableKML(
+        url:
+            'https://opendata.arcgis.com/api/v3/datasets/4bc6111bad6a4b9a8ca1755ba0c85ae5_0/downloads/data?format=kml&spatialRefId=4326&where=1%3D1',
+        name: 'Access to Housing',
+        size: '2.04 MB'),
+    DownloadableKML(
+        url:
+            'https://opendata.arcgis.com/api/v3/datasets/fea418953e5f43679bdb538335d6187c_0/downloads/data?format=kml&spatialRefId=4326&where=1%3D1',
+        name: 'Access to Employment',
+        size: '1.89 MB'),
+    DownloadableKML(
+        url:
+            'https://opendata.arcgis.com/api/v3/datasets/461483cbe560474799581a37adb76cda_0/downloads/data?format=kml&spatialRefId=4326&where=1%3D1',
+        name: 'Access to Amenities',
+        size: '1.80 MB'),
   ];
 }
