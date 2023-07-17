@@ -70,6 +70,18 @@ class DownloadableContent {
       'filename': 'math.csv',
       'directory': 'NYC/education'
     },
+    'Attendance': {
+      'url':
+          'https://data.cityofnewyork.us/api/views/7z8d-msnt/rows.csv?accessType=DOWNLOAD',
+      'filename': 'attendance.csv',
+      'directory': 'NYC/education'
+    },
+    'Bilingual program': {
+      'url':
+          'https://data.cityofnewyork.us/api/views/rrd7-vuvp/rows.csv?accessType=DOWNLOAD',
+      'filename': 'bilingual.csv',
+      'directory': 'NYC/education'
+    },
   };
 
   static List<DownloadableKML> nycEnvironmentKml = [
@@ -115,8 +127,23 @@ class DownloadableContent {
   static List<DownloadableKML> nycEducationKml = [
     DownloadableKML(
         url:
-            'https://data.cityofnewyork.us/api/geospatial/5p78-k3zm?method=export&format=KML',
-        name: 'Health Areas',
+            'https://data.cityofnewyork.us/api/geospatial/r8nu-ymqj?method=export&format=KML',
+        name: 'School Districts',
         size: '4.45 MB'),
+    DownloadableKML(
+        url:
+            'https://data.cityofnewyork.us/api/geospatial/4kym-4xw5?method=export&format=KML',
+        name: 'Colleges and Universities',
+        size: '48.1 KB'),
+    DownloadableKML(
+        url:
+            'https://data.cityofnewyork.us/api/geospatial/kuk3-ypca?method=export&format=KML',
+        name: '2019-20 Elementary Zones',
+        size: '2.78 MB'),
+    DownloadableKML(
+        url:
+            'https://data.cityofnewyork.us/api/geospatial/jzhx-pept?method=export&format=KML',
+        name: '2017-18 High School Zones',
+        size: '828.3 KB'),
   ];
 }

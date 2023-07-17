@@ -158,10 +158,17 @@
         "reading": "Reading",
         "math": "Math",
         "writing": "Writing",
-        "math_title": "Writing",
+        "math_title": "2006-11 Math Test Result",
         "year": "Year",
         "num": "Number Tested",
         "score": "Mean Scale Score",
+        "attendance_title": "2010-11 School Attendance",
+        "attendance": "Attendance %",
+        "district": "District",
+        "enrollment": "Enrollment",
+        "bilingual_title": "2020-21 Bilingual Program",
+        "language": "Language",
+        "school": "Schools",
         "dbn": "DBN"
       }
     },
