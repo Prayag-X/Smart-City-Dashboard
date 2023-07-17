@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:smart_city_dashboard/pages/dashboard/available_cities.dart';
+import 'package:smart_city_dashboard/pages/dashboard/city_data.dart';
 import 'package:smart_city_dashboard/models/tab_button.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 import 'package:smart_city_dashboard/utils/helper.dart';
@@ -61,7 +61,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                         parent: AlwaysScrollableScrollPhysics()),
                     child: search != ''
                         ? Column(
-                            children: CityCardData.availableCities.map((city) {
+                            children: AllCityData.availableCities.map((city) {
                             if (city.cityName
                                     .toLowerCase()
                                     .contains(search.toLowerCase()) ||
@@ -87,7 +87,7 @@ class _HomePageState extends ConsumerState<HomePage> {
                             return Container();
                           }).toList())
                         : Column(
-                            children: CityCardData.availableCities
+                            children: AllCityData.availableCities
                                 .map((city) => CityCard(
                                       cityData: city,
                                     ))

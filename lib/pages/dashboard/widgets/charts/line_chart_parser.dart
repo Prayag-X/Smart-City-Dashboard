@@ -28,7 +28,9 @@ class LineChartParser {
       required this.chartData,
       this.legendX = '',
       this.barWidth = 8,
-      this.markerIntervalX = 4});
+      this.markerIntervalX = 4,
+      this.markerIntervalY = 4,
+      });
 
   Widget chartParserWithDuplicate(
       {required List<dynamic> dataX,
@@ -102,10 +104,10 @@ class LineChartParser {
 
     for (int i = 0; i < dataY.length; i++) {
       for (dynamic y in dataY[i]) {
-        if (y == '') {
-          dataYNum[i].add(0);
-        } else {
+        try {
           dataYNum[i].add(y.toDouble());
+        } catch (e) {
+          dataYNum[i].add(0);
         }
       }
     }

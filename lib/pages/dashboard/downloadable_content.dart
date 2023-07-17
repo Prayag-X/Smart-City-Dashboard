@@ -5,6 +5,7 @@ class DownloadableContent {
       '${data['directory']}/${data['filename']}';
 
   static Map<String, Map<String, String>> content = {
+    //NYC Environment
     'Squirrel Data': {
       'url':
           'https://data.cityofnewyork.us/api/views/vfnx-vebw/rows.csv?accessType=DOWNLOAD',
@@ -30,29 +31,44 @@ class DownloadableContent {
       'directory': 'NYC/environment'
     },
 
+    //NYC Health
     'Covid cases NYC': {
       'url':
-      'https://data.cityofnewyork.us/api/views/rc75-m7u3/rows.csv?accessType=DOWNLOAD',
+          'https://data.cityofnewyork.us/api/views/rc75-m7u3/rows.csv?accessType=DOWNLOAD',
       'filename': 'covid.csv',
       'directory': 'NYC/health'
     },
     'SARS CoV2': {
       'url':
-      'https://data.cityofnewyork.us/api/views/f7dc-2q9f/rows.csv?accessType=DOWNLOAD',
+          'https://data.cityofnewyork.us/api/views/f7dc-2q9f/rows.csv?accessType=DOWNLOAD',
       'filename': 'cov2.csv',
       'directory': 'NYC/health'
     },
     'Infant Mortality': {
       'url':
-      'https://data.cityofnewyork.us/api/views/fcau-jc6k/rows.csv?accessType=DOWNLOAD',
+          'https://data.cityofnewyork.us/api/views/fcau-jc6k/rows.csv?accessType=DOWNLOAD',
       'filename': 'infant_mortality.csv',
       'directory': 'NYC/health'
     },
     'HIV diagnosis': {
       'url':
-      'https://data.cityofnewyork.us/api/views/ykvb-493p/rows.csv?accessType=DOWNLOAD',
+          'https://data.cityofnewyork.us/api/views/ykvb-493p/rows.csv?accessType=DOWNLOAD',
       'filename': 'hiv.csv',
       'directory': 'NYC/health'
+    },
+
+    //NYC Education
+    'SAT result': {
+      'url':
+          'https://data.cityofnewyork.us/api/views/f9bf-2cp4/rows.csv?accessType=DOWNLOAD',
+      'filename': 'sat.csv',
+      'directory': 'NYC/education'
+    },
+    'Math result': {
+      'url':
+          'https://data.cityofnewyork.us/api/views/jufi-gzgp/rows.csv?accessType=DOWNLOAD',
+      'filename': 'math.csv',
+      'directory': 'NYC/education'
     },
   };
 
@@ -94,5 +110,13 @@ class DownloadableContent {
             'https://data.cityofnewyork.us/api/geospatial/mzbd-kucq?method=export&format=KML',
         name: 'Non-neighborhood places',
         size: '63.1 KB'),
+  ];
+
+  static List<DownloadableKML> nycEducationKml = [
+    DownloadableKML(
+        url:
+            'https://data.cityofnewyork.us/api/geospatial/5p78-k3zm?method=export&format=KML',
+        name: 'Health Areas',
+        size: '4.45 MB'),
   ];
 }

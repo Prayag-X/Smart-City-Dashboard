@@ -1,16 +1,18 @@
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_city_dashboard/models/city_card_model.dart';
+import 'package:smart_city_dashboard/pages/dashboard/new_york/education/left_panel.dart';
 import 'package:smart_city_dashboard/pages/panels/tab_button.dart';
 
 import '../../models/tab_button.dart';
+import 'new_york/education/right_panel.dart';
 import 'new_york/environment/left_panel.dart';
 import 'new_york/environment/right_panel.dart';
 import '../../constants/images.dart';
 import 'new_york/health/left_panel.dart';
 import 'new_york/health/right_panel.dart';
 
-class CityCardData {
+class AllCityData {
   static List<CityCardModel> availableCities = [
     CityCardModel(
         cityName: translate('city_data.new_york.cityName'),
@@ -41,9 +43,16 @@ class CityCardData {
             rightTab: const NYCHealthTabRight(),
           ),
           TabButtonModel(
+            logo: ImageConst.education,
+            name: translate('city_data.new_york.education.education'),
+            tab: 3,
+            leftTab: const NYCEducationTabLeft(),
+            rightTab: const NYCEducationTabRight(),
+          ),
+          TabButtonModel(
             logo: ImageConst.about,
             name: translate('homepage.about'),
-            tab: 3,
+            tab: 4,
           ),
         ],
         availableTours: [

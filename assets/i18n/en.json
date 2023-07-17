@@ -150,6 +150,19 @@
         "infant_death": "Infant Deaths",
         "live_birth": "Live births",
         "aids": "AIDS Diagnosis"
+      },
+      "education": {
+        "education": "Education",
+        "sat_title": "SAT 2012 Result",
+        "students": "Students",
+        "reading": "Reading",
+        "math": "Math",
+        "writing": "Writing",
+        "math_title": "Writing",
+        "year": "Year",
+        "num": "Number Tested",
+        "score": "Mean Scale Score",
+        "dbn": "DBN"
       }
     },
     "charlotte": {

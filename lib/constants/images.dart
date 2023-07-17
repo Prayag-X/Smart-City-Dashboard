@@ -45,6 +45,7 @@ class ImageConst {
   static const living = 'assets/logos/living.png';
   static const people = 'assets/logos/people.png';
   static const health = 'assets/logos/health.png';
+  static const education = 'assets/logos/education.png';
   static const allWeather = 'assets/logos/weather/';
 
   //
