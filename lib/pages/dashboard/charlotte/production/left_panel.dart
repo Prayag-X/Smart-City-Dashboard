@@ -33,9 +33,90 @@ class CharlotteProductionTabLeft extends ConsumerStatefulWidget {
   ConsumerState createState() => _CharlotteProductionTabLeftState();
 }
 
-class _CharlotteProductionTabLeftState extends ConsumerState<CharlotteProductionTabLeft> {
+class _CharlotteProductionTabLeftState
+    extends ConsumerState<CharlotteProductionTabLeft> {
+  List<List<dynamic>>? data;
+  List<List<dynamic>>? crimeData;
+  List<List<dynamic>>? requestData;
+
+  loadCSVData() async {
+    Future.delayed(Duration.zero).then((x) async {
+      ref.read(isLoadingProvider.notifier).state = true;
+      data = await FileParser.parseCSVFromStorage(
+          DownloadableContent.content['Violent crimes']!);
+      setState(() {
+        crimeData = FileParser.transformer(data!);
+      });
+      data = await FileParser.parseCSVFromStorage(
+          DownloadableContent.content['Public Requests']!);
+      setState(() {
+        requestData = FileParser.transformer(data!);
+      });
+      ref.read(isLoadingProvider.notifier).state = false;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    loadCSVData();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return AnimationLimiter(
+      child: Column(
+        children: AnimationConfiguration.toStaggeredList(
+          duration: Const.animationDuration,
+          childAnimationBuilder: (widget) => SlideAnimation(
+            horizontalOffset: -Const.animationDistance,
+            child: FadeInAnimation(
+              child: widget,
+            ),
+          ),
+          children: [
+            crimeData != null
+                ? LineChartParser(
+                    title: translate(
+                        'city_data.charlotte.production.crime_title'),
+                    legendX: translate('city_data.charlotte.production.year'),
+                    chartData: {
+                        translate('city_data.charlotte.production.offense'):
+                            Colors.red,
+                      }).chartParserWithDuplicate(dataX: crimeData![3], dataY: [
+                    crimeData![6],
+                  ])
+                : const BlankDashboardContainer(
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
+            Const.dashboardUISpacing.ph,
+            crimeData != null
+                ? PieChartParser(
+                        title: translate(
+                            'city_data.charlotte.production.crime_title'),
+                        subTitle: translate(
+                            'city_data.charlotte.production.offenses'))
+                    .chartParser(data: crimeData![5])
+                : const BlankDashboardContainer(
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
+            Const.dashboardUISpacing.ph,
+            requestData != null
+                ? PieChartParser(
+                        title: translate(
+                            'city_data.charlotte.production.requests_title'),
+                        subTitle: translate(
+                            'city_data.charlotte.production.requests'))
+                    .chartParser(data: requestData![6])
+                : const BlankDashboardContainer(
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
+          ],
+        ),
+      ),
+    );
   }
 }

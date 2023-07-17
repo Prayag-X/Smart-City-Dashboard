@@ -90,6 +90,12 @@ class DownloadableContent {
       'filename': 'crimes.csv',
       'directory': 'Charlotte/production'
     },
+    'Public Requests': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/1469a8eb00424dd7a1804744ec116a99_2/downloads/data?format=csv&spatialRefId=2264&where=1%3D1',
+      'filename': 'requests.csv',
+      'directory': 'Charlotte/production'
+    },
   };
 
   static List<DownloadableKML> nycEnvironmentKml = [

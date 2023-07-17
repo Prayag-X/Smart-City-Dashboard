@@ -19,9 +19,9 @@ class _CharlotteProductionTabRightState extends ConsumerState<CharlotteProductio
         headers: [translate('dashboard.available_kml')],
         headersFlex: const [1],
         centerHeader: true,
-        panelList: DownloadableContent.nycEnvironmentKml
+        panelList: DownloadableContent.charlotteProductionKml
             .map((data) => KmlDownloaderButton(
-            data, DownloadableContent.nycEnvironmentKml.indexOf(data)))
+            data, DownloadableContent.charlotteProductionKml.indexOf(data)))
             .toList());
   }
 }
