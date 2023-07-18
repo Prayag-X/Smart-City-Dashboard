@@ -5,8 +5,10 @@ import 'package:smart_city_dashboard/pages/dashboard/new_york/education/left_pan
 import 'package:smart_city_dashboard/pages/panels/tab_button.dart';
 
 import '../../models/tab_button.dart';
-import 'charlotte/production/left_panel.dart';
-import 'charlotte/production/right_panel.dart';
+import 'charlotte/misc/left_panel.dart';
+import 'charlotte/misc/right_panel.dart';
+import 'charlotte/society/left_panel.dart';
+import 'charlotte/society/right_panel.dart';
 import 'new_york/education/right_panel.dart';
 import 'new_york/environment/left_panel.dart';
 import 'new_york/environment/right_panel.dart';
@@ -85,16 +87,23 @@ class AllCityData {
             tab: 0,
           ),
           TabButtonModel(
-            logo: ImageConst.production,
+            logo: ImageConst.people,
             name: translate('city_data.charlotte.production.production'),
             tab: 1,
-            leftTab: const CharlotteProductionTabLeft(),
-            rightTab: const CharlotteProductionTabRight(),
+            leftTab: const CharlotteSocietyTabLeft(),
+            rightTab: const CharlotteSocietyTabRight(),
+          ),
+          TabButtonModel(
+            logo: ImageConst.misc,
+            name: translate('city_data.charlotte.misc.misc'),
+            tab: 2,
+            leftTab: const CharlotteMiscTabLeft(),
+            rightTab: const CharlotteMiscTabRight(),
           ),
           TabButtonModel(
             logo: ImageConst.about,
             name: translate('homepage.about'),
-            tab: 2,
+            tab: 3,
           ),
         ],
         availableTours: [

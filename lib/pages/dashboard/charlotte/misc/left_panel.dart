@@ -26,31 +26,36 @@ import '../../../../utils/helper.dart';
 import '../../widgets/charts/line_chart_parser.dart';
 import '../../widgets/dashboard_container.dart';
 
-class CharlotteProductionTabLeft extends ConsumerStatefulWidget {
-  const CharlotteProductionTabLeft({super.key});
+class CharlotteMiscTabLeft extends ConsumerStatefulWidget {
+  const CharlotteMiscTabLeft({super.key});
 
   @override
-  ConsumerState createState() => _CharlotteProductionTabLeftState();
+  ConsumerState createState() => _CharlotteMiscTabLeftState();
 }
 
-class _CharlotteProductionTabLeftState
-    extends ConsumerState<CharlotteProductionTabLeft> {
+class _CharlotteMiscTabLeftState extends ConsumerState<CharlotteMiscTabLeft> {
   List<List<dynamic>>? data;
-  List<List<dynamic>>? crimeData;
-  List<List<dynamic>>? requestData;
+  List<List<dynamic>>? serviceData;
+  List<List<dynamic>>? trafficData;
+  List<List<dynamic>>? demandData;
 
   loadCSVData() async {
     Future.delayed(Duration.zero).then((x) async {
       ref.read(isLoadingProvider.notifier).state = true;
       data = await FileParser.parseCSVFromStorage(
-          DownloadableContent.content['Violent crimes']!);
+          DownloadableContent.content['Calls for service']!);
       setState(() {
-        crimeData = FileParser.transformer(data!);
+        serviceData = FileParser.transformer(data!);
       });
       data = await FileParser.parseCSVFromStorage(
-          DownloadableContent.content['Public Requests']!);
+          DownloadableContent.content['Traffic stops']!);
       setState(() {
-        requestData = FileParser.transformer(data!);
+        trafficData = FileParser.transformer(data!);
+      });
+      data = await FileParser.parseCSVFromStorage(
+          DownloadableContent.content['Housing demand']!);
+      setState(() {
+        demandData = FileParser.transformer(data!);
       });
       ref.read(isLoadingProvider.notifier).state = false;
     });
@@ -75,41 +80,51 @@ class _CharlotteProductionTabLeftState
             ),
           ),
           children: [
-            crimeData != null
+            serviceData != null
                 ? LineChartParser(
-                    title: translate(
-                        'city_data.charlotte.production.crime_title'),
-                    legendX: translate('city_data.charlotte.production.year'),
+                    title: translate('city_data.charlotte.misc.service_title'),
+                    legendX: translate('city_data.charlotte.misc.year'),
                     chartData: {
-                        translate('city_data.charlotte.production.offense'):
+                        translate('city_data.charlotte.misc.calls'):
+                            Colors.yellow,
+                      }).chartParserWithDuplicate(
+                    dataX: serviceData![3],
+                    dataY: [
+                        serviceData![6],
+                      ])
+                : const BlankDashboardContainer(
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
+            Const.dashboardUISpacing.ph,
+            trafficData != null
+                ? PieChartParser(
+                        title: translate(
+                            'city_data.charlotte.misc.traffic_title'),
+                        subTitle: translate(
+                            'city_data.charlotte.misc.traffic_title'))
+                    .chartParser(data: trafficData![2])
+                : const BlankDashboardContainer(
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
+            Const.dashboardUISpacing.ph,
+            demandData != null
+                ? LineChartParser(
+                    title: translate('city_data.charlotte.misc.housing_title'),
+                    legendX: translate('city_data.charlotte.misc.object'),
+                    chartData: {
+                        translate('city_data.charlotte.misc.puma'):
+                            Colors.blue,
+                      translate('city_data.charlotte.misc.bdsp'):
+                            Colors.yellow,
+                      translate('city_data.charlotte.misc.elep'):
                             Colors.red,
-                      }).chartParserWithDuplicate(dataX: crimeData![3], dataY: [
-                    crimeData![6],
+                      },barWidth: 1).chartParser(dataX: demandData![0], dataY: [
+              demandData![4],
+              demandData![16],
+              demandData![23],
                   ])
-                : const BlankDashboardContainer(
-                    heightMultiplier: 2,
-                    widthMultiplier: 2,
-                  ),
-            Const.dashboardUISpacing.ph,
-            crimeData != null
-                ? PieChartParser(
-                        title: translate(
-                            'city_data.charlotte.production.crime_title'),
-                        subTitle: translate(
-                            'city_data.charlotte.production.offenses'))
-                    .chartParser(data: crimeData![5])
-                : const BlankDashboardContainer(
-                    heightMultiplier: 2,
-                    widthMultiplier: 2,
-                  ),
-            Const.dashboardUISpacing.ph,
-            requestData != null
-                ? PieChartParser(
-                        title: translate(
-                            'city_data.charlotte.production.requests_title'),
-                        subTitle: translate(
-                            'city_data.charlotte.production.requests'))
-                    .chartParser(data: requestData![6])
                 : const BlankDashboardContainer(
                     heightMultiplier: 2,
                     widthMultiplier: 2,

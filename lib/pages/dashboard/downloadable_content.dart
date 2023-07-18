@@ -96,6 +96,26 @@ class DownloadableContent {
       'filename': 'requests.csv',
       'directory': 'Charlotte/production'
     },
+
+    //Charlotte misc
+    'Calls for service': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/1c674f520cab46fca7bad37d9d045da3_0/downloads/data?format=csv&spatialRefId=2264&where=1%3D1',
+      'filename': 'service_calls.csv',
+      'directory': 'Charlotte/misc'
+    },
+    'Traffic stops': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/67b28a8ee2d2489f93ccf386b0e2afe1_14/downloads/data?format=csv&spatialRefId=3857&where=1%3D1',
+      'filename': 'stops.csv',
+      'directory': 'Charlotte/misc'
+    },
+    'Housing demand': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/5d33129a2eea43f2b19b5443907c2e7d_1/downloads/data?format=csv&spatialRefId=2264&where=1%3D1',
+      'filename': 'demands.csv',
+      'directory': 'Charlotte/misc'
+    },
   };
 
   static List<DownloadableKML> nycEnvironmentKml = [
@@ -182,5 +202,38 @@ class DownloadableContent {
             'https://opendata.arcgis.com/api/v3/datasets/461483cbe560474799581a37adb76cda_0/downloads/data?format=kml&spatialRefId=4326&where=1%3D1',
         name: 'Access to Amenities',
         size: '1.80 MB'),
+  ];
+
+  static List<DownloadableKML> charlotteMiscKml = [
+    DownloadableKML(
+        url:
+            'https://opendata.arcgis.com/api/v3/datasets/b8784a2b80c84170a13118ee64d90b03_0/downloads/data?format=kml&spatialRefId=4326&where=1%3D1',
+        name: 'Adapted Microtransit Zones',
+        size: '500.1 KB'),
+    DownloadableKML(
+        url:
+            'https://opendata.arcgis.com/api/v3/datasets/a1fbdd2f35aa46cba190e1e316e5907c_0/downloads/data?format=kml&spatialRefId=4326&where=1%3D1',
+        name: 'Streets Map',
+        size: '6.31 MB'),
+    DownloadableKML(
+        url:
+            'https://opendata.arcgis.com/api/v3/datasets/4be4e8ee21474cbb9225c0072c1f76b0_0/downloads/data?format=kml&spatialRefId=4326&where=1%3D1',
+        name: 'Wifi Infrastructure',
+        size: '63.3 KB'),
+    DownloadableKML(
+        url:
+            'https://opendata.arcgis.com/api/v3/datasets/5122be2b2c144dc892c83fff27f4f5be_13/downloads/data?format=kml&spatialRefId=4326&where=1%3D1',
+        name: 'Officers Involved Shooting',
+        size: '87.1 KB'),
+    DownloadableKML(
+        url:
+            'https://opendata.arcgis.com/api/v3/datasets/17a2c3919e48407699eb21bf7a948f9d_0/downloads/data?format=kml&spatialRefId=4326&where=1%3D1',
+        name: 'Read Estate Easements',
+        size: '87.1 KB'),
+    DownloadableKML(
+        url:
+            'https://opendata.arcgis.com/api/v3/datasets/cf66446f36244e2498aa9b3f8e704b84_0/downloads/data?format=kml&spatialRefId=4326&where=1%3D1',
+        name: 'Water Quality Buffers',
+        size: '81.9 MB'),
   ];
 }

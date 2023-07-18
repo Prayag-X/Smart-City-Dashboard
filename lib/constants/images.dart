@@ -48,6 +48,7 @@ class ImageConst {
   static const health = 'assets/logos/health.png';
   static const education = 'assets/logos/education.png';
   static const production = 'assets/logos/production.png';
+  static const misc = 'assets/logos/miscellaneous.png';
 
   //
   static const flutter = 'assets/logos/flutter.png';

@@ -5,23 +5,24 @@ import 'package:smart_city_dashboard/pages/dashboard/downloadable_content.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/dashboard_right_panel.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/kml_download_button.dart';
 
-class CharlotteProductionTabRight extends ConsumerStatefulWidget {
-  const CharlotteProductionTabRight({super.key});
+
+class CharlotteMiscTabRight extends ConsumerStatefulWidget {
+  const CharlotteMiscTabRight({super.key});
 
   @override
-  ConsumerState createState() => _CharlotteProductionTabRightState();
+  ConsumerState createState() => _CharlotteMiscTabRightState();
 }
 
-class _CharlotteProductionTabRightState extends ConsumerState<CharlotteProductionTabRight> {
+class _CharlotteMiscTabRightState extends ConsumerState<CharlotteMiscTabRight> {
   @override
   Widget build(BuildContext context) {
     return DashboardRightPanel(
         headers: [translate('dashboard.available_kml')],
         headersFlex: const [1],
         centerHeader: true,
-        panelList: DownloadableContent.charlotteProductionKml
+        panelList: DownloadableContent.charlotteMiscKml
             .map((data) => KmlDownloaderButton(
-            data, DownloadableContent.charlotteProductionKml.indexOf(data)))
+            data, DownloadableContent.charlotteMiscKml.indexOf(data)))
             .toList());
   }
 }
