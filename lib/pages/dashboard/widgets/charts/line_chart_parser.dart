@@ -138,8 +138,13 @@ class LineChartParser {
 
     for (int i = 0; i < dataX.length; i++) {
       for (int j = 0; j < dataYNum.length; j++) {
-        points[j].add(FlSpot(minValueX,
-            roundDouble((dataYNum[j][i] - minValuesY[j]) / intervalY[j], 2)));
+        try {
+          points[j].add(FlSpot(minValueX,
+              roundDouble((dataYNum[j][i] - minValuesY[j]) / intervalY[j], 2)));
+        } catch (e) {
+          points[j].add(FlSpot(minValueX,0));
+        }
+
       }
       minValueX += 1 /
           (dataX.length.toDouble() < 25

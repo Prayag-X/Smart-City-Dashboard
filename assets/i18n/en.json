@@ -208,7 +208,27 @@
       "country": "United States of America",
       "description": "Seattle is a seaport city on the West Coast of the United States. It is the seat of King County, Washington. With a 2022 population of 749,256 it is the most populous city in both the state of Washington and the Pacific Northwest region of North America. The Seattle metropolitan area's population is 4.02 million, making it the 15th-largest in the United States. Its growth rate of 21.1% between 2010 and 2020 made it one of country's fastest-growing large cities. Seattle is situated on an isthmus between Puget Sound (an inlet of the Pacific Ocean) and Lake Washington. It is the northernmost major city in the United States, located about 100 miles (160 km) south of the Canadian border. A major gateway for trade with East Asia, Seattle is the fourth-largest port in North America in terms of container handling as of 2021.",
       "finance": {
-        "finance": "Finance"
+        "finance": "Finance",
+        "auction_title": "Fleets for Auction",
+        "auction": "Auctions",
+        "bcl": "BCL Code",
+        "bcl_only": "BCL",
+        "code": "Dept",
+        "2011": "2011",
+        "2013": "2013",
+        "2015": "2015",
+        "2018_adopted": "2018",
+        "2019_adopted": "2019",
+        "2020_endorsed": "2020",
+        "endorsed_budget_title": "2014 Endorsed Budget",
+        "expenditure_allowed": "Expenditure Allowed",
+        "open_budget_title": "Open Budget Application",
+        "approved_amount": "Approved Amount",
+        "cip_title": "2011-16 Proposed CIP",
+        "operating_budget_title": "Operating Budget",
+        "adopted_budget_title": "2019-20 Adopted Budget",
+        "year": "Year"
+
       }
     },
     "boulder": {

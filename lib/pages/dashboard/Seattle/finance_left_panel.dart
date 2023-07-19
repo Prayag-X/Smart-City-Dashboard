@@ -98,106 +98,119 @@ class _SeattleFinanceTabLeftState extends ConsumerState<SeattleFinanceTabLeft> {
             ),
           ),
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                covidCases != null ? DashboardContainer(
-                  title: translate('city_data.new_york.health.case'),
-                  data: covidCases!.toStringAsFixed(0),
-                  image: ImageConst.corona,
-                  showPercentage: true,
-                  percentage: 1,
-                  progressColor: Colors.yellow,
-                ) : const BlankDashboardContainer(),
-                covidDeaths != null ? DashboardContainer(
-                  title: translate('city_data.new_york.health.death'),
-                  data: covidDeaths!.toStringAsFixed(0),
-                  image: ImageConst.corona,
-                  showPercentage: true,
-                  percentage: covidDeaths!/covidCases!,
-                  progressColor: Colors.red,
-                ) : const BlankDashboardContainer(),
-              ],
-            ),
-            Const.dashboardUISpacing.ph,
-            covidData != null
-                ? LineChartParser(
-                title:
-                translate('city_data.new_york.health.covid_title'),
-                legendX: translate('city_data.new_york.health.date'),
-                chartData: {
-                  translate('city_data.new_york.health.case'):
-                  Colors.blue,
-                  translate('city_data.new_york.health.death'):
-                  Colors.red
-                },
-                markerIntervalX: 8)
-                .chartParser(
-              dataX: covidData![0],
-              dataY: [covidData![1], covidData![4]],
-            )
+            fleetData != null
+                ? PieChartParser(
+                        title: translate(
+                            'city_data.seattle.finance.auction_title'),
+                        subTitle:
+                            translate('city_data.seattle.finance.auction'))
+                    .chartParser(data: fleetData![2])
                 : const BlankDashboardContainer(
-              heightMultiplier: 2,
-              widthMultiplier: 2,
-            ),
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
             Const.dashboardUISpacing.ph,
-            sars2Data != null
+            endorsedBudgetData != null
                 ? LineChartParser(
-                title:
-                translate('city_data.new_york.health.sars_title'),
-                legendX: translate('city_data.new_york.health.date'),
+                    title: translate(
+                        'city_data.seattle.finance.endorsed_budget_title'),
+                    legendX: translate('city_data.seattle.finance.bcl'),
+                    chartData: {
+                      translate(
+                              'city_data.seattle.finance.expenditure_allowed'):
+                          Colors.blue,
+                    },
+                  ).chartParser(
+                    dataX: endorsedBudgetData![2],
+                    dataY: [
+                      endorsedBudgetData![5],
+                    ],
+                  )
+                : const BlankDashboardContainer(
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
+            Const.dashboardUISpacing.ph,
+            openBudgetData != null
+                ? LineChartParser(
+                        title: translate(
+                            'city_data.seattle.finance.open_budget_title'),
+                        legendX: translate('city_data.seattle.finance.year'),
+                        chartData: {
+                          translate(
+                                  'city_data.seattle.finance.approved_amount'):
+                              Colors.green,
+                        },)
+                    .chartParserWithDuplicate(
+              sortX: true,
+                    dataX: openBudgetData![0],
+                    dataY: [openBudgetData![10]],
+                  )
+                : const BlankDashboardContainer(
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
+            Const.dashboardUISpacing.ph,
+            cipData != null
+                ? LineChartParser(
+                    title: translate('city_data.seattle.finance.cip_title'),
+                    legendX: translate('city_data.seattle.finance.bcl_only'),
+                    chartData: {
+                      translate('city_data.seattle.finance.2011'): Colors.blue,
+                      translate('city_data.seattle.finance.2013'):
+                          Colors.yellow,
+                      translate('city_data.seattle.finance.2015'): Colors.red,
+                    }, barWidth: 4
+                  ).chartParser(
+                    dataX: cipData![1],
+                    dataY: [
+                      cipData![3],
+                      cipData![5],
+                      cipData![7],
+                    ],
+                  )
+                : const BlankDashboardContainer(
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
+            Const.dashboardUISpacing.ph,
+            operatingBudgetData != null
+                ? LineChartParser(
+                title: translate(
+                    'city_data.seattle.finance.operating_budget_title'),
+                legendX: translate('city_data.seattle.finance.year'),
                 chartData: {
-                  translate('city_data.new_york.health.concentration'):
+                  translate(
+                      'city_data.seattle.finance.approved_amount'):
                   Colors.green,
-                  translate('city_data.new_york.health.served'):
-                  Colors.brown
-                },
-                barWidth: 0.1,
-                markerIntervalX: 8)
-                .chartParser(
-              dataX: sars2Data![0],
-              dataY: [sars2Data![4], sars2Data![7]],
+                },)
+                .chartParserWithDuplicate(
+              dataX: operatingBudgetData![0],
+              dataY: [operatingBudgetData![8]],
             )
                 : const BlankDashboardContainer(
               heightMultiplier: 2,
               widthMultiplier: 2,
             ),
             Const.dashboardUISpacing.ph,
-            infantData != null
+            adoptedBudgetData != null
                 ? LineChartParser(
-                title: translate('city_data.new_york.health.infant_title'),
-                legendX: translate('city_data.new_york.health.year'),
-                chartData: {
-                  translate('city_data.new_york.health.infant_death'):
-                  Colors.red,
-                  translate('city_data.new_york.health.live_birth'):
-                  Colors.green
-                },
-                markerIntervalX: 2)
-                .chartParserWithDuplicate(
-                dataX: infantData![0],
-                dataY: [infantData![5], infantData![8]],
-                sortX: true)
-                : const BlankDashboardContainer(
-              heightMultiplier: 2,
-              widthMultiplier: 2,
-            ),
-            Const.dashboardUISpacing.ph,
-            hivData != null
-                ? LineChartParser(
-                title: translate('city_data.new_york.health.hiv_title'),
-                legendX: translate('city_data.new_york.health.year'),
-                chartData: {
-                  translate('city_data.new_york.health.hiv'):
-                  Colors.red,
-                  translate('city_data.new_york.health.aids'):
-                  Colors.yellow
-                },
-                markerIntervalX: 3)
-                .chartParserWithDuplicate(
-                dataX: hivData![0],
-                dataY: [hivData![5], hivData![9]],
-                sortX: true)
+              title: translate('city_data.seattle.finance.adopted_budget_title'),
+              legendX: translate('city_data.seattle.finance.code'),
+              chartData: {
+                translate('city_data.seattle.finance.2018_adopted'): Colors.blue,
+                translate('city_data.seattle.finance.2019_adopted'):
+                Colors.yellow,
+                translate('city_data.seattle.finance.2020_endorsed'): Colors.red.withOpacity(0.5),
+              },barWidth: 4
+            ).chartParser(
+              dataX: adoptedBudgetData![0],
+              dataY: [
+                adoptedBudgetData![4],
+                adoptedBudgetData![5],
+                adoptedBudgetData![6],
+              ],
+            )
                 : const BlankDashboardContainer(
               heightMultiplier: 2,
               widthMultiplier: 2,
