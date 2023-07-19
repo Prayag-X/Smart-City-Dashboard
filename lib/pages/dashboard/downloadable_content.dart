@@ -116,7 +116,48 @@ class DownloadableContent {
       'filename': 'demands.csv',
       'directory': 'Charlotte/misc'
     },
+
+
+    //Seattle Finance
+    'Fleet for auction': {
+      'url':
+          'https://data.seattle.gov/api/views/6gnm-7jex/rows.csv?accessType=DOWNLOAD',
+      'filename': 'fleet.csv',
+      'directory': 'Seattle/finance'
+    },
+    '2014 Endorsed budget': {
+      'url':
+          'https://data.seattle.gov/api/views/nrfc-hypb/rows.csv?accessType=DOWNLOAD',
+      'filename': 'endorsed_budget.csv',
+      'directory': 'Seattle/finance'
+    },
+    'Open Budget': {
+      'url':
+          'https://data.seattle.gov/api/views/3cfy-6eby/rows.csv?accessType=DOWNLOAD',
+      'filename': 'open_budget.csv',
+      'directory': 'Seattle/finance'
+    },
+    '2011-16 CIP': {
+      'url':
+          'https://data.seattle.gov/api/views/9689-kxj4/rows.csv?accessType=DOWNLOAD',
+      'filename': 'cip.csv',
+      'directory': 'Seattle/finance'
+    },
+    'Operating budget': {
+      'url':
+          'https://data.seattle.gov/api/views/8u2j-imqx/rows.csv?accessType=DOWNLOAD',
+      'filename': 'operating_budget.csv',
+      'directory': 'Seattle/finance'
+    },
+    '2019-20 Adopted Budget': {
+      'url':
+          'https://data.seattle.gov/api/views/rimb-6qnk/rows.csv?accessType=DOWNLOAD',
+      'filename': 'adopted_budget.csv',
+      'directory': 'Seattle/finance'
+    },
   };
+
+  static List<DownloadableKML> blankKml = [];
 
   static List<DownloadableKML> nycEnvironmentKml = [
     DownloadableKML(

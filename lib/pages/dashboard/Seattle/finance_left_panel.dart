@@ -35,37 +35,45 @@ class SeattleFinanceTabLeft extends ConsumerStatefulWidget {
 
 class _SeattleFinanceTabLeftState extends ConsumerState<SeattleFinanceTabLeft> {
   List<List<dynamic>>? data;
-  List<List<dynamic>>? hivData;
-  List<List<dynamic>>? covidData;
-  double? covidCases;
-  double? covidDeaths;
-  List<List<dynamic>>? sars2Data;
-  List<List<dynamic>>? infantData;
+  List<List<dynamic>>? fleetData;
+  List<List<dynamic>>? endorsedBudgetData;
+  List<List<dynamic>>? openBudgetData;
+  List<List<dynamic>>? operatingBudgetData;
+  List<List<dynamic>>? adoptedBudgetData;
+  List<List<dynamic>>? cipData;
 
   loadCSVData() async {
     Future.delayed(Duration.zero).then((x) async {
       ref.read(isLoadingProvider.notifier).state = true;
       data = await FileParser.parseCSVFromStorage(
-          DownloadableContent.content['HIV diagnosis']!);
+          DownloadableContent.content['Fleet for auction']!);
       setState(() {
-        hivData = FileParser.transformer(data!);
+        fleetData = FileParser.transformer(data!);
       });
       data = await FileParser.parseCSVFromStorage(
-          DownloadableContent.content['Covid cases NYC']!);
+          DownloadableContent.content['2014 Endorsed budget']!);
       setState(() {
-        covidData = FileParser.transformer(data!);
-        covidCases = FileParser.totalColumn(data: covidData![1]);
-        covidDeaths = FileParser.totalColumn(data: covidData![4]);
+        endorsedBudgetData = FileParser.transformer(data!);
       });
       data = await FileParser.parseCSVFromStorage(
-          DownloadableContent.content['SARS CoV2']!);
+          DownloadableContent.content['Open Budget']!);
       setState(() {
-        sars2Data = FileParser.transformer(data!);
+        openBudgetData = FileParser.transformer(data!);
       });
       data = await FileParser.parseCSVFromStorage(
-          DownloadableContent.content['Infant Mortality']!);
+          DownloadableContent.content['2011-16 CIP']!);
       setState(() {
-        infantData = FileParser.transformer(data!);
+        cipData = FileParser.transformer(data!);
+      });
+      data = await FileParser.parseCSVFromStorage(
+          DownloadableContent.content['Operating budget']!);
+      setState(() {
+        operatingBudgetData = FileParser.transformer(data!);
+      });
+      data = await FileParser.parseCSVFromStorage(
+          DownloadableContent.content['2019-20 Adopted Budget']!);
+      setState(() {
+        adoptedBudgetData = FileParser.transformer(data!);
       });
       ref.read(isLoadingProvider.notifier).state = false;
     });
