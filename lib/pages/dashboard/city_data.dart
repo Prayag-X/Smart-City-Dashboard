@@ -1,20 +1,17 @@
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_city_dashboard/models/city_card_model.dart';
-import 'package:smart_city_dashboard/pages/dashboard/new_york/education/left_panel.dart';
+import 'package:smart_city_dashboard/pages/dashboard/Seattle/finance_left_panel.dart';
+import 'package:smart_city_dashboard/pages/dashboard/new_york/education_left_panel.dart';
 import 'package:smart_city_dashboard/pages/panels/tab_button.dart';
 
 import '../../models/tab_button.dart';
-import 'charlotte/misc/left_panel.dart';
-import 'charlotte/misc/right_panel.dart';
-import 'charlotte/society/left_panel.dart';
-import 'charlotte/society/right_panel.dart';
-import 'new_york/education/right_panel.dart';
-import 'new_york/environment/left_panel.dart';
-import 'new_york/environment/right_panel.dart';
+import 'charlotte/misc_left_panel.dart';
+import 'charlotte/society_left_panel.dart';
+import 'downloadable_content.dart';
+import 'new_york/environment_left_panel.dart';
 import '../../constants/images.dart';
-import 'new_york/health/left_panel.dart';
-import 'new_york/health/right_panel.dart';
+import 'new_york/health_left_panel.dart';
 
 class AllCityData {
   static List<CityCardModel> availableCities = [
@@ -37,21 +34,21 @@ class AllCityData {
             name: translate('dashboard.environment.environment'),
             tab: 1,
             leftTab: const NYCEnvironmentTabLeft(),
-            rightTab: const NYCEnvironmentTabRight(),
+            rightTabData: DownloadableContent.nycEnvironmentKml,
           ),
           TabButtonModel(
             logo: ImageConst.health,
             name: translate('city_data.new_york.health.health'),
             tab: 2,
             leftTab: const NYCHealthTabLeft(),
-            rightTab: const NYCHealthTabRight(),
+            rightTabData: DownloadableContent.nycHealthKml,
           ),
           TabButtonModel(
             logo: ImageConst.education,
             name: translate('city_data.new_york.education.education'),
             tab: 3,
             leftTab: const NYCEducationTabLeft(),
-            rightTab: const NYCEducationTabRight(),
+            rightTabData: DownloadableContent.nycEducationKml,
           ),
           TabButtonModel(
             logo: ImageConst.about,
@@ -91,14 +88,14 @@ class AllCityData {
             name: translate('city_data.charlotte.production.production'),
             tab: 1,
             leftTab: const CharlotteSocietyTabLeft(),
-            rightTab: const CharlotteSocietyTabRight(),
+            rightTabData: DownloadableContent.charlotteProductionKml,
           ),
           TabButtonModel(
             logo: ImageConst.misc,
             name: translate('city_data.charlotte.misc.misc'),
             tab: 2,
             leftTab: const CharlotteMiscTabLeft(),
-            rightTab: const CharlotteMiscTabRight(),
+            rightTabData: DownloadableContent.charlotteMiscKml,
           ),
           TabButtonModel(
             logo: ImageConst.about,
@@ -128,9 +125,16 @@ class AllCityData {
             tab: 0,
           ),
           TabButtonModel(
+            logo: ImageConst.finance,
+            name: translate('city_data.seattle.finance.finance'),
+            tab: 1,
+            leftTab: const SeattleFinanceTabLeft(),
+            rightTabData: DownloadableContent.nycHealthKml,
+          ),
+          TabButtonModel(
             logo: ImageConst.about,
             name: translate('homepage.about'),
-            tab: 1,
+            tab: 2,
           ),
         ],
         availableTours: [

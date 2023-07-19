@@ -3,8 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:smart_city_dashboard/models/city_card_model.dart';
+import 'package:smart_city_dashboard/pages/dashboard/widgets/dashboard_right_panel.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/google_map.dart';
-import 'package:smart_city_dashboard/pages/dashboard/new_york/environment/right_panel.dart';
+import 'package:smart_city_dashboard/pages/dashboard/widgets/kml_download_button.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 import 'package:smart_city_dashboard/utils/helper.dart';
 import '../../connections/ssh.dart';
@@ -16,7 +17,8 @@ import '../../providers/page_providers.dart';
 import '../../providers/settings_providers.dart';
 import 'about_tab/left_panel.dart';
 import 'about_tab/right_panel.dart';
-import 'new_york/environment/left_panel.dart';
+import 'downloadable_content.dart';
+import 'new_york/environment_left_panel.dart';
 import 'weather_tab/left_panel.dart';
 import 'weather_tab/right_panel.dart';
 
@@ -145,7 +147,19 @@ class Dashboard extends ConsumerWidget {
                           }
                           for (var pageTab in city.availableTabs) {
                             if (pageTab.tab == tab) {
-                              return pageTab.rightTab!;
+                              if(pageTab.diffRightTab!) {
+                                return pageTab.rightTab!;
+                              } else {
+                                return DashboardRightPanel(
+                                    headers: [translate('dashboard.available_kml')],
+                                    headersFlex: const [1],
+                                    centerHeader: true,
+                                    panelList: pageTab.rightTabData!
+                                        .map((data) => KmlDownloaderButton(
+                                        data, pageTab.rightTabData!.indexOf(data)))
+                                        .toList());
+                              }
+
                             }
                           }
                         }()),

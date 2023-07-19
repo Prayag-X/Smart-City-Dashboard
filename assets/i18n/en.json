@@ -206,7 +206,10 @@
     "seattle": {
       "cityName": "Seattle",
       "country": "United States of America",
-      "description": "Seattle is a seaport city on the West Coast of the United States. It is the seat of King County, Washington. With a 2022 population of 749,256 it is the most populous city in both the state of Washington and the Pacific Northwest region of North America. The Seattle metropolitan area's population is 4.02 million, making it the 15th-largest in the United States. Its growth rate of 21.1% between 2010 and 2020 made it one of country's fastest-growing large cities. Seattle is situated on an isthmus between Puget Sound (an inlet of the Pacific Ocean) and Lake Washington. It is the northernmost major city in the United States, located about 100 miles (160 km) south of the Canadian border. A major gateway for trade with East Asia, Seattle is the fourth-largest port in North America in terms of container handling as of 2021."
+      "description": "Seattle is a seaport city on the West Coast of the United States. It is the seat of King County, Washington. With a 2022 population of 749,256 it is the most populous city in both the state of Washington and the Pacific Northwest region of North America. The Seattle metropolitan area's population is 4.02 million, making it the 15th-largest in the United States. Its growth rate of 21.1% between 2010 and 2020 made it one of country's fastest-growing large cities. Seattle is situated on an isthmus between Puget Sound (an inlet of the Pacific Ocean) and Lake Washington. It is the northernmost major city in the United States, located about 100 miles (160 km) south of the Canadian border. A major gateway for trade with East Asia, Seattle is the fourth-largest port in North America in terms of container handling as of 2021.",
+      "finance": {
+        "finance": "Finance"
+      }
     },
     "boulder": {
       "cityName": "Boulder",

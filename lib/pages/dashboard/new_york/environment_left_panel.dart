@@ -13,18 +13,18 @@ import 'package:smart_city_dashboard/pages/dashboard/widgets/dashboard_right_pan
 import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 
-import '../../../../constants/constants.dart';
-import '../../../../constants/data.dart';
-import '../../downloadable_content.dart';
-import '../../../../constants/images.dart';
-import '../../../../constants/theme.dart';
-import '../../../../models/city_card_model.dart';
-import '../../../../providers/settings_providers.dart';
-import '../../../../connections/ssh.dart';
-import '../../../../utils/csv_parser.dart';
-import '../../../../utils/helper.dart';
-import '../../widgets/charts/line_chart_parser.dart';
-import '../../widgets/dashboard_container.dart';
+import '../../../constants/constants.dart';
+import '../../../constants/data.dart';
+import '../downloadable_content.dart';
+import '../../../constants/images.dart';
+import '../../../constants/theme.dart';
+import '../../../models/city_card_model.dart';
+import '../../../providers/settings_providers.dart';
+import '../../../connections/ssh.dart';
+import '../../../utils/csv_parser.dart';
+import '../../../utils/helper.dart';
+import '../widgets/charts/line_chart_parser.dart';
+import '../widgets/dashboard_container.dart';
 
 class NYCEnvironmentTabLeft extends ConsumerStatefulWidget {
   const NYCEnvironmentTabLeft({super.key});
