@@ -33,22 +33,60 @@ class SeattleTransportationTabLeft extends ConsumerStatefulWidget {
   ConsumerState createState() => _SeattleTransportationTabLeftState();
 }
 
-class _SeattleTransportationTabLeftState extends ConsumerState<SeattleTransportationTabLeft> {
+class _SeattleTransportationTabLeftState
+    extends ConsumerState<SeattleTransportationTabLeft> {
   List<List<dynamic>>? data;
-  List<List<dynamic>>? fleetData;
-  List<List<dynamic>>? endorsedBudgetData;
-  List<List<dynamic>>? openBudgetData;
-  List<List<dynamic>>? operatingBudgetData;
-  List<List<dynamic>>? adoptedBudgetData;
-  List<List<dynamic>>? cipData;
+  List<List<dynamic>>? fretmontCycleData;
+  List<List<dynamic>>? brodwayCycleData;
+  List<List<dynamic>>? westlakeCycleData;
+  List<List<dynamic>>? annualParkingData;
+  List<List<dynamic>>? trafficCountData;
+  List<List<dynamic>>? nbpdData;
+  List<List<dynamic>>? shortBikeData;
+  List<List<dynamic>>? watData;
 
   loadCSVData() async {
     Future.delayed(Duration.zero).then((x) async {
       ref.read(isLoadingProvider.notifier).state = true;
       data = await FileParser.parseCSVFromStorage(
-          DownloadableContent.content['Fleet for auction']!);
+          DownloadableContent.content['Fretmont Cycle counter']!);
       setState(() {
-        fleetData = FileParser.transformer(data!);
+        fretmontCycleData = FileParser.transformer(data!);
+      });
+      data = await FileParser.parseCSVFromStorage(
+          DownloadableContent.content['Brodway Cycle counter']!);
+      setState(() {
+        brodwayCycleData = FileParser.transformer(data!);
+      });
+      data = await FileParser.parseCSVFromStorage(
+          DownloadableContent.content['Westlake Cycle counter']!);
+      setState(() {
+        westlakeCycleData = FileParser.transformer(data!);
+      });
+      data = await FileParser.parseCSVFromStorage(
+          DownloadableContent.content['Annual parking']!);
+      setState(() {
+        annualParkingData = FileParser.transformer(data!);
+      });
+      data = await FileParser.parseCSVFromStorage(
+          DownloadableContent.content['Traffic counts']!);
+      setState(() {
+        trafficCountData = FileParser.transformer(data!);
+      });
+      data = await FileParser.parseCSVFromStorage(
+          DownloadableContent.content['NBPD Bike count']!);
+      setState(() {
+        nbpdData = FileParser.transformer(data!);
+      });
+      data = await FileParser.parseCSVFromStorage(
+          DownloadableContent.content['Short Duration Bike count']!);
+      setState(() {
+        shortBikeData = FileParser.transformer(data!);
+      });
+      data = await FileParser.parseCSVFromStorage(
+          DownloadableContent.content['WAT 2017']!);
+      setState(() {
+        watData = FileParser.transformer(data!);
       });
       ref.read(isLoadingProvider.notifier).state = false;
     });
@@ -73,123 +111,204 @@ class _SeattleTransportationTabLeftState extends ConsumerState<SeattleTransporta
             ),
           ),
           children: [
-            fleetData != null
-                ? PieChartParser(
-                title: translate(
-                    'city_data.seattle.finance.auction_title'),
-                subTitle:
-                translate('city_data.seattle.finance.auction'))
-                .chartParser(data: fleetData![2])
-                : const BlankDashboardContainer(
-              heightMultiplier: 2,
-              widthMultiplier: 2,
-            ),
-            Const.dashboardUISpacing.ph,
-            endorsedBudgetData != null
+            fretmontCycleData != null
                 ? LineChartParser(
-              title: translate(
-                  'city_data.seattle.finance.endorsed_budget_title'),
-              legendX: translate('city_data.seattle.finance.bcl'),
-              chartData: {
-                translate(
-                    'city_data.seattle.finance.expenditure_allowed'):
-                Colors.blue,
-              },
-            ).chartParser(
-              dataX: endorsedBudgetData![2],
-              dataY: [
-                endorsedBudgetData![5],
-              ],
-            )
+                        title: translate(
+                            'city_data.seattle.transportation.fretmont_title'),
+                        legendX:
+                            translate('city_data.seattle.transportation.date'),
+                        chartData: {
+                          translate('city_data.seattle.transportation.south'):
+                              Colors.blue,
+                          translate('city_data.seattle.transportation.east'):
+                              Colors.yellow,
+                          translate('city_data.seattle.transportation.west'):
+                              Colors.red,
+                        },
+                        markerIntervalX: 23,
+                        barWidth: 1)
+                    .chartParser(
+                    limitMarkerX: 10,
+                    dataX: fretmontCycleData![0],
+                    dataY: [
+                      fretmontCycleData![1],
+                      fretmontCycleData![2],
+                      fretmontCycleData![3],
+                    ],
+                  )
                 : const BlankDashboardContainer(
-              heightMultiplier: 2,
-              widthMultiplier: 2,
-            ),
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
             Const.dashboardUISpacing.ph,
-            openBudgetData != null
+            brodwayCycleData != null
                 ? LineChartParser(
-              title: translate(
-                  'city_data.seattle.finance.open_budget_title'),
-              legendX: translate('city_data.seattle.finance.year'),
-              chartData: {
-                translate(
-                    'city_data.seattle.finance.approved_amount'):
-                Colors.green,
-              },)
-                .chartParserWithDuplicate(
-              sortX: true,
-              dataX: openBudgetData![0],
-              dataY: [openBudgetData![10]],
-            )
+                        title: translate(
+                            'city_data.seattle.transportation.brodway_title'),
+                        legendX:
+                            translate('city_data.seattle.transportation.date'),
+                        chartData: {
+                          translate('city_data.seattle.transportation.total'):
+                              Colors.blue,
+                          translate('city_data.seattle.transportation.nb'):
+                              Colors.yellow,
+                          translate('city_data.seattle.transportation.sb'):
+                              Colors.red,
+                        },
+                        markerIntervalX: 23,
+                        barWidth: 1)
+                    .chartParser(
+                    limitMarkerX: 10,
+                    dataX: brodwayCycleData![0],
+                    dataY: [
+                      brodwayCycleData![1],
+                      brodwayCycleData![2],
+                      brodwayCycleData![3],
+                    ],
+                  )
                 : const BlankDashboardContainer(
-              heightMultiplier: 2,
-              widthMultiplier: 2,
-            ),
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
             Const.dashboardUISpacing.ph,
-            cipData != null
+            westlakeCycleData != null
                 ? LineChartParser(
-                title: translate('city_data.seattle.finance.cip_title'),
-                legendX: translate('city_data.seattle.finance.bcl_only'),
-                chartData: {
-                  translate('city_data.seattle.finance.2011'): Colors.blue,
-                  translate('city_data.seattle.finance.2013'):
-                  Colors.yellow,
-                  translate('city_data.seattle.finance.2015'): Colors.red,
-                }, barWidth: 4
-            ).chartParser(
-              dataX: cipData![1],
-              dataY: [
-                cipData![3],
-                cipData![5],
-                cipData![7],
-              ],
-            )
+                        title: translate(
+                            'city_data.seattle.transportation.westlake_title'),
+                        legendX:
+                            translate('city_data.seattle.transportation.date'),
+                        chartData: {
+                          translate('city_data.seattle.transportation.total'):
+                              Colors.blue,
+                          translate('city_data.seattle.transportation.north'):
+                              Colors.yellow,
+                          translate('city_data.seattle.transportation.south'):
+                              Colors.red,
+                        },
+                        markerIntervalX: 23,
+                        barWidth: 1)
+                    .chartParser(
+                    limitMarkerX: 10,
+                    dataX: westlakeCycleData![0],
+                    dataY: [
+                      westlakeCycleData![1],
+                      westlakeCycleData![2],
+                      westlakeCycleData![3],
+                    ],
+                  )
                 : const BlankDashboardContainer(
-              heightMultiplier: 2,
-              widthMultiplier: 2,
-            ),
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
             Const.dashboardUISpacing.ph,
-            operatingBudgetData != null
+            annualParkingData != null
                 ? LineChartParser(
-              title: translate(
-                  'city_data.seattle.finance.operating_budget_title'),
-              legendX: translate('city_data.seattle.finance.year'),
-              chartData: {
-                translate(
-                    'city_data.seattle.finance.approved_amount'):
-                Colors.green,
-              },)
-                .chartParserWithDuplicate(
-              dataX: operatingBudgetData![0],
-              dataY: [operatingBudgetData![8]],
-            )
+                        title: translate(
+                            'city_data.seattle.transportation.annual_title'),
+                        legendX: translate(
+                            'city_data.seattle.transportation.element'),
+                        chartData: {
+                          translate('city_data.seattle.transportation.spaces'):
+                              Colors.blue,
+                          translate(
+                                  'city_data.seattle.transportation.vehicle_count'):
+                              Colors.yellow,
+                        },
+                        barWidth: 1)
+                    .chartParser(
+                    dataX: annualParkingData![0],
+                    dataY: [
+                      annualParkingData![7],
+                      annualParkingData![8],
+                    ],
+                  )
                 : const BlankDashboardContainer(
-              heightMultiplier: 2,
-              widthMultiplier: 2,
-            ),
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
             Const.dashboardUISpacing.ph,
-            adoptedBudgetData != null
+            trafficCountData != null
                 ? LineChartParser(
-                title: translate('city_data.seattle.finance.adopted_budget_title'),
-                legendX: translate('city_data.seattle.finance.code'),
-                chartData: {
-                  translate('city_data.seattle.finance.2018_adopted'): Colors.blue,
-                  translate('city_data.seattle.finance.2019_adopted'):
-                  Colors.yellow,
-                  translate('city_data.seattle.finance.2020_endorsed'): Colors.red.withOpacity(0.5),
-                },barWidth: 4
-            ).chartParser(
-              dataX: adoptedBudgetData![0],
-              dataY: [
-                adoptedBudgetData![4],
-                adoptedBudgetData![5],
-                adoptedBudgetData![6],
-              ],
-            )
+                        title: translate(
+                            'city_data.seattle.transportation.traffic_title'),
+                        legendX:
+                            translate('city_data.seattle.transportation.id'),
+                        chartData: {
+                          translate(
+                                  'city_data.seattle.transportation.actual_days'):
+                              Colors.blue,
+                          translate(
+                                  'city_data.seattle.transportation.study_length'):
+                              Colors.yellow,
+                        },
+                        barWidth: 4)
+                    .chartParser(
+                    dataX: trafficCountData![0],
+                    dataY: [
+                      trafficCountData![9],
+                      trafficCountData![11],
+                    ],
+                  )
                 : const BlankDashboardContainer(
-              heightMultiplier: 2,
-              widthMultiplier: 2,
-            ),
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
+            Const.dashboardUISpacing.ph,
+            nbpdData != null
+                ? LineChartParser(
+                        title: translate(
+                            'city_data.seattle.transportation.npbd_title'),
+                        legendX: translate(
+                            'city_data.seattle.transportation.location'),
+                        chartData: {
+                          translate('city_data.seattle.transportation.may'):
+                              Colors.blue,
+                          translate('city_data.seattle.transportation.july'):
+                              Colors.yellow,
+                          translate('city_data.seattle.transportation.sept'):
+                              Colors.red,
+                        },
+                        barWidth: 4,
+                        markerIntervalX: 6)
+                    .chartParser(
+                    limitMarkerX: 10,
+                    dataX: nbpdData![0],
+                    dataY: [
+                      nbpdData![2],
+                      nbpdData![3],
+                      nbpdData![4],
+                    ],
+                  )
+                : const BlankDashboardContainer(
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
+            Const.dashboardUISpacing.ph,
+            shortBikeData != null
+                ? LineChartParser(
+                        title: translate(
+                            'city_data.seattle.transportation.short_bike_title'),
+                        legendX: translate(
+                            'city_data.seattle.transportation.id'),
+                        chartData: {
+                          translate('city_data.seattle.transportation.day1'):
+                              Colors.blue,
+                          translate('city_data.seattle.transportation.day4'):
+                              Colors.yellow,
+                        },
+                        barWidth: 4)
+                    .chartParser(
+                    dataX: shortBikeData![0],
+                    dataY: [
+                      shortBikeData![5],
+                      shortBikeData![8],
+                    ],
+                  )
+                : const BlankDashboardContainer(
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
+            Const.dashboardUISpacing.ph,
           ],
         ),
       ),

@@ -66,10 +66,12 @@ class _SeattleFinanceTabLeftState extends ConsumerState<SeattleFinanceTabLeft> {
         cipData = FileParser.transformer(data!);
       });
       data = await FileParser.parseCSVFromStorage(
-          DownloadableContent.content['Operating budget']!);
+          DownloadableContent.content['Operating budget']!, limit: -1);
       setState(() {
         operatingBudgetData = FileParser.transformer(data!);
       });
+      print(operatingBudgetData![0]);
+      print(operatingBudgetData![8]);
       data = await FileParser.parseCSVFromStorage(
           DownloadableContent.content['2019-20 Adopted Budget']!);
       setState(() {

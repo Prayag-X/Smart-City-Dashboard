@@ -6,6 +6,7 @@ import 'package:smart_city_dashboard/pages/dashboard/new_york/education_left_pan
 import 'package:smart_city_dashboard/pages/panels/tab_button.dart';
 
 import '../../models/tab_button.dart';
+import 'Seattle/transportation_left_panel.dart';
 import 'charlotte/misc_left_panel.dart';
 import 'charlotte/society_left_panel.dart';
 import 'downloadable_content.dart';
@@ -129,14 +130,14 @@ class AllCityData {
             name: translate('city_data.seattle.finance.finance'),
             tab: 1,
             leftTab: const SeattleFinanceTabLeft(),
-            rightTabData: DownloadableContent.nycHealthKml,
+            rightTabData: DownloadableContent.blankKml,
           ),
           TabButtonModel(
             logo: ImageConst.transportation,
             name: translate('city_data.seattle.transportation.transportation'),
             tab: 2,
-            leftTab: const SeattleFinanceTabLeft(),
-            rightTabData: DownloadableContent.nycHealthKml,
+            leftTab: const SeattleTransportationTabLeft(),
+            rightTabData: DownloadableContent.seattleTransportKml,
           ),
           TabButtonModel(
             logo: ImageConst.about,

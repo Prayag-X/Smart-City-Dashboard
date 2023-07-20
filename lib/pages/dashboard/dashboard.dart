@@ -150,6 +150,16 @@ class Dashboard extends ConsumerWidget {
                               if(pageTab.diffRightTab!) {
                                 return pageTab.rightTab!;
                               } else {
+                                if(pageTab.rightTabData!.isEmpty) {
+                                  return Center(
+                                    child: Text(
+                                      translate('city_data.no_kml'),
+                                      style: textStyleNormal.copyWith(
+                                          fontSize: Const.dashboardTextSize - 3,
+                                          color: oppositeColor.withOpacity(0.5)),
+                                    ),
+                                  );
+                                }
                                 return DashboardRightPanel(
                                     headers: [translate('dashboard.available_kml')],
                                     headersFlex: const [1],

@@ -184,7 +184,7 @@ class DownloadableContent {
     'Traffic counts': {
       'url':
           'https://data.seattle.gov/api/views/xucb-vzhc/rows.csv?accessType=DOWNLOAD',
-      'filename': 'annual_parking.csv',
+      'filename': 'traffic_count.csv',
       'directory': 'Seattle/transport'
     },
     'NBPD Bike count': {
@@ -326,5 +326,23 @@ class DownloadableContent {
             'https://opendata.arcgis.com/api/v3/datasets/cf66446f36244e2498aa9b3f8e704b84_0/downloads/data?format=kml&spatialRefId=4326&where=1%3D1',
         name: 'Water Quality Buffers',
         size: '81.9 MB'),
+  ];
+
+  static List<DownloadableKML> seattleTransportKml = [
+    DownloadableKML(
+        url:
+        'https://data.seattle.gov/api/geospatial/qktt-2bsy?accessType=DOWNLOAD&method=export&format=KML',
+        name: '2019 Paid Parking',
+        size: '15 GB'),
+    DownloadableKML(
+        url:
+        'https://data.seattle.gov/api/geospatial/6yaw-2m8q?accessType=DOWNLOAD&method=export&format=KML',
+        name: '2018 Paid Parking',
+        size: '15 GB'),
+    DownloadableKML(
+        url:
+        'https://data.seattle.gov/api/geospatial/v4q3-5hvp?accessType=DOWNLOAD&method=export&format=KML',
+        name: 'Public Life Data',
+        size: '1.89 MB'),
   ];
 }

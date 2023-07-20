@@ -117,6 +117,7 @@
     "theme": "Theme"
   },
   "city_data": {
+    "no_kml": "No KML data available",
     "new_york": {
       "cityName": "New York",
       "country": "United States of America",
@@ -230,7 +231,34 @@
         "year": "Year"
       },
       "transportation": {
-        "transportation": "transportation"
+        "transportation": "Transport",
+        "fretmont_title": "Fretmont Bridge Bicycle Counter",
+        "brodway_title": "Broadway Track Bicycle Counter",
+        "westlake_title": "Westlake PBL Bicycle Counter",
+        "annual_title": "Annual Parking Study Data",
+        "traffic_title": "Traffic Count by Study",
+        "npbd_title": "NBPD Bike Counts",
+        "short_bike_title": "2014 Short Duration Bike Counts",
+        "north": "North",
+        "south": "South",
+        "east": "East",
+        "west": "West",
+        "total": "Total",
+        "nb": "NB",
+        "sb": "SB",
+        "element": "Elements",
+        "spaces": "Parking Spaces",
+        "vehicle_count": "Vehicle Count",
+        "id": "ID",
+        "actual_days": "Actual Days",
+        "study_length": "Study Length",
+        "location": "Location",
+        "may": "May",
+        "july": "July",
+        "sept": "Sept",
+        "day1": "Day 1",
+        "day4": "Day 4",
+        "date": "Date"
       }
     },
     "boulder": {
