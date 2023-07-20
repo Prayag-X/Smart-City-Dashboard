@@ -155,6 +155,56 @@ class DownloadableContent {
       'filename': 'adopted_budget.csv',
       'directory': 'Seattle/finance'
     },
+
+    //Transport Data
+    'Fretmont Cycle counter': {
+      'url':
+          'https://data.seattle.gov/api/views/65db-xm6k/rows.csv?accessType=DOWNLOAD',
+      'filename': 'fretmont_counter.csv',
+      'directory': 'Seattle/transport'
+    },
+    'Brodway Cycle counter': {
+      'url':
+          'https://data.seattle.gov/api/views/j4vh-b42a/rows.csv?accessType=DOWNLOAD',
+      'filename': 'brodway_counter.csv',
+      'directory': 'Seattle/transport'
+    },
+    'Westlake Cycle counter': {
+      'url':
+          'https://data.seattle.gov/api/views/675b-cqew/rows.csv?accessType=DOWNLOAD',
+      'filename': 'westlake_counter.csv',
+      'directory': 'Seattle/transport'
+    },
+    'Annual parking': {
+      'url':
+          'https://data.seattle.gov/api/views/7jzm-ucez/rows.csv?accessType=DOWNLOAD',
+      'filename': 'annual_parking.csv',
+      'directory': 'Seattle/transport'
+    },
+    'Traffic counts': {
+      'url':
+          'https://data.seattle.gov/api/views/xucb-vzhc/rows.csv?accessType=DOWNLOAD',
+      'filename': 'annual_parking.csv',
+      'directory': 'Seattle/transport'
+    },
+    'NBPD Bike count': {
+      'url':
+          'https://data.seattle.gov/api/views/ewwk-ty4e/rows.csv?accessType=DOWNLOAD',
+      'filename': 'nbpd_bike_count.csv',
+      'directory': 'Seattle/transport'
+    },
+    'Short Duration Bike count': {
+      'url':
+          'https://data.seattle.gov/api/views/m83s-wdbc/rows.csv?accessType=DOWNLOAD',
+      'filename': 'short_duration_bike_count.csv',
+      'directory': 'Seattle/transport'
+    },
+    'WAT 2017': {
+      'url':
+          'https://data.seattle.gov/api/views/q4zb-r3zn/rows.csv?accessType=DOWNLOAD',
+      'filename': 'wat_2017.csv',
+      'directory': 'Seattle/transport'
+    },
   };
 
   static List<DownloadableKML> blankKml = [];

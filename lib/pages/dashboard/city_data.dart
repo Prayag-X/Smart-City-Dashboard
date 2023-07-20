@@ -132,9 +132,16 @@ class AllCityData {
             rightTabData: DownloadableContent.nycHealthKml,
           ),
           TabButtonModel(
+            logo: ImageConst.transportation,
+            name: translate('city_data.seattle.transportation.transportation'),
+            tab: 2,
+            leftTab: const SeattleFinanceTabLeft(),
+            rightTabData: DownloadableContent.nycHealthKml,
+          ),
+          TabButtonModel(
             logo: ImageConst.about,
             name: translate('homepage.about'),
-            tab: 2,
+            tab: 3,
           ),
         ],
         availableTours: [

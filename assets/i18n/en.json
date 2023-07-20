@@ -228,7 +228,9 @@
         "operating_budget_title": "Operating Budget",
         "adopted_budget_title": "2019-20 Adopted Budget",
         "year": "Year"
-
+      },
+      "transportation": {
+        "transportation": "transportation"
       }
     },
     "boulder": {
