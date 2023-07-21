@@ -259,6 +259,14 @@
         "day1": "Day 1",
         "day4": "Day 4",
         "date": "Date"
+      },
+      "education": {
+        "education": "Education",
+        "tsg_overall_title": "TSG Overall",
+        "percentage": "% Met",
+        "avg_met": "Avg Domain Met",
+        "children_count": "Children Count",
+        "group": "Group"
       }
     },
     "boulder": {

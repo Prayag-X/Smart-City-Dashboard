@@ -33,7 +33,8 @@ class SeattleEducationTabLeft extends ConsumerStatefulWidget {
   ConsumerState createState() => _SeattleEducationTabLeftState();
 }
 
-class _SeattleEducationTabLeftState extends ConsumerState<SeattleEducationTabLeft> {
+class _SeattleEducationTabLeftState
+    extends ConsumerState<SeattleEducationTabLeft> {
   List<List<dynamic>>? data;
   List<List<dynamic>>? tsgOverallData;
   List<List<dynamic>>? tsgDomainData;
@@ -86,35 +87,34 @@ class _SeattleEducationTabLeftState extends ConsumerState<SeattleEducationTabLef
             ),
           ),
           children: [
-            fretmontCycleData != null
+            tsgOverallData != null
                 ? LineChartParser(
-                title: translate(
-                    'city_data.seattle.transportation.fretmont_title'),
-                legendX:
-                translate('city_data.seattle.transportation.date'),
-                chartData: {
-                  translate('city_data.seattle.transportation.south'):
-                  Colors.blue,
-                  translate('city_data.seattle.transportation.east'):
-                  Colors.yellow,
-                  translate('city_data.seattle.transportation.west'):
-                  Colors.red,
-                },
-                markerIntervalX: 23,
-                barWidth: 1)
-                .chartParser(
-              limitMarkerX: 10,
-              dataX: fretmontCycleData![0],
-              dataY: [
-                fretmontCycleData![1],
-                fretmontCycleData![2],
-                fretmontCycleData![3],
-              ],
-            )
+                        title: translate(
+                            'city_data.seattle.education.tsg_overall_title'),
+                        legendX: translate('city_data.seattle.education.group'),
+                        chartData: {
+                          translate('city_data.seattle.education.percentage'):
+                              Colors.blue,
+                          translate('city_data.seattle.education.avg_met'):
+                              Colors.yellow,
+                          translate(
+                                  'city_data.seattle.education.children_count'):
+                              Colors.red,
+                        },
+                        barWidth: 1)
+                    .chartParser(
+                    limitMarkerX: 10,
+                    dataX: tsgOverallData![1],
+                    dataY: [
+                      tsgOverallData![2],
+                      tsgOverallData![3],
+                      tsgOverallData![4],
+                    ],
+                  )
                 : const BlankDashboardContainer(
-              heightMultiplier: 2,
-              widthMultiplier: 2,
-            ),
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
             Const.dashboardUISpacing.ph,
           ],
         ),
