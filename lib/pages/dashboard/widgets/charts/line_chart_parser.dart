@@ -132,7 +132,7 @@ class LineChartParser {
             ? dataX[(i * intervalXFactor).round()].toString()
             : dataX[(i * intervalXFactor).round()]
                 .toString()
-                .substring(0, limitMarkerX));
+                .substring(0, min(limitMarkerX, dataX[(i * intervalXFactor).round()].toString().length)));
       }
     }
 

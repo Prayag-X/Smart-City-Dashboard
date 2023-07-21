@@ -263,9 +263,15 @@
       "education": {
         "education": "Education",
         "tsg_overall_title": "TSG Overall",
+        "tsg_domain_title": "TSG by Domain",
+        "spp_title": "SPP Enrollment",
+        "spp_sps_title": "SPP vs SPS",
         "percentage": "% Met",
-        "avg_met": "Avg Domain Met",
+        "avg_met": "Avg Domain",
+        "lan_met": "Language",
+        "literacy_met": "Literacy",
         "children_count": "Children Count",
+        "year": "Program Year",
         "group": "Group"
       }
     },

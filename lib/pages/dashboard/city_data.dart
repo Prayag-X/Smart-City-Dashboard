@@ -6,6 +6,7 @@ import 'package:smart_city_dashboard/pages/dashboard/new_york/education_left_pan
 import 'package:smart_city_dashboard/pages/panels/tab_button.dart';
 
 import '../../models/tab_button.dart';
+import 'Seattle/education_left_panel.dart';
 import 'Seattle/transportation_left_panel.dart';
 import 'charlotte/misc_left_panel.dart';
 import 'charlotte/society_left_panel.dart';
@@ -140,9 +141,16 @@ class AllCityData {
             rightTabData: DownloadableContent.seattleTransportKml,
           ),
           TabButtonModel(
+            logo: ImageConst.education,
+            name: translate('city_data.seattle.education.education'),
+            tab: 3,
+            leftTab: const SeattleEducationTabLeft(),
+            rightTabData: DownloadableContent.blankKml,
+          ),
+          TabButtonModel(
             logo: ImageConst.about,
             name: translate('homepage.about'),
-            tab: 3,
+            tab: 4,
           ),
         ],
         availableTours: [
