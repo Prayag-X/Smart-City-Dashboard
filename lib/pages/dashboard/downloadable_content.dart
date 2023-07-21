@@ -205,6 +205,32 @@ class DownloadableContent {
       'filename': 'wat_2017.csv',
       'directory': 'Seattle/transport'
     },
+
+    //Seattle Education
+    'TSG Overall': {
+      'url':
+          'https://data.seattle.gov/api/views/f9zk-fa85/rows.csv?accessType=DOWNLOAD',
+      'filename': 'tsg_overall.csv',
+      'directory': 'Seattle/education'
+    },
+    'TSG domain': {
+      'url':
+          'https://data.seattle.gov/api/views/iv78-xwas/rows.csv?accessType=DOWNLOAD',
+      'filename': 'tsg_domain.csv',
+      'directory': 'Seattle/education'
+    },
+    'SPP enrollment': {
+      'url':
+          'https://data.seattle.gov/api/views/ix3q-qr7w/rows.csv?accessType=DOWNLOAD',
+      'filename': 'spp_enrollment.csv',
+      'directory': 'Seattle/education'
+    },
+    'SPP vs SPS': {
+      'url':
+          'https://data.seattle.gov/api/views/hk3p-ag4k/rows.csv?accessType=DOWNLOAD',
+      'filename': 'spp_sps.csv',
+      'directory': 'Seattle/education'
+    },
   };
 
   static List<DownloadableKML> blankKml = [];
