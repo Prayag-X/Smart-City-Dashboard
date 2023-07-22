@@ -117,7 +117,6 @@ class DownloadableContent {
       'directory': 'Charlotte/misc'
     },
 
-
     //Seattle Finance
     'Fleet for auction': {
       'url':
@@ -225,6 +224,15 @@ class DownloadableContent {
       'filename': 'spp_enrollment.csv',
       'directory': 'Seattle/education'
     },
+    'SPP vs SPS': {
+      'url':
+          'https://data.seattle.gov/api/views/hk3p-ag4k/rows.csv?accessType=DOWNLOAD',
+      'filename': 'spp_sps.csv',
+      'directory': 'Seattle/education'
+    },
+
+
+    //Austin Environment
     'SPP vs SPS': {
       'url':
           'https://data.seattle.gov/api/views/hk3p-ag4k/rows.csv?accessType=DOWNLOAD',
@@ -357,18 +365,61 @@ class DownloadableContent {
   static List<DownloadableKML> seattleTransportKml = [
     DownloadableKML(
         url:
-        'https://data.seattle.gov/api/geospatial/qktt-2bsy?accessType=DOWNLOAD&method=export&format=KML',
+            'https://data.seattle.gov/api/geospatial/qktt-2bsy?accessType=DOWNLOAD&method=export&format=KML',
         name: '2019 Paid Parking',
         size: '15 GB'),
     DownloadableKML(
         url:
-        'https://data.seattle.gov/api/geospatial/6yaw-2m8q?accessType=DOWNLOAD&method=export&format=KML',
+            'https://data.seattle.gov/api/geospatial/6yaw-2m8q?accessType=DOWNLOAD&method=export&format=KML',
         name: '2018 Paid Parking',
         size: '15 GB'),
     DownloadableKML(
         url:
-        'https://data.seattle.gov/api/geospatial/v4q3-5hvp?accessType=DOWNLOAD&method=export&format=KML',
+            'https://data.seattle.gov/api/geospatial/v4q3-5hvp?accessType=DOWNLOAD&method=export&format=KML',
         name: 'Public Life Data',
         size: '1.89 MB'),
+  ];
+
+  static List<DownloadableKML> austinEnvironmentKml = [
+    DownloadableKML(
+        url:
+            'https://data.texas.gov/api/geospatial/mwzi-gyw7?accessType=DOWNLOAD&method=export&format=KML',
+        name: 'Texas NOV',
+        size: '10 GB+'),
+    DownloadableKML(
+        url:
+            'https://data.texas.gov/api/geospatial/ups3-9e8m?accessType=DOWNLOAD&method=export&format=KML',
+        name: 'Counties Centroid',
+        size: '142 KB'),
+    DownloadableKML(
+        url:
+            'https://data.austintexas.gov/api/geospatial/5dcx-zjsm?accessType=DOWNLOAD&method=export&format=KML',
+        name: 'Spring CEF',
+        size: '1.46 MB'),
+    DownloadableKML(
+        url:
+            'https://data.austintexas.gov/api/geospatial/jxqt-k9f4?accessType=DOWNLOAD&method=export&format=KML',
+        name: 'Rock Outcrop',
+        size: '1.56 MB'),
+    DownloadableKML(
+        url:
+            'https://data.austintexas.gov/api/geospatial/erdi-rz7j?accessType=DOWNLOAD&method=export&format=KML',
+        name: 'Bio Resource Buffer',
+        size: '8.9 MB'),
+    DownloadableKML(
+        url:
+            'https://data.austintexas.gov/api/geospatial/uham-e4m2?accessType=DOWNLOAD&method=export&format=KML',
+        name: 'Grassland',
+        size: '37.1 KB'),
+    DownloadableKML(
+        url:
+            'https://data.austintexas.gov/api/geospatial/ugty-5b95?accessType=DOWNLOAD&method=export&format=KML',
+        name: 'Priority Tree',
+        size: '2.4 MB'),
+    DownloadableKML(
+        url:
+            'https://data.austintexas.gov/api/geospatial/isb7-5h5a?accessType=DOWNLOAD&method=export&format=KML',
+        name: 'Grow Zones',
+        size: '311 KB'),
   ];
 }
