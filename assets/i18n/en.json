@@ -202,7 +202,35 @@
     "austin": {
       "cityName": "Austin",
       "country": "United States of America",
-      "description": "Austin is the capital city of the U.S. state of Texas, as well as the seat and most populous city of Travis County, with portions extending into Hays and Williamson counties. Incorporated on December 27, 1839, it is the 10th-most-populous city in the United States, the fourth-most-populous city in Texas, and the second-most-populous state capital city. It has been one of the fastest growing large cities in the United States since 2010. Downtown Austin and Downtown San Antonio are approximately 80 miles (129 km) apart, and both fall along the Interstate 35 corridor. Austin is the southernmost state capital in the contiguous United States and is considered a Beta-level global city as categorized by the Globalization and World Cities Research Network."
+      "description": "Austin is the capital city of the U.S. state of Texas, as well as the seat and most populous city of Travis County, with portions extending into Hays and Williamson counties. Incorporated on December 27, 1839, it is the 10th-most-populous city in the United States, the fourth-most-populous city in Texas, and the second-most-populous state capital city. It has been one of the fastest growing large cities in the United States since 2010. Downtown Austin and Downtown San Antonio are approximately 80 miles (129 km) apart, and both fall along the Interstate 35 corridor. Austin is the southernmost state capital in the contiguous United States and is considered a Beta-level global city as categorized by the Globalization and World Cities Research Network.",
+      "environment": {
+        "imagine_austin_title": "Imagine Austin Indicators",
+        "cpi_38_title": "CPI 3.8 Abuse",
+        "cpi_33_title": "CPI 3.3 Abuse",
+        "green_building_title": "Green Building Ratings",
+        "ecad_title": "2019 Multifamily ECAD",
+        "renewable_title": "Consumption of Renewable Energy",
+        "water_title": "Water Quality Sample",
+        "heec5": "HE.E.5c Building protected by COA",
+        "2007": "2007",
+        "2012": "2012",
+        "2017": "2017",
+        "year": "Year",
+        "victims": "Victims",
+        "project_no": "Projects",
+        "energy": "Energy",
+        "demand": "Demand",
+        "number": "Number",
+        "apts": "Apts",
+        "costs": "Costs",
+        "id": "ID",
+        "result": "Result (MG/L)",
+        "percentage": "Percentage",
+        "district": "District",
+        "treated": "Treated",
+        "treatable": "Treatable",
+        "tag": "Tag"
+      }
     },
     "seattle": {
       "cityName": "Seattle",

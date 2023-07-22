@@ -233,11 +233,47 @@ class DownloadableContent {
 
 
     //Austin Environment
-    'SPP vs SPS': {
+    'Imagine Austin Indicator': {
       'url':
-          'https://data.seattle.gov/api/views/hk3p-ag4k/rows.csv?accessType=DOWNLOAD',
-      'filename': 'spp_sps.csv',
-      'directory': 'Seattle/education'
+          'https://data.austintexas.gov/api/views/apwj-7zty/rows.csv?accessType=DOWNLOAD',
+      'filename': 'imagine_austin.csv',
+      'directory': 'Austin/environment'
+    },
+    'CPI 3.8 Abuse': {
+      'url':
+          'https://data.texas.gov/api/views/v63e-6dss/rows.csv?accessType=DOWNLOAD',
+      'filename': 'cpi38.csv',
+      'directory': 'Austin/environment'
+    },
+    'Green Building Ratings': {
+      'url':
+          'https://data.austintexas.gov/api/views/dpvb-c5fy/rows.csv?accessType=DOWNLOAD',
+      'filename': 'green_rating.csv',
+      'directory': 'Austin/environment'
+    },
+    '2019 ECAD': {
+      'url':
+          'https://data.austintexas.gov/api/views/feiy-7jhe/rows.csv?accessType=DOWNLOAD',
+      'filename': '2019_ecad.csv',
+      'directory': 'Austin/environment'
+    },
+    'CPI 3.3 Abuse': {
+      'url':
+          'https://data.texas.gov/api/views/vzdd-cppz/rows.csv?accessType=DOWNLOAD',
+      'filename': 'cpi33.csv',
+      'directory': 'Austin/environment'
+    },
+    'Renewable Power Source': {
+      'url':
+          'https://data.austintexas.gov/api/views/7k3d-ry7d/rows.csv?accessType=DOWNLOAD',
+      'filename': 'renewable_power.csv',
+      'directory': 'Austin/environment'
+    },
+    'HEE5C': {
+      'url':
+          'https://data.austintexas.gov/api/views/ejk8-63sb/rows.csv?accessType=DOWNLOAD',
+      'filename': 'heec5.csv',
+      'directory': 'Austin/environment'
     },
   };
 

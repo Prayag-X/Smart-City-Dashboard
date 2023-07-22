@@ -8,6 +8,7 @@ import 'package:smart_city_dashboard/pages/panels/tab_button.dart';
 import '../../models/tab_button.dart';
 import 'Seattle/education_left_panel.dart';
 import 'Seattle/transportation_left_panel.dart';
+import 'austin/environment_left_panel.dart';
 import 'charlotte/misc_left_panel.dart';
 import 'charlotte/society_left_panel.dart';
 import 'downloadable_content.dart';
@@ -175,9 +176,16 @@ class AllCityData {
             tab: 0,
           ),
           TabButtonModel(
+            logo: ImageConst.environmentTab,
+            name: translate('dashboard.environment.environment'),
+            tab: 1,
+            leftTab: const AustinEnvironmentTabLeft(),
+            rightTabData: DownloadableContent.austinEnvironmentKml,
+          ),
+          TabButtonModel(
             logo: ImageConst.about,
             name: translate('homepage.about'),
-            tab: 1,
+            tab: 2,
           ),
         ],
         availableTours: [

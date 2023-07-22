@@ -33,7 +33,6 @@ class Downloader {
   downloadAllContent(
       Map<String, Map<String, String>> downloadableContent) async {
     List<DownloadTask> tasks = [];
-    ref.read(loadingPercentageProvider.notifier).state = 0;
 
     for (MapEntry<String, Map<String, String>> url
         in downloadableContent.entries) {
