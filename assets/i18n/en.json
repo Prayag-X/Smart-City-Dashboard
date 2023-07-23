@@ -26,7 +26,7 @@
     "about": "About",
     "available_data": "Available Data",
     "about_page": {
-      "description": "Smart City Dashboard is a Flutter app to visualize many available public data of various smart cities through various visually appealing dashboards and charts. This project was created as a part of Google Summer of Code 23 under Liquid Galaxy. Developed thanks to the TIC Laboratories of the Scientific Part of Lleida, Liquid Galaxy EU, Liquid Galaxy LAB, Google Developer Groups Lleida, Women Techmakers Lleida and Parc Agrobiotech Lleida. The app can show realtime weather along with hourly data, various analytic data of the cities and other important data like environment, population etc. The app supports an integrated Google Map to control the Liquid Galaxy. It automatically travels to the location of the city selected and also facilitates the tour of the city's major locations. It can also visualize various KML data in the bigger screen of Liquid Galaxy for better analysis. One of the major feature of the app is that even though the size of the app is small, it can show data of many GBs as it downloads it in realtime and also features to clean those data so that the device does not get clogged of unnecessary large data. The app supports 2 themes and many languages as well.",
+      "description": "Smart City Dashboard is a Flutter app to visualize many available public data of various smart cities through various visually appealing dashboards and charts. This project was created as a part of Google Summer of Code 23 under Liquid Galaxy. Developed thanks to the TIC Laboratories of the Scientific Part of Lleida, Liquid Galaxy EU, Liquid Galaxy LAB, Google Developer Groups Lleida, Women Techmakers Lleida and Parc Agrobiotech Lleida. The app can show realtime weather along with hourly data, various analytic data of the cities and other important data like environment, population etc. The app supports an integrated Google Map to control the Liquid Galaxy. It automatically travels to the location of the city selected and also facilitates the tour of the city's major locations. It can also visualize various KML data in the bigger screen of Liquid Galaxy for better analysis. One of the major feature of the app is that even though the size of the app is small, it can show data of many GBs as it downloads it in realtime and also features to clean those data so that the device does not get clogged of unnecessary large data. The app supports 2 themes and many languages as well. The navigation of the app is also one tap to any page or feature, so the user can explore the app with ease and simplicity",
       "made_by": "Made by",
       "prayag": "Prayag Biswas",
       "organization": "Organization",
@@ -115,6 +115,20 @@
     "shutdown_lg": "SHUTDOWN LG",
     "language": "Language",
     "theme": "Theme"
+  },
+  "help_page": {
+    "nav1": "This is the homepage of the app. Click on any city to visualize its data.",
+    "nav2": "Click on the app icon to go back to the homepage.",
+    "app_bar": "The app bar shows the status of the app's connection to the internet (Online/Offline) and to Liquid Galaxy (Connected/Disconnected) respectively.",
+    "search": "You can search for any city name or the cities which contains the particular data (For example, Environment as shown in the picture). You can type it or say by pressing the microphone icon. The bar will become green when the microphone is on.",
+    "settings": "You can connect to Liquid Galaxy by going to the settings page. Then fill out the required details in the places provided and click on the CONNECT TO LG button. Then the buttons to control Liquid Galaxy will also appear like this.",
+    "settings_theme": "The themes and language of the app can be changed from here.",
+    "feature1": "The right panel of the city data page will change dynamically based on which data selected. In the Weather tab, you can select between 3 days to show the weather data of.",
+    "feature2": "In other tabs, you can select to download the KML files and visualize in the Liquid Galaxy. The size of the KML files are shown to avoid any unnecessary data loss. Also, to use this feature, you need to connect to Liquid Galaxy first.",
+    "feature3": "In the About Tab, you can take a tour to some of the important locations of the city.",
+    "feature4": "You can change the type of the Google Map by choosing one of the three options available.",
+    "content": "If you see this in any tab, then simply go to the settings page to download the required data.",
+    "tab": "The left tab bar will change automatically depending on the page of the app. When in the homepage, it will show the general instruction and the help page button. And when in any city page, it will show the tabs of data available for the city. The settings and about page is independent of other pages and can be selected from any page without changing the left tab."
   },
   "city_data": {
     "no_kml": "No KML data available",
