@@ -57,6 +57,7 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
       zoom: 11,
     );
     SSH(ref: ref).renderInSlave(
+        context,
         ref.read(rightmostRigProvider),
         BalloonMakers.aboutBalloon(
           initialMapPosition,

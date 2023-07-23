@@ -38,6 +38,7 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
     );
     newMapPosition = initialMapPosition;
     SSH(ref: ref).flyTo(
+        context,
         initialMapPosition.target.latitude,
         initialMapPosition.target.longitude,
         initialMapPosition.zoom.zoomLG,
@@ -77,6 +78,7 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
                   onCameraMove: (position) =>
                       setState(() => newMapPosition = position),
                   onCameraIdle: () async => await SSH(ref: ref).flyTo(
+                      context,
                       newMapPosition.target.latitude,
                       newMapPosition.target.longitude,
                       newMapPosition.zoom.zoomLG,

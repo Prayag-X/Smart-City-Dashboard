@@ -59,8 +59,8 @@ class Dashboard extends ConsumerWidget {
                   Future.delayed(Duration.zero).then((x) async {
                     ref.read(isLoadingProvider.notifier).state = false;
                   });
-                  SSH(ref: ref).cleanBalloon();
-                  SSH(ref: ref).cleanKML();
+                  SSH(ref: ref).cleanBalloon(context, );
+                  SSH(ref: ref).cleanKML(context, );
                   if (downloadableContentAvailable) {
                     for (var pageTab in city.availableTabs) {
                       if (pageTab.tab == tab) {

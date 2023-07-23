@@ -85,6 +85,8 @@ class _SettingsState extends ConsumerState<SettingsPage> {
     Color highlightColor = ref.watch(highlightColorProvider);
     bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
     bool darkMode = ref.watch(darkModeOnProvider);
+    bool downloadableContentAvailable =
+        ref.watch(downloadableContentAvailableProvider);
     return SingleChildScrollView(
       physics:
           const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
@@ -155,7 +157,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                     ),
                     children: [
                       100.ph,
-                      Container(
+                      SizedBox(
                           width: screenSize(context).width / 2 - 200,
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -250,21 +252,41 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                     onPressed: () async {
                       if (!isConnectedToLg) {
                         await setSharedPrefs();
-                        await SSH(ref: ref).connect();
-                        await SSH(ref: ref).cleanBalloon();
+                        if (!mounted) {
+                          return;
+                        }
+                        await SSH(ref: ref).connect(
+                          context,
+                        );
+                        if (!mounted) {
+                          return;
+                        }
+                        await SSH(ref: ref).cleanBalloon(
+                          context,
+                        );
+                        if (!mounted) {
+                          return;
+                        }
                         await SSH(ref: ref).renderInSlave(
+                            context,
                             ref.read(leftmostRigProvider),
                             KMLMakers.screenOverlayImage(
                                 ImageConst.splashOnline,
                                 Const.splashAspectRatio));
+                        if (!mounted) {
+                          return;
+                        }
                         await SSH(ref: ref).flyTo(
+                            context,
                             initialMapPosition.target.latitude,
                             initialMapPosition.target.longitude,
                             initialMapPosition.zoom.zoomLG,
                             initialMapPosition.tilt,
                             initialMapPosition.bearing);
                       } else {
-                        await SSH(ref: ref).disconnect();
+                        await SSH(ref: ref).disconnect(
+                          context,
+                        );
                       }
                     },
                     name: isConnectedToLg
@@ -301,15 +323,18 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                               await getApplicationDocumentsDirectory();
                           for (MapEntry<String, Map<String, String>> fileData
                               in DownloadableContent.content.entries) {
-                            print(
-                                "${localPath.path}/${fileData.value['directory']}/${fileData.value['filename']}");
                             File file = File(
                                 "${localPath.path}/${fileData.value['directory']}/${fileData.value['filename']}");
-                            print(file);
                             try {
-                              await file.delete();
-                            } catch (e) {
-                              print(e);
+                              if (downloadableContentAvailable) {
+                                await file.delete();
+                              }
+                            } catch (error) {
+                              if (!mounted) {
+                                return;
+                              }
+                              showSnackBar(
+                                  context: context, message: error.toString());
                             }
                           }
                           await prefs.setBool('downloadableContent', false);
@@ -317,6 +342,13 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                               .read(
                                   downloadableContentAvailableProvider.notifier)
                               .state = false;
+                          if (!mounted) {
+                            return;
+                          }
+                          showSnackBar(
+                              context: context,
+                              message:
+                                  translate('settings.delete_csv_success'));
                         },
                         name: translate('settings.delete_csv'),
                         width: screenSize(context).width / 2 - 200,
@@ -350,15 +382,24 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       TextButtonCustom(
                         onPressed: () async {
                           var localPath =
-                          await getApplicationDocumentsDirectory();
+                              await getApplicationDocumentsDirectory();
                           File file = File(
                               "${localPath.path}/${Const.kmlCustomFileName}.kml");
                           try {
                             await file.delete();
-                          } catch (e) {
-                            print(e);
+                          } catch (error) {}
+                          if (!mounted) {
+                            return;
                           }
-                          await SSH(ref: ref).fileDelete("${Const.kmlCustomFileName}.kml");
+                          await SSH(ref: ref).fileDelete(
+                              context, "${Const.kmlCustomFileName}.kml");
+                          if (!mounted) {
+                            return;
+                          }
+                          showSnackBar(
+                              context: context,
+                              message:
+                                  translate('settings.delete_kml_success'));
                         },
                         name: translate('settings.delete_kml'),
                         width: screenSize(context).width / 2 - 200,
@@ -391,6 +432,12 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       ref
                           .read(downloadableContentAvailableProvider.notifier)
                           .state = true;
+                      if (!mounted) {
+                        return;
+                      }
+                      showSnackBar(
+                          context: context,
+                          message: translate('settings.download_completed'));
                     },
                     name: translate('settings.download'),
                     width: screenSize(context).width - 400,
@@ -419,7 +466,14 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       TextButtonCustom(
                         onPressed: () async {
                           if (isConnectedToLg) {
-                            await SSH(ref: ref).cleanSlaves();
+                            await SSH(ref: ref).cleanSlaves(
+                              context,
+                            );
+                          } else {
+                            showSnackBar(
+                                context: context,
+                                message:
+                                    translate('settings.connection_required'));
                           }
                         },
                         name: isConnectedToLg
@@ -436,10 +490,16 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                         onPressed: () async {
                           if (isConnectedToLg) {
                             await SSH(ref: ref).renderInSlave(
+                                context,
                                 ref.read(leftmostRigProvider),
                                 KMLMakers.screenOverlayImage(
                                     ImageConst.splashOnline,
                                     Const.splashAspectRatio));
+                          } else {
+                            showSnackBar(
+                                context: context,
+                                message:
+                                    translate('settings.connection_required'));
                           }
                         },
                         name: isConnectedToLg
@@ -455,7 +515,14 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       TextButtonCustom(
                         onPressed: () async {
                           if (isConnectedToLg) {
-                            await SSH(ref: ref).cleanKML();
+                            await SSH(ref: ref).cleanKML(
+                              context,
+                            );
+                          } else {
+                            showSnackBar(
+                                context: context,
+                                message:
+                                    translate('settings.connection_required'));
                           }
                         },
                         name: isConnectedToLg
@@ -494,7 +561,14 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       TextButtonCustom(
                         onPressed: () async {
                           if (isConnectedToLg) {
-                            await SSH(ref: ref).setRefresh();
+                            await SSH(ref: ref).setRefresh(
+                              context,
+                            );
+                          } else {
+                            showSnackBar(
+                                context: context,
+                                message:
+                                    translate('settings.connection_required'));
                           }
                         },
                         name: isConnectedToLg
@@ -510,7 +584,14 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       TextButtonCustom(
                         onPressed: () async {
                           if (isConnectedToLg) {
-                            await SSH(ref: ref).resetRefresh();
+                            await SSH(ref: ref).resetRefresh(
+                              context,
+                            );
+                          } else {
+                            showSnackBar(
+                                context: context,
+                                message:
+                                    translate('settings.connection_required'));
                           }
                         },
                         name: isConnectedToLg
@@ -549,7 +630,14 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       TextButtonCustom(
                         onPressed: () async {
                           if (isConnectedToLg) {
-                            await SSH(ref: ref).relaunchLG();
+                            await SSH(ref: ref).relaunchLG(
+                              context,
+                            );
+                          } else {
+                            showSnackBar(
+                                context: context,
+                                message:
+                                    translate('settings.connection_required'));
                           }
                         },
                         name: isConnectedToLg
@@ -565,7 +653,14 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       TextButtonCustom(
                         onPressed: () async {
                           if (isConnectedToLg) {
-                            await SSH(ref: ref).rebootLG();
+                            await SSH(ref: ref).rebootLG(
+                              context,
+                            );
+                          } else {
+                            showSnackBar(
+                                context: context,
+                                message:
+                                    translate('settings.connection_required'));
                           }
                         },
                         name: isConnectedToLg
@@ -581,7 +676,14 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       TextButtonCustom(
                         onPressed: () async {
                           if (isConnectedToLg) {
-                            await SSH(ref: ref).shutdownLG();
+                            await SSH(ref: ref).shutdownLG(
+                              context,
+                            );
+                          } else {
+                            showSnackBar(
+                                context: context,
+                                message:
+                                    translate('settings.connection_required'));
                           }
                         },
                         name: isConnectedToLg

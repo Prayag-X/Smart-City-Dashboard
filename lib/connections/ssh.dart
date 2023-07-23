@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dartssh2/dartssh2.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,15 +20,15 @@ class SSH {
 
   SSH({required this.ref});
 
-  Future<bool> connect() async {
+  Future<bool> connect(context) async {
     SSHSocket socket;
     try {
       socket = await SSHSocket.connect(
           ref.read(ipProvider), ref.read(portProvider),
           timeout: const Duration(seconds: 5));
-    } catch (e) {
+    } catch (error) {
       ref.read(isConnectedToLGProvider.notifier).state = false;
-      print(e);
+      showSnackBar(context: context, message: error.toString());
       return false;
     }
 
@@ -38,44 +39,54 @@ class SSH {
     );
 
     ref.read(isConnectedToLGProvider.notifier).state = true;
+    showSnackBar(
+        context: context, message: translate('settings.connection_completed'));
     return true;
   }
 
-  disconnect() async {
+  disconnect(context) async {
     ref.read(sshClient)?.close();
+    ref.read(sshClient.notifier).state = null;
+    showSnackBar(
+        context: context,
+        message: translate('settings.disconnection_completed'));
     ref.read(isConnectedToLGProvider.notifier).state = false;
   }
 
   //
 
-  cleanSlaves() async {
+  cleanSlaves(context) async {
     try {
       for (var i = 2; i <= ref.read(rigsProvider); i++) {
         await ref
             .read(sshClient)
             ?.run("echo '' > /var/www/html/kml/slave_$i.kml");
       }
-    } catch (e) {
-      print(e);
+    } catch (error) {
+      showSnackBar(context: context, message: error.toString());
     }
   }
 
-  cleanBalloon() async {
-    await ref.read(sshClient)?.run(
-        "echo '${BalloonMakers.blankBalloon()}' > /var/www/html/kml/slave_${ref.read(rightmostRigProvider)}.kml");
-  }
-
-  cleanKML() async {
+  cleanBalloon(context) async {
     try {
-      await stopOrbit();
-      await ref.read(sshClient)!.run('echo "" > /tmp/query.txt');
-      await ref.read(sshClient)!.run("echo '' > /var/www/html/kmls.txt");
-    } catch (e) {
-      print(e);
+      await ref.read(sshClient)?.run(
+          "echo '${BalloonMakers.blankBalloon()}' > /var/www/html/kml/slave_${ref.read(rightmostRigProvider)}.kml");
+    } catch (error) {
+      showSnackBar(context: context, message: error.toString());
     }
   }
 
-  setRefresh() async {
+  cleanKML(context) async {
+    try {
+      await stopOrbit(context);
+      await ref.read(sshClient)?.run('echo "" > /tmp/query.txt');
+      await ref.read(sshClient)?.run("echo '' > /var/www/html/kmls.txt");
+    } catch (error) {
+      showSnackBar(context: context, message: error.toString());
+    }
+  }
+
+  setRefresh(context) async {
     try {
       for (var i = 2; i <= ref.read(rigsProvider); i++) {
         String search = '<href>##LG_PHPIFACE##kml\\/slave_$i.kml<\\/href>';
@@ -87,13 +98,12 @@ class SSH {
         await ref.read(sshClient)?.run(
             'sshpass -p ${ref.read(passwordProvider)} ssh -t lg$i \'echo ${ref.read(passwordProvider)} | sudo -S sed -i "s/$search/$replace/" ~/earth/kml/slave/myplaces.kml\'');
       }
-      print("DONE");
-    } catch (e) {
-      print(e);
+    } catch (error) {
+      showSnackBar(context: context, message: error.toString());
     }
   }
 
-  resetRefresh() async {
+  resetRefresh(context) async {
     try {
       for (var i = 2; i <= ref.read(rigsProvider); i++) {
         String search =
@@ -103,13 +113,12 @@ class SSH {
         await ref.read(sshClient)?.run(
             'sshpass -p ${ref.read(passwordProvider)} ssh -t lg$i \'echo ${ref.read(passwordProvider)} | sudo -S sed -i "s/$search/$replace/" ~/earth/kml/slave/myplaces.kml\'');
       }
-      print("DONE");
-    } catch (e) {
-      print(e);
+    } catch (error) {
+      showSnackBar(context: context, message: error.toString());
     }
   }
 
-  relaunchLG() async {
+  relaunchLG(context) async {
     try {
       for (var i = 1; i <= ref.read(rigsProvider); i++) {
         String cmd = """RELAUNCH_CMD="\\
@@ -130,55 +139,59 @@ class SSH {
             '"/home/${ref.read(usernameProvider)}/bin/lg-relaunch" > /home/${ref.read(usernameProvider)}/log.txt');
         await ref.read(sshClient)?.run(cmd);
       }
-    } catch (e) {
-      print(e);
+    } catch (error) {
+      showSnackBar(context: context, message: error.toString());
     }
   }
 
-  rebootLG() async {
+  rebootLG(context) async {
     try {
       for (var i = 1; i <= ref.read(rigsProvider); i++) {
         await ref.read(sshClient)?.run(
             'sshpass -p ${ref.read(passwordProvider)} ssh -t lg$i "echo ${ref.read(passwordProvider)} | sudo -S reboot');
       }
-    } catch (e) {
-      print(e);
+    } catch (error) {
+      showSnackBar(context: context, message: error.toString());
     }
   }
 
-  shutdownLG() async {
+  shutdownLG(context) async {
     try {
       for (var i = 1; i <= ref.read(rigsProvider); i++) {
         await ref.read(sshClient)?.run(
             'sshpass -p ${ref.read(passwordProvider)} ssh -t lg$i "echo ${ref.read(passwordProvider)} | sudo -S poweroff"');
       }
-    } catch (e) {
-      print(e);
+    } catch (error) {
+      showSnackBar(context: context, message: error.toString());
     }
   }
 
   //
 
-  renderInSlave(int slaveNo, String kml) async {
+  renderInSlave(context, int slaveNo, String kml) async {
     try {
       await ref
           .read(sshClient)
           ?.run("echo '$kml' > /var/www/html/kml/slave_$slaveNo.kml");
-    } catch (e) {
-      print(e);
+    } catch (error) {
+      showSnackBar(context: context, message: error.toString());
     }
   }
 
-  flyTo(double latitude, double longitude, double zoom, double tilt,
+  flyTo(context, double latitude, double longitude, double zoom, double tilt,
       double bearing) async {
-    ref.read(lastGMapPositionProvider.notifier).state = CameraPosition(
-      target: LatLng(latitude, longitude),
-      zoom: zoom,
-      tilt: tilt,
-      bearing: bearing,
-    );
-    await ref.read(sshClient)?.run(
-        'echo "flytoview=${KMLMakers.lookAtLinear(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
+    try {
+      ref.read(lastGMapPositionProvider.notifier).state = CameraPosition(
+        target: LatLng(latitude, longitude),
+        zoom: zoom,
+        tilt: tilt,
+        bearing: bearing,
+      );
+      await ref.read(sshClient)?.run(
+          'echo "flytoview=${KMLMakers.lookAtLinear(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
+    } catch (error) {
+      showSnackBar(context: context, message: error.toString());
+    }
   }
 
   makeFile(String filename, String content) async {
@@ -188,43 +201,64 @@ class SSH {
     return localFile;
   }
 
-  kmlFileUpload(File inputFile, String kmlName) async {
-    bool uploading = true;
-    final sftp = await ref.read(sshClient)?.sftp();
-    final file = await sftp?.open('/var/www/html/$kmlName.kml',
-        mode: SftpFileOpenMode.create |
-            SftpFileOpenMode.truncate |
-            SftpFileOpenMode.write);
-    var fileSize = await inputFile.length();
-    file?.write(inputFile.openRead().cast(), onProgress: (progress) {
-      ref.read(loadingPercentageProvider.notifier).state = progress / fileSize;
-      if (fileSize == progress) {
-        uploading = false;
+  kmlFileUpload(context, File inputFile, String kmlName) async {
+    try {
+      bool uploading = true;
+      final sftp = await ref.read(sshClient)?.sftp();
+      final file = await sftp?.open('/var/www/html/$kmlName.kml',
+          mode: SftpFileOpenMode.create |
+              SftpFileOpenMode.truncate |
+              SftpFileOpenMode.write);
+      var fileSize = await inputFile.length();
+      file?.write(inputFile.openRead().cast(), onProgress: (progress) {
+        ref.read(loadingPercentageProvider.notifier).state =
+            progress / fileSize;
+        if (fileSize == progress) {
+          uploading = false;
+        }
+      });
+      if (file == null) {
+        return;
       }
-    });
-    if (file == null) {
-      return;
+      await waitWhile(() => uploading);
+      ref.read(loadingPercentageProvider.notifier).state = null;
+    } catch (error) {
+      showSnackBar(context: context, message: error.toString());
     }
-    await waitWhile(() => uploading);
-    ref.read(loadingPercentageProvider.notifier).state = null;
   }
 
-  fileDelete(String filename) async {
-    final sftp = await ref.read(sshClient)?.sftp();
-    await sftp?.remove("/var/www/html/$filename");
+  fileDelete(context, String filename) async {
+    try {
+      final sftp = await ref.read(sshClient)?.sftp();
+      await sftp?.remove("/var/www/html/$filename");
+    } catch (error) {
+      showSnackBar(context: context, message: error.toString());
+    }
   }
 
-  runKml(String kmlName) async {
-    await ref
-        .read(sshClient)
-        ?.run("echo '\nhttp://lg1:81/$kmlName.kml' > /var/www/html/kmls.txt");
+  runKml(context, String kmlName) async {
+    try {
+      await ref
+          .read(sshClient)
+          ?.run("echo '\nhttp://lg1:81/$kmlName.kml' > /var/www/html/kmls.txt");
+    } catch (error) {
+      showSnackBar(context: context, message: error.toString());
+    }
   }
 
-  startOrbit() async {
-    await ref.read(sshClient)?.run('echo "playtour=Orbit" > /tmp/query.txt');
+  startOrbit(context) async {
+    try {
+      await ref.read(sshClient)?.run('echo "playtour=Orbit" > /tmp/query.txt');
+    } catch (error) {
+      showSnackBar(context: context, message: error.toString());
+    }
   }
 
-  stopOrbit() async {
-    await ref.read(sshClient)?.run('echo "exittour=true" > /tmp/query.txt');
+  stopOrbit(context) async {
+    try {
+      await ref.read(sshClient)?.run('echo "exittour=true" > /tmp/query.txt');
+    } catch (error) {
+      showSnackBar(context: context, message: error.toString());
+    }
   }
 }

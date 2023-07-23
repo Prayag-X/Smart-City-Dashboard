@@ -114,6 +114,15 @@
     "reboot_lg": "REBOOT LG",
     "shutdown_lg": "SHUTDOWN LG",
     "language": "Language",
+    "connection_required": "Connection to Liquid Galaxy is required to use this feature!",
+    "connection_completed": "Connected to Liquid Galaxy successfully!",
+    "disconnection_completed": "Disconnected from Liquid Galaxy successfully!",
+    "timeout": "Connection Timeout! Retry :(",
+    "download_completed": "All contents downloaded successfully!",
+    "delete_csv_success": "All contents deleted successfully!",
+    "delete_kml_success": "All kml files deleted successfully!",
+    "task_success": "Task completed successfully!",
+    "kml_success": "KML file is now running successfully!",
     "theme": "Theme"
   },
   "help_page": {

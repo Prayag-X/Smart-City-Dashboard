@@ -40,7 +40,11 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
       zoom: 11,
     );
     ForecastWeather? weatherData = ref.read(weatherDataProvider)!;
+    if(!mounted) {
+      return;
+    }
     await SSH(ref: ref).renderInSlave(
+        context,
         ref.read(rightmostRigProvider),
         BalloonMakers.weatherBalloon(
             initialMapPosition,

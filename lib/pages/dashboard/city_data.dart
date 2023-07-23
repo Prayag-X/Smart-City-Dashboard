@@ -79,7 +79,7 @@ class AllCityData {
         description: translate('city_data.charlotte.description'),
         image: ImageConst.charlotte,
         number: 1,
-        location: const LatLng(35.1340053, -81.0202533),
+        location: const LatLng(35.226841065880684, -80.84285320438734),
         availableTabs: [
           TabButtonModel(
             logo: ImageConst.weather,
@@ -107,7 +107,9 @@ class AllCityData {
           ),
         ],
         availableTours: [
-          const LatLng(40.74847707639803, -73.98563946566026),
+          const LatLng(35.19802709514496, -80.81439580678503),
+          const LatLng(35.20616267388421, -80.79800214535496),
+          const LatLng(35.21506879539595, -80.82074727779712),
         ],
         availableToursName: [],
         availableToursDescription: [
@@ -120,7 +122,7 @@ class AllCityData {
         description: translate('city_data.seattle.description'),
         image: ImageConst.seattle,
         number: 2,
-        location: const LatLng(30.4882, -97.7618),
+        location: const LatLng(47.61088523425851, -122.32392408029098),
         availableTabs: [
           TabButtonModel(
             logo: ImageConst.weather,
@@ -155,7 +157,9 @@ class AllCityData {
           ),
         ],
         availableTours: [
-          const LatLng(40.74847707639803, -73.98563946566026),
+          const LatLng(47.60796303093698, -122.33769990580109),
+          const LatLng(47.60321771936339, -122.3145685354345),
+          const LatLng(47.59795107695832, -122.31577016509245),
         ],
         availableToursName: [],
         availableToursDescription: [
@@ -168,7 +172,7 @@ class AllCityData {
         description: translate('city_data.austin.description'),
         image: ImageConst.austin,
         number: 3,
-        location: const LatLng(30.4882, -97.7618),
+        location: const LatLng(30.29304532971849, -97.73443720721826),
         availableTabs: [
           TabButtonModel(
             logo: ImageConst.weather,
@@ -189,7 +193,9 @@ class AllCityData {
           ),
         ],
         availableTours: [
-          const LatLng(40.74847707639803, -73.98563946566026),
+          const LatLng(30.281409198164788, -97.73864291082809),
+          const LatLng(30.292971218094596, -97.69366763014077),
+          const LatLng(30.328686283420616, -97.74121783146857),
         ],
         availableToursName: [],
         availableToursDescription: [
@@ -202,7 +208,7 @@ class AllCityData {
         description: translate('city_data.boulder.description'),
         image: ImageConst.boulder,
         number: 4,
-        location: const LatLng(30.4882, -97.7618),
+        location: const LatLng(40.015116174616196, -105.26924937530075),
         availableTabs: [
           TabButtonModel(
             logo: ImageConst.weather,
@@ -216,7 +222,9 @@ class AllCityData {
           ),
         ],
         availableTours: [
-          const LatLng(40.74847707639803, -73.98563946566026),
+          const LatLng(40.01409726578651, -105.25852053941347),
+          const LatLng(40.0311469853605, -105.2873682987872),
+          const LatLng(39.96302696330601, -105.20033598076574),
         ],
         availableToursName: [],
         availableToursDescription: [

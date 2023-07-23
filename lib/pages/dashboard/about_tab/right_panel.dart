@@ -10,6 +10,7 @@ import 'package:smart_city_dashboard/utils/extensions.dart';
 import '../../../constants/constants.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../connections/ssh.dart';
+import '../../../utils/helper.dart';
 
 class AboutTabRight extends ConsumerStatefulWidget {
   const AboutTabRight({
@@ -43,23 +44,40 @@ class _AboutTabRightState extends ConsumerState<AboutTabRight> {
                   selectedTask = 0;
                 });
                 try {
-                  // await Downloader(ref: ref).downloadKml('https://i.pinimg.com/1200x/0e/50/39/0e503918829c61bd24803ce064546cee.jpg');
-
-                  // File file = await SSH(ref: ref).makeFile(Const.kmlOrbitFileName, KMLMakers.buildOrbit(cityData!.location.latitude, cityData.location.longitude));
-                  // File file = await SSH(ref: ref).makeFile(Const.kmlOrbitFileName, KMLMakers.buildExample());
-
                   File file = await SSH(ref: ref).makeFile(
                       Const.kmlOrbitFileName, KMLMakers.buildOrbit(ref));
+                  if (!mounted) {
+                    return;
+                  }
                   await SSH(ref: ref)
-                      .kmlFileUpload(file, Const.kmlOrbitFileName);
-                  await SSH(ref: ref).runKml(Const.kmlOrbitFileName);
-                  await SSH(ref: ref).startOrbit();
-
-                  // await NYCApi().getData('resource/uvpi-gqnh.json', 2000);
-                  // print("DONEE");
-                } catch (e) {
-                  print("EAFDAFASF");
-                  print(e);
+                      .kmlFileUpload(context, file, Const.kmlOrbitFileName);
+                  if (!mounted) {
+                    return;
+                  }
+                  await SSH(ref: ref).runKml(context, Const.kmlOrbitFileName);
+                  if (!mounted) {
+                    return;
+                  }
+                  await SSH(ref: ref).startOrbit(
+                    context,
+                  );
+                  if (!mounted) {
+                    return;
+                  }
+                  await SSH(ref: ref)
+                      .kmlFileUpload(context, file, Const.kmlOrbitFileName);
+                  if (!mounted) {
+                    return;
+                  }
+                  await SSH(ref: ref).runKml(context, Const.kmlOrbitFileName);
+                  if (!mounted) {
+                    return;
+                  }
+                  await SSH(ref: ref).startOrbit(
+                    context,
+                  );
+                } catch (error) {
+                  showSnackBar(context: context, message: error.toString());
                 }
                 ref.read(isLoadingProvider.notifier).state = false;
               },
@@ -99,7 +117,9 @@ class _AboutTabRightState extends ConsumerState<AboutTabRight> {
                 setState(() {
                   selectedTask = 1;
                 });
-                await SSH(ref: ref).stopOrbit();
+                await SSH(ref: ref).stopOrbit(
+                  context,
+                );
                 ref.read(isLoadingProvider.notifier).state = false;
               },
               child: Container(

@@ -35,7 +35,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     Future.delayed(Duration.zero).then((x) async {
       ref.read(isLoadingProvider.notifier).state = false;
     });
-    SSH(ref: ref).cleanBalloon();
+    SSH(ref: ref).cleanBalloon(context, );
   }
 
   @override
