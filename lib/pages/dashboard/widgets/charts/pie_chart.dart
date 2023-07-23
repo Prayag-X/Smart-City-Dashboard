@@ -2,15 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:smart_city_dashboard/utils/extensions.dart';
 
 import '../../../../constants/constants.dart';
 import '../../../../constants/text_styles.dart';
-import '../../../../constants/theme.dart';
 import '../../../../models/pie_chart_model.dart';
 import '../../../../providers/settings_providers.dart';
 import '../../../../utils/helper.dart';
-import '../../../../utils/extensions.dart';
 
 class DashboardPieChart extends ConsumerStatefulWidget {
   const DashboardPieChart(

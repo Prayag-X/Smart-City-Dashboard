@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:smart_city_dashboard/connections/downloader.dart';
@@ -13,7 +12,6 @@ import 'package:smart_city_dashboard/utils/extensions.dart';
 import '../../../connections/ssh.dart';
 import '../../../constants/constants.dart';
 import '../../../constants/text_styles.dart';
-import '../../../constants/theme.dart';
 import '../../../kml_makers/balloon_makers.dart';
 import '../../../models/downloadable_kml.dart';
 

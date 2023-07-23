@@ -9,7 +9,6 @@ import 'package:smart_city_dashboard/utils/extensions.dart';
 import 'package:smart_city_dashboard/utils/logo_shower.dart';
 
 import '../../../constants/constants.dart';
-import '../../../constants/theme.dart';
 import '../../../providers/data_providers.dart';
 import '../../../providers/settings_providers.dart';
 

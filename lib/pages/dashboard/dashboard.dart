@@ -11,14 +11,11 @@ import 'package:smart_city_dashboard/utils/helper.dart';
 import '../../connections/ssh.dart';
 import '../../constants/constants.dart';
 import '../../constants/text_styles.dart';
-import '../../kml_makers/balloon_makers.dart';
 import '../../providers/data_providers.dart';
 import '../../providers/page_providers.dart';
 import '../../providers/settings_providers.dart';
 import 'about_tab/left_panel.dart';
 import 'about_tab/right_panel.dart';
-import 'downloadable_content.dart';
-import 'new_york/environment_left_panel.dart';
 import 'weather_tab/left_panel.dart';
 import 'weather_tab/right_panel.dart';
 

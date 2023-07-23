@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:smart_city_dashboard/models/pie_chart_model.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/charts/pie_chart.dart';
 
-import '../../../../constants/theme.dart';
 import '../../../../utils/helper.dart';
 
 class PieChartParser {
