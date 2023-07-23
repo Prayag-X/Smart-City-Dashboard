@@ -64,6 +64,23 @@ class ImageConst {
   static const parcLleida = 'assets/logos/parc_lleida.png';
 
   //
+  static const appBar = 'assets/images/help_page/app_bar.png';
+  static const content1 = 'assets/images/help_page/content1.png';
+  static const content2 = 'assets/images/help_page/content2.png';
+  static const feature1 = 'assets/images/help_page/feature1.png';
+  static const feature2 = 'assets/images/help_page/feature2.png';
+  static const feature3 = 'assets/images/help_page/feature3.png';
+  static const feature4 = 'assets/images/help_page/feature4.png';
+  static const nav1 = 'assets/images/help_page/nav1.png';
+  static const nav2 = 'assets/images/help_page/nav2.png';
+  static const search = 'assets/images/help_page/search.png';
+  static const settings1 = 'assets/images/help_page/settings1.png';
+  static const settings2 = 'assets/images/help_page/settings2.png';
+  static const tab1 = 'assets/images/help_page/tab1.png';
+  static const tab2 = 'assets/images/help_page/tab2.png';
+  static const theme = 'assets/images/help_page/theme.png';
+
+  //
   static const tree = 'assets/logos/tree.png';
   static const bin = 'assets/logos/bin.png';
   static const corona = 'assets/logos/corona.png';

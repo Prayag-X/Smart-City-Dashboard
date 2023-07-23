@@ -119,7 +119,7 @@
   "help_page": {
     "nav1": "This is the homepage of the app. Click on any city to visualize its data.",
     "nav2": "Click on the app icon to go back to the homepage.",
-    "app_bar": "The app bar shows the status of the app's connection to the internet (Online/Offline) and to Liquid Galaxy (Connected/Disconnected) respectively.",
+    "app_bar": "The app bar shows the status of the app's connection to the internet (Online / Offline) and to Liquid Galaxy (Connected / Disconnected) respectively.",
     "search": "You can search for any city name or the cities which contains the particular data (For example, Environment as shown in the picture). You can type it or say by pressing the microphone icon. The bar will become green when the microphone is on.",
     "settings": "You can connect to Liquid Galaxy by going to the settings page. Then fill out the required details in the places provided and click on the CONNECT TO LG button. Then the buttons to control Liquid Galaxy will also appear like this.",
     "settings_theme": "The themes and language of the app can be changed from here.",
