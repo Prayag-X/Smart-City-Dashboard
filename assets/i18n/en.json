@@ -253,6 +253,23 @@
         "treated": "Treated",
         "treatable": "Treatable",
         "tag": "Tag"
+      },
+      "health": {
+        "health": "Health",
+        "sa4_title": "SA4 Mental Health Training",
+        "sa5_title": "SA5 Mental Health Training",
+        "food_title": "Food Establishment Inspection",
+        "health_insurance": "<65 age with no health insurance",
+        "lake_health": "Creeks and Lakes in good health",
+        "bad_mental_health": "5+ days with bad Mental Health",
+        "attendees": "Attendees",
+        "eligible": "Eligible",
+        "year": "Eligible",
+        "restaurant": "Restaurant",
+        "score": "Score",
+        "percent": "Percentage",
+        "reach": "Reach",
+        "dept": "Department"
       }
     },
     "seattle": {
