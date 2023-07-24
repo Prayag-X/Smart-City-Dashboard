@@ -231,7 +231,6 @@ class DownloadableContent {
       'directory': 'Seattle/education'
     },
 
-
     //Austin Environment
     'Imagine Austin Indicator': {
       'url':
@@ -274,6 +273,44 @@ class DownloadableContent {
           'https://data.austintexas.gov/api/views/ejk8-63sb/rows.csv?accessType=DOWNLOAD',
       'filename': 'heec5.csv',
       'directory': 'Austin/environment'
+    },
+
+    //Austin Health
+    'SA4 Mental training': {
+      'url':
+          'https://data.austintexas.gov/api/views/xz2z-phib/rows.csv?accessType=DOWNLOAD',
+      'filename': 'SA4.csv',
+      'directory': 'Austin/health'
+    },
+    'SA5 Mental training': {
+      'url':
+          'https://data.austintexas.gov/api/views/iys6-c7vj/rows.csv?accessType=DOWNLOAD',
+      'filename': 'SA5.csv',
+      'directory': 'Austin/health'
+    },
+    'Food Inspection': {
+      'url':
+          'https://data.austintexas.gov/api/views/ecmv-9xxi/rows.csv?accessType=DOWNLOAD',
+      'filename': 'food_inspection.csv',
+      'directory': 'Austin/health'
+    },
+    'Below 65 no health insurance': {
+      'url':
+          'https://data.austintexas.gov/api/views/kuzb-i7x7/rows.csv?accessType=DOWNLOAD',
+      'filename': 'health_insurance.csv',
+      'directory': 'Austin/health'
+    },
+    'Creek lake good health': {
+      'url':
+          'https://data.austintexas.gov/api/views/773s-mqs2/rows.csv?accessType=DOWNLOAD',
+      'filename': 'lake_health.csv',
+      'directory': 'Austin/health'
+    },
+    'Bad mental health': {
+      'url':
+          'https://data.austintexas.gov/api/views/tncx-hyqy/rows.csv?accessType=DOWNLOAD',
+      'filename': 'bad_mental_health.csv',
+      'directory': 'Austin/health'
     },
   };
 
@@ -457,5 +494,18 @@ class DownloadableContent {
             'https://data.austintexas.gov/api/geospatial/isb7-5h5a?accessType=DOWNLOAD&method=export&format=KML',
         name: 'Grow Zones',
         size: '311 KB'),
+  ];
+
+  static List<DownloadableKML> austinHealthKml = [
+    DownloadableKML(
+        url:
+            'https://data.texas.gov/api/geospatial/gxdu-rsbb?accessType=DOWNLOAD&method=export&format=KML',
+        name: 'CACFP 2018-19',
+        size: '43.3 MB'),
+    DownloadableKML(
+        url:
+            'https://data.texas.gov/api/geospatial/8rqi-6nkw?accessType=DOWNLOAD&method=export&format=KML',
+        name: 'CACFP 2019-20',
+        size: '53.4 MB'),
   ];
 }

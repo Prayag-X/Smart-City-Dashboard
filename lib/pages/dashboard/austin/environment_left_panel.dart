@@ -80,7 +80,7 @@ class _AustinEnvironmentTabLeftState
   @override
   Widget build(BuildContext context) {
     return AnimationLimiter(
-      child: Column(
+        child: Column(
         children: AnimationConfiguration.toStaggeredList(
           duration: Const.animationDuration,
           childAnimationBuilder: (widget) => SlideAnimation(
