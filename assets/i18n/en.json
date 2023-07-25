@@ -270,6 +270,17 @@
         "percent": "Percentage",
         "reach": "Reach",
         "dept": "Department"
+      },
+      "transport": {
+        "transport": "transport",
+        "ems_title": "EMS - Transport Count",
+        "transport_construction_title": "Active Transport Construction",
+        "count": "Count",
+        "id": "ID",
+        "percent": "Percent",
+        "population": "Population",
+        "length": "Length",
+        "code": "Destination Code"
       }
     },
     "seattle": {

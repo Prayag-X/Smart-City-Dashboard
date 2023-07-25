@@ -72,7 +72,7 @@ class _AustinHealthTabLeftState extends ConsumerState<AustinHealthTabLeft> {
 
   @override
   Widget build(BuildContext context) {
-     return AnimationLimiter(
+    return AnimationLimiter(
       child: Column(
         children: AnimationConfiguration.toStaggeredList(
           duration: Const.animationDuration,
@@ -83,142 +83,111 @@ class _AustinHealthTabLeftState extends ConsumerState<AustinHealthTabLeft> {
             ),
           ),
           children: [
-            imagineAustinData != null
+            sa4Data != null
                 ? LineChartParser(
-                title: translate(
-                    'city_data.austin.environment.imagine_austin_title'),
-                legendX: translate('city_data.austin.environment.tag'),
-                chartData: {
-                  translate('city_data.austin.environment.2007'):
-                  Colors.blue,
-                  translate('city_data.austin.environment.2012'):
-                  Colors.yellow,
-                  translate('city_data.austin.environment.2017'):
-                  Colors.red,
-                }).chartParser(dataX: imagineAustinData![0], dataY: [
-              imagineAustinData![4],
-              imagineAustinData![9],
-              imagineAustinData![14],
-            ])
+                    title: translate('city_data.austin.health.sa4_title'),
+                    legendX: translate('city_data.austin.health.dept'),
+                    chartData: {
+                        translate('city_data.austin.health.attendees'):
+                            Colors.yellow,
+                        translate('city_data.austin.health.eligible'):
+                            Colors.blue,
+                      }, markerIntervalX: 6).chartParser(
+              limitMarkerX: 14,
+                dataX: sa4Data![0], dataY: [
+                    sa4Data![1],
+                    sa4Data![2],
+                  ])
                 : const BlankDashboardContainer(
-              heightMultiplier: 2,
-              widthMultiplier: 2,
-            ),
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
             Const.dashboardUISpacing.ph,
-            cpi38Data != null
+            sa5Data != null
                 ? LineChartParser(
-                title:
-                translate('city_data.austin.environment.cpi_38_title'),
-                legendX: translate('city_data.austin.environment.year'),
-                chartData: {
-                  translate('city_data.austin.environment.victims'):
-                  Colors.red,
-                },markerIntervalX: 1).chartParserWithDuplicate(dataX: cpi38Data![0], dataY: [
-              cpi38Data![4],
-            ])
+                    title: translate('city_data.austin.health.sa5_title'),
+                    legendX: translate('city_data.austin.health.year'),
+                    chartData: {
+                        translate('city_data.austin.health.eligible'):
+                            Colors.blue,
+                      }).chartParserWithDuplicate(
+                    sortX: true,
+                    dataX: sa5Data![1],
+                    dataY: [
+                        sa5Data![3],
+                      ])
                 : const BlankDashboardContainer(
-              heightMultiplier: 2,
-              widthMultiplier: 2,
-            ),
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
             Const.dashboardUISpacing.ph,
-            cpi33Data != null
+            foodInspectionData != null
                 ? LineChartParser(
-                title:
-                translate('city_data.austin.environment.cpi_33_title'),
-                legendX: translate('city_data.austin.environment.year'),
-                chartData: {
-                  translate('city_data.austin.environment.victims'):
-                  Colors.red,
-                },markerIntervalX: 1).chartParserWithDuplicate(dataX: cpi33Data![0], dataY: [
-              cpi33Data![4],
-            ])
+                    title: translate('city_data.austin.health.food_title'),
+                    legendX: translate('city_data.austin.health.restaurant'),
+                    chartData: {
+                        translate('city_data.austin.health.score'): Colors.blue,
+                      }, barWidth: 2).chartParser(dataX: foodInspectionData![0], dataY: [
+                    foodInspectionData![3],
+                  ])
                 : const BlankDashboardContainer(
-              heightMultiplier: 2,
-              widthMultiplier: 2,
-            ),
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
             Const.dashboardUISpacing.ph,
-            greenBuildingData != null
+            insuranceData != null
                 ? LineChartParser(
-                title: translate(
-                    'city_data.austin.environment.green_building_title'),
-                legendX: translate('city_data.austin.environment.year'),
-                chartData: {
-                  translate('city_data.austin.environment.project_no'):
-                  Colors.blue,
-                  translate('city_data.austin.environment.energy'):
-                  Colors.yellow,
-                  translate('city_data.austin.environment.demand'):
-                  Colors.red,
-                }).chartParserWithDuplicate(
-                sortX: true,
-                dataX: greenBuildingData![1],
-                dataY: [
-                  greenBuildingData![2],
-                  greenBuildingData![7],
-                  greenBuildingData![8],
-                ])
+                    title:
+                        translate('city_data.austin.health.health_insurance'),
+                    legendX: translate('city_data.austin.health.year'),
+                    chartData: {
+                        translate('city_data.austin.health.percent'):
+                            Colors.blue,
+                      }).chartParserWithDuplicate(
+                    dataX: insuranceData![0],
+                    dataY: [
+                        insuranceData![1],
+                      ])
                 : const BlankDashboardContainer(
-              heightMultiplier: 2,
-              widthMultiplier: 2,
-            ),
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
             Const.dashboardUISpacing.ph,
-            ecadData != null
+            lakeData != null
                 ? LineChartParser(
-                title: translate('city_data.austin.environment.ecad_title'),
-                legendX: translate('city_data.austin.environment.id'),
-                chartData: {
-                  translate('city_data.austin.environment.number'):
-                  Colors.blue,
-                  translate('city_data.austin.environment.apts'):
-                  Colors.yellow,
-                  translate('city_data.austin.environment.costs'):
-                  Colors.red,
-                },barWidth: 1).chartParser(dataX: ecadData![0], dataY: [
-              ecadData![9],
-              ecadData![10],
-              ecadData![12],
-            ])
+                    title:
+                        translate('city_data.austin.health.lake_health'),
+                    legendX: translate('city_data.austin.health.reach'),
+                    chartData: {
+                        translate('city_data.austin.health.score'):
+                            Colors.blue,
+                      }, barWidth: 2).chartParser(
+                    dataX: lakeData![0],
+                    dataY: [
+                      lakeData![5],
+                      ])
                 : const BlankDashboardContainer(
-              heightMultiplier: 2,
-              widthMultiplier: 2,
-            ),
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
             Const.dashboardUISpacing.ph,
-            renewableData != null
+            badHealthData != null
                 ? LineChartParser(
-                title: translate(
-                    'city_data.austin.environment.renewable_title'),
-                legendX: translate('city_data.austin.environment.year'),
-                chartData: {
-                  translate('city_data.austin.environment.percentage'):
-                  Colors.blue,
-                }).chartParser(dataX: renewableData![0], dataY: [
-              renewableData![1],
-            ])
+                    title:
+                        translate('city_data.austin.health.bad_mental_health'),
+                    legendX: translate('city_data.austin.health.year'),
+                    chartData: {
+                        translate('city_data.austin.health.percent'):
+                            Colors.blue,
+                      }).chartParser(
+                    dataX: badHealthData![0],
+                    dataY: [
+                      badHealthData![1],
+                      ])
                 : const BlankDashboardContainer(
-              heightMultiplier: 2,
-              widthMultiplier: 2,
-            ),
-            Const.dashboardUISpacing.ph,
-            hee5cData != null
-                ? LineChartParser(
-                title: translate('city_data.austin.environment.heec5'),
-                legendX: translate('city_data.austin.environment.district'),
-                chartData: {
-                  translate('city_data.austin.environment.treated'):
-                  Colors.blue,
-                  translate('city_data.austin.environment.treatable'):
-                  Colors.yellow,
-                }).chartParserWithDuplicate(
-                sortX: true,
-                dataX: hee5cData![1],
-                dataY: [
-                  hee5cData![2],
-                  hee5cData![3],
-                ])
-                : const BlankDashboardContainer(
-              heightMultiplier: 2,
-              widthMultiplier: 2,
-            ),
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
             Const.dashboardUISpacing.ph,
           ],
         ),

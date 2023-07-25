@@ -312,6 +312,44 @@ class DownloadableContent {
       'filename': 'bad_mental_health.csv',
       'directory': 'Austin/health'
     },
+
+    //Austin Transport
+    'EMS Transport': {
+      'url':
+          'https://data.austintexas.gov/api/views/jtkc-5pgh/rows.csv?accessType=DOWNLOAD',
+      'filename': 'ems_transport.csv',
+      'directory': 'Austin/transport'
+    },
+    'Active Transport Construction': {
+      'url':
+          'https://data.austintexas.gov/api/views/hbh2-fkab/rows.csv?accessType=DOWNLOAD',
+      'filename': 'transport_construction.csv',
+      'directory': 'Austin/transport'
+    },
+    'Traffic Resignal Timing': {
+      'url':
+          'https://data.austintexas.gov/api/views/g8w2-8uap/rows.csv?accessType=DOWNLOAD',
+      'filename': 'resignal_timing.csv',
+      'directory': 'Austin/transport'
+    },
+    'Metro bike Kiosk Locations': {
+      'url':
+          'https://data.austintexas.gov/api/views/qd73-bsdg/rows.csv?accessType=DOWNLOAD',
+      'filename': 'kiosk_location.csv',
+      'directory': 'Austin/transport'
+    },
+    'Bid Book Spreadsheet': {
+      'url':
+          'https://data.texas.gov/api/views/qwhy-c2kk/rows.csv?accessType=DOWNLOAD',
+      'filename': 'bid_book_spreadsheet.csv',
+      'directory': 'Austin/transport'
+    },
+    'Self Sufficiency wage': {
+      'url':
+      'https://data.austintexas.gov/api/views/jfwk-6vr6/rows.csv?accessType=DOWNLOAD',
+      'filename': 'self_wage.csv',
+      'directory': 'Austin/transport'
+    },
   };
 
   static List<DownloadableKML> blankKml = [];
@@ -507,5 +545,43 @@ class DownloadableContent {
             'https://data.texas.gov/api/geospatial/8rqi-6nkw?accessType=DOWNLOAD&method=export&format=KML',
         name: 'CACFP 2019-20',
         size: '53.4 MB'),
+  ];
+
+  static List<DownloadableKML> austinTransportKml = [
+    DownloadableKML(
+        url:
+            'https://data.austintexas.gov/api/geospatial/b4k4-adkb?accessType=DOWNLOAD&method=export&format=KML',
+        name: 'Traffic Cameras',
+        size: '1.39 MB'),
+    DownloadableKML(
+        url:
+            'https://data.austintexas.gov/api/geospatial/p53x-x73x?accessType=DOWNLOAD&method=export&format=KML',
+        name: 'Traffic & Pedestrian Signals',
+        size: '3.18 MB'),
+    DownloadableKML(
+        url:
+            'https://data.austintexas.gov/api/geospatial/hst3-hxcz?accessType=DOWNLOAD&method=export&format=KML',
+        name: 'Traffic Signal Work Orders',
+        size: '71.6 MB'),
+    DownloadableKML(
+        url:
+            'https://data.austintexas.gov/api/geospatial/ivss-na93?accessType=DOWNLOAD&method=export&format=KML',
+        name: 'Street Sign Work Orders',
+        size: '34.5 MB'),
+    DownloadableKML(
+        url:
+            'https://data.austintexas.gov/api/geospatial/btg5-ebcy?accessType=DOWNLOAD&method=export&format=KML',
+        name: 'Pole Attachments',
+        size: '1.32 MB'),
+    DownloadableKML(
+        url:
+            'https://data.austintexas.gov/api/geospatial/4r2j-b4rx?accessType=DOWNLOAD&method=export&format=KML',
+        name: 'Dynamic Message Signs',
+        size: '20 KB'),
+    DownloadableKML(
+        url:
+            'https://data.austintexas.gov/api/geospatial/qpuw-8eeb?accessType=DOWNLOAD&method=export&format=KML',
+        name: 'Traffic Detectors',
+        size: '5.23 MB'),
   ];
 }

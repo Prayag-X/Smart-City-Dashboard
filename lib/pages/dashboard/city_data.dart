@@ -2,6 +2,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_city_dashboard/models/city_card_model.dart';
 import 'package:smart_city_dashboard/pages/dashboard/Seattle/finance_left_panel.dart';
+import 'package:smart_city_dashboard/pages/dashboard/austin/transport_left_panel.dart';
 import 'package:smart_city_dashboard/pages/dashboard/new_york/education_left_panel.dart';
 import 'package:smart_city_dashboard/pages/panels/tab_button.dart';
 
@@ -9,6 +10,7 @@ import '../../models/tab_button.dart';
 import 'Seattle/education_left_panel.dart';
 import 'Seattle/transportation_left_panel.dart';
 import 'austin/environment_left_panel.dart';
+import 'austin/health_left_panel.dart';
 import 'charlotte/misc_left_panel.dart';
 import 'charlotte/society_left_panel.dart';
 import 'downloadable_content.dart';
@@ -187,9 +189,23 @@ class AllCityData {
             rightTabData: DownloadableContent.austinEnvironmentKml,
           ),
           TabButtonModel(
+            logo: ImageConst.health,
+            name: translate('city_data.austin.health.health'),
+            tab: 2,
+            leftTab: const AustinHealthTabLeft(),
+            rightTabData: DownloadableContent.austinHealthKml,
+          ),
+          TabButtonModel(
+            logo: ImageConst.transportation,
+            name: translate('city_data.austin.transport.transport'),
+            tab: 3,
+            leftTab: const AustinTransportTabLeft(),
+            rightTabData: DownloadableContent.austinTransportKml,
+          ),
+          TabButtonModel(
             logo: ImageConst.about,
             name: translate('homepage.about'),
-            tab: 2,
+            tab: 4,
           ),
         ],
         availableTours: [
