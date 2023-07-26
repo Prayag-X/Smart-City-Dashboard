@@ -275,12 +275,26 @@
         "transport": "transport",
         "ems_title": "EMS - Transport Count",
         "transport_construction_title": "Active Transport Construction",
+        "resignal_title": "Traffic Signal Re-timing",
+        "kiosk_title": "Metro Bike Kiosk",
+        "bid_book_title": "Bid Book Spreadsheet",
+        "self_wage_title": "Self Sufficient Wage",
         "count": "Count",
         "id": "ID",
         "percent": "Percent",
         "population": "Population",
         "length": "Length",
-        "code": "Destination Code"
+        "vol": "Vol",
+        "seconds": "Seconds",
+        "docks": "Seconds",
+        "width": "Width",
+        "quantity": "Quantity",
+        "agency_code": "Agency Code",
+        "code": "Code",
+        "fam_code": "Family Code",
+        "housing_cost": "Housing Cost",
+        "transport_cost": "Transport Cost",
+        "dest_code": "Destination Code"
       }
     },
     "seattle": {
