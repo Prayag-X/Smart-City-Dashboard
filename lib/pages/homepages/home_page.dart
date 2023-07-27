@@ -217,6 +217,7 @@ class CityCard extends ConsumerWidget {
                           SizedBox(
                             height: 90,
                             child: ListView(
+                                physics: const NeverScrollableScrollPhysics(),
                                 children: cityData.availableTabs
                                     .map((tab) => Padding(
                                           padding: const EdgeInsets.symmetric(

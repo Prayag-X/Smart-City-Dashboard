@@ -141,8 +141,14 @@ class _AppBarState extends ConsumerState<CustomAppBar> {
                                 onTap: () {
                                   if (listening) {
                                     _stopListening();
+                                    showSnackBar(
+                                        context: context,
+                                        message: translate('settings.mic_off'));
                                   } else {
                                     _startListening();
+                                    showSnackBar(
+                                        context: context,
+                                        message: translate('settings.mic_on'));
                                   }
                                   setState(() {
                                     listening = !listening;

@@ -346,9 +346,41 @@ class DownloadableContent {
     },
     'Self Sufficiency wage': {
       'url':
-      'https://data.austintexas.gov/api/views/jfwk-6vr6/rows.csv?accessType=DOWNLOAD',
+          'https://data.austintexas.gov/api/views/jfwk-6vr6/rows.csv?accessType=DOWNLOAD',
       'filename': 'self_wage.csv',
       'directory': 'Austin/transport'
+    },
+
+    //Boulder Health
+    'Human Relation Fund': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/761b818a0fef4776bea6b60ac3e82e6c_0/downloads/data?format=csv&spatialRefId=4326&where=1%3D1',
+      'filename': 'human_relation.csv',
+      'directory': 'Boulder/health'
+    },
+    'Human Equity Fund': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/449cd507ab82477ba5350908e6db3c23_0/downloads/data?format=csv&spatialRefId=4326&where=1%3D1',
+      'filename': 'human_equity.csv',
+      'directory': 'Boulder/health'
+    },
+    'Human Services Fund': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/61b1b61f809f4f18be492a26c13615ae_0/downloads/data?format=csv&spatialRefId=4326&where=1%3D1',
+      'filename': 'human_service.csv',
+      'directory': 'Boulder/health'
+    },
+    'Parent Engagement Event': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/25eba477c3e248bdb1291538d0ccb277_0/downloads/data?format=csv&spatialRefId=4326&where=1%3D1',
+      'filename': 'parent_engagement.csv',
+      'directory': 'Boulder/health'
+    },
+    'Community Organizations Fund': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/c7301d112010495eaab25861e88dcad1_0/downloads/data?format=csv&spatialRefId=4326&where=1%3D1',
+      'filename': 'community_org.csv',
+      'directory': 'Boulder/health'
     },
   };
 

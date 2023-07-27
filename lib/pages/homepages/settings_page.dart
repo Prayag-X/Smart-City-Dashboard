@@ -426,6 +426,9 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                 children: [
                   TextButtonCustom(
                     onPressed: () async {
+                      showSnackBar(
+                          context: context,
+                          message: translate('settings.download_started'));
                       await Downloader(ref: ref)
                           .downloadAllContent(DownloadableContent.content);
                       await prefs.setBool('downloadableContent', true);
