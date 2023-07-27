@@ -20,45 +20,39 @@ class BoulderHealthTabLeft extends ConsumerStatefulWidget {
 
 class _BoulderHealthTabLeftState extends ConsumerState<BoulderHealthTabLeft> {
   List<List<dynamic>>? data;
-  List<List<dynamic>>? sa4Data;
-  List<List<dynamic>>? sa5Data;
-  List<List<dynamic>>? foodInspectionData;
-  List<List<dynamic>>? insuranceData;
-  List<List<dynamic>>? lakeData;
-  List<List<dynamic>>? badHealthData;
+  List<List<dynamic>>? relationData;
+  List<List<dynamic>>? equityData;
+  List<List<dynamic>>? serviceData;
+  List<List<dynamic>>? engagementData;
+  List<List<dynamic>>? orgData;
 
   loadCSVData() async {
     Future.delayed(Duration.zero).then((x) async {
       ref.read(isLoadingProvider.notifier).state = true;
       data = await FileParser.parseCSVFromStorage(
-          DownloadableContent.content['SA4 Mental training']!);
+          DownloadableContent.content['Human Relation Fund']!);
       setState(() {
-        sa4Data = FileParser.transformer(data!);
+        relationData = FileParser.transformer(data!);
       });
       data = await FileParser.parseCSVFromStorage(
-          DownloadableContent.content['SA5 Mental training']!);
+          DownloadableContent.content['Human Equity Fund']!);
       setState(() {
-        sa5Data = FileParser.transformer(data!);
+        equityData = FileParser.transformer(data!);
       });
       data = await FileParser.parseCSVFromStorage(
-          DownloadableContent.content['Food Inspection']!);
+          DownloadableContent.content['Human Services Fund']!);
       setState(() {
-        foodInspectionData = FileParser.transformer(data!);
+        serviceData = FileParser.transformer(data!);
       });
       data = await FileParser.parseCSVFromStorage(
-          DownloadableContent.content['Below 65 no health insurance']!);
+          DownloadableContent.content['Parent Engagement Event']!);
       setState(() {
-        insuranceData = FileParser.transformer(data!);
+        engagementData = FileParser.transformer(data!);
       });
       data = await FileParser.parseCSVFromStorage(
-          DownloadableContent.content['Creek lake good health']!);
+          DownloadableContent.content['Community Organizations Fund']!);
       setState(() {
-        lakeData = FileParser.transformer(data!);
-      });
-      data = await FileParser.parseCSVFromStorage(
-          DownloadableContent.content['Bad mental health']!);
-      setState(() {
-        badHealthData = FileParser.transformer(data!);
+        orgData = FileParser.transformer(data!);
       });
       ref.read(isLoadingProvider.notifier).state = false;
     });
@@ -83,111 +77,110 @@ class _BoulderHealthTabLeftState extends ConsumerState<BoulderHealthTabLeft> {
             ),
           ),
           children: [
-            sa4Data != null
+            relationData != null
                 ? LineChartParser(
-                title: translate('city_data.austin.health.sa4_title'),
-                legendX: translate('city_data.austin.health.dept'),
-                chartData: {
-                  translate('city_data.austin.health.attendees'):
-                  Colors.yellow,
-                  translate('city_data.austin.health.eligible'):
-                  Colors.blue,
-                }, markerIntervalX: 6).chartParser(
-                limitMarkerX: 14,
-                dataX: sa4Data![0], dataY: [
-              sa4Data![1],
-              sa4Data![2],
-            ])
+                        title:
+                            translate('city_data.boulder.health.relation_fund'),
+                        legendX: translate('city_data.boulder.health.id'),
+                        chartData: {
+                          translate('city_data.boulder.health.requested'):
+                              Colors.blue,
+                          translate('city_data.boulder.health.received'):
+                              Colors.green,
+                        },
+                        barWidth: 3)
+                    .chartParser(dataX: relationData![0], dataY: [
+                    relationData![5],
+                    relationData![6],
+                  ])
                 : const BlankDashboardContainer(
-              heightMultiplier: 2,
-              widthMultiplier: 2,
-            ),
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
             Const.dashboardUISpacing.ph,
-            sa5Data != null
+            equityData != null
                 ? LineChartParser(
-                title: translate('city_data.austin.health.sa5_title'),
-                legendX: translate('city_data.austin.health.year'),
-                chartData: {
-                  translate('city_data.austin.health.eligible'):
-                  Colors.blue,
-                }).chartParserWithDuplicate(
-                sortX: true,
-                dataX: sa5Data![1],
-                dataY: [
-                  sa5Data![3],
-                ])
+                        title:
+                            translate('city_data.boulder.health.equity_fund'),
+                        legendX: translate('city_data.boulder.health.id'),
+                        chartData: {
+                          translate('city_data.boulder.health.requested'):
+                              Colors.blue,
+                          translate('city_data.boulder.health.received'):
+                              Colors.green,
+                        },
+                        barWidth: 3)
+                    .chartParser(dataX: equityData![0], dataY: [
+                    equityData![8],
+                    equityData![9],
+                  ])
                 : const BlankDashboardContainer(
-              heightMultiplier: 2,
-              widthMultiplier: 2,
-            ),
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
             Const.dashboardUISpacing.ph,
-            foodInspectionData != null
+            serviceData != null
                 ? LineChartParser(
-                title: translate('city_data.austin.health.food_title'),
-                legendX: translate('city_data.austin.health.restaurant'),
-                chartData: {
-                  translate('city_data.austin.health.score'): Colors.blue,
-                }, barWidth: 2).chartParser(dataX: foodInspectionData![0], dataY: [
-              foodInspectionData![3],
-            ])
+                        title:
+                            translate('city_data.boulder.health.service_fund'),
+                        legendX: translate('city_data.boulder.health.id'),
+                        chartData: {
+                          translate('city_data.boulder.health.requested'):
+                              Colors.blue,
+                          translate('city_data.boulder.health.received'):
+                              Colors.green,
+                        },
+                        barWidth: 3)
+                    .chartParser(dataX: serviceData![0], dataY: [
+                    serviceData![9],
+                    serviceData![10],
+                  ])
                 : const BlankDashboardContainer(
-              heightMultiplier: 2,
-              widthMultiplier: 2,
-            ),
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
             Const.dashboardUISpacing.ph,
-            insuranceData != null
+            engagementData != null
                 ? LineChartParser(
-                title:
-                translate('city_data.austin.health.health_insurance'),
-                legendX: translate('city_data.austin.health.year'),
-                chartData: {
-                  translate('city_data.austin.health.percent'):
-                  Colors.blue,
-                }).chartParserWithDuplicate(
-                dataX: insuranceData![0],
-                dataY: [
-                  insuranceData![1],
-                ])
+                        title: translate(
+                            'city_data.boulder.health.parent_engagement_events'),
+                        legendX: translate('city_data.boulder.health.id'),
+                        chartData: {
+                          translate('city_data.boulder.health.adults'):
+                              Colors.blue,
+                          translate('city_data.boulder.health.children'):
+                              Colors.red,
+                        },
+                        barWidth: 3)
+                    .chartParser(dataX: engagementData![0], dataY: [
+                    engagementData![9],
+                    engagementData![10],
+                  ])
                 : const BlankDashboardContainer(
-              heightMultiplier: 2,
-              widthMultiplier: 2,
-            ),
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
             Const.dashboardUISpacing.ph,
-            lakeData != null
+            orgData != null
                 ? LineChartParser(
-                title:
-                translate('city_data.austin.health.lake_health'),
-                legendX: translate('city_data.austin.health.reach'),
-                chartData: {
-                  translate('city_data.austin.health.score'):
-                  Colors.blue,
-                }, barWidth: 2).chartParser(
-                dataX: lakeData![0],
-                dataY: [
-                  lakeData![5],
-                ])
+                        title: translate(
+                            'city_data.boulder.health.org_service_fund'),
+                        legendX: translate('city_data.boulder.health.id'),
+                        chartData: {
+                          translate('city_data.boulder.health.requested'):
+                              Colors.blue,
+                          translate('city_data.boulder.health.received'):
+                              Colors.green,
+                        },
+                        barWidth: 3)
+                    .chartParser(dataX: orgData![0], dataY: [
+                    orgData![7],
+                    orgData![8],
+                  ])
                 : const BlankDashboardContainer(
-              heightMultiplier: 2,
-              widthMultiplier: 2,
-            ),
-            Const.dashboardUISpacing.ph,
-            badHealthData != null
-                ? LineChartParser(
-                title:
-                translate('city_data.austin.health.bad_mental_health'),
-                legendX: translate('city_data.austin.health.year'),
-                chartData: {
-                  translate('city_data.austin.health.percent'):
-                  Colors.blue,
-                }).chartParser(
-                dataX: badHealthData![0],
-                dataY: [
-                  badHealthData![1],
-                ])
-                : const BlankDashboardContainer(
-              heightMultiplier: 2,
-              widthMultiplier: 2,
-            ),
+                    heightMultiplier: 2,
+                    widthMultiplier: 2,
+                  ),
             Const.dashboardUISpacing.ph,
           ],
         ),

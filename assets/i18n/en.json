@@ -374,7 +374,20 @@
     "boulder": {
       "cityName": "Boulder",
       "country": "United States of America",
-      "description": "Boulder is a home rule city and the county seat of Boulder County, Colorado, United States. It is the largest city in Boulder County, with a population of 108,250 at the 2020 United States census, making it the 12th most populous city in Colorado. Boulder is the principal city of the Boulder, CO Metropolitan Statistical Area and an important part of the Front Range Urban Corridor.\n\nBoulder is located at the base of the foothills of the Rocky Mountains, at an elevation of 5,430 feet (1,655 m) above sea level. The city is 25 miles (40 km) northwest of the Colorado state capital of Denver. Boulder is a college town, being home to the flagship campus of the University of Colorado, the state's largest university."
+      "description": "Boulder is a home rule city and the county seat of Boulder County, Colorado, United States. It is the largest city in Boulder County, with a population of 108,250 at the 2020 United States census, making it the 12th most populous city in Colorado. Boulder is the principal city of the Boulder, CO Metropolitan Statistical Area and an important part of the Front Range Urban Corridor.\n\nBoulder is located at the base of the foothills of the Rocky Mountains, at an elevation of 5,430 feet (1,655 m) above sea level. The city is 25 miles (40 km) northwest of the Colorado state capital of Denver. Boulder is a college town, being home to the flagship campus of the University of Colorado, the state's largest university.",
+      "health": {
+        "health": "Health",
+        "relation_fund": "Human Relation Fund Proposal",
+        "equity_fund": "Human Equity Fund Funding",
+        "service_fund": "Human Services Fund Funding",
+        "org_service_fund": "Organization Services Fund Funding",
+        "parent_engagement_events": "Parent Engagement Events",
+        "requested": "Requested",
+        "received": "Received",
+        "adults": "Adults",
+        "children": "Children",
+        "id": "ID"
+      }
     }
   }
 }
