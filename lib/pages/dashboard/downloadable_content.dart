@@ -382,6 +382,32 @@ class DownloadableContent {
       'filename': 'community_org.csv',
       'directory': 'Boulder/health'
     },
+
+    //Boulder Livable
+    'Building Use and Square Footage': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/0937e0b5dbaf45fd8a3a1c7d5de7cdb4_0/downloads/data?format=csv&spatialRefId=4326&where=1%3D1',
+      'filename': 'building_use.csv',
+      'directory': 'Boulder/livable'
+    },
+    'Homelessness program': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/1db2b02123d547c4bb5d7298ce981237_0/downloads/data?format=csv&spatialRefId=4326&where=1%3D1',
+      'filename': 'homelessness.csv',
+      'directory': 'Boulder/livable'
+    },
+    'Community Assessment': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/7fb80cf7a352462a9dfe3f2110c2e8f4_0/downloads/data?format=csv&spatialRefId=4326&where=1%3D1',
+      'filename': 'comm_assessment.csv',
+      'directory': 'Boulder/livable'
+    },
+    'Police Stops': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/1f850e90d27a4bf58d5b66405d59045f_0/downloads/data?format=csv&spatialRefId=4326&where=1%3D1',
+      'filename': 'police_stops.csv',
+      'directory': 'Boulder/livable'
+    },
   };
 
   static List<DownloadableKML> blankKml = [];
