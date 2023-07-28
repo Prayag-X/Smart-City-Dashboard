@@ -387,6 +387,21 @@
         "adults": "Adults",
         "children": "Children",
         "id": "ID"
+      },
+      "livable": {
+        "livable": "Livable",
+        "building_title": "Building Use and Square Footage",
+        "homelessness_title": "Homelessness Program",
+        "community_title": "Community Assessment Survey",
+        "police_title": "Demographic of Police Stops",
+        "areaSF": "Area SF",
+        "row": "Row",
+        "attendance": "Attendance",
+        "no_people": "Number of People",
+        "stop_time": "Stop Time",
+        "min": "Min",
+        "dob": "DoB",
+        "id": "ID"
       }
     }
   }
