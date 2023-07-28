@@ -642,4 +642,12 @@ class DownloadableContent {
         name: 'Traffic Detectors',
         size: '5.23 MB'),
   ];
+
+  static List<DownloadableKML> boulderLivableKml = [
+    DownloadableKML(
+        url:
+            'https://opendata.arcgis.com/api/v3/datasets/0fb10d7ab5134840bbd260bcafc5eb95_0/downloads/data?format=kml&spatialRefId=4326&where=1%3D1',
+        name: 'Boulder Stolen Bikes',
+        size: '1.69 MB'),
+  ];
 }

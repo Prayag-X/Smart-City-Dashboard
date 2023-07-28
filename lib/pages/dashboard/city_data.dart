@@ -12,6 +12,7 @@ import 'Seattle/education_left_panel.dart';
 import 'Seattle/transportation_left_panel.dart';
 import 'austin/environment_left_panel.dart';
 import 'austin/health_left_panel.dart';
+import 'boulder/livable_left_panel.dart';
 import 'charlotte/misc_left_panel.dart';
 import 'charlotte/society_left_panel.dart';
 import 'downloadable_content.dart';
@@ -240,9 +241,16 @@ class AllCityData {
             tab: 1,
           ),
           TabButtonModel(
+            logo: ImageConst.living,
+            name: translate('city_data.boulder.livable.livable'),
+            leftTab: const BoulderLivableTabLeft(),
+            rightTabData: DownloadableContent.boulderLivableKml,
+            tab: 2,
+          ),
+          TabButtonModel(
             logo: ImageConst.about,
             name: translate('homepage.about'),
-            tab: 2,
+            tab: 3,
           ),
         ],
         availableTours: [

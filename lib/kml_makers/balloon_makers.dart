@@ -118,7 +118,7 @@ class BalloonMakers {
      <text>
         <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/$cityImage" alt="picture" width="300" height="200" />
         <h1>$kmlName</h1>
-        <h1>$size</h1>
+        <h1>Size: $size</h1>
      </text>
      <bgColor>ff15151a</bgColor>
    </BalloonStyle>

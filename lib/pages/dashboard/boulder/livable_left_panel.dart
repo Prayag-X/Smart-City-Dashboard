@@ -78,9 +78,9 @@ class _BoulderLivableTabLeftState extends ConsumerState<BoulderLivableTabLeft> {
                     legendX: translate('city_data.boulder.livable.id'),
                     chartData: {
                       translate('city_data.boulder.livable.areaSF'):
-                          Colors.blue,
-                      translate('city_data.boulder.livable.row'): Colors.yellow,
-                    },
+                          Colors.yellow,
+                      translate('city_data.boulder.livable.row'): Colors.blue,
+                    },barWidth: 2
                   ).chartParser(dataX: buildingData![11], dataY: [
                     buildingData![7],
                     buildingData![2],
@@ -98,7 +98,7 @@ class _BoulderLivableTabLeftState extends ConsumerState<BoulderLivableTabLeft> {
                     chartData: {
                       translate('city_data.boulder.livable.attendance'):
                           Colors.blue,
-                    },
+                    },barWidth: 2
                   ).chartParser(dataX: homelessnessData![0], dataY: [
                     homelessnessData![4],
                   ])
@@ -115,7 +115,7 @@ class _BoulderLivableTabLeftState extends ConsumerState<BoulderLivableTabLeft> {
                     chartData: {
                       translate('city_data.boulder.livable.no_people'):
                           Colors.blue,
-                    },
+                    },barWidth: 1
                   ).chartParser(dataX: communityData![0], dataY: [
                     communityData![133],
                   ])
@@ -133,7 +133,7 @@ class _BoulderLivableTabLeftState extends ConsumerState<BoulderLivableTabLeft> {
                           Colors.blue,
                       translate('city_data.boulder.livable.min'): Colors.yellow,
                       translate('city_data.boulder.livable.dob'): Colors.red,
-                    },
+                    },barWidth: 1
                   ).chartParser(dataX: policeData![0], dataY: [
                     policeData![2],
                     policeData![6],
