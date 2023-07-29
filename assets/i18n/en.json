@@ -19,7 +19,7 @@
   "homepage": {
     "home": "Home",
     "welcome": "Welcome",
-    "description": "Click on any Smart City to visualize its details. Search option is also available. Click on the help button for any doubts or confusion.",
+    "description": "Click on any Smart City to visualize its details. Search option is also available. Click on the help button for any doubts or confusion. Click on Visualizer to download and visualize any csv file or any kml data",
     "help": "Help",
     "settings": "Settings",
     "option": "LG Options",
@@ -141,6 +141,9 @@
     "feature4": "You can change the type of the Google Map by choosing one of the three options available.",
     "content": "If you see this in any tab, then simply go to the settings page to download the required data.",
     "tab": "The left tab bar will change automatically depending on the page of the app. When in the homepage, it will show the general instruction and the help page button. And when in any city page, it will show the tabs of data available for the city. The settings and about page is independent of other pages and can be selected from any page without changing the left tab."
+  },
+  "visualizer": {
+    "visualizer": "Visualizer"
   },
   "city_data": {
     "no_kml": "No KML data available",
@@ -409,14 +412,20 @@
         "account_title": "Accounts Payable",
         "business_title": "Active Business License Validity",
         "license_title": "Licensed Contractors Status",
+        "bicyclist_title": "Bicyclist & Pedestrian Survey",
+        "osmp_title": "OSMP Master Plan Survey",
         "applicants": "Applicants",
         "id": "ID",
         "transaction": "Transaction",
-        "dept": "Dept",
+        "fund": "Fund",
         "exempt": "Exempt",
         "businesses": "Businesses",
         "contractors": "Contractors",
         "license_stat": "License Status",
+        "people": "People",
+        "type": "Type",
+        "language": "Language",
+        "osmp": "OSMP",
         "status": "Application Status"
       }
     }

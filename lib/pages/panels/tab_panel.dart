@@ -164,6 +164,10 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                           ),
                           children: <Widget>[
                             TabButton(
+                                logo: ImageConst.visualizer,
+                                name: translate('visualizer.visualizer'),
+                                tab: -4),
+                            TabButton(
                                 logo: ImageConst.help,
                                 name: translate('homepage.help'),
                                 tab: -3)

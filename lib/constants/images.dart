@@ -51,6 +51,7 @@ class ImageConst {
   static const misc = 'assets/logos/miscellaneous.png';
   static const finance = 'assets/logos/finance.png';
   static const transportation = 'assets/logos/transportation.png';
+  static const visualizer = 'assets/logos/data_visualizer.png';
 
   //
   static const flutter = 'assets/logos/flutter.png';

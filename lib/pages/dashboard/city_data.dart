@@ -252,7 +252,7 @@ class AllCityData {
             logo: ImageConst.government,
             name: translate('city_data.boulder.government.government'),
             leftTab: const BoulderGovernmentTabLeft(),
-            rightTabData: DownloadableContent.boulderLivableKml,
+            rightTabData: DownloadableContent.blankKml,
             tab: 3,
           ),
           TabButtonModel(
