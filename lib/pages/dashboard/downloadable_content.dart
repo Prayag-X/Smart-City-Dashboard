@@ -408,6 +408,44 @@ class DownloadableContent {
       'filename': 'police_stops.csv',
       'directory': 'Boulder/livable'
     },
+
+    //Boulder Government
+    'Boards Applicants': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/21de1042215a473683941473ce6dce1a_0/downloads/data?format=csv&spatialRefId=4326&where=1%3D1',
+      'filename': 'board_applicants.csv',
+      'directory': 'Boulder/government'
+    },
+    'Account Payable': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/10c2e57f741b45428c492f67aeb98b1b_0/downloads/data?format=csv&spatialRefId=4326&where=1%3D1',
+      'filename': 'account_payable.csv',
+      'directory': 'Boulder/government'
+    },
+    'Active Business Licenses': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/179de1dbf45a4205b69ad65edef29559_0/downloads/data?format=csv&spatialRefId=4326&where=1%3D1',
+      'filename': 'active_licenses.csv',
+      'directory': 'Boulder/government'
+    },
+    'Licensed Contractors': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/ef02bbe733464632aa0d2628177d6c9e_0/downloads/data?format=csv&spatialRefId=4326&where=1%3D1',
+      'filename': 'licensed_contractors.csv',
+      'directory': 'Boulder/government'
+    },
+    'Bicyclist and Pedestrians': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/56774397564548768bd5a209104b04b2_0/downloads/data?format=csv&spatialRefId=4326&where=1%3D1',
+      'filename': 'bicyclist_pedestrian.csv',
+      'directory': 'Boulder/government'
+    },
+    'OSMP': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/de03870a382744d7900197a15c565dd5_0/downloads/data?format=csv&spatialRefId=4326&where=1%3D1',
+      'filename': 'osmp.csv',
+      'directory': 'Boulder/government'
+    },
   };
 
   static List<DownloadableKML> blankKml = [];

@@ -3,6 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_city_dashboard/models/city_card_model.dart';
 import 'package:smart_city_dashboard/pages/dashboard/Seattle/finance_left_panel.dart';
 import 'package:smart_city_dashboard/pages/dashboard/austin/transport_left_panel.dart';
+import 'package:smart_city_dashboard/pages/dashboard/boulder/government_left_panel.dart';
 import 'package:smart_city_dashboard/pages/dashboard/boulder/health_left_panel.dart';
 import 'package:smart_city_dashboard/pages/dashboard/new_york/education_left_panel.dart';
 import 'package:smart_city_dashboard/pages/panels/tab_button.dart';
@@ -248,9 +249,16 @@ class AllCityData {
             tab: 2,
           ),
           TabButtonModel(
+            logo: ImageConst.government,
+            name: translate('city_data.boulder.government.government'),
+            leftTab: const BoulderGovernmentTabLeft(),
+            rightTabData: DownloadableContent.boulderLivableKml,
+            tab: 3,
+          ),
+          TabButtonModel(
             logo: ImageConst.about,
             name: translate('homepage.about'),
-            tab: 3,
+            tab: 4,
           ),
         ],
         availableTours: [

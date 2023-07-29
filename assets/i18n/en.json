@@ -402,6 +402,22 @@
         "min": "Min",
         "dob": "DoB",
         "id": "ID"
+      },
+      "government": {
+        "government": "Government",
+        "board_title": "Boards and Commissions Applicants",
+        "account_title": "Accounts Payable",
+        "business_title": "Active Business License Validity",
+        "license_title": "Licensed Contractors Status",
+        "applicants": "Applicants",
+        "id": "ID",
+        "transaction": "Transaction",
+        "dept": "Dept",
+        "exempt": "Exempt",
+        "businesses": "Businesses",
+        "contractors": "Contractors",
+        "license_stat": "License Status",
+        "status": "Application Status"
       }
     }
   }
