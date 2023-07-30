@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_city_dashboard/pages/homepages/about_page.dart';
 import 'package:smart_city_dashboard/pages/dashboard/dashboard.dart';
 import 'package:smart_city_dashboard/pages/homepages/help_page.dart';
 import 'package:smart_city_dashboard/pages/homepages/settings_page.dart';
+import 'package:smart_city_dashboard/pages/homepages/visualizer_page.dart';
 import 'package:smart_city_dashboard/pages/panels/app_bar.dart';
+import 'package:smart_city_dashboard/utils/extensions.dart';
 
+import '../../connections/ssh.dart';
 import '../../constants/theme.dart';
 import '../../providers/page_providers.dart';
 import '../../providers/settings_providers.dart';
@@ -21,6 +25,11 @@ class ScreenPanel extends ConsumerStatefulWidget {
 }
 
 class _ScreenPanelState extends ConsumerState<ScreenPanel> {
+  final CameraPosition initialMapPosition = const CameraPosition(
+    target: LatLng(51.4769, 0.0),
+    zoom: 2,
+  );
+
   @override
   Widget build(BuildContext context) {
     Color normalColor = ref.watch(normalColorProvider);
@@ -38,6 +47,16 @@ class _ScreenPanelState extends ConsumerState<ScreenPanel> {
                 ? (() {
                     switch (homePageTab) {
                       case 0:
+                        SSH(ref: ref).cleanBalloon(
+                          context,
+                        );
+                        SSH(ref: ref).flyTo(
+                            context,
+                            initialMapPosition.target.latitude,
+                            initialMapPosition.target.longitude,
+                            initialMapPosition.zoom.zoomLG,
+                            initialMapPosition.tilt,
+                            initialMapPosition.bearing);
                         return const HomePage();
                       case -3:
                         return const HelpPage();
@@ -45,6 +64,8 @@ class _ScreenPanelState extends ConsumerState<ScreenPanel> {
                         return const SettingsPage();
                       case -2:
                         return const AboutPage();
+                      case -4:
+                        return const VisualizerPage();
                     }
                   }())
                 : (() {

@@ -143,7 +143,14 @@
     "tab": "The left tab bar will change automatically depending on the page of the app. When in the homepage, it will show the general instruction and the help page button. And when in any city page, it will show the tabs of data available for the city. The settings and about page is independent of other pages and can be selected from any page without changing the left tab."
   },
   "visualizer": {
-    "visualizer": "Visualizer"
+    "visualizer": "Visualizer",
+    "csv_title": "CSV Data Visualizer",
+    "url": "URL",
+    "plotx": "X-Axis Plot",
+    "ploty": "Y-Axis Plot",
+    "note": "NOTE: Column numbers starts from 0. For Y-Axis plotting, column must contain numerical values",
+    "vis_button": "Download and Visualize",
+    "kml_title": "KML Data Visualizer"
   },
   "city_data": {
     "no_kml": "No KML data available",
