@@ -150,6 +150,8 @@
     "ploty": "Y-Axis Plot",
     "note": "NOTE: Column numbers starts from 0. For Y-Axis plotting, column must contain numerical values",
     "vis_button": "Download and Visualize",
+    "line_chart": "Line Chart",
+    "pie_chart": "Pie Chart",
     "kml_title": "KML Data Visualizer"
   },
   "city_data": {

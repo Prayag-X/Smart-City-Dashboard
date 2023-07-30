@@ -194,6 +194,16 @@ class SSH {
     }
   }
 
+  flyTo2(context, double latitude, double longitude, double zoom, double tilt,
+      double bearing) async {
+    try {
+      await ref.read(sshClient)?.run(
+          'echo "flytoview=${KMLMakers.lookAtLinear(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
+    } catch (error) {
+      showSnackBar(context: context, message: error.toString());
+    }
+  }
+
   makeFile(String filename, String content) async {
     var localPath = await getApplicationDocumentsDirectory();
     File localFile = File('${localPath.path}/filename.kml');

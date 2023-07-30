@@ -4,11 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_city_dashboard/pages/dashboard/city_data.dart';
 import 'package:smart_city_dashboard/models/tab_button.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 import 'package:smart_city_dashboard/utils/helper.dart';
 
+import '../../connections/ssh.dart';
 import '../../constants/constants.dart';
 import '../../constants/images.dart';
 import '../../constants/text_styles.dart';
@@ -28,12 +30,27 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
+  final CameraPosition initialMapPosition = const CameraPosition(
+    target: LatLng(51.4769, 0.0),
+    zoom: 2,
+  );
+
   @override
   void initState() {
     super.initState();
     Future.delayed(Duration.zero).then((x) async {
       ref.read(isLoadingProvider.notifier).state = false;
     });
+    SSH(ref: ref).cleanBalloon(
+      context,
+    );
+    SSH(ref: ref).flyTo2(
+        context,
+        initialMapPosition.target.latitude,
+        initialMapPosition.target.longitude,
+        initialMapPosition.zoom.zoomLG,
+        initialMapPosition.tilt,
+        initialMapPosition.bearing);
   }
 
   @override
