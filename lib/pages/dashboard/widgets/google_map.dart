@@ -15,8 +15,10 @@ import '../../../providers/settings_providers.dart';
 
 class GoogleMapPart extends ConsumerStatefulWidget {
   const GoogleMapPart({
-    Key? key,
+    Key? key, this.visualizer = false
   }) : super(key: key);
+
+  final bool visualizer;
 
   @override
   ConsumerState createState() => _RightPanelState();
@@ -32,10 +34,18 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
   @override
   void initState() {
     super.initState();
-    initialMapPosition = CameraPosition(
-      target: ref.read(cityDataProvider)!.location,
-      zoom: 11,
-    );
+    if(widget.visualizer) {
+      initialMapPosition = const CameraPosition(
+        target: LatLng(0,0),
+        zoom: 0,
+      );
+    } else {
+      initialMapPosition = CameraPosition(
+        target: ref.read(cityDataProvider)!.location,
+        zoom: 11,
+      );
+    }
+
     newMapPosition = initialMapPosition;
     SSH(ref: ref).flyTo(
         context,

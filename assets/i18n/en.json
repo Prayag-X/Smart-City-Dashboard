@@ -152,6 +152,7 @@
     "vis_button": "Download and Visualize",
     "line_chart": "Line Chart",
     "pie_chart": "Pie Chart",
+    "download": "Download & Visualize",
     "kml_title": "KML Data Visualizer"
   },
   "city_data": {
