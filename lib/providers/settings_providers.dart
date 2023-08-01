@@ -6,9 +6,9 @@ import 'package:smart_city_dashboard/constants/theme.dart';
 
 StateProvider<bool> isLoadingProvider = StateProvider((ref) => false);
 StateProvider<double?> loadingPercentageProvider = StateProvider((ref) => null);
-StateProvider<String> ipProvider = StateProvider((ref) => '');
-StateProvider<String> usernameProvider = StateProvider((ref) => '');
-StateProvider<String> passwordProvider = StateProvider((ref) => '');
+StateProvider<String> ipProvider = StateProvider((ref) => '192.168.56.100');
+StateProvider<String> usernameProvider = StateProvider((ref) => 'lg');
+StateProvider<String> passwordProvider = StateProvider((ref) => 'lg');
 StateProvider<int> portProvider = StateProvider((ref) => 22);
 StateProvider<int> rigsProvider = StateProvider((ref) => 3);
 StateProvider<int> leftmostRigProvider = StateProvider((ref) => 3);

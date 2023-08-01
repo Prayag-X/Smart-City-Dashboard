@@ -4,6 +4,7 @@ import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:smart_city_dashboard/connections/downloader.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:smart_city_dashboard/constants/images.dart';
@@ -13,7 +14,11 @@ import 'package:smart_city_dashboard/utils/logo_shower.dart';
 
 import '../../constants/constants.dart';
 import '../../providers/settings_providers.dart';
+import '../../utils/csv_parser.dart';
 import '../../utils/helper.dart';
+import '../dashboard/downloadable_content.dart';
+import '../dashboard/widgets/charts/line_chart_parser.dart';
+import '../dashboard/widgets/dashboard_container.dart';
 import '../dashboard/widgets/google_map.dart';
 
 class VisualizerPage extends ConsumerStatefulWidget {
@@ -46,9 +51,40 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
 
   int chartType = 0;
   int chartYNumbers = 0;
+  List<List<dynamic>>? chartData;
+  List<List<dynamic>> chartDataForVisualization = [];
+  bool downloaded = false;
   List<Color> chartColors = [];
   List<TextEditingController> chartYControllers = [];
+  TextEditingController chartXController = TextEditingController(text: '');
   TextEditingController defaultController = TextEditingController(text: '');
+  TextEditingController csvUrlController = TextEditingController(text: '');
+  TextEditingController kmlUrlController = TextEditingController(text: '');
+
+  visualizeCSV() async {
+    try {
+      Map<String, Map<String, String>> content = {
+        'Visualizer': {
+          'url': csvUrlController.text,
+          'filename': 'visualizer_csv.csv',
+          'directory': 'Visualizer'
+        },
+      };
+      await Downloader(ref: ref).downloadAllContent(content);
+      List<List<dynamic>>? data = await FileParser.parseCSVFromStorage(
+          DownloadableContent.content['Community Organizations Fund']!);
+      setState(() {
+        chartData = FileParser.transformer(data);
+        for (int i = 0; i < chartYNumbers; i++) {
+          chartDataForVisualization
+              .add(chartData![int.parse(chartYControllers[i].text)]);
+        }
+      });
+    } catch (error) {
+      showSnackBar(
+          context: context, message: translate('visualizer.download_failed'));
+    }
+  }
 
   Future<bool> colorPickerDialog(
       int index, Color highlightColor, Color oppositeColor) async {
@@ -170,7 +206,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                   decoration: BoxDecoration(
                     borderRadius:
                         BorderRadius.circular(Const.dashboardUIRoundness * 3),
-                    color: highlightColor,
+                    color: lightenColor(highlightColor),
                   ),
                   child: Center(
                     child: Text(
@@ -184,17 +220,15 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Row(children: [
-                      Text(
-                        '${translate('visualizer.url')}:  ',
-                        style: textStyleNormal.copyWith(
-                            color: oppositeColor, fontSize: 25),
-                      ),
-                      TextFormFieldCustom(
-                        controller: TextEditingController(),
-                        hintText: 'hola',
-                      ),
-                    ]),
+                    Text(
+                      '${translate('visualizer.url')}:  ',
+                      style: textStyleNormal.copyWith(
+                          color: oppositeColor, fontSize: 25),
+                    ),
+                    TextFormFieldCustom(
+                      controller: csvUrlController,
+                      hintText: translate('visualizer.download_url_hint'),
+                    ),
                     Container(
                       height: 50,
                       width: screenSize(context).width / 2 - 150,
@@ -270,8 +304,8 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                             color: oppositeColor, fontSize: 25),
                       ),
                       TextFormFieldIntegerCustom(
-                        controller: TextEditingController(),
-                        hintText: 'hola',
+                        controller: chartXController,
+                        hintText: translate('visualizer.column_no_hint'),
                       ),
                       ControllerValueControl(
                         controller: TextEditingController(),
@@ -309,8 +343,8 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                                                       .circular(Const
                                                               .dashboardUIRoundness *
                                                           100),
-                                                  side: BorderSide(
-                                                      color: oppositeColor,
+                                                  side: const BorderSide(
+                                                      color: Colors.red,
                                                       width: 1))),
                                           onPressed: () {
                                             setState(() {
@@ -319,19 +353,20 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                                               chartYControllers.removeAt(index);
                                             });
                                           },
-                                          child: SizedBox(
+                                          child: const SizedBox(
                                             height: 50,
                                             width: 50,
                                             child: Icon(
                                               Icons.remove,
-                                              color: oppositeColor,
+                                              color: Colors.red,
                                               size: 30,
                                             ),
                                           ),
                                         ),
                                         TextFormFieldIntegerCustom(
                                           controller: chartYControllers[index],
-                                          hintText: 'hola',
+                                          hintText: translate(
+                                              'visualizer.column_no_hint'),
                                         ),
                                         ControllerValueControl(
                                           controller: chartYControllers[index],
@@ -369,8 +404,8 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                                   backgroundColor: Colors.transparent,
                                   shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(300),
-                                      side: BorderSide(
-                                          color: oppositeColor, width: 1))),
+                                      side: const BorderSide(
+                                          color: Colors.green, width: 1))),
                               onPressed: () {
                                 setState(() {
                                   chartColors.add(Colors.primaries[Random()
@@ -379,13 +414,13 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                                   chartYNumbers++;
                                 });
                               },
-                              child: SizedBox(
+                              child: const SizedBox(
                                 height: 50,
                                 width: 50,
                                 child: Center(
                                   child: Icon(
                                     Icons.add,
-                                    color: oppositeColor,
+                                    color: Colors.green,
                                     size: 30,
                                   ),
                                 ),
@@ -399,13 +434,24 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                   highlightColor: highlightColor,
                   oppositeColor: oppositeColor,
                 ),
+                (Const.dashboardUISpacing * 4).ph,
+                downloaded
+                    ? LineChartParser(
+                        title: '',
+                        chartData: {},
+                        legendX: '',
+                      ).chartParserForVisualizer(
+                        limitMarkerX: 5,
+                        dataX: chartData![int.parse(chartXController.text)],
+                        dataY: chartDataForVisualization, chartColors: chartColors)
+                    : const BlankVisualizerContainer(),
                 (Const.dashboardUISpacing * 9).ph,
                 Container(
                   height: 100,
                   decoration: BoxDecoration(
                     borderRadius:
                         BorderRadius.circular(Const.dashboardUIRoundness * 3),
-                    color: highlightColor,
+                    color: lightenColor(highlightColor),
                   ),
                   child: Center(
                     child: Text(
@@ -417,10 +463,33 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                 ),
                 (Const.dashboardUISpacing * 3).ph,
                 SizedBox(
-                  height: 400,
-                  width: screenSize(context).width - 300,
-                  child: const GoogleMapPart(visualizer: true,)
+                    height: 400,
+                    width: screenSize(context).width - 300,
+                    child: const GoogleMapPart(
+                      visualizer: true,
+                    )),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Text(
+                      '${translate('visualizer.url')}:  ',
+                      style: textStyleNormal.copyWith(
+                          color: oppositeColor, fontSize: 25),
+                    ),
+                    TextFormFieldCustom(
+                      controller: kmlUrlController,
+                      hintText: translate('visualizer.download_url_hint'),
+                      kml: true,
+                    ),
+                  ],
                 ),
+                (Const.dashboardUISpacing * 2).ph,
+                DownloadButton(
+                  onPressed: () {},
+                  highlightColor: highlightColor,
+                  oppositeColor: oppositeColor,
+                ),
+                (Const.dashboardUISpacing * 4).ph,
               ],
             ),
           ),
@@ -536,14 +605,16 @@ class DownloadButton extends StatelessWidget {
 }
 
 class TextFormFieldCustom extends ConsumerWidget {
-  const TextFormFieldCustom({
-    Key? key,
-    required this.controller,
-    required this.hintText,
-  }) : super(key: key);
+  const TextFormFieldCustom(
+      {Key? key,
+      required this.controller,
+      required this.hintText,
+      this.kml = false})
+      : super(key: key);
 
   final TextEditingController controller;
   final String hintText;
+  final bool kml;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -554,7 +625,9 @@ class TextFormFieldCustom extends ConsumerWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: SizedBox(
-        width: screenSize(context).width / 2 - 200,
+        width: kml
+            ? screenSize(context).width - 350
+            : screenSize(context).width - 700,
         child: TextFormField(
           decoration: InputDecoration(
             labelText: hintText,

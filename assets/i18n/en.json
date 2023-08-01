@@ -145,7 +145,7 @@
   "visualizer": {
     "visualizer": "Visualizer",
     "csv_title": "CSV Data Visualizer",
-    "url": "URL",
+    "url": "Link",
     "plotx": "X-Axis Plot",
     "ploty": "Y-Axis Plot",
     "note": "NOTE: Column numbers starts from 0. For Y-Axis plotting, column must contain numerical values",
@@ -153,6 +153,9 @@
     "line_chart": "Line Chart",
     "pie_chart": "Pie Chart",
     "download": "Download & Visualize",
+    "download_url_hint": "File Download Link",
+    "column_no_hint": "Column Number",
+    "download_failed": "Download Failed",
     "kml_title": "KML Data Visualizer"
   },
   "city_data": {

@@ -20,11 +20,11 @@ class SplashPage extends ConsumerStatefulWidget {
 class _SplashScreenState extends ConsumerState<SplashPage> {
   initApp() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    ref.read(ipProvider.notifier).state = prefs.getString('ip') ?? '';
+    ref.read(ipProvider.notifier).state = prefs.getString('ip') ?? '192.168.56.100';
     ref.read(usernameProvider.notifier).state =
-        prefs.getString('username') ?? '';
+        prefs.getString('username') ?? 'lg';
     ref.read(passwordProvider.notifier).state =
-        prefs.getString('password') ?? '';
+        prefs.getString('password') ?? 'lg';
     ref.read(portProvider.notifier).state = prefs.getInt('port') ?? 22;
     ref.read(downloadableContentAvailableProvider.notifier).state =
         prefs.getBool('downloadableContent') ?? false;

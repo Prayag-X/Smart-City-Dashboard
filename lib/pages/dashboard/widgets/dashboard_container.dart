@@ -245,3 +245,32 @@ class BlankDashboardContainer extends ConsumerWidget {
         ));
   }
 }
+
+class BlankVisualizerContainer extends ConsumerWidget {
+  const BlankVisualizerContainer({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
+    return Container(
+        width: screenSize(context).width -
+            screenSize(context).width / Const.tabBarWidthDivider,
+        height: (screenSize(context).width -
+            screenSize(context).width / Const.tabBarWidthDivider) *
+            Const.dashboardUIHeightFactor,
+        decoration: BoxDecoration(
+          color: highlightColor,
+          borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
+        ),
+        child: Center(
+          child: Text(
+            '--',
+            style: textStyleNormal.copyWith(
+                color: oppositeColor, fontSize: Const.dashboardTextSize + 10),
+          ),
+        ));
+  }
+}

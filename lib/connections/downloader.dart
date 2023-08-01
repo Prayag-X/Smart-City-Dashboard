@@ -12,20 +12,20 @@ class Downloader {
   downloadKml(String url) async {
     ref.read(loadingPercentageProvider.notifier).state = -1;
     await FileDownloader().download(
-        DownloadTask(
-          url: url,
-          filename: '${Const.kmlCustomFileName}.kml',
-          updates: Updates.statusAndProgress,
-          requiresWiFi: false,
-          retries: 5,
-          allowPause: true,
-        ),
-        onProgress: (progress) {
-          if (progress != 0) {
-            ref.read(loadingPercentageProvider.notifier).state = progress;
-          }
-        },
-        onStatus: (status) => print('Status: $status'));
+      DownloadTask(
+        url: url,
+        filename: '${Const.kmlCustomFileName}.kml',
+        updates: Updates.statusAndProgress,
+        requiresWiFi: false,
+        retries: 5,
+        allowPause: true,
+      ),
+      onProgress: (progress) {
+        if (progress != 0) {
+          ref.read(loadingPercentageProvider.notifier).state = progress;
+        }
+      },
+    );
 
     ref.read(loadingPercentageProvider.notifier).state = null;
   }

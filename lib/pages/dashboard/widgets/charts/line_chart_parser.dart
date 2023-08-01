@@ -23,14 +23,14 @@ class LineChartParser {
   int markerIntervalX = 4;
   int markerIntervalY = 4;
 
-  LineChartParser(
-      {required this.title,
-      required this.chartData,
-      this.legendX = '',
-      this.barWidth = 8,
-      this.markerIntervalX = 4,
-      this.markerIntervalY = 4,
-      });
+  LineChartParser({
+    required this.title,
+    required this.chartData,
+    this.legendX = '',
+    this.barWidth = 8,
+    this.markerIntervalX = 4,
+    this.markerIntervalY = 4,
+  });
 
   Widget chartParserWithDuplicate(
       {required List<dynamic> dataX,
@@ -130,9 +130,10 @@ class LineChartParser {
       } else {
         markerX.add(limitMarkerX == null
             ? dataX[(i * intervalXFactor).round()].toString()
-            : dataX[(i * intervalXFactor).round()]
-                .toString()
-                .substring(0, min(limitMarkerX, dataX[(i * intervalXFactor).round()].toString().length)));
+            : dataX[(i * intervalXFactor).round()].toString().substring(
+                0,
+                min(limitMarkerX,
+                    dataX[(i * intervalXFactor).round()].toString().length)));
       }
     }
 
@@ -142,9 +143,8 @@ class LineChartParser {
           points[j].add(FlSpot(minValueX,
               roundDouble((dataYNum[j][i] - minValuesY[j]) / intervalY[j], 2)));
         } catch (e) {
-          points[j].add(FlSpot(minValueX,0));
+          points[j].add(FlSpot(minValueX, 0));
         }
-
       }
       minValueX += 1 /
           (dataX.length.toDouble() < 25
@@ -165,6 +165,96 @@ class LineChartParser {
       title: title,
       legendX: legendX,
       chartData: chartData,
+      points: points,
+      markerY: markerY,
+      markerX: markerX,
+      maxX: maxX,
+      maxY: maxY,
+      markerIntervalX: markerIntervalX,
+      markerIntervalY: markerIntervalY,
+      barWidth: barWidth,
+    );
+  }
+
+  Widget chartParserForVisualizer(
+      {required List<dynamic> dataX,
+      required List<List<dynamic>> dataY,
+      required List<Color> chartColors,
+      int? limitMarkerX}) {
+    List<List<double>> dataYNum = [];
+    List<double> maxValuesY = [];
+    List<double> minValuesY = [];
+    List<double> intervalY = [];
+    double minValueX = 0;
+
+    maxX = min(dataX.length.toDouble(), 25);
+
+    for (int i = 0; i < dataY.length; i++) {
+      dataYNum.add([]);
+      points.add([]);
+    }
+
+    for (int i = 0; i < dataY.length; i++) {
+      for (dynamic y in dataY[i]) {
+        try {
+          dataYNum[i].add(y.toDouble());
+        } catch (e) {
+          dataYNum[i].add(0);
+        }
+      }
+    }
+
+    for (List<double> x in dataYNum) {
+      double maxValue = x.reduce(max);
+      double minValue = x.reduce(min);
+
+      maxValuesY.add(maxValue);
+      minValuesY.add(minValue);
+      intervalY.add((maxValue - minValue) / maxY);
+    }
+
+    double intervalXFactor = dataX.length / maxX;
+    double intervalXFactorExpand = dataX.length / (maxX + 1);
+
+    for (int i = 0; i < maxX; i++) {
+      if (shortenX) {
+        markerX.add(dataX[(i * intervalXFactor).round()].toString());
+      } else {
+        markerX.add(limitMarkerX == null
+            ? dataX[(i * intervalXFactor).round()].toString()
+            : dataX[(i * intervalXFactor).round()].toString().substring(
+                0,
+                min(limitMarkerX,
+                    dataX[(i * intervalXFactor).round()].toString().length)));
+      }
+    }
+
+    for (int i = 0; i < dataX.length; i++) {
+      for (int j = 0; j < dataYNum.length; j++) {
+        try {
+          points[j].add(FlSpot(minValueX,
+              roundDouble((dataYNum[j][i] - minValuesY[j]) / intervalY[j], 2)));
+        } catch (e) {
+          points[j].add(FlSpot(minValueX, 0));
+        }
+      }
+      minValueX += 1 /
+          (dataX.length.toDouble() < 25
+              ? intervalXFactorExpand
+              : intervalXFactor);
+    }
+
+    for (int i = 0; i < maxY; i++) {
+      List<String> row = [];
+      for (int j = 0; j < minValuesY.length; j++) {
+        row.add(shortenNum(minValuesY[j]));
+        minValuesY[j] += intervalY[j];
+      }
+      markerY.add(row);
+    }
+
+    return VisualizerLineChart(
+      chartColors: chartColors,
       points: points,
       markerY: markerY,
       markerX: markerX,
