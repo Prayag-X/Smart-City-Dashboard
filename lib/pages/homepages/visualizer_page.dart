@@ -18,6 +18,7 @@ import '../../utils/csv_parser.dart';
 import '../../utils/helper.dart';
 import '../dashboard/downloadable_content.dart';
 import '../dashboard/widgets/charts/line_chart_parser.dart';
+import '../dashboard/widgets/charts/pie_chart_parser.dart';
 import '../dashboard/widgets/dashboard_container.dart';
 import '../dashboard/widgets/google_map.dart';
 
@@ -63,6 +64,8 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
 
   visualizeCSV() async {
     try {
+      ref.read(isLoadingProvider.notifier).state = true;
+      downloaded = false;
       Map<String, Map<String, String>> content = {
         'Visualizer': {
           'url': csvUrlController.text,
@@ -71,15 +74,21 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
         },
       };
       await Downloader(ref: ref).downloadAllContent(content);
-      List<List<dynamic>>? data = await FileParser.parseCSVFromStorage(
-          DownloadableContent.content['Community Organizations Fund']!);
+      List<List<dynamic>>? data =
+          await FileParser.parseCSVFromStorage(content['Visualizer']!);
       setState(() {
         chartData = FileParser.transformer(data);
         for (int i = 0; i < chartYNumbers; i++) {
+          print(int.parse(chartYControllers[i].text));
+          print(chartData![int.parse(chartYControllers[i].text)]);
           chartDataForVisualization
               .add(chartData![int.parse(chartYControllers[i].text)]);
         }
+        downloaded = true;
       });
+      print(chartData);
+      print(chartDataForVisualization);
+      ref.read(isLoadingProvider.notifier).state = false;
     } catch (error) {
       showSnackBar(
           context: context, message: translate('visualizer.download_failed'));
@@ -430,21 +439,29 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                     : const SizedBox.shrink(),
                 (Const.dashboardUISpacing * 4).ph,
                 DownloadButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    await visualizeCSV();
+                  },
                   highlightColor: highlightColor,
                   oppositeColor: oppositeColor,
                 ),
                 (Const.dashboardUISpacing * 4).ph,
                 downloaded
-                    ? LineChartParser(
-                        title: '',
-                        chartData: {},
-                        legendX: '',
-                      ).chartParserForVisualizer(
-                        limitMarkerX: 5,
-                        dataX: chartData![int.parse(chartXController.text)],
-                        dataY: chartDataForVisualization, chartColors: chartColors)
-                    : const BlankVisualizerContainer(),
+                    ? chartType == 0
+                        ? LineChartParser(
+                            title: '',
+                            chartData: {},
+                            legendX: '',
+                          ).chartParserForVisualizer(
+                            limitMarkerX: 5,
+                            dataX: chartData![int.parse(chartXController.text)],
+                            dataY: chartDataForVisualization,
+                            chartColors: chartColors)
+                        : PieChartParser(
+                                title: '',
+                                subTitle: '')
+                            .chartParserForVisualizer(data: chartData![int.parse(chartXController.text)])
+                    : const SizedBox.shrink(),
                 (Const.dashboardUISpacing * 9).ph,
                 Container(
                   height: 100,

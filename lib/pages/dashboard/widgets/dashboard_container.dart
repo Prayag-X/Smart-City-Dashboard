@@ -256,11 +256,11 @@ class BlankVisualizerContainer extends ConsumerWidget {
     Color tabBarColor = ref.watch(tabBarColorProvider);
     Color highlightColor = ref.watch(highlightColorProvider);
     return Container(
-        width: screenSize(context).width -
+        width: screenSize(context).width * 0.8 -
             screenSize(context).width / Const.tabBarWidthDivider,
         height: (screenSize(context).width -
             screenSize(context).width / Const.tabBarWidthDivider) *
-            Const.dashboardUIHeightFactor,
+            Const.dashboardUIHeightFactor * 0.7,
         decoration: BoxDecoration(
           color: highlightColor,
           borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
