@@ -303,6 +303,62 @@ class _SettingsState extends ConsumerState<SettingsPage> {
               ),
             ),
           ),
+          40.ph,
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
+            child: Column(
+              children: [
+                Text(translate('settings.content_management'),
+                    style: textStyleNormal.copyWith(
+                        fontSize: Const.tabBarTextSize - 2,
+                        color: oppositeColor)),
+                Divider(
+                  color: oppositeColor,
+                  indent: 30,
+                  endIndent: 30,
+                ),
+              ],
+            ),
+          ),
+          AnimationLimiter(
+            child: Column(
+              children: AnimationConfiguration.toStaggeredList(
+                duration: Const.animationDuration,
+                childAnimationBuilder: (widget) => SlideAnimation(
+                  verticalOffset: Const.animationDistance,
+                  child: FadeInAnimation(
+                    child: widget,
+                  ),
+                ),
+                children: [
+                  TextButtonCustom(
+                    onPressed: () async {
+                      showSnackBar(
+                          context: context,
+                          message: translate('settings.download_started'));
+                      await Downloader(ref: ref)
+                          .downloadAllContent(DownloadableContent.content);
+                      await prefs.setBool('downloadableContent', true);
+                      ref
+                          .read(downloadableContentAvailableProvider.notifier)
+                          .state = true;
+                      if (!mounted) {
+                        return;
+                      }
+                      showSnackBar(
+                          context: context,
+                          message: translate('settings.download_completed'));
+                    },
+                    name: translate('settings.download'),
+                    width: screenSize(context).width - 400,
+                    icon: Icons.download_rounded,
+                    color: darkenColor(Colors.blue),
+                    ref: ref,
+                  ),
+                ],
+              ),
+            ),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -413,43 +469,21 @@ class _SettingsState extends ConsumerState<SettingsPage> {
               ),
             ],
           ),
-          AnimationLimiter(
+          30.ph,
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0),
             child: Column(
-              children: AnimationConfiguration.toStaggeredList(
-                duration: Const.animationDuration,
-                childAnimationBuilder: (widget) => SlideAnimation(
-                  verticalOffset: Const.animationDistance,
-                  child: FadeInAnimation(
-                    child: widget,
-                  ),
+              children: [
+                Text(translate('settings.lg_management'),
+                    style: textStyleNormal.copyWith(
+                        fontSize: Const.tabBarTextSize - 2,
+                        color: oppositeColor)),
+                Divider(
+                  color: oppositeColor,
+                  indent: 30,
+                  endIndent: 30,
                 ),
-                children: [
-                  TextButtonCustom(
-                    onPressed: () async {
-                      showSnackBar(
-                          context: context,
-                          message: translate('settings.download_started'));
-                      await Downloader(ref: ref)
-                          .downloadAllContent(DownloadableContent.content);
-                      await prefs.setBool('downloadableContent', true);
-                      ref
-                          .read(downloadableContentAvailableProvider.notifier)
-                          .state = true;
-                      if (!mounted) {
-                        return;
-                      }
-                      showSnackBar(
-                          context: context,
-                          message: translate('settings.download_completed'));
-                    },
-                    name: translate('settings.download'),
-                    width: screenSize(context).width - 400,
-                    icon: Icons.download_rounded,
-                    color: darkenColor(Colors.blue),
-                    ref: ref,
-                  ),
-                ],
-              ),
+              ],
             ),
           ),
           Row(

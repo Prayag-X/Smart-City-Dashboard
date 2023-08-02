@@ -130,24 +130,46 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                       ),
                     ),
                   ))
-              : AnimationLimiter(
-                  child: Column(
-                    children: AnimationConfiguration.toStaggeredList(
-                      duration: Const.animationDuration,
-                      childAnimationBuilder: (widget) => SlideAnimation(
-                        horizontalOffset: -Const.animationDistance,
-                        child: FadeInAnimation(
-                          child: widget,
+              : Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Column(
+                        children: [
+                          Text(translate('city_page.available_data'),
+                              style: textStyleNormal.copyWith(
+                                  fontSize: Const.tabBarTextSize - 3,
+                                  color: oppositeColor)),
+                          Divider(
+                            color: oppositeColor,
+                            indent: 10,
+                            endIndent: 10,
+                          ),
+                        ],
+                      ),
+                    ),
+                    AnimationLimiter(
+                      child: Column(
+                        children: AnimationConfiguration.toStaggeredList(
+                          duration: Const.animationDuration,
+                          childAnimationBuilder: (widget) => SlideAnimation(
+                            horizontalOffset: -Const.animationDistance,
+                            child: FadeInAnimation(
+                              child: widget,
+                            ),
+                          ),
+                          children: ref
+                              .read(cityDataProvider)!
+                              .availableTabs
+                              .map((tab) => TabButton(
+                                  logo: tab.logo!,
+                                  name: tab.name!,
+                                  tab: tab.tab))
+                              .toList(),
                         ),
                       ),
-                      children: ref
-                          .read(cityDataProvider)!
-                          .availableTabs
-                          .map((tab) => TabButton(
-                              logo: tab.logo!, name: tab.name!, tab: tab.tab))
-                          .toList(),
                     ),
-                  ),
+                  ],
                 ),
           Column(
             children: [
@@ -187,7 +209,7 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                   tab: -1),
               TabButton(
                   logo: ImageConst.about,
-                  name: translate('homepage.about'),
+                  name: translate('homepage.about_normal'),
                   tab: -2),
             ],
           ),

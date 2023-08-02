@@ -23,15 +23,19 @@
     "help": "Help",
     "settings": "Settings",
     "option": "LG Options",
-    "about": "About",
+    "about": "About City",
+    "about_normal": "About",
     "available_data": "Available Data",
+    "tour": "Tour of all cities",
     "about_page": {
       "description": "Smart City Dashboard is a Flutter app to visualize many available public data of various smart cities through various visually appealing dashboards and charts. This project was created as a part of Google Summer of Code 23 under Liquid Galaxy. Developed thanks to the TIC Laboratories of the Scientific Part of Lleida, Liquid Galaxy EU, Liquid Galaxy LAB, Google Developer Groups Lleida, Women Techmakers Lleida and Parc Agrobiotech Lleida. The app can show realtime weather along with hourly data, various analytic data of the cities and other important data like environment, population etc. The app supports an integrated Google Map to control the Liquid Galaxy. It automatically travels to the location of the city selected and also facilitates the tour of the city's major locations. It can also visualize various KML data in the bigger screen of Liquid Galaxy for better analysis. One of the major feature of the app is that even though the size of the app is small, it can show data of many GBs as it downloads it in realtime and also features to clean those data so that the device does not get clogged of unnecessary large data. The app supports 2 themes and many languages as well. The navigation of the app is also one tap to any page or feature, so the user can explore the app with ease and simplicity",
       "made_by": "Made by",
       "prayag": "Prayag Biswas",
       "organization": "Organization",
       "liquid_galaxy": "Liquid Galaxy",
-      "organization_admin": "Organisation Admin",
+      "organization_admin": "Organization Admin",
+      "lg_lab_tester": "LG Lab Testers",
+      "lg_lab_testers": "Mohamed Zazou, Navdeep Singh, Imad Laichi",
       "andrew": "Andreu Ibáñez",
       "mentor": "Mentor",
       "merul": "Merul Dhiman",
@@ -43,6 +47,7 @@
   },
   "city_page": {
     "go_back": "(Tap to go back to home)",
+    "available_data": "Available City Data",
     "weather": "Weather"
   },
   "dashboard": {
@@ -126,6 +131,8 @@
     "kml_success": "KML file is now running successfully!",
     "mic_on": "Microphone on. Speak out any city name or data tab name!",
     "mic_off": "Microphone off",
+    "content_management": "Content Management",
+    "lg_management": "Liquid Galaxy Management",
     "theme": "Theme"
   },
   "help_page": {

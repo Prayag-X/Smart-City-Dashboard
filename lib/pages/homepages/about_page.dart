@@ -78,27 +78,6 @@ class _AboutPageState extends ConsumerState<AboutPage> {
                           ),
                         ),
                       ),
-                      30.ph,
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: const [
-                          AboutLogoShower(
-                            logo: ImageConst.gsoc,
-                            height: 100,
-                            width: 200,
-                          ),
-                          AboutLogoShower(
-                            logo: ImageConst.lgAbout,
-                            height: 100,
-                            width: 200,
-                          ),
-                          AboutLogoShower(
-                            logo: ImageConst.flutter,
-                            height: 100,
-                            width: 230,
-                          ),
-                        ],
-                      ),
                       50.ph,
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -113,7 +92,7 @@ class _AboutPageState extends ConsumerState<AboutPage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: SizedBox(
-                          height: 80,
+                          height: 130,
                           child: Row(
                             children: [
                               Expanded(
@@ -173,6 +152,11 @@ class _AboutPageState extends ConsumerState<AboutPage> {
                                             'homepage.about_page.mentor'),
                                         text2: translate(
                                             'homepage.about_page.merul')),
+                                    AboutText(
+                                        text1: translate(
+                                            'homepage.about_page.lg_lab_tester'),
+                                        text2: translate(
+                                            'homepage.about_page.lg_lab_testers')),
                                   ],
                                 ),
                               ),
@@ -185,6 +169,28 @@ class _AboutPageState extends ConsumerState<AboutPage> {
                         thickness: 1,
                         color: Colors.white.withOpacity(0.5),
                       ),
+                      20.ph,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: const [
+                          AboutLogoShower(
+                            logo: ImageConst.gsoc,
+                            height: 100,
+                            width: 200,
+                          ),
+                          AboutLogoShower(
+                            logo: ImageConst.lgAbout,
+                            height: 100,
+                            width: 200,
+                          ),
+                          AboutLogoShower(
+                            logo: ImageConst.flutter,
+                            height: 100,
+                            width: 230,
+                          ),
+                        ],
+                      ),
+                      20.ph,
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: Row(
@@ -278,6 +284,7 @@ class AboutText extends ConsumerWidget {
     Color tabBarColor = ref.watch(tabBarColorProvider);
     Color highlightColor = ref.watch(highlightColorProvider);
     return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           text1,
@@ -287,9 +294,11 @@ class AboutText extends ConsumerWidget {
           ': ',
           style: textStyleNormal.copyWith(fontSize: 17, color: Colors.yellow),
         ),
-        Text(
-          text2,
-          style: textStyleNormal.copyWith(color: oppositeColor, fontSize: 17),
+        Expanded(
+          child: Text(
+            text2,
+            style: textStyleNormal.copyWith(color: oppositeColor, fontSize: 17),
+          ),
         ),
       ],
     );

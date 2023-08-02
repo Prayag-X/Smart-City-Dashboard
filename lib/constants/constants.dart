@@ -1,7 +1,7 @@
 class Const {
   static double appBarHeight = 80;
   static double tabBarWidthDivider = 5;
-  static List<double> splashAspectRatio = [0.6, 0.4];
+  static List<double> splashAspectRatio = [0.6, 0.3];
   static double lgZoomScale = 130000000.0;
   static double dashboardUIRoundness = 20;
   static double dashboardUISpacing = 10;

@@ -1,9 +1,12 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flex_color_picker/flex_color_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:smart_city_dashboard/connections/downloader.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -12,7 +15,9 @@ import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 import 'package:smart_city_dashboard/utils/logo_shower.dart';
 
+import '../../connections/ssh.dart';
 import '../../constants/constants.dart';
+import '../../kml_makers/balloon_makers.dart';
 import '../../providers/settings_providers.dart';
 import '../../utils/csv_parser.dart';
 import '../../utils/helper.dart';
@@ -88,6 +93,33 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
       });
       print(chartData);
       print(chartDataForVisualization);
+      ref.read(isLoadingProvider.notifier).state = false;
+    } catch (error) {
+      showSnackBar(
+          context: context, message: translate('visualizer.download_failed'));
+    }
+  }
+
+  visualizeKML() async {
+    try{
+      var localPath = await getApplicationDocumentsDirectory();
+      await Downloader(ref: ref).downloadKml(kmlUrlController.text);
+      if (!mounted) {
+        return;
+      }
+      await SSH(ref: ref).kmlFileUpload(
+          context,
+          File('${localPath.path}/${Const.kmlCustomFileName}.kml'),
+          Const.kmlCustomFileName);
+      if (!mounted) {
+        return;
+      }
+      await SSH(ref: ref).runKml(context, Const.kmlCustomFileName);
+      if (!mounted) {
+        return;
+      }
+      showSnackBar(
+          context: context, message: translate('settings.kml_success'));
       ref.read(isLoadingProvider.notifier).state = false;
     } catch (error) {
       showSnackBar(
@@ -461,6 +493,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                                 title: '',
                                 subTitle: '')
                             .chartParserForVisualizer(data: chartData![int.parse(chartXController.text)])
+                // :Container()
                     : const SizedBox.shrink(),
                 (Const.dashboardUISpacing * 9).ph,
                 Container(
@@ -708,6 +741,10 @@ class TextFormFieldIntegerCustom extends ConsumerWidget {
             ),
           ),
           style: textStyleNormal.copyWith(color: oppositeColor, fontSize: 17),
+          keyboardType: TextInputType.number,
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.digitsOnly
+          ],
           controller: controller,
         ),
       ),

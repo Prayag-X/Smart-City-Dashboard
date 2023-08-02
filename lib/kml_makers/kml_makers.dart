@@ -65,4 +65,34 @@ class KMLMakers {
    </gx:Tour>
 </kml>''';
   }
+
+  static String buildTourCities(WidgetRef ref) {
+    String lookAts = '';
+
+    for (var location in ref.read(cityDataProvider)!.availableTours) {
+      lookAts += '''<gx:FlyTo>
+  <gx:duration>5.0</gx:duration>
+  <gx:flyToMode>bounce</gx:flyToMode>
+  ${lookAt(CameraPosition(target: location, zoom: 16, tilt: 30), true)}
+</gx:FlyTo>
+''';
+    }
+
+    lookAts += '''<gx:FlyTo>
+  <gx:duration>5.0</gx:duration>
+  <gx:flyToMode>bounce</gx:flyToMode>
+  ${lookAt(ref.read(lastGMapPositionProvider)!, false)}
+</gx:FlyTo>
+''';
+
+    return '''<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+   <gx:Tour>
+   <name>Orbit</name>
+      <gx:Playlist>
+         $lookAts
+      </gx:Playlist>
+   </gx:Tour>
+</kml>''';
+  }
 }
