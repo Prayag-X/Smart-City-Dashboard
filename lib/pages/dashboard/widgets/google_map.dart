@@ -42,7 +42,7 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
     } else {
       initialMapPosition = CameraPosition(
         target: ref.read(cityDataProvider)!.location,
-        zoom: 11,
+        zoom: Const.appZoomScale,
       );
     }
 

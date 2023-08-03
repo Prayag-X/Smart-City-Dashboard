@@ -44,7 +44,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     SSH(ref: ref).cleanBalloon(
       context,
     );
-    SSH(ref: ref).flyTo2(
+    SSH(ref: ref).flyToWithoutSaving(
         context,
         initialMapPosition.target.latitude,
         initialMapPosition.target.longitude,

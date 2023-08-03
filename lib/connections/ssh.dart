@@ -194,7 +194,17 @@ class SSH {
     }
   }
 
-  flyTo2(context, double latitude, double longitude, double zoom, double tilt,
+  flyToWithoutSaving(context, double latitude, double longitude, double zoom, double tilt,
+      double bearing) async {
+    try {
+      await ref.read(sshClient)?.run(
+          'echo "flytoview=${KMLMakers.lookAtLinear(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
+    } catch (error) {
+      showSnackBar(context: context, message: error.toString());
+    }
+  }
+
+  flyToOrbitSaving(context, double latitude, double longitude, double zoom, double tilt,
       double bearing) async {
     try {
       await ref.read(sshClient)?.run(

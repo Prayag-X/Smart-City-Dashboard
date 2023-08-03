@@ -1,7 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:smart_city_dashboard/connections/ssh.dart';
 import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
+
+import '../constants/constants.dart';
 
 class KMLMakers {
   static screenOverlayImage(String imageUrl, List<double> aspectRatio) =>
@@ -36,44 +40,18 @@ class KMLMakers {
   <gx:altitudeMode>relativeToGround</gx:altitudeMode>
 </LookAt>''';
 
-  static String buildOrbit(WidgetRef ref) {
+  static String tourLookAtLinear(double latitude, double longitude, double zoom,
+          double tilt, double bearing) =>
+      '<gx:duration>3</gx:duration><gx:flyToMode>smooth</gx:flyToMode><LookAt><longitude>$longitude</longitude><latitude>$latitude</latitude><range>$zoom</range><tilt>$tilt</tilt><heading>$bearing</heading><gx:altitudeMode>relativeToGround</gx:altitudeMode></LookAt>';
+
+  static String buildTourOfCityAbout(WidgetRef ref) {
     String lookAts = '';
 
     for (var location in ref.read(cityDataProvider)!.availableTours) {
       lookAts += '''<gx:FlyTo>
   <gx:duration>5.0</gx:duration>
   <gx:flyToMode>bounce</gx:flyToMode>
-  ${lookAt(CameraPosition(target: location, zoom: 16, tilt: 30), true)}
-</gx:FlyTo>
-''';
-    }
-
-    lookAts += '''<gx:FlyTo>
-  <gx:duration>5.0</gx:duration>
-  <gx:flyToMode>bounce</gx:flyToMode>
-  ${lookAt(ref.read(lastGMapPositionProvider)!, false)}
-</gx:FlyTo>
-''';
-
-    return '''<?xml version="1.0" encoding="UTF-8"?>
-<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
-   <gx:Tour>
-   <name>Orbit</name>
-      <gx:Playlist>
-         $lookAts
-      </gx:Playlist>
-   </gx:Tour>
-</kml>''';
-  }
-
-  static String buildTourCities(WidgetRef ref) {
-    String lookAts = '';
-
-    for (var location in ref.read(cityDataProvider)!.availableTours) {
-      lookAts += '''<gx:FlyTo>
-  <gx:duration>5.0</gx:duration>
-  <gx:flyToMode>bounce</gx:flyToMode>
-  ${lookAt(CameraPosition(target: location, zoom: 16, tilt: 30), true)}
+  ${lookAt(CameraPosition(target: location, zoom: Const.tourZoomScale, tilt: 30), true)}
 </gx:FlyTo>
 ''';
     }
