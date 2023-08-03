@@ -28,6 +28,8 @@ class KmlDownloaderButton extends ConsumerStatefulWidget {
 }
 
 class _KmlDownloaderButtonState extends ConsumerState<KmlDownloaderButton> {
+  bool isPlaying = false;
+
   @override
   Widget build(BuildContext context) {
     Color normalColor = ref.watch(normalColorProvider);
@@ -78,7 +80,7 @@ class _KmlDownloaderButtonState extends ConsumerState<KmlDownloaderButton> {
                     message: translate('settings.connection_required'));
                 return;
               }
-              ref.watch(kmlClickedProvider.notifier).state = widget.index;
+              ref.read(kmlClickedProvider.notifier).state = widget.index;
               ref.read(isLoadingProvider.notifier).state = true;
               var localPath = await getApplicationDocumentsDirectory();
               await Downloader(ref: ref).downloadKml(widget.data.url);
@@ -112,6 +114,9 @@ class _KmlDownloaderButtonState extends ConsumerState<KmlDownloaderButton> {
               if (!mounted) {
                 return;
               }
+              setState(() {
+                isPlaying = true;
+              });
               showSnackBar(
                   context: context, message: translate('settings.kml_success'));
               ref.read(isLoadingProvider.notifier).state = false;
@@ -121,20 +126,33 @@ class _KmlDownloaderButtonState extends ConsumerState<KmlDownloaderButton> {
                   const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
               child: Row(
                 children: [
-                  const Icon(
-                    Icons.arrow_downward_rounded,
-                    size: 25,
-                    color: Colors.blue,
-                  ),
+                  !isPlaying
+                      ? const Icon(
+                          Icons.arrow_downward_rounded,
+                          size: 25,
+                          color: Colors.blue,
+                        )
+                      : const Icon(
+                          Icons.screenshot_monitor_rounded,
+                          size: 25,
+                          color: Colors.green,
+                        ),
                   7.pw,
                   Row(
                     children: [
-                      Text(
-                        widget.data.size,
-                        style: textStyleNormal.copyWith(
-                            fontSize: 18,
-                            color: Colors.redAccent.withOpacity(0.7)),
-                      ),
+                      !isPlaying
+                          ? Text(
+                              widget.data.size,
+                              style: textStyleNormal.copyWith(
+                                  fontSize: 18,
+                                  color: Colors.redAccent.withOpacity(0.7)),
+                            )
+                          : Text(
+                              translate('dashboard.playing'),
+                              style: textStyleNormal.copyWith(
+                                  fontSize: 18,
+                                  color: Colors.green.withOpacity(0.7)),
+                            ),
                       Text(
                         '  ${widget.data.name}',
                         style: textStyleNormal.copyWith(

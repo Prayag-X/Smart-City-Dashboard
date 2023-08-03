@@ -44,6 +44,7 @@ class _HomePageState extends ConsumerState<HomePage> {
     SSH(ref: ref).cleanBalloon(
       context,
     );
+    SSH(ref: ref).cleanKML(context);
     SSH(ref: ref).flyToWithoutSaving(
         context,
         initialMapPosition.target.latitude,

@@ -51,6 +51,9 @@
     "weather": "Weather"
   },
   "dashboard": {
+    "play_orbit": "Play Orbit",
+    "stop_orbit": "Stop Orbit",
+    "playing": "Playing",
     "map_type": {
       "hybrid": "Hybrid",
       "normal": "Normal",

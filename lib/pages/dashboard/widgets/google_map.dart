@@ -14,11 +14,12 @@ import '../../../connections/ssh.dart';
 import '../../../providers/settings_providers.dart';
 
 class GoogleMapPart extends ConsumerStatefulWidget {
-  const GoogleMapPart({
-    Key? key, this.visualizer = false
-  }) : super(key: key);
+  const GoogleMapPart(
+      {Key? key, this.visualizer = false, this.showOrbit = true})
+      : super(key: key);
 
   final bool visualizer;
+  final bool showOrbit;
 
   @override
   ConsumerState createState() => _RightPanelState();
@@ -31,12 +32,52 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
   late CameraPosition initialMapPosition;
   late CameraPosition newMapPosition;
 
+  bool orbitPlaying = false;
+
+  orbitPlay() async {
+    setState(() {
+      orbitPlaying = true;
+    });
+    for (int i = 0; i <= 360; i += 10) {
+      if (!mounted) {
+        return;
+      }
+      if (!orbitPlaying) {
+        break;
+      }
+      SSH(ref: ref).flyToOrbitSaving(
+          context,
+          newMapPosition.target.latitude,
+          newMapPosition.target.longitude,
+          Const.orbitZoomScale.zoomLG,
+          60,
+          i.toDouble());
+      await Future.delayed(const Duration(milliseconds: 1000));
+    }
+    if (!mounted) {
+      return;
+    }
+    SSH(ref: ref).flyTo(context, newMapPosition.target.latitude,
+        newMapPosition.target.longitude, Const.appZoomScale.zoomLG, 0, 0);
+    setState(() {
+      orbitPlaying = false;
+    });
+  }
+
+  orbitStop() async {
+    setState(() {
+      orbitPlaying = false;
+    });
+    SSH(ref: ref).flyTo(context, newMapPosition.target.latitude,
+        newMapPosition.target.longitude, Const.appZoomScale.zoomLG, 0, 0);
+  }
+
   @override
   void initState() {
     super.initState();
-    if(widget.visualizer) {
+    if (widget.visualizer) {
       initialMapPosition = const CameraPosition(
-        target: LatLng(0,0),
+        target: LatLng(0, 0),
         zoom: 0,
       );
     } else {
@@ -62,6 +103,7 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
     Color oppositeColor = ref.watch(oppositeColorProvider);
     Color tabBarColor = ref.watch(tabBarColorProvider);
     Color highlightColor = ref.watch(highlightColorProvider);
+    bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
     MapType mapType = ref.watch(mapTypeProvider);
     return AnimationLimiter(
       child: Column(
@@ -80,20 +122,89 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
                   Const.dashboardUISpacing,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
-                child: GoogleMap(
-                  mapType: mapType,
-                  initialCameraPosition: initialMapPosition,
-                  onMapCreated: (GoogleMapController controller) =>
-                      _controller.complete(controller),
-                  onCameraMove: (position) =>
-                      setState(() => newMapPosition = position),
-                  onCameraIdle: () async => await SSH(ref: ref).flyTo(
-                      context,
-                      newMapPosition.target.latitude,
-                      newMapPosition.target.longitude,
-                      newMapPosition.zoom.zoomLG,
-                      newMapPosition.tilt,
-                      newMapPosition.bearing),
+                child: Stack(
+                  alignment: AlignmentDirectional.topEnd,
+                  children: [
+                    GoogleMap(
+                      mapType: mapType,
+                      initialCameraPosition: initialMapPosition,
+                      onMapCreated: (GoogleMapController controller) =>
+                          _controller.complete(controller),
+                      onCameraMove: (position) =>
+                          setState(() => newMapPosition = position),
+                      onCameraIdle: () async {
+                        await orbitStop();
+                        if(!mounted) {
+                          return;
+                        }
+                        await SSH(ref: ref).flyTo(
+                            context,
+                            newMapPosition.target.latitude,
+                            newMapPosition.target.longitude,
+                            newMapPosition.zoom.zoomLG,
+                            newMapPosition.tilt,
+                            newMapPosition.bearing);
+                      }
+                    ),
+                    widget.showOrbit
+                        ? Padding(
+                            padding: const EdgeInsets.all(15.0),
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                  minimumSize: Size.zero,
+                                  padding: EdgeInsets.zero,
+                                  tapTargetSize:
+                                      MaterialTapTargetSize.shrinkWrap,
+                                  backgroundColor:
+                                      Colors.white.withOpacity(0.7),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(300),
+                                    // side: const BorderSide(width: 1, color: Colors.white)
+                                  )),
+                              onPressed: () async {
+                                if (!isConnectedToLg) {
+                                  showSnackBar(
+                                      context: context,
+                                      message: translate(
+                                          'settings.connection_required'));
+                                  return;
+                                }
+                                if (orbitPlaying) {
+                                  await orbitStop();
+                                } else {
+                                  await orbitPlay();
+                                }
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 12.0, horizontal: 18),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      orbitPlaying
+                                          ? Icons.stop_rounded
+                                          : Icons.play_arrow_rounded,
+                                      color: Colors.black.withOpacity(0.8),
+                                      size: Const.dashboardTextSize + 4,
+                                    ),
+                                    3.pw,
+                                    Text(
+                                      orbitPlaying
+                                          ? translate('dashboard.stop_orbit')
+                                          : translate('dashboard.play_orbit'),
+                                      style: textStyleBold.copyWith(
+                                          color: Colors.black.withOpacity(0.8),
+                                          fontSize:
+                                              Const.dashboardTextSize + 2),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          )
+                        : const SizedBox.shrink(),
+                  ],
                 ),
               ),
             ),

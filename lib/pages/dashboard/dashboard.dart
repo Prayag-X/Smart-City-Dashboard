@@ -59,8 +59,12 @@ class Dashboard extends ConsumerWidget {
                   Future.delayed(Duration.zero).then((x) async {
                     ref.read(isLoadingProvider.notifier).state = false;
                   });
-                  SSH(ref: ref).cleanBalloon(context, );
-                  SSH(ref: ref).cleanKML(context, );
+                  SSH(ref: ref).cleanBalloon(
+                    context,
+                  );
+                  SSH(ref: ref).cleanKML(
+                    context,
+                  );
                   if (downloadableContentAvailable) {
                     for (var pageTab in city.availableTabs) {
                       if (pageTab.tab == tab) {
@@ -121,7 +125,7 @@ class Dashboard extends ConsumerWidget {
                     ClipRRect(
                       borderRadius:
                           BorderRadius.circular(Const.dashboardUIRoundness),
-                      child: Container(
+                      child: SizedBox(
                         height:
                             (screenSize(context).height - Const.appBarHeight) /
                                     2 -
@@ -136,6 +140,10 @@ class Dashboard extends ConsumerWidget {
                           //           2 -
                           //       40,
                           // );
+                          Future.delayed(Duration.zero).then((x) async {
+                            SSH(ref: ref).cleanKML(context);
+                          });
+
                           if (tab == 0) {
                             return const WeatherTabRight();
                           }
@@ -144,29 +152,39 @@ class Dashboard extends ConsumerWidget {
                           }
                           for (var pageTab in city.availableTabs) {
                             if (pageTab.tab == tab) {
-                              if(pageTab.diffRightTab!) {
+                              if (pageTab.diffRightTab!) {
                                 return pageTab.rightTab!;
                               } else {
-                                if(pageTab.rightTabData!.isEmpty) {
+                                if (pageTab.rightTabData!.isEmpty) {
                                   return Center(
                                     child: Text(
                                       translate('city_data.no_kml'),
                                       style: textStyleNormal.copyWith(
                                           fontSize: Const.dashboardTextSize - 3,
-                                          color: oppositeColor.withOpacity(0.5)),
+                                          color:
+                                              oppositeColor.withOpacity(0.5)),
                                     ),
                                   );
                                 }
+                                Future.delayed(Duration.zero).then((x) async {
+                                  ref.read(kmlClickedProvider.notifier).state =
+                                      -1;
+                                });
                                 return DashboardRightPanel(
-                                    headers: [translate('dashboard.available_kml')],
-                                    headersFlex: const [1],
+                                    headers: [
+                                      translate('dashboard.available_kml')
+                                    ],
+                                    headersFlex: const [
+                                      1
+                                    ],
                                     centerHeader: true,
                                     panelList: pageTab.rightTabData!
                                         .map((data) => KmlDownloaderButton(
-                                        data, pageTab.rightTabData!.indexOf(data)))
+                                            data,
+                                            pageTab.rightTabData!
+                                                .indexOf(data)))
                                         .toList());
                               }
-
                             }
                           }
                         }()),
