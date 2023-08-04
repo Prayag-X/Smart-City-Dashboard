@@ -80,6 +80,9 @@ class _KmlDownloaderButtonState extends ConsumerState<KmlDownloaderButton> {
                 return;
               }
               ref.read(kmlClickedProvider.notifier).state = widget.index;
+              await SSH(ref: ref).cleanKML(
+                context,
+              );
               var localPath = await getApplicationDocumentsDirectory();
               await Downloader(ref: ref).downloadKml(widget.data.url);
               if (!mounted) {

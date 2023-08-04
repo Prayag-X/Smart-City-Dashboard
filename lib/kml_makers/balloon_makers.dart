@@ -25,6 +25,62 @@ class BalloonMakers {
    <BalloonStyle>
      <textColor>ffffffff</textColor>
      <text>
+        <img src="/var/www/html/earth.png" alt="picture" width="300" height="200" />
+        <h1>Weather of $cityName</h1>
+        <img src="$conditionIcon" alt="picture" width="70" height="70" />
+        <h2>$condition</h2>
+        <h3>Temperature: $temperature</h3>
+        <h3>Wind: $wind</h3>
+        <h3>Wind Direction: $windDirection</h3>
+        <h3>Humidity: $humidity</h3>
+        <h3>Cloud: $cloud</h3>
+        <h3>UV: $uv</h3>
+        <h3>Pressure: $pressure</h3>
+     </text>
+     <bgColor>ff15151a</bgColor>
+   </BalloonStyle>
+ </Style>
+ <Placemark id="ww">
+   <description>
+   </description>
+   <LookAt>
+     <longitude>${camera.target.longitude}</longitude>
+     <latitude>${camera.target.latitude}</latitude>
+     <heading>${camera.bearing}</heading>
+     <tilt>${camera.tilt}</tilt>
+     <range>${camera.zoom.zoomLG}</range>
+   </LookAt>
+   <styleUrl>#weather_style</styleUrl>
+   <gx:balloonVisibility>1</gx:balloonVisibility>
+   <Point>
+     <coordinates>${camera.target.longitude},${camera.target.latitude},0</coordinates>
+   </Point>
+ </Placemark>
+</Document>
+</kml>''';
+
+static weatherBalloon2(
+      CameraPosition camera,
+      String cityName,
+      String cityImage,
+      String condition,
+      String conditionIcon,
+      String temperature,
+      String wind,
+      String windDirection,
+      String humidity,
+      String cloud,
+      String uv,
+      String pressure,
+      ) =>
+      '''<?xml version="1.0" encoding="UTF-8"?>
+<kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
+<Document>
+ <name>Weather Data</name>
+ <Style id="weather_style">
+   <BalloonStyle>
+     <textColor>ffffffff</textColor>
+     <text>
         <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/$cityImage" alt="picture" width="300" height="200" />
         <h1>Weather of $cityName</h1>
         <img src="$conditionIcon" alt="picture" width="70" height="70" />

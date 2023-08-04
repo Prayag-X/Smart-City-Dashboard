@@ -273,6 +273,33 @@ class SSH {
     }
   }
 
+  // kmlFileUploadTry(context) async {
+  //   try {
+  //     bool uploading = true;
+  //     final sftp = await ref.read(sshClient)?.sftp();
+  //     final file = await sftp?.open('/var/www/html/trying.png',
+  //         mode: SftpFileOpenMode.create |
+  //         SftpFileOpenMode.truncate |
+  //         SftpFileOpenMode.write);
+  //
+  //     var fileSize = await inputFile.length();
+  //     file?.write(inputFile.openRead().cast(), onProgress: (progress) {
+  //       ref.read(loadingPercentageProvider.notifier).state =
+  //           progress / fileSize;
+  //       if (fileSize == progress) {
+  //         uploading = false;
+  //       }
+  //     });
+  //     if (file == null) {
+  //       return;
+  //     }
+  //     await waitWhile(() => uploading);
+  //     ref.read(loadingPercentageProvider.notifier).state = null;
+  //   } catch (error) {
+  //     showSnackBar(context: context, message: error.toString());
+  //   }
+  // }
+
   fileDelete(context, String filename) async {
     try {
       final sftp = await ref.read(sshClient)?.sftp();

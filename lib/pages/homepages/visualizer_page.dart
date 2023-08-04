@@ -62,8 +62,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
   bool downloaded = false;
   List<Color> chartColors = [];
   List<TextEditingController> chartYControllers = [];
-  TextEditingController chartXController = TextEditingController(text: '');
-  TextEditingController defaultController = TextEditingController(text: '');
+  TextEditingController chartXController = TextEditingController(text: '0');
   TextEditingController csvUrlController = TextEditingController(text: '');
   TextEditingController kmlUrlController = TextEditingController(text: '');
 
@@ -101,7 +100,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
   }
 
   visualizeKML() async {
-    try{
+    try {
       var localPath = await getApplicationDocumentsDirectory();
       await Downloader(ref: ref).downloadKml(kmlUrlController.text);
       if (!mounted) {
@@ -272,7 +271,9 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                     ),
                     Container(
                       height: 50,
-                      width: screenSize(context).width / 2 - 150,
+                      width: screenSize(context).width / 2 -
+                          20 -
+                          screenSize(context).width / Const.tabBarWidthDivider,
                       decoration: BoxDecoration(
                         borderRadius:
                             BorderRadius.circular(Const.dashboardUIRoundness),
@@ -349,7 +350,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                         hintText: translate('visualizer.column_no_hint'),
                       ),
                       ControllerValueControl(
-                        controller: TextEditingController(),
+                        controller: chartXController,
                         oppositeColor: oppositeColor,
                       )
                     ]),
@@ -451,7 +452,8 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                                 setState(() {
                                   chartColors.add(Colors.primaries[Random()
                                       .nextInt(Colors.primaries.length)]);
-                                  chartYControllers.add(defaultController);
+                                  chartYControllers
+                                      .add(TextEditingController(text: '0'));
                                   chartYNumbers++;
                                 });
                               },
@@ -489,11 +491,11 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                             dataX: chartData![int.parse(chartXController.text)],
                             dataY: chartDataForVisualization,
                             chartColors: chartColors)
-                        : PieChartParser(
-                                title: '',
-                                subTitle: '')
-                            .chartParserForVisualizer(data: chartData![int.parse(chartXController.text)])
-                // :Container()
+                        : PieChartParser(title: '', subTitle: '')
+                            .chartParserForVisualizer(
+                                data: chartData![
+                                    int.parse(chartXController.text)])
+                    // :Container()
                     : const SizedBox.shrink(),
                 (Const.dashboardUISpacing * 9).ph,
                 Container(
@@ -549,17 +551,12 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
   }
 }
 
-class ControllerValueControl extends StatefulWidget {
+class ControllerValueControl extends StatelessWidget {
   const ControllerValueControl(
       {super.key, required this.controller, required this.oppositeColor});
   final TextEditingController controller;
   final Color oppositeColor;
 
-  @override
-  State<ControllerValueControl> createState() => _ControllerValueControlState();
-}
-
-class _ControllerValueControlState extends State<ControllerValueControl> {
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -573,14 +570,16 @@ class _ControllerValueControlState extends State<ControllerValueControl> {
               shape: RoundedRectangleBorder(
                   borderRadius:
                       BorderRadius.circular(Const.dashboardUIRoundness),
-                  side: BorderSide(color: widget.oppositeColor, width: 1))),
-          onPressed: () {},
+                  side: BorderSide(color: oppositeColor, width: 1))),
+          onPressed: () {
+            controller.text = (int.parse(controller.text) - 1).toString();
+          },
           child: SizedBox(
             height: 50,
             width: 30,
             child: Icon(
               Icons.arrow_back_rounded,
-              color: widget.oppositeColor,
+              color: oppositeColor,
               size: 20,
             ),
           ),
@@ -593,14 +592,16 @@ class _ControllerValueControlState extends State<ControllerValueControl> {
               shape: RoundedRectangleBorder(
                   borderRadius:
                       BorderRadius.circular(Const.dashboardUIRoundness),
-                  side: BorderSide(color: widget.oppositeColor, width: 1))),
-          onPressed: () {},
+                  side: BorderSide(color: oppositeColor, width: 1))),
+          onPressed: () {
+            controller.text = (int.parse(controller.text) + 1).toString();
+          },
           child: SizedBox(
             height: 50,
             width: 30,
             child: Icon(
               Icons.arrow_forward_rounded,
-              color: widget.oppositeColor,
+              color: oppositeColor,
               size: 20,
             ),
           ),
@@ -676,8 +677,11 @@ class TextFormFieldCustom extends ConsumerWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: SizedBox(
         width: kml
-            ? screenSize(context).width - 350
-            : screenSize(context).width - 700,
+            ? screenSize(context).width -
+                150 -
+                screenSize(context).width / Const.tabBarWidthDivider
+            : screenSize(context).width / 1.75  -
+                screenSize(context).width / Const.tabBarWidthDivider,
         child: TextFormField(
           decoration: InputDecoration(
             labelText: hintText,
@@ -740,6 +744,10 @@ class TextFormFieldIntegerCustom extends ConsumerWidget {
               borderSide: BorderSide(color: oppositeColor, width: 1),
             ),
           ),
+          onChanged: (newValue) {
+            print(newValue);
+            controller.text = newValue ?? '';
+          },
           style: textStyleNormal.copyWith(color: oppositeColor, fontSize: 17),
           keyboardType: TextInputType.number,
           inputFormatters: <TextInputFormatter>[
