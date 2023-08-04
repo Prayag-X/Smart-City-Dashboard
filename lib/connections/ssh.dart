@@ -194,6 +194,32 @@ class SSH {
     }
   }
 
+  flyToInstant(context, double latitude, double longitude, double zoom, double tilt,
+      double bearing) async {
+    try {
+      ref.read(lastGMapPositionProvider.notifier).state = CameraPosition(
+        target: LatLng(latitude, longitude),
+        zoom: zoom,
+        tilt: tilt,
+        bearing: bearing,
+      );
+      await ref.read(sshClient)?.run(
+          'echo "flytoview=${KMLMakers.lookAtLinearInstant(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
+    } catch (error) {
+      showSnackBar(context: context, message: error.toString());
+    }
+  }
+
+  flyToInstantWithoutSaving(context, double latitude, double longitude, double zoom, double tilt,
+      double bearing) async {
+    try {
+      await ref.read(sshClient)?.run(
+          'echo "flytoview=${KMLMakers.lookAtLinearInstant(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
+    } catch (error) {
+      showSnackBar(context: context, message: error.toString());
+    }
+  }
+
   flyToWithoutSaving(context, double latitude, double longitude, double zoom, double tilt,
       double bearing) async {
     try {
@@ -204,11 +230,11 @@ class SSH {
     }
   }
 
-  flyToOrbitSaving(context, double latitude, double longitude, double zoom, double tilt,
+  flyToOrbit(context, double latitude, double longitude, double zoom, double tilt,
       double bearing) async {
     try {
       await ref.read(sshClient)?.run(
-          'echo "flytoview=${KMLMakers.lookAtLinear(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
+          'echo "flytoview=${KMLMakers.orbitLookAtLinear(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
     } catch (error) {
       showSnackBar(context: context, message: error.toString());
     }

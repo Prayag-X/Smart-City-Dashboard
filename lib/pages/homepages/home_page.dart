@@ -30,28 +30,31 @@ class HomePage extends ConsumerStatefulWidget {
 }
 
 class _HomePageState extends ConsumerState<HomePage> {
-  final CameraPosition initialMapPosition = const CameraPosition(
-    target: LatLng(51.4769, 0.0),
-    zoom: 2,
-  );
-
   @override
   void initState() {
     super.initState();
     Future.delayed(Duration.zero).then((x) async {
       ref.read(isLoadingProvider.notifier).state = false;
-    });
-    SSH(ref: ref).cleanBalloon(
-      context,
-    );
-    SSH(ref: ref).cleanKML(context);
-    SSH(ref: ref).flyToWithoutSaving(
+      await SSH(ref: ref).cleanBalloon(
         context,
-        initialMapPosition.target.latitude,
-        initialMapPosition.target.longitude,
-        initialMapPosition.zoom.zoomLG,
-        initialMapPosition.tilt,
-        initialMapPosition.bearing);
+      );
+      if(!mounted) {
+        return;
+      }
+      await SSH(ref: ref).cleanKML(context);
+      if(!mounted) {
+        return;
+      }
+      if (!ref.read(playingGlobalTourProvider)) {
+        await SSH(ref: ref).flyToWithoutSaving(
+            context,
+            Const.initialMapPosition.target.latitude,
+            Const.initialMapPosition.target.longitude,
+            Const.initialMapPosition.zoom.zoomLG,
+            Const.initialMapPosition.tilt,
+            Const.initialMapPosition.bearing);
+      }
+    });
   }
 
   @override

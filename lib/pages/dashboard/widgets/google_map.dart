@@ -38,6 +38,9 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
     setState(() {
       orbitPlaying = true;
     });
+    SSH(ref: ref).flyTo(context, newMapPosition.target.latitude,
+        newMapPosition.target.longitude, Const.appZoomScale.zoomLG, 0, 0);
+    await Future.delayed(const Duration(milliseconds: 1000));
     for (int i = 0; i <= 360; i += 10) {
       if (!mounted) {
         return;
@@ -45,7 +48,7 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
       if (!orbitPlaying) {
         break;
       }
-      SSH(ref: ref).flyToOrbitSaving(
+      SSH(ref: ref).flyToOrbit(
           context,
           newMapPosition.target.latitude,
           newMapPosition.target.longitude,
@@ -75,6 +78,9 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
   @override
   void initState() {
     super.initState();
+    Future.delayed(Duration.zero).then((x) async {
+      ref.read(playingGlobalTourProvider.notifier).state = false;
+    });
     if (widget.visualizer) {
       initialMapPosition = const CameraPosition(
         target: LatLng(0, 0),

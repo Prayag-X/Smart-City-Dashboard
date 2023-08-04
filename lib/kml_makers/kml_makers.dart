@@ -40,9 +40,13 @@ class KMLMakers {
   <gx:altitudeMode>relativeToGround</gx:altitudeMode>
 </LookAt>''';
 
-  static String tourLookAtLinear(double latitude, double longitude, double zoom,
+  static String orbitLookAtLinear(double latitude, double longitude, double zoom,
           double tilt, double bearing) =>
-      '<gx:duration>3</gx:duration><gx:flyToMode>smooth</gx:flyToMode><LookAt><longitude>$longitude</longitude><latitude>$latitude</latitude><range>$zoom</range><tilt>$tilt</tilt><heading>$bearing</heading><gx:altitudeMode>relativeToGround</gx:altitudeMode></LookAt>';
+      '<gx:duration>2</gx:duration><gx:flyToMode>smooth</gx:flyToMode><LookAt><longitude>$longitude</longitude><latitude>$latitude</latitude><range>$zoom</range><tilt>$tilt</tilt><heading>$bearing</heading><gx:altitudeMode>relativeToGround</gx:altitudeMode></LookAt>';
+
+  static String lookAtLinearInstant(double latitude, double longitude, double zoom,
+          double tilt, double bearing) =>
+      '<gx:duration>0.5</gx:duration><gx:flyToMode>smooth</gx:flyToMode><LookAt><longitude>$longitude</longitude><latitude>$latitude</latitude><range>$zoom</range><tilt>$tilt</tilt><heading>$bearing</heading><gx:altitudeMode>relativeToGround</gx:altitudeMode></LookAt>';
 
   static String buildTourOfCityAbout(WidgetRef ref) {
     String lookAts = '';

@@ -1,3 +1,5 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 class Const {
   static double appBarHeight = 80;
   static double tabBarWidthDivider = 5;
@@ -6,6 +8,7 @@ class Const {
   static double appZoomScale = 11;
   static double tourZoomScale = 16;
   static double orbitZoomScale = 13;
+  static double defaultZoomScale = 2;
   static double dashboardUIRoundness = 20;
   static double dashboardUISpacing = 10;
   static double dashboardUIHeightFactor = 0.65;
@@ -19,4 +22,8 @@ class Const {
   static double dashboardChartTextSize = 17;
   static String kmlOrbitFileName = 'Orbit';
   static String kmlCustomFileName = 'custom_kml';
+  static CameraPosition initialMapPosition = const CameraPosition(
+    target: LatLng(51.4769, 0.0),
+    zoom: 2,
+  );
 }

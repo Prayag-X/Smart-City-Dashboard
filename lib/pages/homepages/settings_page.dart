@@ -30,11 +30,6 @@ class SettingsPage extends ConsumerStatefulWidget {
 }
 
 class _SettingsState extends ConsumerState<SettingsPage> {
-  final CameraPosition initialMapPosition = const CameraPosition(
-    target: LatLng(51.4769, 0.0),
-    zoom: 2,
-  );
-
   TextEditingController ipController = TextEditingController(text: '');
   TextEditingController usernameController = TextEditingController(text: '');
   TextEditingController passwordController = TextEditingController(text: '');
@@ -278,11 +273,11 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                         }
                         await SSH(ref: ref).flyTo(
                             context,
-                            initialMapPosition.target.latitude,
-                            initialMapPosition.target.longitude,
-                            initialMapPosition.zoom.zoomLG,
-                            initialMapPosition.tilt,
-                            initialMapPosition.bearing);
+                            Const.initialMapPosition.target.latitude,
+                            Const.initialMapPosition.target.longitude,
+                            Const.initialMapPosition.zoom.zoomLG,
+                            Const.initialMapPosition.tilt,
+                            Const.initialMapPosition.bearing);
                       } else {
                         await SSH(ref: ref).disconnect(
                           context,

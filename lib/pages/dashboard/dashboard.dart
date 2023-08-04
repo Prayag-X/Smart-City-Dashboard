@@ -83,7 +83,7 @@ class Dashboard extends ConsumerWidget {
                           ),
                         ),
                         children: [
-                          Container(
+                          SizedBox(
                             height: screenSize(context).height -
                                 Const.appBarHeight * 2,
                             child: Column(
@@ -112,7 +112,7 @@ class Dashboard extends ConsumerWidget {
                 }()),
               ),
             ),
-            Container(
+            SizedBox(
                 width: (screenSize(context).width -
                             screenSize(context).width /
                                 Const.tabBarWidthDivider) /
@@ -168,6 +168,8 @@ class Dashboard extends ConsumerWidget {
                                 }
                                 Future.delayed(Duration.zero).then((x) async {
                                   ref.read(kmlClickedProvider.notifier).state =
+                                      -1;
+                                  ref.read(kmlPlayProvider.notifier).state =
                                       -1;
                                 });
                                 return DashboardRightPanel(

@@ -28,8 +28,6 @@ class KmlDownloaderButton extends ConsumerStatefulWidget {
 }
 
 class _KmlDownloaderButtonState extends ConsumerState<KmlDownloaderButton> {
-  bool isPlaying = false;
-
   @override
   Widget build(BuildContext context) {
     Color normalColor = ref.watch(normalColorProvider);
@@ -37,6 +35,7 @@ class _KmlDownloaderButtonState extends ConsumerState<KmlDownloaderButton> {
     Color tabBarColor = ref.watch(tabBarColorProvider);
     Color highlightColor = ref.watch(highlightColorProvider);
     int kmlClicked = ref.watch(kmlClickedProvider);
+    int kmlPlaying = ref.watch(kmlPlayProvider);
     double? loadingPercentage = ref.watch(loadingPercentageProvider);
     bool isConnectedToLG = ref.watch(isConnectedToLGProvider);
     return Padding(
@@ -81,7 +80,6 @@ class _KmlDownloaderButtonState extends ConsumerState<KmlDownloaderButton> {
                 return;
               }
               ref.read(kmlClickedProvider.notifier).state = widget.index;
-              ref.read(isLoadingProvider.notifier).state = true;
               var localPath = await getApplicationDocumentsDirectory();
               await Downloader(ref: ref).downloadKml(widget.data.url);
               if (!mounted) {
@@ -114,9 +112,7 @@ class _KmlDownloaderButtonState extends ConsumerState<KmlDownloaderButton> {
               if (!mounted) {
                 return;
               }
-              setState(() {
-                isPlaying = true;
-              });
+              ref.read(kmlPlayProvider.notifier).state = widget.index;
               showSnackBar(
                   context: context, message: translate('settings.kml_success'));
               ref.read(isLoadingProvider.notifier).state = false;
@@ -126,7 +122,7 @@ class _KmlDownloaderButtonState extends ConsumerState<KmlDownloaderButton> {
                   const EdgeInsets.symmetric(vertical: 8.0, horizontal: 10.0),
               child: Row(
                 children: [
-                  !isPlaying
+                  kmlPlaying != widget.index
                       ? const Icon(
                           Icons.arrow_downward_rounded,
                           size: 25,
@@ -140,7 +136,7 @@ class _KmlDownloaderButtonState extends ConsumerState<KmlDownloaderButton> {
                   7.pw,
                   Row(
                     children: [
-                      !isPlaying
+                      kmlPlaying != widget.index
                           ? Text(
                               widget.data.size,
                               style: textStyleNormal.copyWith(
