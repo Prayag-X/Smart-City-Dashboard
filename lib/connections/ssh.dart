@@ -20,7 +20,7 @@ class SSH {
 
   SSH({required this.ref});
 
-  Future<bool> connect(context) async {
+  Future<bool> connect(context, {int i = 0}) async {
     SSHSocket socket;
     try {
       socket = await SSHSocket.connect(
@@ -38,9 +38,25 @@ class SSH {
       onPasswordRequest: () => ref.read(passwordProvider)!,
     );
 
-    ref.read(isConnectedToLGProvider.notifier).state = true;
-    showSnackBar(
-        context: context, message: translate('settings.connection_completed'));
+    try {
+      final sftp = await ref.read(sshClient)?.sftp();
+      await sftp?.open('/var/www/html/connection.txt',
+          mode: SftpFileOpenMode.create |
+              SftpFileOpenMode.truncate |
+              SftpFileOpenMode.write);
+    } catch (error) {
+      print(error);
+      print(i);
+      await disconnect(context);
+      await connect(context, i: i++);
+    }
+
+    if (i == 0) {
+      ref.read(isConnectedToLGProvider.notifier).state = true;
+      showSnackBar(
+          context: context,
+          message: translate('settings.connection_completed'));
+    }
     return true;
   }
 
@@ -194,8 +210,8 @@ class SSH {
     }
   }
 
-  flyToInstant(context, double latitude, double longitude, double zoom, double tilt,
-      double bearing) async {
+  flyToInstant(context, double latitude, double longitude, double zoom,
+      double tilt, double bearing) async {
     try {
       ref.read(lastGMapPositionProvider.notifier).state = CameraPosition(
         target: LatLng(latitude, longitude),
@@ -210,8 +226,8 @@ class SSH {
     }
   }
 
-  flyToInstantWithoutSaving(context, double latitude, double longitude, double zoom, double tilt,
-      double bearing) async {
+  flyToInstantWithoutSaving(context, double latitude, double longitude,
+      double zoom, double tilt, double bearing) async {
     try {
       await ref.read(sshClient)?.run(
           'echo "flytoview=${KMLMakers.lookAtLinearInstant(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
@@ -220,8 +236,8 @@ class SSH {
     }
   }
 
-  flyToWithoutSaving(context, double latitude, double longitude, double zoom, double tilt,
-      double bearing) async {
+  flyToWithoutSaving(context, double latitude, double longitude, double zoom,
+      double tilt, double bearing) async {
     try {
       await ref.read(sshClient)?.run(
           'echo "flytoview=${KMLMakers.lookAtLinear(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
@@ -230,8 +246,8 @@ class SSH {
     }
   }
 
-  flyToOrbit(context, double latitude, double longitude, double zoom, double tilt,
-      double bearing) async {
+  flyToOrbit(context, double latitude, double longitude, double zoom,
+      double tilt, double bearing) async {
     try {
       await ref.read(sshClient)?.run(
           'echo "flytoview=${KMLMakers.orbitLookAtLinear(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
