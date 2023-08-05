@@ -142,6 +142,7 @@ class _NYCEducationTabLeftState extends ConsumerState<NYCEducationTabLeft> {
                       translate('city_data.new_york.education.enrollment'):
                           Colors.green,
                     },
+              markerIntervalX: 6
                   ).chartParser(
                     dataX: attendanceData![0],
                     dataY: [attendanceData![1], attendanceData![2]],
@@ -150,6 +151,7 @@ class _NYCEducationTabLeftState extends ConsumerState<NYCEducationTabLeft> {
                     heightMultiplier: 2,
                     widthMultiplier: 2,
                   ),
+            Const.dashboardUISpacing.ph,
 
           ],
         ),

@@ -200,7 +200,7 @@ class _AustinTransportTabLeftState
                   ).chartParser(dataX: selfWageData![4], dataY: [
                     selfWageData![10],
                     selfWageData![14],
-                  ])
+                  ],limitMarkerX: 6)
                 : const BlankDashboardContainer(
                     heightMultiplier: 2,
                     widthMultiplier: 2,

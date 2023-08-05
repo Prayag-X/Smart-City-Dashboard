@@ -140,6 +140,7 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
                     heightMultiplier: 2,
                     widthMultiplier: 2,
                   ),
+            Const.dashboardUISpacing.ph,
           ],
         ),
       ),

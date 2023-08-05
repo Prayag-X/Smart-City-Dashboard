@@ -115,6 +115,7 @@ class _CharlotteMiscTabLeftState extends ConsumerState<CharlotteMiscTabLeft> {
                     heightMultiplier: 2,
                     widthMultiplier: 2,
                   ),
+            Const.dashboardUISpacing.ph,
           ],
         ),
       ),

@@ -148,7 +148,7 @@ class _SeattleFinanceTabLeftState extends ConsumerState<SeattleFinanceTabLeft> {
                       translate('city_data.seattle.finance.2013'):
                           Colors.yellow,
                       translate('city_data.seattle.finance.2015'): Colors.red,
-                    }, barWidth: 4
+                    }, barWidth: 4, markerIntervalY: 6
                   ).chartParser(
                     dataX: cipData![1],
                     dataY: [
@@ -203,6 +203,7 @@ class _SeattleFinanceTabLeftState extends ConsumerState<SeattleFinanceTabLeft> {
               heightMultiplier: 2,
               widthMultiplier: 2,
             ),
+            Const.dashboardUISpacing.ph,
           ],
         ),
       ),

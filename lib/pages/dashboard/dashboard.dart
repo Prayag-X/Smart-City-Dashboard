@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_city_dashboard/models/city_card_model.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/dashboard_right_panel.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/google_map.dart';
@@ -11,6 +12,7 @@ import 'package:smart_city_dashboard/utils/helper.dart';
 import '../../connections/ssh.dart';
 import '../../constants/constants.dart';
 import '../../constants/text_styles.dart';
+import '../../kml_makers/balloon_makers.dart';
 import '../../providers/data_providers.dart';
 import '../../providers/page_providers.dart';
 import '../../providers/settings_providers.dart';
@@ -58,16 +60,32 @@ class Dashboard extends ConsumerWidget {
                   }
                   Future.delayed(Duration.zero).then((x) async {
                     ref.read(isLoadingProvider.notifier).state = false;
+                    SSH(ref: ref).cleanBalloon(
+                      context,
+                    );
+                    SSH(ref: ref).cleanKML(
+                      context,
+                    );
                   });
-                  SSH(ref: ref).cleanBalloon(
-                    context,
-                  );
-                  SSH(ref: ref).cleanKML(
-                    context,
-                  );
                   if (downloadableContentAvailable) {
                     for (var pageTab in city.availableTabs) {
                       if (pageTab.tab == tab) {
+                        Future.delayed(Duration.zero).then((x) async {
+                          var initialMapPosition = CameraPosition(
+                            target: city.location,
+                            zoom: Const.appZoomScale,
+                          );
+                          await SSH(ref: ref).renderInSlave(
+                              context,
+                              ref.read(rightmostRigProvider),
+                              BalloonMakers.dashboardBalloon(
+                                initialMapPosition,
+                                pageTab.name!,
+                                pageTab.nameForUrl!,
+                                city.cityNameEnglish,
+                                pageTab.tabWidgetNumbers!,
+                              ));
+                        });
                         return pageTab.leftTab!;
                       }
                     }
@@ -169,8 +187,7 @@ class Dashboard extends ConsumerWidget {
                                 Future.delayed(Duration.zero).then((x) async {
                                   ref.read(kmlClickedProvider.notifier).state =
                                       -1;
-                                  ref.read(kmlPlayProvider.notifier).state =
-                                      -1;
+                                  ref.read(kmlPlayProvider.notifier).state = -1;
                                 });
                                 return DashboardRightPanel(
                                     headers: [

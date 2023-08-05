@@ -45,10 +45,12 @@ class SSH {
               SftpFileOpenMode.truncate |
               SftpFileOpenMode.write);
     } catch (error) {
-      print(error);
-      print(i);
-      await disconnect(context);
-      await connect(context, i: i++);
+      if (i < 5) {
+        await disconnect(context);
+        await connect(context, i: i++);
+      } else {
+        showSnackBar(context: context, message: error.toString());
+      }
     }
 
     if (i == 0) {

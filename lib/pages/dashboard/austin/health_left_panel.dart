@@ -129,7 +129,7 @@ class _AustinHealthTabLeftState extends ConsumerState<AustinHealthTabLeft> {
                         translate('city_data.austin.health.score'): Colors.blue,
                       }, barWidth: 2).chartParser(dataX: foodInspectionData![0], dataY: [
                     foodInspectionData![3],
-                  ])
+                  ], limitMarkerX: 6)
                 : const BlankDashboardContainer(
                     heightMultiplier: 2,
                     widthMultiplier: 2,

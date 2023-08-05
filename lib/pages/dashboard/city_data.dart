@@ -43,6 +43,8 @@ class AllCityData {
             tab: 1,
             leftTab: const NYCEnvironmentTabLeft(),
             rightTabData: DownloadableContent.nycEnvironmentKml,
+            nameForUrl: 'environment',
+            tabWidgetNumbers: 4,
           ),
           TabButtonModel(
             logo: ImageConst.health,
@@ -50,6 +52,8 @@ class AllCityData {
             tab: 2,
             leftTab: const NYCHealthTabLeft(),
             rightTabData: DownloadableContent.nycHealthKml,
+            nameForUrl: 'health',
+            tabWidgetNumbers: 5,
           ),
           TabButtonModel(
             logo: ImageConst.education,
@@ -57,6 +61,8 @@ class AllCityData {
             tab: 3,
             leftTab: const NYCEducationTabLeft(),
             rightTabData: DownloadableContent.nycEducationKml,
+            nameForUrl: 'education',
+            tabWidgetNumbers: 4,
           ),
           TabButtonModel(
             logo: ImageConst.about,
@@ -97,6 +103,8 @@ class AllCityData {
             tab: 1,
             leftTab: const CharlotteSocietyTabLeft(),
             rightTabData: DownloadableContent.charlotteProductionKml,
+            nameForUrl: 'society',
+            tabWidgetNumbers: 3,
           ),
           TabButtonModel(
             logo: ImageConst.misc,
@@ -104,6 +112,8 @@ class AllCityData {
             tab: 2,
             leftTab: const CharlotteMiscTabLeft(),
             rightTabData: DownloadableContent.charlotteMiscKml,
+            nameForUrl: 'misc',
+            tabWidgetNumbers: 3,
           ),
           TabButtonModel(
             logo: ImageConst.about,
@@ -140,6 +150,8 @@ class AllCityData {
             tab: 1,
             leftTab: const SeattleFinanceTabLeft(),
             rightTabData: DownloadableContent.blankKml,
+            nameForUrl: 'finance',
+            tabWidgetNumbers: 6,
           ),
           TabButtonModel(
             logo: ImageConst.transportation,
@@ -147,6 +159,8 @@ class AllCityData {
             tab: 2,
             leftTab: const SeattleTransportationTabLeft(),
             rightTabData: DownloadableContent.seattleTransportKml,
+            nameForUrl: 'transport',
+            tabWidgetNumbers: 7,
           ),
           TabButtonModel(
             logo: ImageConst.education,
@@ -154,6 +168,8 @@ class AllCityData {
             tab: 3,
             leftTab: const SeattleEducationTabLeft(),
             rightTabData: DownloadableContent.blankKml,
+            nameForUrl: 'education',
+            tabWidgetNumbers: 4,
           ),
           TabButtonModel(
             logo: ImageConst.about,
@@ -190,6 +206,8 @@ class AllCityData {
             tab: 1,
             leftTab: const AustinEnvironmentTabLeft(),
             rightTabData: DownloadableContent.austinEnvironmentKml,
+            nameForUrl: 'environment',
+            tabWidgetNumbers: 7,
           ),
           TabButtonModel(
             logo: ImageConst.health,
@@ -197,6 +215,8 @@ class AllCityData {
             tab: 2,
             leftTab: const AustinHealthTabLeft(),
             rightTabData: DownloadableContent.austinHealthKml,
+            nameForUrl: 'health',
+            tabWidgetNumbers: 6,
           ),
           TabButtonModel(
             logo: ImageConst.transportation,
@@ -204,6 +224,8 @@ class AllCityData {
             tab: 3,
             leftTab: const AustinTransportTabLeft(),
             rightTabData: DownloadableContent.austinTransportKml,
+            nameForUrl: 'transport',
+            tabWidgetNumbers: 6,
           ),
           TabButtonModel(
             logo: ImageConst.about,
@@ -240,6 +262,8 @@ class AllCityData {
             leftTab: const BoulderHealthTabLeft(),
             rightTabData: DownloadableContent.blankKml,
             tab: 1,
+            nameForUrl: 'health',
+            tabWidgetNumbers: 5,
           ),
           TabButtonModel(
             logo: ImageConst.living,
@@ -247,6 +271,8 @@ class AllCityData {
             leftTab: const BoulderLivableTabLeft(),
             rightTabData: DownloadableContent.boulderLivableKml,
             tab: 2,
+            nameForUrl: 'livable',
+            tabWidgetNumbers: 4,
           ),
           TabButtonModel(
             logo: ImageConst.government,
@@ -254,6 +280,8 @@ class AllCityData {
             leftTab: const BoulderGovernmentTabLeft(),
             rightTabData: DownloadableContent.blankKml,
             tab: 3,
+            nameForUrl: 'government',
+            tabWidgetNumbers: 6,
           ),
           TabButtonModel(
             logo: ImageConst.about,

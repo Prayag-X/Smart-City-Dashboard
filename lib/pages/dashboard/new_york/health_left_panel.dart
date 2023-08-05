@@ -180,6 +180,7 @@ class _NYCHealthTabLeftState extends ConsumerState<NYCHealthTabLeft> {
                     heightMultiplier: 2,
                     widthMultiplier: 2,
                   ),
+            Const.dashboardUISpacing.ph,
           ],
         ),
       ),

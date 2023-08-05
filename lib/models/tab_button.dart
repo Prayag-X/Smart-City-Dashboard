@@ -4,6 +4,8 @@ import 'downloadable_kml.dart';
 class TabButtonModel {
   String? logo;
   String? name;
+  String? nameForUrl;
+  int? tabWidgetNumbers;
   int tab;
   ConsumerStatefulWidget? leftTab;
   ConsumerStatefulWidget? rightTab;
@@ -13,6 +15,8 @@ class TabButtonModel {
   TabButtonModel({
     this.logo,
     this.name,
+    this.nameForUrl,
+    this.tabWidgetNumbers,
     required this.tab,
     this.leftTab,
     this.rightTab,

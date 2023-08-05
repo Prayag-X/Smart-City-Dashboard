@@ -98,20 +98,20 @@ class _KmlDownloaderButtonState extends ConsumerState<KmlDownloaderButton> {
               await SSH(ref: ref).runKml(context, Const.kmlCustomFileName);
               var initialMapPosition = CameraPosition(
                 target: ref.read(cityDataProvider)!.location,
-                zoom: 11,
+                zoom: Const.appZoomScale,
               );
               if (!mounted) {
                 return;
               }
-              await SSH(ref: ref).renderInSlave(
-                  context,
-                  ref.read(rightmostRigProvider),
-                  BalloonMakers.kmlBalloon(
-                    initialMapPosition,
-                    ref.read(cityDataProvider)!.image,
-                    widget.data.name,
-                    widget.data.size,
-                  ));
+              // await SSH(ref: ref).renderInSlave(
+              //     context,
+              //     ref.read(rightmostRigProvider),
+              //     BalloonMakers.kmlBalloon(
+              //       initialMapPosition,
+              //       ref.read(cityDataProvider)!.image,
+              //       widget.data.name,
+              //       widget.data.size,
+              //     ));
               if (!mounted) {
                 return;
               }
