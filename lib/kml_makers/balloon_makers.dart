@@ -148,11 +148,13 @@ static weatherBalloon(
       String tabNameForUrl,
       String cityName,
       int widgetNumbers,
+      int percentWidgetNumbers,
       ) {
     String images = "";
     for(int i = 1;i<=widgetNumbers;i++) {
-      images+='<img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/balloon_assets/$cityName/tabNameForUrl/$i.png" alt="picture" width="300" height="200" />\n';
+      images+='<img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/balloon_assets/${cityName.replaceAll(' ', '%20')}/$tabNameForUrl/$i.png" alt="picture" width="300" height="200" />\n';
     }
+    print(images);
     return
       '''<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
