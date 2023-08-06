@@ -60,9 +60,9 @@ class Dashboard extends ConsumerWidget {
                   }
                   Future.delayed(Duration.zero).then((x) async {
                     ref.read(isLoadingProvider.notifier).state = false;
-                    SSH(ref: ref).cleanBalloon(
-                      context,
-                    );
+                    // SSH(ref: ref).cleanBalloon(
+                    //   context,
+                    // );
                     SSH(ref: ref).cleanKML(
                       context,
                     );
@@ -75,6 +75,7 @@ class Dashboard extends ConsumerWidget {
                             target: city.location,
                             zoom: Const.appZoomScale,
                           );
+                          // print();
                           await SSH(ref: ref).renderInSlave(
                               context,
                               ref.read(rightmostRigProvider),
