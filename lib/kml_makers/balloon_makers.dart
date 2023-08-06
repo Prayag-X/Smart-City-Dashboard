@@ -3,20 +3,20 @@ import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 
 class BalloonMakers {
-static weatherBalloon(
-      CameraPosition camera,
-      String cityName,
-      String cityImage,
-      String condition,
-      String conditionIcon,
-      String temperature,
-      String wind,
-      String windDirection,
-      String humidity,
-      String cloud,
-      String uv,
-      String pressure,
-      ) =>
+  static weatherBalloon(
+    CameraPosition camera,
+    String cityName,
+    String cityImage,
+    String condition,
+    String conditionIcon,
+    String temperature,
+    String wind,
+    String windDirection,
+    String humidity,
+    String cloud,
+    String uv,
+    String pressure,
+  ) =>
       '''<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
 <Document>
@@ -59,13 +59,8 @@ static weatherBalloon(
 </Document>
 </kml>''';
 
-  static aboutBalloon(
-      CameraPosition camera,
-      String cityName,
-      String countryName,
-      String cityImage,
-      String description
-      ) =>
+  static aboutBalloon(CameraPosition camera, String cityName,
+          String countryName, String cityImage, String description) =>
       '''<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
 <Document>
@@ -103,11 +98,11 @@ static weatherBalloon(
 </kml>''';
 
   static kmlBalloon(
-      CameraPosition camera,
-      String cityImage,
-      String kmlName,
-      String size,
-      ) =>
+    CameraPosition camera,
+    String cityImage,
+    String kmlName,
+    String size,
+  ) =>
       '''<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
 <Document>
@@ -143,20 +138,25 @@ static weatherBalloon(
 </kml>''';
 
   static dashboardBalloon(
-      CameraPosition camera,
-      String tabName,
-      String tabNameForUrl,
-      String cityName,
-      int widgetNumbers,
-      int percentWidgetNumbers,
-      ) {
+    CameraPosition camera,
+    String tabName,
+    String tabNameForUrl,
+    String cityName,
+    int widgetNumbers,
+    List<int>? percentWidgetNumbers,
+  ) {
     String images = "";
-    for(int i = 1;i<=widgetNumbers;i++) {
-      images+='<img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/balloon_assets/${cityName.replaceAll(' ', '_').toLowerCase()}/$tabNameForUrl/$i.png" alt="picture" width="300" height="200" />\n';
+    for (int i = 1; i <= widgetNumbers; i++) {
+      if ((percentWidgetNumbers ?? []).contains(i)) {
+        images +=
+            '<img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/balloon_assets/${cityName.replaceAll(' ', '_').toLowerCase()}/$tabNameForUrl/$i.png" alt="picture" width="300" height="100" />\n';
+      } else {
+        images +=
+            '<img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/balloon_assets/${cityName.replaceAll(' ', '_').toLowerCase()}/$tabNameForUrl/$i.png" alt="picture" width="300" height="200" />\n';
+      }
     }
     print(images);
-    return
-      '''<?xml version="1.0" encoding="UTF-8"?>
+    return '''<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
 <Document>
  <name>About Data</name>
@@ -187,8 +187,8 @@ static weatherBalloon(
    </Point>
  </Placemark>
 </Document>
-</kml>'''; }
-
+</kml>''';
+  }
 
   static blankBalloon() => '''<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">

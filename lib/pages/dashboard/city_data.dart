@@ -45,6 +45,7 @@ class AllCityData {
             rightTabData: DownloadableContent.nycEnvironmentKml,
             nameForUrl: 'environment',
             tabWidgetNumbers: 4,
+            tabMiniWidgetNumbers: [1],
           ),
           TabButtonModel(
             logo: ImageConst.health,

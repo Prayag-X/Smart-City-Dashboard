@@ -85,6 +85,7 @@ class Dashboard extends ConsumerWidget {
                                 pageTab.nameForUrl!,
                                 city.cityNameEnglish,
                                 pageTab.tabWidgetNumbers!,
+                                pageTab.tabMiniWidgetNumbers,
                               ));
                         });
                         return pageTab.leftTab!;
