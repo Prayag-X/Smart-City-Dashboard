@@ -152,7 +152,7 @@ static weatherBalloon(
       ) {
     String images = "";
     for(int i = 1;i<=widgetNumbers;i++) {
-      images+='<img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/balloon_assets/${cityName.replaceAll(' ', '%20')}/$tabNameForUrl/$i.png" alt="picture" width="300" height="200" />\n';
+      images+='<img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/balloon_assets/${cityName.replaceAll(' ', '_').toLowerCase()}/$tabNameForUrl/$i.png" alt="picture" width="300" height="200" />\n';
     }
     print(images);
     return
