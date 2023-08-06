@@ -39,6 +39,10 @@ class HelpPage extends ConsumerWidget {
                       ),
                   children: [
                 Const.appBarHeight.ph,
+                HelpPageTitleContainer(
+                  title: translate('help_page.nav_title'),
+                ),
+                spacing.ph,
                 HelpPageContainer(children: [
                   HelpLogoShower(
                     logo: ImageConst.nav1,
@@ -85,6 +89,11 @@ class HelpPage extends ConsumerWidget {
                           style: helpPageTextStyle)),
                 ]),
                 spacing.ph,
+                spacing.ph,spacing.ph,spacing.ph,
+                HelpPageTitleContainer(
+                  title: translate('help_page.app_bar_title'),
+                ),
+                spacing.ph,
                 HelpPageContainer(children: [
                   Expanded(
                       child: Text(translate('help_page.app_bar'),
@@ -109,6 +118,11 @@ class HelpPage extends ConsumerWidget {
                           style: helpPageTextStyle)),
                 ]),
                 spacing.ph,
+                    spacing.ph,spacing.ph,spacing.ph,
+                    HelpPageTitleContainer(
+                      title: translate('help_page.settings_title'),
+                    ),
+                    spacing.ph,
                 HelpPageContainer(children: [
                   Expanded(
                       child: Text(translate('help_page.settings'),
@@ -131,88 +145,94 @@ class HelpPage extends ConsumerWidget {
                   ),
                 ]),
                 spacing.ph,
-                    HelpPageContainer(children: [
-                      const HelpLogoShower(
-                        logo: ImageConst.theme,
-                        height: 170,
-                        width: 500,
-                      ),
-                      Expanded(
-                          child: Text(translate('help_page.settings_theme'),
-                              textAlign: TextAlign.justify,
-                              style: helpPageTextStyle)),
-                    ]),
+                HelpPageContainer(children: [
+                  const HelpLogoShower(
+                    logo: ImageConst.theme,
+                    height: 170,
+                    width: 500,
+                  ),
+                  Expanded(
+                      child: Text(translate('help_page.settings_theme'),
+                          textAlign: TextAlign.justify,
+                          style: helpPageTextStyle)),
+                ]),
+                spacing.ph,
                     spacing.ph,
-                    HelpPageContainer(children: [
-                      Expanded(
-                          child: Text(translate('help_page.feature1'),
-                              textAlign: TextAlign.justify,
-                              style: helpPageTextStyle)),
-                      HelpLogoShower(
-                        logo: ImageConst.feature1,
-                        height: helpPageImageHeight,
-                        width: 400,
-                      ),
-                    ]),
+                    spacing.ph,spacing.ph,
+                    HelpPageTitleContainer(
+                      title: translate('help_page.city_page_title'),
+                    ),
                     spacing.ph,
-                    HelpPageContainer(children: [
-                      HelpLogoShower(
-                        logo: ImageConst.feature2,
-                        height: helpPageImageHeight,
-                        width: 400,
-                      ),
-                      Expanded(
-                          child: Text(translate('help_page.feature2'),
-                              textAlign: TextAlign.justify,
-                              style: helpPageTextStyle)),
-                    ]),
-                    spacing.ph,
-                    HelpPageContainer(children: [
-                      Expanded(
-                          child: Text(translate('help_page.feature3'),
-                              textAlign: TextAlign.justify,
-                              style: helpPageTextStyle)),
-                      HelpLogoShower(
-                        logo: ImageConst.feature3,
-                        height: helpPageImageHeight,
-                        width: 400,
-                      ),
-                    ]),
-                    spacing.ph,
-                    HelpPageContainer(children: [
-                      HelpLogoShower(
-                        logo: ImageConst.feature4,
-                        height: helpPageImageHeight,
-                        width: 320,
-                      ),
-                      Expanded(
-                          child: Text(translate('help_page.feature4'),
-                              textAlign: TextAlign.justify,
-                              style: helpPageTextStyle)),
-                    ]),
-                    spacing.ph,
-                    HelpPageContainer(children: [
-                      Expanded(
-                          child: Text(translate('help_page.content'),
-                              textAlign: TextAlign.justify,
-                              style: helpPageTextStyle)),
-                      const HelpLogoShower(
-                        logo: ImageConst.content1,
-                        height: 160,
-                        width: 250,
-                      ),
-                      Icon(
-                        Icons.arrow_forward_rounded,
-                        color: oppositeColor,
-                        size: 50,
-                      ),
-                      const HelpLogoShower(
-                        logo: ImageConst.content2,
-                        height: 160,
-                        width: 250,
-                      ),
-                    ]),
-                    spacing.ph,
+                HelpPageContainer(children: [
+                  Expanded(
+                      child: Text(translate('help_page.feature1'),
+                          textAlign: TextAlign.justify,
+                          style: helpPageTextStyle)),
+                  HelpLogoShower(
+                    logo: ImageConst.feature1,
+                    height: helpPageImageHeight,
+                    width: 400,
+                  ),
+                ]),
+                spacing.ph,
+                HelpPageContainer(children: [
+                  HelpLogoShower(
+                    logo: ImageConst.feature2,
+                    height: helpPageImageHeight,
+                    width: 400,
+                  ),
+                  Expanded(
+                      child: Text(translate('help_page.feature2'),
+                          textAlign: TextAlign.justify,
+                          style: helpPageTextStyle)),
+                ]),
+                spacing.ph,
+                HelpPageContainer(children: [
+                  Expanded(
+                      child: Text(translate('help_page.feature3'),
+                          textAlign: TextAlign.justify,
+                          style: helpPageTextStyle)),
+                  HelpLogoShower(
+                    logo: ImageConst.feature3,
+                    height: helpPageImageHeight,
+                    width: 400,
+                  ),
+                ]),
+                spacing.ph,
+                HelpPageContainer(children: [
+                  HelpLogoShower(
+                    logo: ImageConst.feature4,
+                    height: helpPageImageHeight,
+                    width: 320,
+                  ),
+                  Expanded(
+                      child: Text(translate('help_page.feature4'),
+                          textAlign: TextAlign.justify,
+                          style: helpPageTextStyle)),
+                ]),
+                spacing.ph,
+                HelpPageContainer(children: [
+                  Expanded(
+                      child: Text(translate('help_page.content'),
+                          textAlign: TextAlign.justify,
+                          style: helpPageTextStyle)),
+                  const HelpLogoShower(
+                    logo: ImageConst.content1,
+                    height: 160,
+                    width: 250,
+                  ),
+                  Icon(
+                    Icons.arrow_forward_rounded,
+                    color: oppositeColor,
+                    size: 50,
+                  ),
+                  const HelpLogoShower(
+                    logo: ImageConst.content2,
+                    height: 160,
+                    width: 250,
+                  ),
+                ]),
+                spacing.ph,
               ])),
         ),
       ),
@@ -254,6 +274,33 @@ class HelpPageContainer extends ConsumerWidget {
         padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20),
         child: Row(
           children: children,
+        ),
+      ),
+    );
+  }
+}
+
+class HelpPageTitleContainer extends ConsumerWidget {
+  const HelpPageTitleContainer({
+    super.key,
+    required this.title,
+  });
+  final String title;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    Color highlightColor = ref.watch(highlightColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    return Container(
+      height: 100,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
+        color: lightenColor(highlightColor),
+      ),
+      child: Center(
+        child: Text(
+          title,
+          style: textStyleBold.copyWith(color: oppositeColor, fontSize: 40),
         ),
       ),
     );

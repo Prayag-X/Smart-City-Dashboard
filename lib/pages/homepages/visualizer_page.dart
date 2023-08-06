@@ -83,15 +83,11 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
       setState(() {
         chartData = FileParser.transformer(data);
         for (int i = 0; i < chartYNumbers; i++) {
-          print(int.parse(chartYControllers[i].text));
-          print(chartData![int.parse(chartYControllers[i].text)]);
           chartDataForVisualization
               .add(chartData![int.parse(chartYControllers[i].text)]);
         }
         downloaded = true;
       });
-      print(chartData);
-      print(chartDataForVisualization);
       ref.read(isLoadingProvider.notifier).state = false;
     } catch (error) {
       showSnackBar(
@@ -246,7 +242,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                   decoration: BoxDecoration(
                     borderRadius:
                         BorderRadius.circular(Const.dashboardUIRoundness * 3),
-                    color: lightenColor(highlightColor),
+                    color: highlightColor,
                   ),
                   child: Center(
                     child: Text(
@@ -294,7 +290,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                             child: Container(
                               decoration: BoxDecoration(
                                 color: chartType == 0
-                                    ? highlightColor
+                                    ? lightenColor(tabBarColor)
                                     : Colors.transparent,
                                 borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(
@@ -320,7 +316,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                             },
                             child: Container(
                               color: chartType == 1
-                                  ? highlightColor
+                                  ? lightenColor(tabBarColor)
                                   : Colors.transparent,
                               child: Center(
                                   child: Text(
@@ -421,11 +417,8 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                                           color: chartColors[index],
                                           onSelectFocus: false,
                                           onSelect: () async {
-                                            // Store current color before we open the dialog.
                                             final Color colorBeforeDialog =
                                                 chartColors[index];
-                                            // Wait for the picker to close, if dialog was dismissed,
-                                            // then restore the color we had before it was opened.
                                             if (!(await colorPickerDialog(
                                                 index,
                                                 highlightColor,
@@ -476,7 +469,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                   onPressed: () async {
                     await visualizeCSV();
                   },
-                  highlightColor: highlightColor,
+                  highlightColor: lightenColor(tabBarColor),
                   oppositeColor: oppositeColor,
                 ),
                 (Const.dashboardUISpacing * 4).ph,
@@ -503,7 +496,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                   decoration: BoxDecoration(
                     borderRadius:
                         BorderRadius.circular(Const.dashboardUIRoundness * 3),
-                    color: lightenColor(highlightColor),
+                    color: highlightColor,
                   ),
                   child: Center(
                     child: Text(
@@ -538,7 +531,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                 (Const.dashboardUISpacing * 2).ph,
                 DownloadButton(
                   onPressed: () {},
-                  highlightColor: highlightColor,
+                  highlightColor: lightenColor(tabBarColor),
                   oppositeColor: oppositeColor,
                 ),
                 (Const.dashboardUISpacing * 4).ph,

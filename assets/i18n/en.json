@@ -153,7 +153,10 @@
     "feature2": "In other tabs, you can select to download the KML files and visualize in the Liquid Galaxy. The size of the KML files are shown to avoid any unnecessary data loss. Also, to use this feature, you need to connect to Liquid Galaxy first.",
     "feature3": "In the About Tab, you can take a tour to some of the important locations of the city.",
     "feature4": "You can change the type of the Google Map by choosing one of the three options available.",
-    "content": "If you see this in any tab, then simply go to the settings page to download the required data.",
+    "nav_title": "Navigation",
+    "app_bar_title": "App Bar",
+    "settings_title": "Settings Page",
+    "city_page_title": "City Page",
     "tab": "The left tab bar will change automatically depending on the page of the app. When in the homepage, it will show the general instruction and the help page button. And when in any city page, it will show the tabs of data available for the city. The settings and about page is independent of other pages and can be selected from any page without changing the left tab."
   },
   "visualizer": {

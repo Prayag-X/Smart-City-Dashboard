@@ -77,25 +77,25 @@ class _MainPageState extends ConsumerState<MainPage> {
     if (!mounted) {
       return;
     }
-    SSH(ref: ref).flyTo(
+    await SSH(ref: ref).flyToWithoutSaving(
         context,
         Const.initialMapPosition.target.latitude,
         Const.initialMapPosition.target.longitude,
-        Const.appZoomScale.zoomLG,
-        0,
-        0);
+        Const.initialMapPosition.zoom.zoomLG,
+        Const.initialMapPosition.tilt,
+        Const.initialMapPosition.bearing);
     ref.read(playingGlobalTourProvider.notifier).state = false;
   }
 
   orbitStop() async {
     ref.read(playingGlobalTourProvider.notifier).state = false;
-    SSH(ref: ref).flyTo(
+    await SSH(ref: ref).flyToWithoutSaving(
         context,
         Const.initialMapPosition.target.latitude,
         Const.initialMapPosition.target.longitude,
-        Const.appZoomScale.zoomLG,
-        0,
-        0);
+        Const.initialMapPosition.zoom.zoomLG,
+        Const.initialMapPosition.tilt,
+        Const.initialMapPosition.bearing);
   }
 
   @override
