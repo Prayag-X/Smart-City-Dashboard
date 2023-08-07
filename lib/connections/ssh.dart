@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:dartssh2/dartssh2.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -9,8 +10,10 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:smart_city_dashboard/kml_makers/kml_makers.dart';
 import 'package:smart_city_dashboard/providers/data_providers.dart';
+import 'package:smart_city_dashboard/providers/page_providers.dart';
 import 'package:smart_city_dashboard/providers/settings_providers.dart';
 
+import '../constants/constants.dart';
 import '../kml_makers/balloon_makers.dart';
 import '../utils/helper.dart';
 
@@ -39,6 +42,7 @@ class SSH {
     );
 
     try {
+      // await prepareImageUpload(context);
       final sftp = await ref.read(sshClient)?.sftp();
       await sftp?.open('/var/www/html/connection.txt',
           mode: SftpFileOpenMode.create |
@@ -46,7 +50,7 @@ class SSH {
               SftpFileOpenMode.write);
     } catch (error) {
       if (i < 5) {
-        await disconnect(context);
+        await disconnect(context, snackBar: false);
         await connect(context, i: i++);
       } else {
         showSnackBar(context: context, message: error.toString());
@@ -62,12 +66,14 @@ class SSH {
     return true;
   }
 
-  disconnect(context) async {
+  disconnect(context, {bool snackBar = true}) async {
     ref.read(sshClient)?.close();
     ref.read(sshClient.notifier).state = null;
-    showSnackBar(
-        context: context,
-        message: translate('settings.disconnection_completed'));
+    if (snackBar) {
+      showSnackBar(
+          context: context,
+          message: translate('settings.disconnection_completed'));
+    }
     ref.read(isConnectedToLGProvider.notifier).state = false;
   }
 
@@ -186,13 +192,15 @@ class SSH {
 
   //
 
-  renderInSlave(context, int slaveNo, String kml) async {
+  Future<String> renderInSlave(context, int slaveNo, String kml) async {
     try {
       await ref
           .read(sshClient)
           ?.run("echo '$kml' > /var/www/html/kml/slave_$slaveNo.kml");
+      return kml;
     } catch (error) {
       showSnackBar(context: context, message: error.toString());
+      return BalloonMakers.blankBalloon();
     }
   }
 
@@ -265,6 +273,13 @@ class SSH {
     return localFile;
   }
 
+  makeImageFile(Uint8List imageBytes, int number) async {
+    var localPath = await getApplicationDocumentsDirectory();
+    File localFile = File('${localPath.path}/$number.png');
+    localFile.writeAsBytesSync(imageBytes);
+    return localFile;
+  }
+
   kmlFileUpload(context, File inputFile, String kmlName) async {
     try {
       bool uploading = true;
@@ -286,6 +301,108 @@ class SSH {
       }
       await waitWhile(() => uploading);
       ref.read(loadingPercentageProvider.notifier).state = null;
+    } catch (error) {
+      showSnackBar(context: context, message: error.toString());
+    }
+  }
+
+  prepareImageUpload(context) async {
+    String command =
+        'echo "${ref.read(passwordProvider)}" | sudo -S chmod 777 ${Const.dashboardBalloonFileLocation}';
+    try {
+      // final shell = await ref.read(sshClient)?.shell();
+      //
+      // final completer = Completer<String>();
+      // final outputBuffer = StringBuffer();
+      //
+      // shell?.stdout.listen(
+      //       (data) {
+      //         print(String.fromCharCodes(data));
+      //     outputBuffer.write(String.fromCharCodes(data));
+      //   },
+      //   onDone: () {
+      //     completer.complete(outputBuffer.toString());
+      //   },
+      // );
+      //
+      // shell?.write(encoder.convert('$command\n'));
+      // shell?.write(encoder.convert("sshpass -p \"${ref.read(passwordProvider)}\" ssh -t lg@lg${ref.read(rightmostRigProvider)} '$command'\n"));
+      // shell?.write(encoder.convert('exit\n'));
+      // await shell?.stdout.join();
+      // print(outputBuffer.toString());
+      await ref.read(sshClient)?.run(command);
+      await ref.read(sshClient)?.run(
+          "sshpass -p \"${ref.read(passwordProvider)}\" ssh -t lg@lg${ref.read(rightmostRigProvider)} '$command'");
+      // print(command);
+      // print("ssh -t lg@lg${ref.read(rightmostRigProvider)} '$command'");
+    } catch (error) {
+      showSnackBar(context: context, message: error.toString());
+    }
+  }
+
+  imageFileUpload(context, Uint8List imageBytes) async {
+    try {
+      bool uploading = true;
+      File inputFile = await makeImageFile(imageBytes, 1);
+      final sftp = await ref.read(sshClient)?.sftp();
+      String tabName = '';
+      print(ref.read(tabProvider));
+      for (var pageTab in ref.read(cityDataProvider)!.availableTabs) {
+        if (pageTab.tab == ref.read(tabProvider)) {
+          print(ref.read(tabProvider));
+          print(ref.read(cityDataProvider)!.availableTabs.length -1);
+          if(ref.read(tabProvider)==0) {
+            tabName = 'weather';
+          } else if(ref.read(tabProvider) == ref.read(cityDataProvider)!.availableTabs.length -1 ) {
+            tabName = 'about';
+            print('BOTUTTTT');
+          } else {
+            tabName = pageTab.nameForUrl!;
+          }
+        }
+      }
+      final file = await sftp?.open(
+          '${Const.dashboardBalloonFileLocation}${Const.dashboardBalloonFileName}_${ref.read(cityDataProvider)!.cityNameEnglish.replaceAll(' ', '_')}_$tabName.png',
+          mode: SftpFileOpenMode.create |
+              SftpFileOpenMode.truncate |
+              SftpFileOpenMode.write);
+      var fileSize = await inputFile.length();
+      file?.write(inputFile.openRead().cast(), onProgress: (progress) {
+        ref.read(loadingPercentageProvider.notifier).state =
+            progress / fileSize;
+        if (fileSize == progress) {
+          uploading = false;
+        }
+      });
+      if (file == null) {
+        return;
+      }
+      await waitWhile(() => uploading);
+      ref.read(loadingPercentageProvider.notifier).state = null;
+    } catch (error) {
+      print(error);
+      showSnackBar(context: context, message: error.toString());
+    }
+  }
+
+  imageFileUploadSlave(context) async {
+    try {
+      String tabName = '';
+      for (var pageTab in ref.read(cityDataProvider)!.availableTabs) {
+        if (pageTab.tab == ref.read(tabProvider)) {
+          if(ref.read(tabProvider)==0) {
+            tabName = 'weather';
+            print('WEARTERER');
+          } else if(ref.read(tabProvider) == ref.read(cityDataProvider)!.availableTabs.length -1 ) {
+            tabName = 'about';
+            print('BOTUTTTT');
+          } else {
+            tabName = pageTab.nameForUrl!;
+          }
+        }
+      }
+      await ref.read(sshClient)?.run(
+          'echo "put ${Const.dashboardBalloonFileLocation}${Const.dashboardBalloonFileName}_${ref.read(cityDataProvider)!.cityNameEnglish.replaceAll(' ', '_')}_$tabName.png" | sshpass -p ${ref.read(passwordProvider)} sftp -oBatchMode=no -b - lg@lg${ref.read(rightmostRigProvider)}:${Const.dashboardBalloonFileLocation}');
     } catch (error) {
       showSnackBar(context: context, message: error.toString());
     }

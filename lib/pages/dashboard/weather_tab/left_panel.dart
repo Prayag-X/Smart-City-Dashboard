@@ -1,9 +1,12 @@
 import 'dart:async';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:image/image.dart' as img;
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:screenshot/screenshot.dart';
 import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/models/forecast_weather.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/charts/line_chart_parser.dart';
@@ -15,7 +18,9 @@ import 'package:smart_city_dashboard/utils/extensions.dart';
 import '../../../connections/ssh.dart';
 import '../../../constants/constants.dart';
 import '../../../kml_makers/balloon_makers.dart';
+import '../../../providers/page_providers.dart';
 import '../../../providers/settings_providers.dart';
+import '../../../utils/helper.dart';
 
 class WeatherTabLeft extends ConsumerStatefulWidget {
   const WeatherTabLeft({
@@ -27,6 +32,8 @@ class WeatherTabLeft extends ConsumerStatefulWidget {
 }
 
 class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
+  ScreenshotController screenshotController = ScreenshotController();
+
   getWeather() async {
     await Future.delayed(Duration.zero).then((x) async {
       ref.read(isLoadingProvider.notifier).state = true;
@@ -40,25 +47,37 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
       zoom: 11,
     );
     ForecastWeather? weatherData = ref.read(weatherDataProvider)!;
-    if(!mounted) {
+    if (!mounted) {
       return;
     }
-    await SSH(ref: ref).renderInSlave(
-        context,
-        ref.read(rightmostRigProvider),
-        BalloonMakers.weatherBalloon(
-            initialMapPosition,
-            ref.read(cityDataProvider)!.cityNameEnglish,
-            ref.read(cityDataProvider)!.image,
-            weatherData.current.condition.text!,
-            weatherData.current.condition.icon!.parseIconOnline,
-            '${weatherData.current.tempC.toString()}°C',
-            '${weatherData.current.windKph} Km/h',
-            '${weatherData.current.windDegree}°${ref.read(weatherDataProvider)!.current.windDir}',
-            '${weatherData.current.humidity}%',
-            '${weatherData.current.cloud}%',
-            '${weatherData.current.uv}',
-            '${weatherData.current.pressureMb} mb'));
+    await Future.delayed(Const.screenshotDelay).then((x) async {
+      screenshotController.capture().then((image) async {
+        img.Image? imageDecoded = img.decodePng(Uint8List.fromList(image!));
+        await SSH(ref: ref).imageFileUpload(context, image);
+        if (!mounted) {
+          return;
+        }
+        await SSH(ref: ref).imageFileUploadSlave(context);
+        var initialMapPosition = CameraPosition(
+          target: ref.read(cityDataProvider)!.location,
+          zoom: Const.appZoomScale,
+        );
+        if (!mounted) {
+          return;
+        }
+        ref.read(lastBalloonProvider.notifier).state = await SSH(ref: ref)
+            .renderInSlave(
+                context,
+                ref.read(rightmostRigProvider),
+                BalloonMakers.dashboardBalloon(
+                    initialMapPosition,
+                    ref.read(cityDataProvider)!.cityNameEnglish,
+                    'weather',
+                    imageDecoded!.height / imageDecoded.width));
+      }).catchError((onError) {
+        showSnackBar(context: context, message: onError.toString());
+      });
+    });
   }
 
   @override
@@ -70,7 +89,9 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
   @override
   Widget build(BuildContext context) {
     int weatherDayClicked = ref.watch(weatherDayClickedProvider);
-    return weatherDayClicked == 0 ? today() : otherDay();
+    return Screenshot(
+        controller: screenshotController,
+        child: weatherDayClicked == 0 ? today() : otherDay());
   }
 
   AnimationLimiter today() {

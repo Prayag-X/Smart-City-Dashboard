@@ -52,7 +52,7 @@ class _DashboardPieChartState extends ConsumerState<DashboardPieChart> {
                 // explodeGesture: ActivationMode.none,
                 // explode: true,
                 // explodeIndex: touchedIndex,
-                animationDuration: 1000)
+                animationDuration: Const.animationDurationDouble)
           ]),
           SfCircularChart(series: <CircularSeries>[
             // Renders doughnut chart
@@ -80,7 +80,7 @@ class _DashboardPieChartState extends ConsumerState<DashboardPieChart> {
               radius: '80%',
               // explodeGesture: ActivationMode.singleTap,
               // explode: true,
-              animationDuration: 1000,
+              animationDuration: Const.animationDurationDouble,
             )
           ]),
         ],
@@ -179,7 +179,7 @@ class _VisualizerPieChartState extends ConsumerState<VisualizerPieChart> {
                 // explodeGesture: ActivationMode.none,
                 // explode: true,
                 // explodeIndex: touchedIndex,
-                animationDuration: 1000)
+                animationDuration: Const.animationDurationDouble)
           ]),
           SfCircularChart(series: <CircularSeries>[
             // Renders doughnut chart
@@ -207,7 +207,7 @@ class _VisualizerPieChartState extends ConsumerState<VisualizerPieChart> {
               radius: '80%',
               // explodeGesture: ActivationMode.singleTap,
               // explode: true,
-              animationDuration: 1000,
+              animationDuration: Const.animationDurationDouble,
             )
           ]),
         ],

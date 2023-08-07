@@ -3,7 +3,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 class Const {
   static double appBarHeight = 80;
   static double tabBarWidthDivider = 5;
-  static List<double> splashAspectRatio = [0.6, 0.3];
+  static double splashAspectRatio = 2864/3000;
   static double lgZoomScale = 130000000.0;
   static double appZoomScale = 11;
   static double tourZoomScale = 16;
@@ -13,6 +13,8 @@ class Const {
   static double dashboardUISpacing = 10;
   static double dashboardUIHeightFactor = 0.65;
   static Duration animationDuration = const Duration(milliseconds: 375);
+  static double animationDurationDouble = 375;
+  static Duration screenshotDelay = const Duration(milliseconds: 1000);
   static double animationDistance = 50;
   static double orbitRange = 40000;
   static double tabBarTextSize = 17;
@@ -22,6 +24,8 @@ class Const {
   static double dashboardChartTextSize = 17;
   static String kmlOrbitFileName = 'Orbit';
   static String kmlCustomFileName = 'custom_kml';
+  static String dashboardBalloonFileName = 'dashboard_balloon';
+  static String dashboardBalloonFileLocation = '/var/www/html/';
   static CameraPosition initialMapPosition = const CameraPosition(
     target: LatLng(51.4769, 0.0),
     zoom: 2,

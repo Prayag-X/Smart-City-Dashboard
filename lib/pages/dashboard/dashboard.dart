@@ -60,7 +60,7 @@ class Dashboard extends ConsumerWidget {
                   }
                   Future.delayed(Duration.zero).then((x) async {
                     ref.read(isLoadingProvider.notifier).state = false;
-                    // SSH(ref: ref).cleanBalloon(
+                    // await SSH(ref: ref).cleanBalloon(
                     //   context,
                     // );
                     SSH(ref: ref).cleanKML(
@@ -70,24 +70,6 @@ class Dashboard extends ConsumerWidget {
                   if (downloadableContentAvailable) {
                     for (var pageTab in city.availableTabs) {
                       if (pageTab.tab == tab) {
-                        Future.delayed(Duration.zero).then((x) async {
-                          var initialMapPosition = CameraPosition(
-                            target: city.location,
-                            zoom: Const.appZoomScale,
-                          );
-                          // print();
-                          await SSH(ref: ref).renderInSlave(
-                              context,
-                              ref.read(rightmostRigProvider),
-                              BalloonMakers.dashboardBalloon(
-                                initialMapPosition,
-                                pageTab.name!,
-                                pageTab.nameForUrl!,
-                                city.cityNameEnglish,
-                                pageTab.tabWidgetNumbers!,
-                                pageTab.tabMiniWidgetNumbers,
-                              ));
-                        });
                         return pageTab.leftTab!;
                       }
                     }

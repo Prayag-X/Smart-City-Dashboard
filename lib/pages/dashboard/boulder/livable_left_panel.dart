@@ -1,11 +1,23 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:image/image.dart' as img;
+import 'package:screenshot/screenshot.dart';
+import 'package:smart_city_dashboard/pages/dashboard/widgets/charts/pie_chart_parser.dart';
+import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 
+import '../../../connections/ssh.dart';
 import '../../../constants/constants.dart';
+import '../../../kml_makers/balloon_makers.dart';
+import '../../../providers/page_providers.dart';
+import '../../../utils/helper.dart';
 import '../downloadable_content.dart';
+import '../../../constants/images.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../utils/csv_parser.dart';
 import '../widgets/charts/line_chart_parser.dart';
@@ -19,6 +31,7 @@ class BoulderLivableTabLeft extends ConsumerStatefulWidget {
 }
 
 class _BoulderLivableTabLeftState extends ConsumerState<BoulderLivableTabLeft> {
+  ScreenshotController screenshotController = ScreenshotController();
   List<List<dynamic>>? data;
   List<List<dynamic>>? buildingData;
   List<List<dynamic>>? homelessnessData;
@@ -48,6 +61,43 @@ class _BoulderLivableTabLeftState extends ConsumerState<BoulderLivableTabLeft> {
       setState(() {
         policeData = FileParser.transformer(data!);
       });
+      await Future.delayed(Const.screenshotDelay).then((x) async {
+        screenshotController.capture().then((image) async {
+          img.Image? imageDecoded = img.decodePng(Uint8List.fromList(image!));
+          await SSH(ref: ref).imageFileUpload(context, image);
+          if (!mounted) {
+            return;
+          }
+          await SSH(ref: ref).imageFileUploadSlave(context);
+          var initialMapPosition = CameraPosition(
+            target: ref.read(cityDataProvider)!.location,
+            zoom: Const.appZoomScale,
+          );
+          if (!mounted) {
+            return;
+          }
+          String tabName = '';
+          for (var pageTab in ref.read(cityDataProvider)!.availableTabs) {
+            if (pageTab.tab == ref.read(tabProvider)) {
+              tabName = pageTab.nameForUrl!;
+            }
+          }
+          ref.read(lastBalloonProvider.notifier).state = await SSH(ref: ref)
+              .renderInSlave(
+              context,
+              ref.read(rightmostRigProvider),
+              BalloonMakers.dashboardBalloon(
+                  initialMapPosition,
+                  ref.read(cityDataProvider)!.cityNameEnglish,
+                  tabName,
+                  imageDecoded!.height / imageDecoded.width));
+        }).catchError((onError) {
+          showSnackBar(
+              context: context,
+              message:
+              onError.toString());
+        });
+      });
       ref.read(isLoadingProvider.notifier).state = false;
     });
   }
@@ -60,91 +110,94 @@ class _BoulderLivableTabLeftState extends ConsumerState<BoulderLivableTabLeft> {
 
   @override
   Widget build(BuildContext context) {
-    return AnimationLimiter(
-      child: Column(
-        children: AnimationConfiguration.toStaggeredList(
-          duration: Const.animationDuration,
-          childAnimationBuilder: (widget) => SlideAnimation(
-            horizontalOffset: -Const.animationDistance,
-            child: FadeInAnimation(
-              child: widget,
+    return Screenshot(
+      controller: screenshotController,
+      child: AnimationLimiter(
+        child: Column(
+          children: AnimationConfiguration.toStaggeredList(
+            duration: Const.animationDuration,
+            childAnimationBuilder: (widget) => SlideAnimation(
+              horizontalOffset: -Const.animationDistance,
+              child: FadeInAnimation(
+                child: widget,
+              ),
             ),
+            children: [
+              buildingData != null
+                  ? LineChartParser(
+                      title:
+                          translate('city_data.boulder.livable.building_title'),
+                      legendX: translate('city_data.boulder.livable.id'),
+                      chartData: {
+                        translate('city_data.boulder.livable.areaSF'):
+                            Colors.yellow,
+                        translate('city_data.boulder.livable.row'): Colors.blue,
+                      },barWidth: 2
+                    ).chartParser(dataX: buildingData![11], dataY: [
+                      buildingData![7],
+                      buildingData![2],
+                    ])
+                  : const BlankDashboardContainer(
+                      heightMultiplier: 2,
+                      widthMultiplier: 2,
+                    ),
+              Const.dashboardUISpacing.ph,
+              homelessnessData != null
+                  ? LineChartParser(
+                      title: translate(
+                          'city_data.boulder.livable.homelessness_title'),
+                      legendX: translate('city_data.boulder.livable.id'),
+                      chartData: {
+                        translate('city_data.boulder.livable.attendance'):
+                            Colors.blue,
+                      },barWidth: 2
+                    ).chartParser(dataX: homelessnessData![0], dataY: [
+                      homelessnessData![4],
+                    ])
+                  : const BlankDashboardContainer(
+                      heightMultiplier: 2,
+                      widthMultiplier: 2,
+                    ),
+              Const.dashboardUISpacing.ph,
+              communityData != null
+                  ? LineChartParser(
+                      title:
+                          translate('city_data.boulder.livable.community_title'),
+                      legendX: translate('city_data.boulder.livable.id'),
+                      chartData: {
+                        translate('city_data.boulder.livable.no_people'):
+                            Colors.blue,
+                      },barWidth: 1
+                    ).chartParser(dataX: communityData![0], dataY: [
+                      communityData![133],
+                    ])
+                  : const BlankDashboardContainer(
+                      heightMultiplier: 2,
+                      widthMultiplier: 2,
+                    ),
+              Const.dashboardUISpacing.ph,
+              policeData != null
+                  ? LineChartParser(
+                      title: translate('city_data.boulder.livable.police_title'),
+                      legendX: translate('city_data.boulder.livable.id'),
+                      chartData: {
+                        translate('city_data.boulder.livable.stop_time'):
+                            Colors.blue,
+                        translate('city_data.boulder.livable.min'): Colors.yellow,
+                        translate('city_data.boulder.livable.dob'): Colors.red,
+                      },barWidth: 1
+                    ).chartParser(dataX: policeData![0], dataY: [
+                      policeData![2],
+                      policeData![6],
+                      policeData![10],
+                    ])
+                  : const BlankDashboardContainer(
+                      heightMultiplier: 2,
+                      widthMultiplier: 2,
+                    ),
+              Const.dashboardUISpacing.ph,
+            ],
           ),
-          children: [
-            buildingData != null
-                ? LineChartParser(
-                    title:
-                        translate('city_data.boulder.livable.building_title'),
-                    legendX: translate('city_data.boulder.livable.id'),
-                    chartData: {
-                      translate('city_data.boulder.livable.areaSF'):
-                          Colors.yellow,
-                      translate('city_data.boulder.livable.row'): Colors.blue,
-                    },barWidth: 2
-                  ).chartParser(dataX: buildingData![11], dataY: [
-                    buildingData![7],
-                    buildingData![2],
-                  ])
-                : const BlankDashboardContainer(
-                    heightMultiplier: 2,
-                    widthMultiplier: 2,
-                  ),
-            Const.dashboardUISpacing.ph,
-            homelessnessData != null
-                ? LineChartParser(
-                    title: translate(
-                        'city_data.boulder.livable.homelessness_title'),
-                    legendX: translate('city_data.boulder.livable.id'),
-                    chartData: {
-                      translate('city_data.boulder.livable.attendance'):
-                          Colors.blue,
-                    },barWidth: 2
-                  ).chartParser(dataX: homelessnessData![0], dataY: [
-                    homelessnessData![4],
-                  ])
-                : const BlankDashboardContainer(
-                    heightMultiplier: 2,
-                    widthMultiplier: 2,
-                  ),
-            Const.dashboardUISpacing.ph,
-            communityData != null
-                ? LineChartParser(
-                    title:
-                        translate('city_data.boulder.livable.community_title'),
-                    legendX: translate('city_data.boulder.livable.id'),
-                    chartData: {
-                      translate('city_data.boulder.livable.no_people'):
-                          Colors.blue,
-                    },barWidth: 1
-                  ).chartParser(dataX: communityData![0], dataY: [
-                    communityData![133],
-                  ])
-                : const BlankDashboardContainer(
-                    heightMultiplier: 2,
-                    widthMultiplier: 2,
-                  ),
-            Const.dashboardUISpacing.ph,
-            policeData != null
-                ? LineChartParser(
-                    title: translate('city_data.boulder.livable.police_title'),
-                    legendX: translate('city_data.boulder.livable.id'),
-                    chartData: {
-                      translate('city_data.boulder.livable.stop_time'):
-                          Colors.blue,
-                      translate('city_data.boulder.livable.min'): Colors.yellow,
-                      translate('city_data.boulder.livable.dob'): Colors.red,
-                    },barWidth: 1
-                  ).chartParser(dataX: policeData![0], dataY: [
-                    policeData![2],
-                    policeData![6],
-                    policeData![10],
-                  ])
-                : const BlankDashboardContainer(
-                    heightMultiplier: 2,
-                    widthMultiplier: 2,
-                  ),
-            Const.dashboardUISpacing.ph,
-          ],
         ),
       ),
     );
