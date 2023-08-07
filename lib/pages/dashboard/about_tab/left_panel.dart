@@ -20,6 +20,7 @@ import '../../../kml_makers/balloon_makers.dart';
 import '../../../providers/page_providers.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../utils/csv_parser.dart';
+import '../widgets/load_balloon.dart';
 
 class AboutTabLeft extends ConsumerStatefulWidget {
   const AboutTabLeft({
@@ -79,7 +80,11 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
           setState(() {
             cityIndex = data.indexOf(row);
           });
-          await loadBalloon();
+          if (!mounted) {
+            return;
+          }
+          await BalloonLoader(ref: ref, mounted: mounted, context: context)
+              .loadDashboardBalloon(screenshotController, tabPageName: 'about');
           ref.read(isLoadingProvider.notifier).state = false;
           return;
         }
@@ -87,7 +92,11 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
       setState(() {
         cityIndex = -1;
       });
-      await loadBalloon();
+      if (!mounted) {
+        return;
+      }
+      await BalloonLoader(ref: ref, mounted: mounted, context: context)
+          .loadDashboardBalloon(screenshotController, tabPageName: 'about');
       ref.read(isLoadingProvider.notifier).state = false;
     });
   }

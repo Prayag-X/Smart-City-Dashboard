@@ -22,6 +22,7 @@ import '../../../providers/settings_providers.dart';
 import '../../../utils/csv_parser.dart';
 import '../widgets/charts/line_chart_parser.dart';
 import '../widgets/dashboard_container.dart';
+import '../widgets/load_balloon.dart';
 
 class CharlotteMiscTabLeft extends ConsumerStatefulWidget {
   const CharlotteMiscTabLeft({super.key});
@@ -55,43 +56,11 @@ class _CharlotteMiscTabLeftState extends ConsumerState<CharlotteMiscTabLeft> {
       setState(() {
         demandData = FileParser.transformer(data!);
       });
-      await Future.delayed(Const.screenshotDelay).then((x) async {
-        screenshotController.capture().then((image) async {
-          img.Image? imageDecoded = img.decodePng(Uint8List.fromList(image!));
-          await SSH(ref: ref).imageFileUpload(context, image);
-          if (!mounted) {
-            return;
-          }
-          await SSH(ref: ref).imageFileUploadSlave(context);
-          var initialMapPosition = CameraPosition(
-            target: ref.read(cityDataProvider)!.location,
-            zoom: Const.appZoomScale,
-          );
-          if (!mounted) {
-            return;
-          }
-          String tabName = '';
-          for (var pageTab in ref.read(cityDataProvider)!.availableTabs) {
-            if (pageTab.tab == ref.read(tabProvider)) {
-              tabName = pageTab.nameForUrl!;
-            }
-          }
-          ref.read(lastBalloonProvider.notifier).state = await SSH(ref: ref)
-              .renderInSlave(
-              context,
-              ref.read(rightmostRigProvider),
-              BalloonMakers.dashboardBalloon(
-                  initialMapPosition,
-                  ref.read(cityDataProvider)!.cityNameEnglish,
-                  tabName,
-                  imageDecoded!.height / imageDecoded.width));
-        }).catchError((onError) {
-          showSnackBar(
-              context: context,
-              message:
-              onError.toString());
-        });
-      });
+      if (!mounted) {
+        return;
+      }
+      await BalloonLoader(ref: ref, mounted: mounted, context: context)
+          .loadDashboardBalloon(screenshotController);
       ref.read(isLoadingProvider.notifier).state = false;
     });
   }

@@ -92,7 +92,7 @@
       "country": "Country",
       "start_tour": "Play Tour Across City",
       "start_orbit": "Play Orbit Around City",
-      "stop": "Stop Tour and Orbit",
+      "stop": "Stop Tour",
       "latitude": "Latitude",
       "longitude": "Longitude",
       "description": "Description",

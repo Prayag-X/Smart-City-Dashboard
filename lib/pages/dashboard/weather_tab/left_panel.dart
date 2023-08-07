@@ -11,6 +11,7 @@ import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/models/forecast_weather.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/charts/line_chart_parser.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/dashboard_container.dart';
+import 'package:smart_city_dashboard/pages/dashboard/widgets/load_balloon.dart';
 import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/services/weather_api.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
@@ -40,43 +41,12 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
       ref.read(weatherDataProvider.notifier).state = null;
       ref.read(weatherDataProvider.notifier).state = await WeatherApi()
           .getForecastWeather(ref.read(cityDataProvider)!.cityNameEnglish);
+      if (!mounted) {
+        return;
+      }
+      await BalloonLoader(ref: ref, mounted: mounted, context: context)
+          .loadDashboardBalloon(screenshotController, tabPageName: 'weather');
       ref.read(isLoadingProvider.notifier).state = false;
-    });
-    var initialMapPosition = CameraPosition(
-      target: ref.read(cityDataProvider)!.location,
-      zoom: 11,
-    );
-    ForecastWeather? weatherData = ref.read(weatherDataProvider)!;
-    if (!mounted) {
-      return;
-    }
-    await Future.delayed(Const.screenshotDelay).then((x) async {
-      screenshotController.capture().then((image) async {
-        img.Image? imageDecoded = img.decodePng(Uint8List.fromList(image!));
-        await SSH(ref: ref).imageFileUpload(context, image);
-        if (!mounted) {
-          return;
-        }
-        await SSH(ref: ref).imageFileUploadSlave(context);
-        var initialMapPosition = CameraPosition(
-          target: ref.read(cityDataProvider)!.location,
-          zoom: Const.appZoomScale,
-        );
-        if (!mounted) {
-          return;
-        }
-        ref.read(lastBalloonProvider.notifier).state = await SSH(ref: ref)
-            .renderInSlave(
-                context,
-                ref.read(rightmostRigProvider),
-                BalloonMakers.dashboardBalloon(
-                    initialMapPosition,
-                    ref.read(cityDataProvider)!.cityNameEnglish,
-                    'weather',
-                    imageDecoded!.height / imageDecoded.width));
-      }).catchError((onError) {
-        showSnackBar(context: context, message: onError.toString());
-      });
     });
   }
 
