@@ -72,12 +72,12 @@ String shortenNum(double value) {
   return value.toStringAsFixed(1);
 }
 
-showSnackBar({required BuildContext context, required String message, int duration = 3}) =>
+showSnackBar({required BuildContext context, required String message, int duration = 3, Color color = Colors.green}) =>
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(
           message,
-          style: const TextStyle(fontSize: 14, color: Colors.white),
+          style: TextStyle(fontSize: 14, color: color),
         ),
         backgroundColor: Colors.black.withOpacity(0.9),
         duration: Duration(seconds: duration),

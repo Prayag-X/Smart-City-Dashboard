@@ -6,6 +6,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:smart_city_dashboard/connections/downloader.dart';
+import 'package:smart_city_dashboard/pages/dashboard/widgets/load_balloon.dart';
 import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/providers/settings_providers.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
@@ -76,7 +77,7 @@ class _KmlDownloaderButtonState extends ConsumerState<KmlDownloaderButton> {
               if (!isConnectedToLG) {
                 showSnackBar(
                     context: context,
-                    message: translate('settings.connection_required'));
+                    message: translate('settings.connection_required'), color: Colors.red);
                 return;
               }
               ref.read(kmlClickedProvider.notifier).state = widget.index;
@@ -96,22 +97,10 @@ class _KmlDownloaderButtonState extends ConsumerState<KmlDownloaderButton> {
                 return;
               }
               await SSH(ref: ref).runKml(context, Const.kmlCustomFileName);
-              var initialMapPosition = CameraPosition(
-                target: ref.read(cityDataProvider)!.location,
-                zoom: Const.appZoomScale,
-              );
               if (!mounted) {
                 return;
               }
-              // await SSH(ref: ref).renderInSlave(
-              //     context,
-              //     ref.read(rightmostRigProvider),
-              //     BalloonMakers.kmlBalloon(
-              //       initialMapPosition,
-              //       ref.read(cityDataProvider)!.image,
-              //       widget.data.name,
-              //       widget.data.size,
-              //     ));
+              await BalloonLoader(ref: ref, context: context, mounted: mounted).loadKmlBalloon(widget.data.name, widget.data.size);
               if (!mounted) {
                 return;
               }

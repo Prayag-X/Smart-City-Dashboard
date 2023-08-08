@@ -27,45 +27,49 @@ class BalloonLoader {
 
   loadDashboardBalloon(ScreenshotController screenshotController,
       {String? tabPageName}) async {
-    await Future.delayed(Const.screenshotDelay).then((x) async {
-      screenshotController.capture().then((image) async {
-        img.Image? imageDecoded = img.decodePng(Uint8List.fromList(image!));
-        await SSH(ref: ref).imageFileUpload(context, image);
-        if (!mounted) {
-          return;
-        }
-        await SSH(ref: ref).imageFileUploadSlave(context);
-        var initialMapPosition = CameraPosition(
-          target: ref.read(cityDataProvider)!.location,
-          zoom: Const.appZoomScale,
-        );
-        if (!mounted) {
-          return;
-        }
-        String tabName = '';
-        for (var pageTab in ref.read(cityDataProvider)!.availableTabs) {
-          if (pageTab.tab == ref.read(tabProvider)) {
-            tabName = pageTab.nameForUrl!;
+    if (ref.read(isConnectedToLGProvider)) {
+      await Future.delayed(Const.screenshotDelay).then((x) async {
+        screenshotController.capture().then((image) async {
+          img.Image? imageDecoded = img.decodePng(Uint8List.fromList(image!));
+          await SSH(ref: ref).imageFileUpload(context, image);
+          if (!mounted) {
+            return;
           }
-        }
-        ref.read(lastBalloonProvider.notifier).state = await SSH(ref: ref)
-            .renderInSlave(
-                context,
-                ref.read(rightmostRigProvider),
-                BalloonMakers.dashboardBalloon(
-                    initialMapPosition,
-                    ref.read(cityDataProvider)!.cityNameEnglish,
-                    tabPageName ?? tabName,
-                    imageDecoded!.height / imageDecoded.width));
-      }).catchError((onError) {
-        showSnackBar(context: context, message: onError.toString());
+          await SSH(ref: ref).imageFileUploadSlave(context);
+          var initialMapPosition = CameraPosition(
+            target: ref.read(cityDataProvider)!.location,
+            zoom: Const.appZoomScale,
+          );
+          if (!mounted) {
+            return;
+          }
+          String tabName = '';
+          if (tabPageName == null) {
+            for (var pageTab in ref.read(cityDataProvider)!.availableTabs) {
+              if (pageTab.tab == ref.read(tabProvider)) {
+                tabName = pageTab.nameForUrl!;
+              }
+            }
+          }
+          ref.read(lastBalloonProvider.notifier).state = await SSH(ref: ref)
+              .renderInSlave(
+                  context,
+                  ref.read(rightmostRigProvider),
+                  BalloonMakers.dashboardBalloon(
+                      initialMapPosition,
+                      ref.read(cityDataProvider)!.cityNameEnglish,
+                      tabPageName ?? tabName,
+                      imageDecoded!.height / imageDecoded.width));
+        }).catchError((onError) {
+          showSnackBar(context: context, message: onError.toString(), color: Colors.red);
+        });
       });
-    });
+    }
   }
 
   loadKmlBalloon(String kmlName, String fileSize) async {
-    String name = '<h3>$kmlName</h3>\n';
-    String size = '<h3>$fileSize</h3>\n';
+    String name = '<h3>Playing KML: $kmlName</h3>\n';
+    String size = '<h3>KML file size: $fileSize</h3>\n';
     String processKml =
         ref.read(lastBalloonProvider).replaceAll('<img', '$name$size<img');
     await SSH(ref: ref)

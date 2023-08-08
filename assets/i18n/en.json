@@ -153,10 +153,18 @@
     "feature2": "In other tabs, you can select to download the KML files and visualize in the Liquid Galaxy. The size of the KML files are shown to avoid any unnecessary data loss. Also, to use this feature, you need to connect to Liquid Galaxy first.",
     "feature3": "In the About Tab, you can take a tour to some of the important locations of the city.",
     "feature4": "You can change the type of the Google Map by choosing one of the three options available.",
+    "visualizer1": "To visualize any data, you have to get the download link of that file. You can get the link from any file downloader or the website from where you have downloaded the data. This is similar for both csv and kml visualizer.",
+    "visualizer2": "You can select between line chart and pie chart.",
+    "visualizer3": "Put the column number for the x-axis. Column number starts from 0. The column can contain any type of data. You can click on the two buttons at the end to increase or decrease the value.",
+    "visualizer4": "Only available for line chart, click on the green plus icon to add an y-axis plot.",
+    "visualizer5": "Similar to x-axis plot, you have to put column number. But here, the column must contain numerical data for the plot. You can click on the red minus button to remove the plot. You can also select any color for the plot.",
+    "visualizer6": "When you click on the color button, you will be presented with this screen where you can choose the color of your choice. You can select from basic colors to any color wheel.",
+    "content": "If you see this screen, then go to settings and download the additional content.",
     "nav_title": "Navigation",
     "app_bar_title": "App Bar",
     "settings_title": "Settings Page",
     "city_page_title": "City Page",
+    "visualizer_page_title": "Visualizer Page",
     "tab": "The left tab bar will change automatically depending on the page of the app. When in the homepage, it will show the general instruction and the help page button. And when in any city page, it will show the tabs of data available for the city. The settings and about page is independent of other pages and can be selected from any page without changing the left tab."
   },
   "visualizer": {

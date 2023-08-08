@@ -89,7 +89,9 @@ class HelpPage extends ConsumerWidget {
                           style: helpPageTextStyle)),
                 ]),
                 spacing.ph,
-                spacing.ph,spacing.ph,spacing.ph,
+                spacing.ph,
+                spacing.ph,
+                spacing.ph,
                 HelpPageTitleContainer(
                   title: translate('help_page.app_bar_title'),
                 ),
@@ -118,11 +120,13 @@ class HelpPage extends ConsumerWidget {
                           style: helpPageTextStyle)),
                 ]),
                 spacing.ph,
-                    spacing.ph,spacing.ph,spacing.ph,
-                    HelpPageTitleContainer(
-                      title: translate('help_page.settings_title'),
-                    ),
-                    spacing.ph,
+                spacing.ph,
+                spacing.ph,
+                spacing.ph,
+                HelpPageTitleContainer(
+                  title: translate('help_page.settings_title'),
+                ),
+                spacing.ph,
                 HelpPageContainer(children: [
                   Expanded(
                       child: Text(translate('help_page.settings'),
@@ -157,12 +161,13 @@ class HelpPage extends ConsumerWidget {
                           style: helpPageTextStyle)),
                 ]),
                 spacing.ph,
-                    spacing.ph,
-                    spacing.ph,spacing.ph,
-                    HelpPageTitleContainer(
-                      title: translate('help_page.city_page_title'),
-                    ),
-                    spacing.ph,
+                spacing.ph,
+                spacing.ph,
+                spacing.ph,
+                HelpPageTitleContainer(
+                  title: translate('help_page.city_page_title'),
+                ),
+                spacing.ph,
                 HelpPageContainer(children: [
                   Expanded(
                       child: Text(translate('help_page.feature1'),
@@ -229,6 +234,85 @@ class HelpPage extends ConsumerWidget {
                   const HelpLogoShower(
                     logo: ImageConst.content2,
                     height: 160,
+                    width: 250,
+                  ),
+                ]),
+                spacing.ph,
+                spacing.ph,
+                spacing.ph,
+                spacing.ph,
+                HelpPageTitleContainer(
+                  title: translate('help_page.visualizer_page_title'),
+                ),
+                spacing.ph,
+                HelpPageContainer(children: [
+                  const HelpLogoShower(
+                    logo: ImageConst.visualizer1,
+                    height: 50,
+                    width: 400,
+                  ),
+                  Expanded(
+                      child: Text(translate('help_page.visualizer1'),
+                          textAlign: TextAlign.justify,
+                          style: helpPageTextStyle)),
+                ]),
+                spacing.ph,
+                HelpPageContainer(children: [
+                  Expanded(
+                      child: Text(translate('help_page.visualizer2'),
+                          textAlign: TextAlign.justify,
+                          style: helpPageTextStyle)),
+                  const HelpLogoShower(
+                    logo: ImageConst.visualizer2,
+                    height: 100,
+                    width: 450,
+                  ),
+                ]),
+                spacing.ph,
+                HelpPageContainer(children: [
+                  const HelpLogoShower(
+                    logo: ImageConst.visualizer3,
+                    height: 50,
+                    width: 450,
+                  ),
+                  Expanded(
+                      child: Text(translate('help_page.visualizer3'),
+                          textAlign: TextAlign.justify,
+                          style: helpPageTextStyle)),
+                ]),
+                spacing.ph,
+                HelpPageContainer(children: [
+                  Expanded(
+                      child: Text(translate('help_page.visualizer4'),
+                          textAlign: TextAlign.justify,
+                          style: helpPageTextStyle)),
+                  const HelpLogoShower(
+                    logo: ImageConst.visualizer4,
+                    height: 130,
+                    width: 300,
+                  ),
+                ]),
+                spacing.ph,
+                HelpPageContainer(children: [
+                  const HelpLogoShower(
+                    logo: ImageConst.visualizer5,
+                    height: 35,
+                    width: 450,
+                  ),
+                  Expanded(
+                      child: Text(translate('help_page.visualizer5'),
+                          textAlign: TextAlign.justify,
+                          style: helpPageTextStyle)),
+                ]),
+                spacing.ph,
+                HelpPageContainer(children: [
+                  Expanded(
+                      child: Text(translate('help_page.visualizer6'),
+                          textAlign: TextAlign.justify,
+                          style: helpPageTextStyle)),
+                  HelpLogoShower(
+                    logo: ImageConst.visualizer6,
+                    height: helpPageImageHeight,
                     width: 250,
                   ),
                 ]),

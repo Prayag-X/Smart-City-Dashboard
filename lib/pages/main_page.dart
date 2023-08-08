@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,6 +30,7 @@ class MainPage extends ConsumerStatefulWidget {
 
 class _MainPageState extends ConsumerState<MainPage> {
   late StreamSubscription<ConnectivityResult> subscription;
+  final double padding = 10;
 
   listenInternetConnection() {
     subscription = Connectivity()
@@ -116,6 +118,7 @@ class _MainPageState extends ConsumerState<MainPage> {
     int homePageTab = ref.watch(tabProvider);
     Color highlightColor = ref.watch(highlightColorProvider);
     Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
     bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
     bool playingGlobalTour = ref.watch(playingGlobalTourProvider);
     return GestureDetector(
@@ -129,38 +132,51 @@ class _MainPageState extends ConsumerState<MainPage> {
           ],
         ),
         floatingActionButton: isHomePage && homePageTab == 0
-            ? FloatingActionButton.extended(
-                onPressed: () async {
-                  if (isConnectedToLg) {
-                    if (!playingGlobalTour) {
-                      ref.read(playingGlobalTourProvider.notifier).state = true;
-                      await orbitPlay();
-                    } else {
-                      ref.read(playingGlobalTourProvider.notifier).state =
-                          false;
-                      await orbitStop();
-                    }
-                  } else {
-                    showSnackBar(
-                        context: context,
-                        message: translate('settings.connection_required'));
-                  }
-                  // Add your onPressed code here!
-                },
-                label: Text(
-                  !playingGlobalTour
-                      ? translate('homepage.tour')
-                      : translate('homepage.stop_tour'),
-                  style: textStyleNormal.copyWith(
-                      color: oppositeColor, fontSize: 17),
-                ),
-                icon: Icon(
-                  !playingGlobalTour ? Icons.tour_rounded : Icons.stop_rounded,
-                  color: oppositeColor,
-                  size: 17,
-                ),
-                backgroundColor: lightenColor(highlightColor).withOpacity(0.8),
-              )
+            ? ClipRRect(
+          borderRadius: BorderRadius.circular(Const.dashboardUIRoundness * 3),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(
+                    sigmaX: 5, sigmaY: 5),
+                child: FloatingActionButton.extended(
+                    onPressed: () async {
+                      if (isConnectedToLg) {
+                        if (!playingGlobalTour) {
+                          ref.read(playingGlobalTourProvider.notifier).state = true;
+                          await orbitPlay();
+                        } else {
+                          ref.read(playingGlobalTourProvider.notifier).state =
+                              false;
+                          await orbitStop();
+                        }
+                      } else {
+                        showSnackBar(
+                            context: context,
+                            message: translate('settings.connection_required'));
+                      }
+                      // Add your onPressed code here!
+                    },
+                    label: Padding(
+                      padding: EdgeInsets.only(top: padding , bottom: padding, right: padding),
+                      child: Text(
+                        !playingGlobalTour
+                            ? translate('homepage.tour')
+                            : translate('homepage.stop_tour'),
+                        style: textStyleNormal.copyWith(
+                            color: oppositeColor, fontSize: 17),
+                      ),
+                    ),
+                    icon: Padding(
+                      padding: EdgeInsets.only(top: padding , bottom: padding, left: padding),
+                      child: Icon(
+                        !playingGlobalTour ? Icons.tour_rounded : Icons.stop_rounded,
+                        color: !playingGlobalTour ? Colors.green : Colors.red,
+                        size: 17,
+                      ),
+                    ),
+                    backgroundColor: lightenColor(highlightColor).withOpacity(0.5),
+                  ),
+              ),
+            )
             : null,
       ),
     );

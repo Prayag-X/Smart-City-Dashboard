@@ -80,6 +80,12 @@ class ImageConst {
   static const tab1 = 'assets/images/help_page/tab1.png';
   static const tab2 = 'assets/images/help_page/tab2.png';
   static const theme = 'assets/images/help_page/theme.png';
+  static const visualizer1 = 'assets/images/help_page/visualizer1.png';
+  static const visualizer2 = 'assets/images/help_page/visualizer2.png';
+  static const visualizer3 = 'assets/images/help_page/visualizer3.png';
+  static const visualizer4 = 'assets/images/help_page/visualizer4.png';
+  static const visualizer5 = 'assets/images/help_page/visualizer5.png';
+  static const visualizer6 = 'assets/images/help_page/visualizer6.png';
 
   //
   static const tree = 'assets/logos/tree.png';
