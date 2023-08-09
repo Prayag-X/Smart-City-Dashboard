@@ -88,6 +88,8 @@ class _SettingsState extends ConsumerState<SettingsPage> {
       child: Column(
         children: [
           Const.appBarHeight.ph,
+          TitleContainer(title: translate('settings.connection_management')),
+          30.ph,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -298,62 +300,9 @@ class _SettingsState extends ConsumerState<SettingsPage> {
               ),
             ),
           ),
-          40.ph,
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Column(
-              children: [
-                Text(translate('settings.content_management'),
-                    style: textStyleNormal.copyWith(
-                        fontSize: Const.tabBarTextSize - 2,
-                        color: oppositeColor)),
-                Divider(
-                  color: oppositeColor,
-                  indent: 30,
-                  endIndent: 30,
-                ),
-              ],
-            ),
-          ),
-          AnimationLimiter(
-            child: Column(
-              children: AnimationConfiguration.toStaggeredList(
-                duration: Const.animationDuration,
-                childAnimationBuilder: (widget) => SlideAnimation(
-                  verticalOffset: Const.animationDistance,
-                  child: FadeInAnimation(
-                    child: widget,
-                  ),
-                ),
-                children: [
-                  TextButtonCustom(
-                    onPressed: () async {
-                      showSnackBar(
-                          context: context,
-                          message: translate('settings.download_started'));
-                      await Downloader(ref: ref)
-                          .downloadAllContent(DownloadableContent.content);
-                      await prefs.setBool('downloadableContent', true);
-                      ref
-                          .read(downloadableContentAvailableProvider.notifier)
-                          .state = true;
-                      if (!mounted) {
-                        return;
-                      }
-                      showSnackBar(
-                          context: context,
-                          message: translate('settings.download_completed'));
-                    },
-                    name: translate('settings.download'),
-                    width: screenSize(context).width - 400,
-                    icon: Icons.download_rounded,
-                    color: darkenColor(Colors.blue),
-                    ref: ref,
-                  ),
-                ],
-              ),
-            ),
-          ),
+          70.ph,
+          TitleContainer(title: translate('settings.content_management')),
+          30.ph,
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -362,7 +311,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                   children: AnimationConfiguration.toStaggeredList(
                     duration: Const.animationDuration,
                     childAnimationBuilder: (widget) => SlideAnimation(
-                      horizontalOffset: -Const.animationDistance,
+                      verticalOffset: Const.animationDistance,
                       child: FadeInAnimation(
                         child: widget,
                       ),
@@ -370,41 +319,26 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                     children: [
                       TextButtonCustom(
                         onPressed: () async {
-                          var localPath =
-                              await getApplicationDocumentsDirectory();
-                          for (MapEntry<String, Map<String, String>> fileData
-                              in DownloadableContent.content.entries) {
-                            File file = File(
-                                "${localPath.path}/${fileData.value['directory']}/${fileData.value['filename']}");
-                            try {
-                              if (downloadableContentAvailable) {
-                                await file.delete();
-                              }
-                            } catch (error) {
-                              if (!mounted) {
-                                return;
-                              }
-                              showSnackBar(
-                                  context: context, message: error.toString());
-                            }
-                          }
-                          await prefs.setBool('downloadableContent', false);
+                          showSnackBar(
+                              context: context,
+                              message: translate('settings.download_started'));
+                          await Downloader(ref: ref)
+                              .downloadAllContent(DownloadableContent.content);
+                          await prefs.setBool('downloadableContent', true);
                           ref
-                              .read(
-                                  downloadableContentAvailableProvider.notifier)
-                              .state = false;
+                              .read(downloadableContentAvailableProvider.notifier)
+                              .state = true;
                           if (!mounted) {
                             return;
                           }
                           showSnackBar(
                               context: context,
-                              message:
-                                  translate('settings.delete_csv_success'));
+                              message: translate('settings.download_completed'));
                         },
-                        name: translate('settings.delete_csv'),
+                        name: translate('settings.download'),
                         width: screenSize(context).width / 2 - 200,
-                        icon: Icons.delete_forever_rounded,
-                        color: darkenColor(Colors.red),
+                        icon: Icons.download_rounded,
+                        color: darkenColor(Colors.blue),
                         ref: ref,
                       ),
                     ],
@@ -424,7 +358,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                   children: AnimationConfiguration.toStaggeredList(
                     duration: Const.animationDuration,
                     childAnimationBuilder: (widget) => SlideAnimation(
-                      horizontalOffset: Const.animationDistance,
+                      verticalOffset: Const.animationDistance,
                       child: FadeInAnimation(
                         child: widget,
                       ),
@@ -433,7 +367,31 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       TextButtonCustom(
                         onPressed: () async {
                           var localPath =
-                              await getApplicationDocumentsDirectory();
+                          await getApplicationDocumentsDirectory();
+                          for (MapEntry<String, Map<String, String>> fileData
+                          in DownloadableContent.content.entries) {
+                            File file = File(
+                                "${localPath.path}/${fileData.value['directory']}/${fileData.value['filename']}");
+                            try {
+                              if (downloadableContentAvailable) {
+                                await file.delete();
+                              }
+                            } catch (error) {
+                              if (!mounted) {
+                                return;
+                              }
+                              showSnackBar(
+                                  context: context, message: error.toString());
+                            }
+                          }
+                          await prefs.setBool('downloadableContent', false);
+                          ref
+                              .read(
+                              downloadableContentAvailableProvider.notifier)
+                              .state = false;
+                          if (!mounted) {
+                            return;
+                          }
                           File file = File(
                               "${localPath.path}/${Const.kmlCustomFileName}.kml");
                           try {
@@ -450,7 +408,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                           showSnackBar(
                               context: context,
                               message:
-                                  translate('settings.delete_kml_success'));
+                              translate('settings.delete_success'));
                         },
                         name: translate('settings.delete_kml'),
                         width: screenSize(context).width / 2 - 200,
@@ -464,23 +422,9 @@ class _SettingsState extends ConsumerState<SettingsPage> {
               ),
             ],
           ),
+          70.ph,
+          TitleContainer(title: translate('settings.lg_management')),
           30.ph,
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 8.0),
-            child: Column(
-              children: [
-                Text(translate('settings.lg_management'),
-                    style: textStyleNormal.copyWith(
-                        fontSize: Const.tabBarTextSize - 2,
-                        color: oppositeColor)),
-                Divider(
-                  color: oppositeColor,
-                  indent: 30,
-                  endIndent: 30,
-                ),
-              ],
-            ),
-          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
@@ -855,6 +799,34 @@ class TextFormFieldCustom extends ConsumerWidget {
           ),
           style: textStyleNormal.copyWith(color: oppositeColor, fontSize: 17),
           controller: controller,
+        ),
+      ),
+    );
+  }
+}
+
+class TitleContainer extends ConsumerWidget {
+  const TitleContainer({
+    super.key,
+    required this.title,
+  });
+  final String title;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    Color highlightColor = ref.watch(highlightColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    return Container(
+      height: 100,
+      width: screenSize(context).width -screenSize(context).width/Const.tabBarWidthDivider - 50,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
+        color: lightenColor(highlightColor),
+      ),
+      child: Center(
+        child: Text(
+          title,
+          style: textStyleBold.copyWith(color: oppositeColor, fontSize: 40),
         ),
       ),
     );
