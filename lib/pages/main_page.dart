@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_translate/flutter_translate.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/models/city_card_model.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
@@ -12,6 +13,7 @@ import 'package:smart_city_dashboard/utils/helper.dart';
 
 import '../connections/ssh.dart';
 import '../constants/constants.dart';
+import '../kml_makers/balloon_makers.dart';
 import '../providers/data_providers.dart';
 import '../providers/page_providers.dart';
 import '../providers/settings_providers.dart';
@@ -56,9 +58,34 @@ class _MainPageState extends ConsumerState<MainPage> {
       if (!ref.read(playingGlobalTourProvider)) {
         break;
       }
-      await SSH(ref: ref).flyToInstantWithoutSaving(context, city.location.latitude,
-          city.location.longitude, Const.appZoomScale.zoomLG, 0, 0);
+      await SSH(ref: ref).flyToInstantWithoutSaving(
+          context,
+          city.location.latitude,
+          city.location.longitude,
+          Const.appZoomScale.zoomLG,
+          0,
+          0);
+      if (!mounted) {
+        return;
+      }
+      await SSH(ref: ref).cleanBalloon(context);
       await Future.delayed(const Duration(milliseconds: 8000));
+      if (!mounted) {
+        return;
+      }
+      await SSH(ref: ref).renderInSlave(
+          context,
+          ref.read(rightmostRigProvider),
+          BalloonMakers.orbitBalloon(
+            CameraPosition(
+              target: LatLng(
+                city.location.latitude,
+                city.location.longitude,
+              ),
+              zoom: Const.orbitZoomScale.zoomLG,
+            ),
+            city.image,
+          ));
       for (int i = 0; i <= 180; i += 17) {
         if (!mounted) {
           return;
@@ -91,6 +118,10 @@ class _MainPageState extends ConsumerState<MainPage> {
 
   orbitStop() async {
     ref.read(playingGlobalTourProvider.notifier).state = false;
+    await SSH(ref: ref).cleanBalloon(context);
+    if (!mounted) {
+      return;
+    }
     await SSH(ref: ref).flyToWithoutSaving(
         context,
         Const.initialMapPosition.target.latitude,
@@ -133,15 +164,16 @@ class _MainPageState extends ConsumerState<MainPage> {
         ),
         floatingActionButton: isHomePage && homePageTab == 0
             ? ClipRRect(
-          borderRadius: BorderRadius.circular(Const.dashboardUIRoundness * 3),
-              child: BackdropFilter(
-                filter: ImageFilter.blur(
-                    sigmaX: 5, sigmaY: 5),
-                child: FloatingActionButton.extended(
+                borderRadius:
+                    BorderRadius.circular(Const.dashboardUIRoundness * 3),
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                  child: FloatingActionButton.extended(
                     onPressed: () async {
                       if (isConnectedToLg) {
                         if (!playingGlobalTour) {
-                          ref.read(playingGlobalTourProvider.notifier).state = true;
+                          ref.read(playingGlobalTourProvider.notifier).state =
+                              true;
                           await orbitPlay();
                         } else {
                           ref.read(playingGlobalTourProvider.notifier).state =
@@ -156,7 +188,8 @@ class _MainPageState extends ConsumerState<MainPage> {
                       // Add your onPressed code here!
                     },
                     label: Padding(
-                      padding: EdgeInsets.only(top: padding , bottom: padding, right: padding),
+                      padding: EdgeInsets.only(
+                          top: padding, bottom: padding, right: padding),
                       child: Text(
                         !playingGlobalTour
                             ? translate('homepage.tour')
@@ -166,17 +199,21 @@ class _MainPageState extends ConsumerState<MainPage> {
                       ),
                     ),
                     icon: Padding(
-                      padding: EdgeInsets.only(top: padding , bottom: padding, left: padding),
+                      padding: EdgeInsets.only(
+                          top: padding, bottom: padding, left: padding),
                       child: Icon(
-                        !playingGlobalTour ? Icons.tour_rounded : Icons.stop_rounded,
+                        !playingGlobalTour
+                            ? Icons.tour_rounded
+                            : Icons.stop_rounded,
                         color: !playingGlobalTour ? Colors.green : Colors.red,
                         size: 17,
                       ),
                     ),
-                    backgroundColor: lightenColor(highlightColor).withOpacity(0.5),
+                    backgroundColor:
+                        lightenColor(highlightColor).withOpacity(0.5),
                   ),
-              ),
-            )
+                ),
+              )
             : null,
       ),
     );

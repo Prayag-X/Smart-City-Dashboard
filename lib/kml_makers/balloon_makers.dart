@@ -155,11 +155,9 @@ class BalloonMakers {
 </Document>
 </kml>''';
 
-  static kmlBalloon(
+  static orbitBalloon(
     CameraPosition camera,
     String cityImage,
-    String kmlName,
-    String size,
   ) =>
       '''<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -170,8 +168,6 @@ class BalloonMakers {
      <textColor>ffffffff</textColor>
      <text>
         <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/$cityImage" alt="picture" width="300" height="200" />
-        <h1>$kmlName</h1>
-        <h1>Size: $size</h1>
      </text>
      <bgColor>ff15151a</bgColor>
    </BalloonStyle>
@@ -210,7 +206,7 @@ class BalloonMakers {
      <textColor>ffffffff</textColor>
      <text>
         <h1>$cityName</h1>
-        <img src="file://${Const.dashboardBalloonFileLocation}${Const.dashboardBalloonFileName}_${cityName.replaceAll(' ', '_')}_$tabName.png" width="400" height="${400*height}" />
+        <img src="file://${Const.dashboardBalloonFileLocation}${Const.dashboardBalloonFileName}_${cityName.replaceAll(' ', '_')}_$tabName.png" width="400" height="${400 * height}" />
      </text>
      <bgColor>ff15151a</bgColor>
    </BalloonStyle>
