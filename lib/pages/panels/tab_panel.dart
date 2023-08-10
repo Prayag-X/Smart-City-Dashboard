@@ -49,8 +49,14 @@ class _TabPanelState extends ConsumerState<TabPanel> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             FeaturesTour(
-              index: 0,
+              index: 1,
               controller: featuresTourDashboardController,
+              introduce: FeatureTourContainer(
+                text: translate('tour.d1'),
+              ),
+              introduceConfig: IntroduceConfig.copyWith(
+                quadrantAlignment: QuadrantAlignment.right,
+              ),
               child: GestureDetector(
                 onTap: () {
                   ref.read(tabProvider.notifier).state = 0;
@@ -159,24 +165,34 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                           ],
                         ),
                       ),
-                      AnimationLimiter(
-                        child: Column(
-                          children: AnimationConfiguration.toStaggeredList(
-                            duration: Const.animationDuration,
-                            childAnimationBuilder: (widget) => SlideAnimation(
-                              horizontalOffset: -Const.animationDistance,
-                              child: FadeInAnimation(
-                                child: widget,
+                      FeaturesTour(
+                        index: 0,
+                        controller: featuresTourDashboardController,
+                        introduce: FeatureTourContainer(
+                          text: translate('tour.d0'),
+                        ),
+                        introduceConfig: IntroduceConfig.copyWith(
+                          quadrantAlignment: QuadrantAlignment.right,
+                        ),
+                        child: AnimationLimiter(
+                          child: Column(
+                            children: AnimationConfiguration.toStaggeredList(
+                              duration: Const.animationDuration,
+                              childAnimationBuilder: (widget) => SlideAnimation(
+                                horizontalOffset: -Const.animationDistance,
+                                child: FadeInAnimation(
+                                  child: widget,
+                                ),
                               ),
+                              children: ref
+                                  .read(cityDataProvider)!
+                                  .availableTabs
+                                  .map((tab) => TabButton(
+                                      logo: tab.logo!,
+                                      name: tab.name!,
+                                      tab: tab.tab))
+                                  .toList(),
                             ),
-                            children: ref
-                                .read(cityDataProvider)!
-                                .availableTabs
-                                .map((tab) => TabButton(
-                                    logo: tab.logo!,
-                                    name: tab.name!,
-                                    tab: tab.tab))
-                                .toList(),
                           ),
                         ),
                       ),

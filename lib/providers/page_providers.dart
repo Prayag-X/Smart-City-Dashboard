@@ -13,3 +13,5 @@ StateProvider<FeaturesTourController> featureTourControllerHomepageProvider =
     StateProvider((ref) => FeaturesTourController('Homepage'));
 StateProvider<FeaturesTourController> featureTourControllerDashboardProvider =
     StateProvider((ref) => FeaturesTourController('Dashboard'));
+StateProvider<FeaturesTourController> featureTourControllerVisualizerProvider =
+    StateProvider((ref) => FeaturesTourController('Visualizer'));

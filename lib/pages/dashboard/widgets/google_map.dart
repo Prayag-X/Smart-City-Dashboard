@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:features_tour/features_tour.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -11,7 +12,9 @@ import 'package:smart_city_dashboard/utils/helper.dart';
 import '../../../constants/constants.dart';
 import '../../../providers/data_providers.dart';
 import '../../../connections/ssh.dart';
+import '../../../providers/page_providers.dart';
 import '../../../providers/settings_providers.dart';
+import '../../panels/feature_tour_widget.dart';
 
 class GoogleMapPart extends ConsumerStatefulWidget {
   const GoogleMapPart(
@@ -111,6 +114,8 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
     Color highlightColor = ref.watch(highlightColorProvider);
     bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
     MapType mapType = ref.watch(mapTypeProvider);
+    FeaturesTourController featuresTourDashboardController =
+        ref.watch(featureTourControllerDashboardProvider);
     return AnimationLimiter(
       child: Column(
         children: AnimationConfiguration.toStaggeredList(
@@ -127,84 +132,98 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
                   25 -
                   Const.dashboardUISpacing,
               child: ClipRRect(
-                borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
+                borderRadius:
+                    BorderRadius.circular(Const.dashboardUIRoundness),
                 child: Stack(
                   alignment: AlignmentDirectional.topEnd,
                   children: [
                     GoogleMap(
-                      mapType: mapType,
-                      initialCameraPosition: initialMapPosition,
-                      onMapCreated: (GoogleMapController controller) =>
-                          _controller.complete(controller),
-                      onCameraMove: (position) =>
-                          setState(() => newMapPosition = position),
-                      onCameraIdle: () async {
-                        await orbitStop();
-                        if(!mounted) {
-                          return;
-                        }
-                        await SSH(ref: ref).flyTo(
-                            context,
-                            newMapPosition.target.latitude,
-                            newMapPosition.target.longitude,
-                            newMapPosition.zoom.zoomLG,
-                            newMapPosition.tilt,
-                            newMapPosition.bearing);
-                      }
-                    ),
+                        mapType: mapType,
+                        initialCameraPosition: initialMapPosition,
+                        onMapCreated: (GoogleMapController controller) =>
+                            _controller.complete(controller),
+                        onCameraMove: (position) =>
+                            setState(() => newMapPosition = position),
+                        onCameraIdle: () async {
+                          await orbitStop();
+                          if (!mounted) {
+                            return;
+                          }
+                          await SSH(ref: ref).flyTo(
+                              context,
+                              newMapPosition.target.latitude,
+                              newMapPosition.target.longitude,
+                              newMapPosition.zoom.zoomLG,
+                              newMapPosition.tilt,
+                              newMapPosition.bearing);
+                        }),
                     widget.showOrbit
-                        ? Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                  minimumSize: Size.zero,
-                                  padding: EdgeInsets.zero,
-                                  tapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                  backgroundColor:
-                                      Colors.white.withOpacity(0.7),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(300),
-                                    // side: const BorderSide(width: 1, color: Colors.white)
-                                  )),
-                              onPressed: () async {
-                                if (!isConnectedToLg) {
-                                  showSnackBar(
-                                      context: context,
-                                      message: translate(
-                                          'settings.connection_required'));
-                                  return;
-                                }
-                                if (orbitPlaying) {
-                                  await orbitStop();
-                                } else {
-                                  await orbitPlay();
-                                }
-                              },
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 12.0, horizontal: 18),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Icon(
-                                      orbitPlaying
-                                          ? Icons.stop_rounded
-                                          : Icons.play_arrow_rounded,
-                                      color: Colors.black.withOpacity(0.8),
-                                      size: Const.dashboardTextSize + 4,
-                                    ),
-                                    3.pw,
-                                    Text(
-                                      orbitPlaying
-                                          ? translate('dashboard.stop_orbit')
-                                          : translate('dashboard.play_orbit'),
-                                      style: textStyleBold.copyWith(
-                                          color: Colors.black.withOpacity(0.8),
-                                          fontSize:
-                                              Const.dashboardTextSize + 2),
-                                    ),
-                                  ],
+                        ? FeaturesTour(
+                            index: 4,
+                            controller: featuresTourDashboardController,
+                            introduce: FeatureTourContainer(
+                              text: translate('tour.d4'),
+                            ),
+                            introduceConfig: IntroduceConfig.copyWith(
+                              quadrantAlignment: QuadrantAlignment.left,
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: TextButton(
+                                style: TextButton.styleFrom(
+                                    minimumSize: Size.zero,
+                                    padding: EdgeInsets.zero,
+                                    tapTargetSize:
+                                        MaterialTapTargetSize.shrinkWrap,
+                                    backgroundColor:
+                                        Colors.white.withOpacity(0.7),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius:
+                                          BorderRadius.circular(300),
+                                      // side: const BorderSide(width: 1, color: Colors.white)
+                                    )),
+                                onPressed: () async {
+                                  if (!isConnectedToLg) {
+                                    showSnackBar(
+                                        context: context,
+                                        message: translate(
+                                            'settings.connection_required'));
+                                    return;
+                                  }
+                                  if (orbitPlaying) {
+                                    await orbitStop();
+                                  } else {
+                                    await orbitPlay();
+                                  }
+                                },
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 12.0, horizontal: 18),
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      Icon(
+                                        orbitPlaying
+                                            ? Icons.stop_rounded
+                                            : Icons.play_arrow_rounded,
+                                        color: Colors.black.withOpacity(0.8),
+                                        size: Const.dashboardTextSize + 4,
+                                      ),
+                                      3.pw,
+                                      Text(
+                                        orbitPlaying
+                                            ? translate(
+                                                'dashboard.stop_orbit')
+                                            : translate(
+                                                'dashboard.play_orbit'),
+                                        style: textStyleBold.copyWith(
+                                            color:
+                                                Colors.black.withOpacity(0.8),
+                                            fontSize:
+                                                Const.dashboardTextSize + 2),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
@@ -215,87 +234,97 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
               ),
             ),
             Const.dashboardUISpacing.ph,
-            Container(
-              height: 40,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
-                border: Border.all(
-                  color: highlightColor,
-                  width: 2.0,
-                ),
+            FeaturesTour(
+              index: 5,
+              controller: featuresTourDashboardController,
+              introduce: FeatureTourContainer(
+                text: translate('tour.d5'),
               ),
-              child: Row(
-                children: [
-                  Expanded(
-                      child: GestureDetector(
-                    onTap: () {
-                      ref.read(mapTypeProvider.notifier).state = MapType.hybrid;
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: mapType == MapType.hybrid
+              introduceConfig: IntroduceConfig.copyWith(
+                quadrantAlignment: QuadrantAlignment.left,
+              ),
+              child: Container(
+                height: 40,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
+                  border: Border.all(
+                    color: highlightColor,
+                    width: 2.0,
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: GestureDetector(
+                      onTap: () {
+                        ref.read(mapTypeProvider.notifier).state = MapType.hybrid;
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: mapType == MapType.hybrid
+                              ? highlightColor
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.only(
+                              topLeft:
+                                  Radius.circular(Const.dashboardUIRoundness - 3),
+                              bottomLeft: Radius.circular(
+                                  Const.dashboardUIRoundness - 3)),
+                        ),
+                        child: Center(
+                            child: Text(
+                          translate('dashboard.map_type.hybrid'),
+                          style: textStyleNormal.copyWith(
+                              color: oppositeColor,
+                              fontSize: Const.dashboardTextSize - 2),
+                        )),
+                      ),
+                    )),
+                    Expanded(
+                        child: GestureDetector(
+                      onTap: () {
+                        ref.read(mapTypeProvider.notifier).state = MapType.normal;
+                      },
+                      child: Container(
+                        color: mapType == MapType.normal
                             ? highlightColor
                             : Colors.transparent,
-                        borderRadius: BorderRadius.only(
-                            topLeft:
-                                Radius.circular(Const.dashboardUIRoundness - 3),
-                            bottomLeft: Radius.circular(
-                                Const.dashboardUIRoundness - 3)),
+                        child: Center(
+                            child: Text(
+                          translate('dashboard.map_type.normal'),
+                          style: textStyleNormal.copyWith(
+                              color: oppositeColor,
+                              fontSize: Const.dashboardTextSize - 2),
+                        )),
                       ),
-                      child: Center(
-                          child: Text(
-                        translate('dashboard.map_type.hybrid'),
-                        style: textStyleNormal.copyWith(
-                            color: oppositeColor,
-                            fontSize: Const.dashboardTextSize - 2),
-                      )),
-                    ),
-                  )),
-                  Expanded(
-                      child: GestureDetector(
-                    onTap: () {
-                      ref.read(mapTypeProvider.notifier).state = MapType.normal;
-                    },
-                    child: Container(
-                      color: mapType == MapType.normal
-                          ? highlightColor
-                          : Colors.transparent,
-                      child: Center(
-                          child: Text(
-                        translate('dashboard.map_type.normal'),
-                        style: textStyleNormal.copyWith(
-                            color: oppositeColor,
-                            fontSize: Const.dashboardTextSize - 2),
-                      )),
-                    ),
-                  )),
-                  Expanded(
-                      child: GestureDetector(
-                    onTap: () {
-                      ref.read(mapTypeProvider.notifier).state =
-                          MapType.terrain;
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: mapType == MapType.terrain
-                            ? highlightColor
-                            : Colors.transparent,
-                        borderRadius: BorderRadius.only(
-                            topRight:
-                                Radius.circular(Const.dashboardUIRoundness - 3),
-                            bottomRight: Radius.circular(
-                                Const.dashboardUIRoundness - 3)),
+                    )),
+                    Expanded(
+                        child: GestureDetector(
+                      onTap: () {
+                        ref.read(mapTypeProvider.notifier).state =
+                            MapType.terrain;
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: mapType == MapType.terrain
+                              ? highlightColor
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.only(
+                              topRight:
+                                  Radius.circular(Const.dashboardUIRoundness - 3),
+                              bottomRight: Radius.circular(
+                                  Const.dashboardUIRoundness - 3)),
+                        ),
+                        child: Center(
+                            child: Text(
+                          translate('dashboard.map_type.terrain'),
+                          style: textStyleNormal.copyWith(
+                              color: oppositeColor,
+                              fontSize: Const.dashboardTextSize - 2),
+                        )),
                       ),
-                      child: Center(
-                          child: Text(
-                        translate('dashboard.map_type.terrain'),
-                        style: textStyleNormal.copyWith(
-                            color: oppositeColor,
-                            fontSize: Const.dashboardTextSize - 2),
-                      )),
-                    ),
-                  )),
-                ],
+                    )),
+                  ],
+                ),
               ),
             ),
             Const.dashboardUISpacing.ph,

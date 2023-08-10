@@ -43,7 +43,7 @@ class FeatureTourContainer extends ConsumerWidget {
             padding: const EdgeInsets.symmetric(horizontal: 17.0, vertical: 12),
             child: Text(text,
                 style: textStyleNormal.copyWith(
-                    fontSize: 20, color: oppositeColor)),
+                    fontSize: 19, color: oppositeColor)),
           ),
         ),
       ),

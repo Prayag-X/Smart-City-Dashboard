@@ -4,6 +4,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:smart_city_dashboard/constants/text_styles.dart';
+import 'package:smart_city_dashboard/constants/theme.dart';
+import 'package:smart_city_dashboard/utils/helper.dart';
 
 import 'pages/main_page.dart';
 import 'pages/splash_page.dart';
@@ -22,29 +25,29 @@ void main() async {
       .then((_) {
     FeaturesTour.setGlobalConfig(
       skipConfig: SkipConfig.copyWith(
-        text: 'SKIP >>',
+        text: 'Skip',
+        textStyle: textStyleBold.copyWith(fontSize: 25, color: Colors.white),
         buttonStyle: TextButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            side: const BorderSide(
-              color: Colors.blue,
-            ),
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
+            backgroundColor: ThemesDark.highlightColor,
+            padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 13),
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(300),
+                side: BorderSide(
+                    color: lightenColor(ThemesDark.highlightColor), width: 1))),
       ),
       nextConfig: NextConfig.copyWith(
-        text: 'NEXT >',
+        text: 'Next',
+        textStyle: textStyleBold.copyWith(fontSize: 25, color: Colors.white),
         buttonStyle: TextButton.styleFrom(
-          shape: RoundedRectangleBorder(
-            side: const BorderSide(
-              color: Colors.blue,
-            ),
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
+            padding: const EdgeInsets.symmetric(horizontal: 23, vertical: 13),
+            backgroundColor: ThemesDark.highlightColor,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(300),
+                side: BorderSide(
+                    color: lightenColor(ThemesDark.highlightColor), width: 1))),
       ),
       predialogConfig: PredialogConfig.copyWith(
-        enabled: true,
+        enabled: false,
       ),
       debugLog: true,
     );

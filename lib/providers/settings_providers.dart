@@ -46,3 +46,7 @@ setLightTheme(WidgetRef ref) {
   ref.read(tabBarColorProvider.notifier).state = ThemesLight.tabBarColor;
   ref.read(highlightColorProvider.notifier).state = ThemesLight.highlightColor;
 }
+
+StateProvider<bool> showHomepageTourProvider = StateProvider((ref) => true);
+StateProvider<bool> showDashboardTourProvider = StateProvider((ref) => true);
+StateProvider<bool> showVisualizerTourProvider = StateProvider((ref) => true);

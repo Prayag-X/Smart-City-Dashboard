@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/models/city_card_model.dart';
 import 'package:smart_city_dashboard/pages/panels/feature_tour_widget.dart';
@@ -133,16 +134,24 @@ class _MainPageState extends ConsumerState<MainPage> {
         Const.initialMapPosition.bearing);
   }
 
+  showFeatureTour() async {
+    if(ref.read(showHomepageTourProvider)) {
+      ref.read(featureTourControllerHomepageProvider).start(
+        context: context,
+        delay: Duration.zero,
+        force: true,
+      );
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setBool('showHomepageTour', false);
+      ref.read(showHomepageTourProvider.notifier).state = false;
+    }
+  }
+
   @override
   initState() {
     super.initState();
     listenInternetConnection();
-    ref.read(featureTourControllerHomepageProvider).start(
-          context: context,
-          delay: Duration.zero,
-          force: true,
-          predialogConfig: PredialogConfig.copyWith(),
-        );
+    showFeatureTour();
   }
 
   @override
