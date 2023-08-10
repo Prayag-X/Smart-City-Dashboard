@@ -17,7 +17,7 @@
     "austria": "Vienna"
   },
   "homepage": {
-    "home": "Home",
+    "home": "Cities",
     "welcome": "Welcome",
     "description": "Click on any Smart City to visualize its details. Search option is also available. Click on the help button for any doubts or confusion. Click on Visualizer to download and visualize any csv file or any kml data.",
     "help": "Help",
@@ -182,6 +182,19 @@
     "download_url_hint": "File Download Link",
     "column_no_hint": "Column Number",
     "download_failed": "Download Failed",
+    "kml_title": "KML Data Visualizer"
+  },
+  "tour": {
+    "0": "This is a Smart City card. Click on any to show the dashboard of that city.",
+    "1": "The name and country of the city.",
+    "2": "All the available dashboard categories.",
+    "3": "Get a tour of all the available cities in the Liquid Galaxy.",
+    "4": "Type or click on the mic icon to speak and search any city name or dashboard category.",
+    "5": "Shows the internet connection and Liquid Galaxy connection status respectively.",
+    "6": "For visualizing any csv or kml data.",
+    "7": "If you face any problem in understanding any functionalities, you can go here to check out useful info.",
+    "8": "For connection, content and Liquid Galaxy managements.",
+    "9": "Description and credits of this app.",
     "kml_title": "KML Data Visualizer"
   },
   "city_data": {

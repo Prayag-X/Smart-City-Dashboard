@@ -21,6 +21,7 @@ class Const {
   static double appBarTextSize = 18;
   static double homePageTextSize = 17;
   static double dashboardTextSize = 16;
+  static double tourTextSize = 17;
   static double dashboardChartTextSize = 17;
   static String kmlOrbitFileName = 'Orbit';
   static String kmlCustomFileName = 'custom_kml';

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:features_tour/features_tour.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_translate/flutter_translate.dart';
@@ -13,6 +14,7 @@ import 'package:speech_to_text/speech_recognition_result.dart';
 import '../../constants/constants.dart';
 import '../../constants/theme.dart';
 import '../../providers/page_providers.dart';
+import 'feature_tour_widget.dart';
 
 class CustomAppBar extends ConsumerStatefulWidget {
   const CustomAppBar({
@@ -64,6 +66,8 @@ class _AppBarState extends ConsumerState<CustomAppBar> {
     double? loadingPercentage = ref.watch(loadingPercentageProvider);
     bool isHomePage = ref.watch(isHomePageProvider);
     int tab = ref.watch(tabProvider);
+    FeaturesTourController featuresTourController =
+        ref.watch(featureTourControllerHomepageProvider);
     return Column(
       children: [
         Container(
@@ -85,137 +89,152 @@ class _AppBarState extends ConsumerState<CustomAppBar> {
                           fontSize: Const.appBarTextSize + 10),
                     ),
                     5.ph,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          width: Const.appBarTextSize - 7,
-                          height: Const.appBarTextSize - 7,
-                          decoration: BoxDecoration(
-                              color: isConnectedToInternet
-                                  ? Colors.green
-                                  : Colors.red,
-                              borderRadius: BorderRadius.circular(35.0)),
-                        ),
-                        5.pw,
-                        Text(
-                          isConnectedToInternet
-                              ? translate('settings.online')
-                              : translate('settings.offline'),
-                          style: textStyleBold.copyWith(
-                              color: isConnectedToInternet
-                                  ? Colors.green
-                                  : Colors.red,
-                              fontSize: Const.appBarTextSize - 6),
-                        ),
-                        20.pw,
-                        Container(
-                          width: Const.appBarTextSize - 7,
-                          height: Const.appBarTextSize - 7,
-                          decoration: BoxDecoration(
-                              color:
-                                  isConnectedToLg ? Colors.green : Colors.red,
-                              borderRadius: BorderRadius.circular(35.0)),
-                        ),
-                        5.pw,
-                        Text(
-                          isConnectedToLg
-                              ? translate('settings.connected')
-                              : translate('settings.disconnected'),
-                          style: textStyleBold.copyWith(
-                              color:
-                                  isConnectedToLg ? Colors.green : Colors.red,
-                              fontSize: Const.appBarTextSize - 6),
-                        ),
-                      ],
+                    FeaturesTour(
+                      index: 5,
+                      introduce: FeatureTourContainer(
+                        text: translate('tour.5'),
+                      ),
+                      introduceConfig: IntroduceConfig.copyWith(
+                        quadrantAlignment: QuadrantAlignment.bottom,
+                      ),
+                      controller: featuresTourController,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: Const.appBarTextSize - 7,
+                            height: Const.appBarTextSize - 7,
+                            decoration: BoxDecoration(
+                                color: isConnectedToInternet
+                                    ? Colors.green
+                                    : Colors.red,
+                                borderRadius: BorderRadius.circular(35.0)),
+                          ),
+                          5.pw,
+                          Text(
+                            isConnectedToInternet
+                                ? translate('settings.online')
+                                : translate('settings.offline'),
+                            style: textStyleBold.copyWith(
+                                color: isConnectedToInternet
+                                    ? Colors.green
+                                    : Colors.red,
+                                fontSize: Const.appBarTextSize - 6),
+                          ),
+                          20.pw,
+                          Container(
+                            width: Const.appBarTextSize - 7,
+                            height: Const.appBarTextSize - 7,
+                            decoration: BoxDecoration(
+                                color:
+                                    isConnectedToLg ? Colors.green : Colors.red,
+                                borderRadius: BorderRadius.circular(35.0)),
+                          ),
+                          5.pw,
+                          Text(
+                            isConnectedToLg
+                                ? translate('settings.connected')
+                                : translate('settings.disconnected'),
+                            style: textStyleBold.copyWith(
+                                color:
+                                    isConnectedToLg ? Colors.green : Colors.red,
+                                fontSize: Const.appBarTextSize - 6),
+                          ),
+                        ],
+                      ),
                     )
                   ],
                 ),
                 isHomePage && tab == 0
-                    ? SizedBox(
-                        width: 350,
-                        height: Const.appBarHeight - 30,
-                        child: TextFormField(
-                          decoration: InputDecoration(
-                              prefixIcon: GestureDetector(
-                                onTap: () {
-                                  if (listening) {
-                                    _stopListening();
-                                    showSnackBar(
-                                        context: context,
-                                        message: translate('settings.mic_off'));
-                                  } else {
-                                    _startListening();
-                                    showSnackBar(
-                                        context: context,
-                                        message: translate('settings.mic_on'));
-                                  }
-                                  setState(() {
-                                    listening = !listening;
-                                  });
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 13.0, right: 8),
-                                  child: Icon(
-                                    listening
-                                        ? Icons.mic
-                                        : Icons.mic_off_rounded,
-                                    color: !listening
-                                        ? oppositeColor
-                                        : Colors.green,
-                                    size: 35,
-                                  ),
-                                ),
-                              ),
-                              suffixIcon: GestureDetector(
-                                onTap: () {
-                                  ref
-                                      .read(searchProvider.notifier)
-                                      .state = '';
-                                  controller.text = '';
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 13.0, right: 8),
-                                  child: Icon(
-                                    Icons.close,
-                                    color: oppositeColor,
-                                    size: 25,
-                                  ),
-                                ),
-                              ),
-                              contentPadding: const EdgeInsets.symmetric(
-                                  vertical: 15, horizontal: 25),
-                              focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
+                    ? FeaturesTour(
+                  index: 4,
+                  introduce: FeatureTourContainer(
+                    text: translate('tour.4'),
+                  ),
+                  introduceConfig: IntroduceConfig.copyWith(
+                    quadrantAlignment: QuadrantAlignment.bottom,
+                  ),
+                      controller: featuresTourController,
+                      child: SizedBox(
+                          width: 350,
+                          height: Const.appBarHeight - 30,
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                                prefixIcon: GestureDetector(
+                                  onTap: () {
+                                    if (listening) {
+                                      _stopListening();
+                                      showSnackBar(
+                                          context: context,
+                                          message: translate('settings.mic_off'));
+                                    } else {
+                                      _startListening();
+                                      showSnackBar(
+                                          context: context,
+                                          message: translate('settings.mic_on'));
+                                    }
+                                    setState(() {
+                                      listening = !listening;
+                                    });
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 13.0, right: 8),
+                                    child: Icon(
+                                      listening
+                                          ? Icons.mic
+                                          : Icons.mic_off_rounded,
                                       color: !listening
                                           ? oppositeColor
                                           : Colors.green,
-                                      width: 3),
-                                  borderRadius: BorderRadius.circular(35.0)),
-                              enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: !listening
-                                          ? oppositeColor
-                                          : Colors.green,
-                                      width: 1),
-                                  borderRadius: BorderRadius.circular(35.0)),
-                              hintText: translate('search'),
-                              hintStyle: textStyleNormal.copyWith(
-                                  color: oppositeColor.withOpacity(0.5),
-                                  fontSize: 16)),
-                          style: textStyleNormal.copyWith(
-                              color: oppositeColor, fontSize: 16),
-                          controller: controller,
-                          onChanged:(val) {
-                            ref
-                                .read(searchProvider.notifier)
-                                .state
-                            = val;
-                          },
+                                      size: 35,
+                                    ),
+                                  ),
+                                ),
+                                suffixIcon: GestureDetector(
+                                  onTap: () {
+                                    ref.read(searchProvider.notifier).state = '';
+                                    controller.text = '';
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 13.0, right: 8),
+                                    child: Icon(
+                                      Icons.close,
+                                      color: oppositeColor,
+                                      size: 25,
+                                    ),
+                                  ),
+                                ),
+                                contentPadding: const EdgeInsets.symmetric(
+                                    vertical: 15, horizontal: 25),
+                                focusedBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: !listening
+                                            ? oppositeColor
+                                            : Colors.green,
+                                        width: 3),
+                                    borderRadius: BorderRadius.circular(35.0)),
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: !listening
+                                            ? oppositeColor
+                                            : Colors.green,
+                                        width: 1),
+                                    borderRadius: BorderRadius.circular(35.0)),
+                                hintText: translate('search'),
+                                hintStyle: textStyleNormal.copyWith(
+                                    color: oppositeColor.withOpacity(0.5),
+                                    fontSize: 16)),
+                            style: textStyleNormal.copyWith(
+                                color: oppositeColor, fontSize: 16),
+                            controller: controller,
+                            onChanged: (val) {
+                              ref.read(searchProvider.notifier).state = val;
+                            },
+                          ),
                         ),
-                      )
+                    )
                     : Container(),
               ],
             ),

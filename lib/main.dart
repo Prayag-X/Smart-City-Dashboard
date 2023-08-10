@@ -1,3 +1,4 @@
+import 'package:features_tour/features_tour.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -19,6 +20,34 @@ void main() async {
   SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: []);
   SystemChrome.setPreferredOrientations([DeviceOrientation.landscapeLeft])
       .then((_) {
+    FeaturesTour.setGlobalConfig(
+      skipConfig: SkipConfig.copyWith(
+        text: 'SKIP >>',
+        buttonStyle: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            side: const BorderSide(
+              color: Colors.blue,
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      ),
+      nextConfig: NextConfig.copyWith(
+        text: 'NEXT >',
+        buttonStyle: TextButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            side: const BorderSide(
+              color: Colors.blue,
+            ),
+            borderRadius: BorderRadius.circular(10),
+          ),
+        ),
+      ),
+      predialogConfig: PredialogConfig.copyWith(
+        enabled: true,
+      ),
+      debugLog: true,
+    );
     runApp(ProviderScope(child: LocalizedApp(delegate, const Routes())));
   });
 }

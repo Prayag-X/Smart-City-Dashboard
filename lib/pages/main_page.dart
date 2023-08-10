@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:ui';
 
+import 'package:features_tour/features_tour.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
@@ -8,6 +9,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/models/city_card_model.dart';
+import 'package:smart_city_dashboard/pages/panels/feature_tour_widget.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 import 'package:smart_city_dashboard/utils/helper.dart';
 
@@ -135,6 +137,12 @@ class _MainPageState extends ConsumerState<MainPage> {
   initState() {
     super.initState();
     listenInternetConnection();
+    ref.read(featureTourControllerHomepageProvider).start(
+          context: context,
+          delay: Duration.zero,
+          force: true,
+          predialogConfig: PredialogConfig.copyWith(),
+        );
   }
 
   @override
@@ -152,6 +160,8 @@ class _MainPageState extends ConsumerState<MainPage> {
     Color tabBarColor = ref.watch(tabBarColorProvider);
     bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
     bool playingGlobalTour = ref.watch(playingGlobalTourProvider);
+    FeaturesTourController featuresTourController =
+        ref.watch(featureTourControllerHomepageProvider);
     return GestureDetector(
       onTap: () => FocusScope.of(context).requestFocus(FocusNode()),
       child: Scaffold(
@@ -163,54 +173,65 @@ class _MainPageState extends ConsumerState<MainPage> {
           ],
         ),
         floatingActionButton: isHomePage && homePageTab == 0
-            ? ClipRRect(
-                borderRadius:
-                    BorderRadius.circular(Const.dashboardUIRoundness * 3),
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
-                  child: FloatingActionButton.extended(
-                    onPressed: () async {
-                      if (isConnectedToLg) {
-                        if (!playingGlobalTour) {
-                          ref.read(playingGlobalTourProvider.notifier).state =
-                              true;
-                          await orbitPlay();
+            ? FeaturesTour(
+                index: 3,
+                introduce: FeatureTourContainer(
+                  text: translate('tour.3'),
+                ),
+                introduceConfig: IntroduceConfig.copyWith(
+                  quadrantAlignment: QuadrantAlignment.top,
+                ),
+                controller: featuresTourController,
+                child: ClipRRect(
+                  borderRadius:
+                      BorderRadius.circular(Const.dashboardUIRoundness * 3),
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                    child: FloatingActionButton.extended(
+                      onPressed: () async {
+                        if (isConnectedToLg) {
+                          if (!playingGlobalTour) {
+                            ref.read(playingGlobalTourProvider.notifier).state =
+                                true;
+                            await orbitPlay();
+                          } else {
+                            ref.read(playingGlobalTourProvider.notifier).state =
+                                false;
+                            await orbitStop();
+                          }
                         } else {
-                          ref.read(playingGlobalTourProvider.notifier).state =
-                              false;
-                          await orbitStop();
+                          showSnackBar(
+                              context: context,
+                              message:
+                                  translate('settings.connection_required'));
                         }
-                      } else {
-                        showSnackBar(
-                            context: context,
-                            message: translate('settings.connection_required'));
-                      }
-                      // Add your onPressed code here!
-                    },
-                    label: Padding(
-                      padding: EdgeInsets.only(
-                          top: padding, bottom: padding, right: padding),
-                      child: Text(
-                        !playingGlobalTour
-                            ? translate('homepage.tour')
-                            : translate('homepage.stop_tour'),
-                        style: textStyleNormal.copyWith(
-                            color: oppositeColor, fontSize: 17),
+                        // Add your onPressed code here!
+                      },
+                      label: Padding(
+                        padding: EdgeInsets.only(
+                            top: padding, bottom: padding, right: padding),
+                        child: Text(
+                          !playingGlobalTour
+                              ? translate('homepage.tour')
+                              : translate('homepage.stop_tour'),
+                          style: textStyleNormal.copyWith(
+                              color: oppositeColor, fontSize: 17),
+                        ),
                       ),
-                    ),
-                    icon: Padding(
-                      padding: EdgeInsets.only(
-                          top: padding, bottom: padding, left: padding),
-                      child: Icon(
-                        !playingGlobalTour
-                            ? Icons.tour_rounded
-                            : Icons.stop_rounded,
-                        color: !playingGlobalTour ? Colors.green : Colors.red,
-                        size: 17,
+                      icon: Padding(
+                        padding: EdgeInsets.only(
+                            top: padding, bottom: padding, left: padding),
+                        child: Icon(
+                          !playingGlobalTour
+                              ? Icons.tour_rounded
+                              : Icons.stop_rounded,
+                          color: !playingGlobalTour ? Colors.green : Colors.red,
+                          size: 17,
+                        ),
                       ),
+                      backgroundColor:
+                          lightenColor(highlightColor).withOpacity(0.5),
                     ),
-                    backgroundColor:
-                        lightenColor(highlightColor).withOpacity(0.5),
                   ),
                 ),
               )
