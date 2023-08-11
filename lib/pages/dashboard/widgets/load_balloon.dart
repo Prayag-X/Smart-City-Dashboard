@@ -61,7 +61,8 @@ class BalloonLoader {
                       tabPageName ?? tabName,
                       imageDecoded!.height / imageDecoded.width));
         }).catchError((onError) {
-          showSnackBar(context: context, message: onError.toString(), color: Colors.red);
+          SSH(ref: ref).connectionRetry(context);
+          loadDashboardBalloon(screenshotController, tabPageName: tabPageName);
         });
       });
     }

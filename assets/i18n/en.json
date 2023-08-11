@@ -1,6 +1,12 @@
 {
   "language": {
-    "en": "English"
+    "en": "English",
+    "es": "Spanish",
+    "ru": "Russian",
+    "fr": "French",
+    "el": "Greek",
+    "sv": "Swedish",
+    "de": "German"
   },
   "title": "Smart City Dashboard",
   "smart_city": "Smart City",
@@ -203,8 +209,8 @@
     "d4": "Orbit the center of the map in Liquid Galaxy",
     "d5": "Types of Google Map",
     "d6": "This panel will change according to the category selected. For this weather tab, you can visualize forecast data, in the 'About City' page, you get a tour across various location in the city and in other tabs, you may have the option to download and visualize various KML data.",
-    "v0": "Enter the link of the file download link. For example: https://data.seattle.gov/api/views/f9zk-fa85/rows.csv?accessType=DOWNLOAD",
-    "v1": "Select between line chart and pie chart",
+    "v0": "",
+    "v1": "Enter the link of the file download link. For example: https://data.seattle.gov/api/views/f9zk-fa85/rows.csv?accessType=DOWNLOAD and select between line chart and pie chart",
     "v2": "Enter the column number for X-Axis",
     "v3": "Increase or decrease the value of the text form field",
     "v4": "Add an Y-Axis plot (Not available for pie chart)",

@@ -88,6 +88,7 @@ class _MainPageState extends ConsumerState<MainPage> {
               zoom: Const.orbitZoomScale.zoomLG,
             ),
             city.image,
+            city.cityNameEnglish
           ));
       for (int i = 0; i <= 180; i += 17) {
         if (!mounted) {
@@ -212,7 +213,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                           showSnackBar(
                               context: context,
                               message:
-                                  translate('settings.connection_required'));
+                                  translate('settings.connection_required'), color: Colors.red);
                         }
                         // Add your onPressed code here!
                       },

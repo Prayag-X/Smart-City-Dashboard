@@ -32,7 +32,8 @@ class SSH {
           timeout: const Duration(seconds: 5));
     } catch (error) {
       ref.read(isConnectedToLGProvider.notifier).state = false;
-      showSnackBar(context: context, message: error.toString(), color: Colors.red);
+      showSnackBar(
+          context: context, message: error.toString(), color: Colors.red);
       return false;
     }
 
@@ -52,9 +53,10 @@ class SSH {
     } catch (error) {
       if (i < 5) {
         await disconnect(context, snackBar: false);
-        await connect(context, i: i++);
+        return await connect(context, i: i++);
       } else {
-        showSnackBar(context: context, message: error.toString(), color: Colors.red);
+        showSnackBar(
+            context: context, message: error.toString(), color: Colors.red);
       }
     }
 
@@ -63,6 +65,39 @@ class SSH {
       showSnackBar(
           context: context,
           message: translate('settings.connection_completed'));
+    }
+    return true;
+  }
+
+  connectionRetry(context, {int i = 0}) async {
+    ref.read(sshClient)?.close();
+    SSHSocket socket;
+    try {
+      socket = await SSHSocket.connect(
+          ref.read(ipProvider), ref.read(portProvider),
+          timeout: const Duration(seconds: 5));
+    } catch (error) {
+      ref.read(isConnectedToLGProvider.notifier).state = false;
+      return false;
+    }
+
+    ref.read(sshClient.notifier).state = SSHClient(
+      socket,
+      username: ref.read(usernameProvider)!,
+      onPasswordRequest: () => ref.read(passwordProvider)!,
+    );
+
+    try {
+      // await prepareImageUpload(context);
+      final sftp = await ref.read(sshClient)?.sftp();
+      await sftp?.open('/var/www/html/connection.txt',
+          mode: SftpFileOpenMode.create |
+              SftpFileOpenMode.truncate |
+              SftpFileOpenMode.write);
+    } catch (error) {
+      if (i < 5) {
+        return await connectionRetry(context, i: i++);
+      } else {}
     }
     return true;
   }
@@ -88,7 +123,8 @@ class SSH {
             ?.run("echo '' > /var/www/html/kml/slave_$i.kml");
       }
     } catch (error) {
-      showSnackBar(context: context, message: error.toString(), color: Colors.red);
+      showSnackBar(
+          context: context, message: error.toString(), color: Colors.red);
     }
   }
 
@@ -97,7 +133,8 @@ class SSH {
       await ref.read(sshClient)?.run(
           "echo '${BalloonMakers.blankBalloon()}' > /var/www/html/kml/slave_${ref.read(rightmostRigProvider)}.kml");
     } catch (error) {
-      showSnackBar(context: context, message: error.toString(), color: Colors.red);
+      showSnackBar(
+          context: context, message: error.toString(), color: Colors.red);
     }
   }
 
@@ -107,7 +144,11 @@ class SSH {
       await ref.read(sshClient)?.run('echo "" > /tmp/query.txt');
       await ref.read(sshClient)?.run("echo '' > /var/www/html/kmls.txt");
     } catch (error) {
-      showSnackBar(context: context, message: error.toString(), color: Colors.red);
+      print('ERRORRRRRRRRRRRRRRRRRRRR');
+      await SSH(ref: ref).connectionRetry(context);
+      await cleanKML(context);
+      // showSnackBar(
+      //     context: context, message: error.toString(), color: Colors.red);
     }
   }
 
@@ -124,7 +165,8 @@ class SSH {
             'sshpass -p ${ref.read(passwordProvider)} ssh -t lg$i \'echo ${ref.read(passwordProvider)} | sudo -S sed -i "s/$search/$replace/" ~/earth/kml/slave/myplaces.kml\'');
       }
     } catch (error) {
-      showSnackBar(context: context, message: error.toString(), color: Colors.red);
+      showSnackBar(
+          context: context, message: error.toString(), color: Colors.red);
     }
   }
 
@@ -139,7 +181,8 @@ class SSH {
             'sshpass -p ${ref.read(passwordProvider)} ssh -t lg$i \'echo ${ref.read(passwordProvider)} | sudo -S sed -i "s/$search/$replace/" ~/earth/kml/slave/myplaces.kml\'');
       }
     } catch (error) {
-      showSnackBar(context: context, message: error.toString(), color: Colors.red);
+      showSnackBar(
+          context: context, message: error.toString(), color: Colors.red);
     }
   }
 
@@ -165,7 +208,8 @@ class SSH {
         await ref.read(sshClient)?.run(cmd);
       }
     } catch (error) {
-      showSnackBar(context: context, message: error.toString(), color: Colors.red);
+      showSnackBar(
+          context: context, message: error.toString(), color: Colors.red);
     }
   }
 
@@ -176,7 +220,8 @@ class SSH {
             'sshpass -p ${ref.read(passwordProvider)} ssh -t lg$i "echo ${ref.read(passwordProvider)} | sudo -S reboot');
       }
     } catch (error) {
-      showSnackBar(context: context, message: error.toString(), color: Colors.red);
+      showSnackBar(
+          context: context, message: error.toString(), color: Colors.red);
     }
   }
 
@@ -187,7 +232,8 @@ class SSH {
             'sshpass -p ${ref.read(passwordProvider)} ssh -t lg$i "echo ${ref.read(passwordProvider)} | sudo -S poweroff"');
       }
     } catch (error) {
-      showSnackBar(context: context, message: error.toString(), color: Colors.red);
+      showSnackBar(
+          context: context, message: error.toString(), color: Colors.red);
     }
   }
 
@@ -200,7 +246,8 @@ class SSH {
           ?.run("echo '$kml' > /var/www/html/kml/slave_$slaveNo.kml");
       return kml;
     } catch (error) {
-      showSnackBar(context: context, message: error.toString(), color: Colors.red);
+      showSnackBar(
+          context: context, message: error.toString(), color: Colors.red);
       return BalloonMakers.blankBalloon();
     }
   }
@@ -217,7 +264,8 @@ class SSH {
       await ref.read(sshClient)?.run(
           'echo "flytoview=${KMLMakers.lookAtLinear(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
     } catch (error) {
-      showSnackBar(context: context, message: error.toString(), color: Colors.red);
+      showSnackBar(
+          context: context, message: error.toString(), color: Colors.red);
     }
   }
 
@@ -233,7 +281,8 @@ class SSH {
       await ref.read(sshClient)?.run(
           'echo "flytoview=${KMLMakers.lookAtLinearInstant(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
     } catch (error) {
-      showSnackBar(context: context, message: error.toString(), color: Colors.red);
+      showSnackBar(
+          context: context, message: error.toString(), color: Colors.red);
     }
   }
 
@@ -243,7 +292,8 @@ class SSH {
       await ref.read(sshClient)?.run(
           'echo "flytoview=${KMLMakers.lookAtLinearInstant(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
     } catch (error) {
-      showSnackBar(context: context, message: error.toString(), color: Colors.red);
+      showSnackBar(
+          context: context, message: error.toString(), color: Colors.red);
     }
   }
 
@@ -253,7 +303,8 @@ class SSH {
       await ref.read(sshClient)?.run(
           'echo "flytoview=${KMLMakers.lookAtLinear(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
     } catch (error) {
-      showSnackBar(context: context, message: error.toString(), color: Colors.red);
+      showSnackBar(
+          context: context, message: error.toString(), color: Colors.red);
     }
   }
 
@@ -263,7 +314,8 @@ class SSH {
       await ref.read(sshClient)?.run(
           'echo "flytoview=${KMLMakers.orbitLookAtLinear(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
     } catch (error) {
-      showSnackBar(context: context, message: error.toString(), color: Colors.red);
+      showSnackBar(
+          context: context, message: error.toString(), color: Colors.red);
     }
   }
 
@@ -303,7 +355,9 @@ class SSH {
       await waitWhile(() => uploading);
       ref.read(loadingPercentageProvider.notifier).state = null;
     } catch (error) {
-      showSnackBar(context: context, message: error.toString(), color: Colors.red);
+        print('ERROR IS OCCUSING HERE');
+      showSnackBar(
+          context: context, message: error.toString(), color: Colors.red);
     }
   }
 
@@ -337,7 +391,8 @@ class SSH {
       // print(command);
       // print("ssh -t lg@lg${ref.read(rightmostRigProvider)} '$command'");
     } catch (error) {
-      showSnackBar(context: context, message: error.toString(), color: Colors.red);
+      showSnackBar(
+          context: context, message: error.toString(), color: Colors.red);
     }
   }
 
@@ -349,9 +404,10 @@ class SSH {
       String tabName = '';
       for (var pageTab in ref.read(cityDataProvider)!.availableTabs) {
         if (pageTab.tab == ref.read(tabProvider)) {
-          if(ref.read(tabProvider)==0) {
+          if (ref.read(tabProvider) == 0) {
             tabName = 'weather';
-          } else if(ref.read(tabProvider) == ref.read(cityDataProvider)!.availableTabs.length -1 ) {
+          } else if (ref.read(tabProvider) ==
+              ref.read(cityDataProvider)!.availableTabs.length - 1) {
             tabName = 'about';
           } else {
             tabName = pageTab.nameForUrl!;
@@ -377,7 +433,8 @@ class SSH {
       await waitWhile(() => uploading);
       ref.read(loadingPercentageProvider.notifier).state = null;
     } catch (error) {
-      showSnackBar(context: context, message: error.toString(), color: Colors.red);
+      showSnackBar(
+          context: context, message: error.toString(), color: Colors.red);
     }
   }
 
@@ -386,12 +443,11 @@ class SSH {
       String tabName = '';
       for (var pageTab in ref.read(cityDataProvider)!.availableTabs) {
         if (pageTab.tab == ref.read(tabProvider)) {
-          if(ref.read(tabProvider)==0) {
+          if (ref.read(tabProvider) == 0) {
             tabName = 'weather';
-            print('WEARTERER');
-          } else if(ref.read(tabProvider) == ref.read(cityDataProvider)!.availableTabs.length -1 ) {
+          } else if (ref.read(tabProvider) ==
+              ref.read(cityDataProvider)!.availableTabs.length - 1) {
             tabName = 'about';
-            print('BOTUTTTT');
           } else {
             tabName = pageTab.nameForUrl!;
           }
@@ -400,7 +456,8 @@ class SSH {
       await ref.read(sshClient)?.run(
           'echo "put ${Const.dashboardBalloonFileLocation}${Const.dashboardBalloonFileName}_${ref.read(cityDataProvider)!.cityNameEnglish.replaceAll(' ', '_')}_$tabName.png" | sshpass -p ${ref.read(passwordProvider)} sftp -oBatchMode=no -b - lg@lg${ref.read(rightmostRigProvider)}:${Const.dashboardBalloonFileLocation}');
     } catch (error) {
-      showSnackBar(context: context, message: error.toString(), color: Colors.red);
+      showSnackBar(
+          context: context, message: error.toString(), color: Colors.red);
     }
   }
 
@@ -436,7 +493,8 @@ class SSH {
       final sftp = await ref.read(sshClient)?.sftp();
       await sftp?.remove("/var/www/html/$filename");
     } catch (error) {
-      showSnackBar(context: context, message: error.toString(), color: Colors.red);
+      showSnackBar(
+          context: context, message: error.toString(), color: Colors.red);
     }
   }
 
@@ -446,7 +504,8 @@ class SSH {
           .read(sshClient)
           ?.run("echo '\nhttp://lg1:81/$kmlName.kml' > /var/www/html/kmls.txt");
     } catch (error) {
-      showSnackBar(context: context, message: error.toString(), color: Colors.red);
+      showSnackBar(
+          context: context, message: error.toString(), color: Colors.red);
     }
   }
 
@@ -454,7 +513,8 @@ class SSH {
     try {
       await ref.read(sshClient)?.run('echo "playtour=Orbit" > /tmp/query.txt');
     } catch (error) {
-      showSnackBar(context: context, message: error.toString(), color: Colors.red);
+      showSnackBar(
+          context: context, message: error.toString(), color: Colors.red);
     }
   }
 
@@ -462,7 +522,8 @@ class SSH {
     try {
       await ref.read(sshClient)?.run('echo "exittour=true" > /tmp/query.txt');
     } catch (error) {
-      showSnackBar(context: context, message: error.toString(), color: Colors.red);
+      showSnackBar(
+          context: context, message: error.toString(), color: Colors.red);
     }
   }
 }

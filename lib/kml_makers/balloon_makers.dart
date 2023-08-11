@@ -158,6 +158,7 @@ class BalloonMakers {
   static orbitBalloon(
     CameraPosition camera,
     String cityImage,
+    String cityName,
   ) =>
       '''<?xml version="1.0" encoding="UTF-8"?>
 <kml xmlns="http://www.opengis.net/kml/2.2" xmlns:gx="http://www.google.com/kml/ext/2.2" xmlns:kml="http://www.opengis.net/kml/2.2" xmlns:atom="http://www.w3.org/2005/Atom">
@@ -167,6 +168,7 @@ class BalloonMakers {
    <BalloonStyle>
      <textColor>ffffffff</textColor>
      <text>
+        <h1>$cityName</h1>
         <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/$cityImage" alt="picture" width="300" height="200" />
      </text>
      <bgColor>ff15151a</bgColor>

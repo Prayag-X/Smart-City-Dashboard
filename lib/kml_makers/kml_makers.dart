@@ -21,7 +21,7 @@ class KMLMakers {
                       <overlayXY x="0" y="1" xunits="fraction" yunits="fraction"/>
                       <screenXY x="0.025" y="0.95" xunits="fraction" yunits="fraction"/>
                       <rotationXY x="0" y="0" xunits="fraction" yunits="fraction"/>
-                      <size x="400" y="${400*factor}" xunits="pixels" yunits="pixels"/>
+                      <size x="300" y="${300*factor}" xunits="pixels" yunits="pixels"/>
                   </ScreenOverlay>
              </Folder>
     </Document>

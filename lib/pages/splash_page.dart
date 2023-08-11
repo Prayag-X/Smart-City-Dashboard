@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../constants/constants.dart';
 import '../constants/images.dart';
 import '../constants/theme.dart';
 import '../providers/settings_providers.dart';
@@ -38,11 +40,21 @@ class _SplashScreenState extends ConsumerState<SplashPage> {
         prefs.getBool('showDashboardTour') ?? true;
     ref.read(showVisualizerTourProvider.notifier).state =
         prefs.getBool('showVisualizerTour') ?? true;
+    ref.read(languageProvider.notifier).state =
+        prefs.getString('language') ?? 'English';
     if (ref.read(darkModeOnProvider) == true) {
       setDarkTheme(ref);
     } else {
       setLightTheme(ref);
     }
+    if(!mounted) {
+      return;
+    }
+    changeLocale(
+        context,
+        Const.availableLanguageCodes[Const
+            .availableLanguages
+            .indexOf(ref.read(languageProvider))]);
   }
 
   @override

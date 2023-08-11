@@ -34,6 +34,7 @@ class _TabPanelState extends ConsumerState<TabPanel> {
     Color tabBarColor = ref.watch(tabBarColorProvider);
     Color highlightColor = ref.watch(highlightColorProvider);
     bool isHomePage = ref.watch(isHomePageProvider);
+    String language = ref.watch(languageProvider);
     int homePageTab = ref.watch(tabProvider);
     CityCardModel? cityData = ref.watch(cityDataProvider);
     FeaturesTourController featuresTourController =

@@ -16,7 +16,15 @@ void main() async {
   var delegate = await LocalizationDelegate.create(
       basePath: 'assets/i18n/',
       fallbackLocale: 'en_US',
-      supportedLocales: ['en_US']);
+      supportedLocales: [
+        'en_US',
+        'es',
+        'ru',
+        'fr',
+        'el',
+        'sv',
+        'de',
+      ]);
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
   ));

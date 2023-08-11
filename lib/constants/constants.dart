@@ -1,9 +1,10 @@
+import 'package:flutter_translate/flutter_translate.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class Const {
   static double appBarHeight = 80;
   static double tabBarWidthDivider = 5;
-  static double splashAspectRatio = 2864/3000;
+  static double splashAspectRatio = 2864 / 3000;
   static double lgZoomScale = 130000000.0;
   static double appZoomScale = 11;
   static double tourZoomScale = 16;
@@ -27,6 +28,24 @@ class Const {
   static String kmlCustomFileName = 'custom_kml';
   static String dashboardBalloonFileName = 'dashboard_balloon';
   static String dashboardBalloonFileLocation = '/var/www/html/';
+  static List<String> availableLanguages = [
+    'English',
+    'Spanish',
+    'Russian',
+    'French',
+    'Greek',
+    'Swedish',
+    'German',
+  ];
+  static List<String> availableLanguageCodes = [
+    'en',
+    'es',
+    'ru',
+    'fr',
+    'el',
+    'sv',
+    'de',
+  ];
   static CameraPosition initialMapPosition = const CameraPosition(
     target: LatLng(51.4769, 0.0),
     zoom: 2,

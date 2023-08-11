@@ -4,6 +4,8 @@ import 'package:dartssh2/dartssh2.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:smart_city_dashboard/constants/theme.dart';
 
+import '../constants/constants.dart';
+
 StateProvider<bool> isLoadingProvider = StateProvider((ref) => false);
 StateProvider<double?> loadingPercentageProvider = StateProvider((ref) => null);
 StateProvider<String> ipProvider = StateProvider((ref) => '192.168.56.100');
@@ -20,7 +22,7 @@ setRigs(int rig, WidgetRef ref) {
   ref.read(rightmostRigProvider.notifier).state = (rig) ~/ 2 + 1;
 }
 
-StateProvider<String> languageProvider = StateProvider((ref) => translate('language.en'));
+StateProvider<String> languageProvider = StateProvider((ref) => Const.availableLanguages[0]);
 
 StateProvider<SSHClient?> sshClient = StateProvider((ref) => null);
 StateProvider<bool> isConnectedToLGProvider = StateProvider((ref) => false);

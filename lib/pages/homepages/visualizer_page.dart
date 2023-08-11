@@ -236,11 +236,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
   @override
   void initState() {
     super.initState();
-    ref.read(featureTourControllerVisualizerProvider).start(
-      context: context,
-      delay: Duration.zero,
-      force: true,
-    );
+    showFeatureTour();
   }
 
   @override
@@ -291,19 +287,9 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                       style: textStyleNormal.copyWith(
                           color: oppositeColor, fontSize: 25),
                     ),
-                    FeaturesTour(
-                      index: 0,
-                      controller: featuresTourVisualizerController,
-                      introduce: FeatureTourContainer(
-                        text: translate('tour.v0'),
-                      ),
-                      introduceConfig: IntroduceConfig.copyWith(
-                        quadrantAlignment: QuadrantAlignment.bottom,
-                      ),
-                      child: TextFormFieldCustom(
-                        controller: csvUrlController,
-                        hintText: translate('visualizer.download_url_hint'),
-                      ),
+                    TextFormFieldCustom(
+                      controller: csvUrlController,
+                      hintText: translate('visualizer.download_url_hint'),
                     ),
                     FeaturesTour(
                       index: 1,

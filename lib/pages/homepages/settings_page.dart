@@ -210,14 +210,24 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                               elevation: 10,
                               style: textStyleNormal.copyWith(
                                   color: oppositeColor, fontSize: 15),
-                              onChanged: (String? value) {
+                              onChanged: (String? value) async {
                                 setState(() {
                                   dropdownValue = value!;
                                 });
+                                await prefs.setString('language', value!);
+                                if (!mounted) {
+                                  return;
+                                }
+                                ref.read(languageProvider.notifier).state = value;
+                                changeLocale(
+                                    context,
+                                    Const.availableLanguageCodes[Const
+                                        .availableLanguages
+                                        .indexOf(value)]);
                               },
-                              items: [
-                                translate('language.en')
-                              ].map<DropdownMenuItem<String>>((String value) {
+                              items: Const.availableLanguages
+                                  .map<DropdownMenuItem<String>>(
+                                      (String value) {
                                 return DropdownMenuItem<String>(
                                   value: value,
                                   child: Text(value),
@@ -326,14 +336,16 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                               .downloadAllContent(DownloadableContent.content);
                           await prefs.setBool('downloadableContent', true);
                           ref
-                              .read(downloadableContentAvailableProvider.notifier)
+                              .read(
+                                  downloadableContentAvailableProvider.notifier)
                               .state = true;
                           if (!mounted) {
                             return;
                           }
                           showSnackBar(
                               context: context,
-                              message: translate('settings.download_completed'));
+                              message:
+                                  translate('settings.download_completed'));
                         },
                         name: translate('settings.download'),
                         width: screenSize(context).width / 2 - 200,
@@ -367,9 +379,9 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       TextButtonCustom(
                         onPressed: () async {
                           var localPath =
-                          await getApplicationDocumentsDirectory();
+                              await getApplicationDocumentsDirectory();
                           for (MapEntry<String, Map<String, String>> fileData
-                          in DownloadableContent.content.entries) {
+                              in DownloadableContent.content.entries) {
                             File file = File(
                                 "${localPath.path}/${fileData.value['directory']}/${fileData.value['filename']}");
                             try {
@@ -387,7 +399,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                           await prefs.setBool('downloadableContent', false);
                           ref
                               .read(
-                              downloadableContentAvailableProvider.notifier)
+                                  downloadableContentAvailableProvider.notifier)
                               .state = false;
                           if (!mounted) {
                             return;
@@ -407,8 +419,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                           }
                           showSnackBar(
                               context: context,
-                              message:
-                              translate('settings.delete_success'));
+                              message: translate('settings.delete_success'));
                         },
                         name: translate('settings.delete_kml'),
                         width: screenSize(context).width / 2 - 200,
@@ -818,7 +829,9 @@ class TitleContainer extends ConsumerWidget {
     Color oppositeColor = ref.watch(oppositeColorProvider);
     return Container(
       height: 100,
-      width: screenSize(context).width -screenSize(context).width/Const.tabBarWidthDivider - 50,
+      width: screenSize(context).width -
+          screenSize(context).width / Const.tabBarWidthDivider -
+          50,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
         color: lightenColor(highlightColor),
