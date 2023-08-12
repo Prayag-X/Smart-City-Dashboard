@@ -133,8 +133,8 @@ class SSH {
       await ref.read(sshClient)?.run(
           "echo '${BalloonMakers.blankBalloon()}' > /var/www/html/kml/slave_${ref.read(rightmostRigProvider)}.kml");
     } catch (error) {
-      showSnackBar(
-          context: context, message: error.toString(), color: Colors.red);
+      await SSH(ref: ref).connectionRetry(context);
+      await cleanBalloon(context);
     }
   }
 
@@ -264,8 +264,8 @@ class SSH {
       await ref.read(sshClient)?.run(
           'echo "flytoview=${KMLMakers.lookAtLinear(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
     } catch (error) {
-      showSnackBar(
-          context: context, message: error.toString(), color: Colors.red);
+      await SSH(ref: ref).connectionRetry(context);
+      await flyTo(context, latitude, longitude, zoom, tilt, bearing);
     }
   }
 
@@ -504,8 +504,8 @@ class SSH {
           .read(sshClient)
           ?.run("echo '\nhttp://lg1:81/$kmlName.kml' > /var/www/html/kmls.txt");
     } catch (error) {
-      showSnackBar(
-          context: context, message: error.toString(), color: Colors.red);
+      await SSH(ref: ref).connectionRetry(context);
+      await runKml(context, kmlName);
     }
   }
 
@@ -513,8 +513,8 @@ class SSH {
     try {
       await ref.read(sshClient)?.run('echo "playtour=Orbit" > /tmp/query.txt');
     } catch (error) {
-      showSnackBar(
-          context: context, message: error.toString(), color: Colors.red);
+      await SSH(ref: ref).connectionRetry(context);
+      await startOrbit(context);
     }
   }
 
@@ -522,8 +522,8 @@ class SSH {
     try {
       await ref.read(sshClient)?.run('echo "exittour=true" > /tmp/query.txt');
     } catch (error) {
-      showSnackBar(
-          context: context, message: error.toString(), color: Colors.red);
+      await SSH(ref: ref).connectionRetry(context);
+      stopOrbit(context);
     }
   }
 }
