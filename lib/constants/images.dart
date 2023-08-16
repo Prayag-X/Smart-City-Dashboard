@@ -7,6 +7,8 @@ class ImageConst {
   static const charlotte = 'assets/images/charlotte.jpg';
   static const seattle = 'assets/images/seattle.jpg';
   static const boulder = 'assets/images/boulder.jpg';
+  static const chicago = 'assets/images/chicago.jpg';
+  static const toronto = 'assets/images/toronto.jpg';
 
   //
   static const app = 'assets/logos/app_logo.png';
