@@ -446,6 +446,45 @@ class DownloadableContent {
       'filename': 'osmp.csv',
       'directory': 'Boulder/government'
     },
+
+
+    //Chicago Ethics
+    'Registry': {
+      'url':
+          'https://data.cityofchicago.org/api/views/ypez-j3yg/rows.csv?accessType=DOWNLOAD',
+      'filename': 'registry.csv',
+      'directory': 'Chicago/ethics'
+    },
+    'Lobby Clients': {
+      'url':
+          'https://data.cityofchicago.org/api/views/g8p5-y4m5/rows.csv?accessType=DOWNLOAD',
+      'filename': 'lobby_clients.csv',
+      'directory': 'Chicago/ethics'
+    },
+    'Lobby lobbyist': {
+      'url':
+          'https://data.cityofchicago.org/api/views/tq3e-t5yq/rows.csv?accessType=DOWNLOAD',
+      'filename': 'lobby_lobbyist.csv',
+      'directory': 'Chicago/ethics'
+    },
+    'Lobby contributors': {
+      'url':
+          'https://data.cityofchicago.org/api/views/p9p7-vfqc/rows.csv?accessType=DOWNLOAD',
+      'filename': 'lobby_contributors.csv',
+      'directory': 'Chicago/ethics'
+    },
+    'Lobby expenditure 1': {
+      'url':
+          'https://data.cityofchicago.org/api/views/bc2p-hky6/rows.csv?accessType=DOWNLOAD',
+      'filename': 'lobby_expenditure1.csv',
+      'directory': 'Chicago/ethics'
+    },
+    'Lobby expenditure 2': {
+      'url':
+          'https://data.cityofchicago.org/api/views/pvm2-bd2i/rows.csv?accessType=DOWNLOAD',
+      'filename': 'lobby_expenditure2.csv',
+      'directory': 'Chicago/ethics'
+    },
   };
 
   static List<DownloadableKML> blankKml = [];
