@@ -29,6 +29,7 @@ class BalloonLoader {
       {String? tabPageName}) async {
     if (ref.read(isConnectedToLGProvider)) {
       await Future.delayed(Const.screenshotDelay).then((x) async {
+        // await SSH(ref: ref).connectionRetry(context);
         screenshotController.capture().then((image) async {
           img.Image? imageDecoded = img.decodePng(Uint8List.fromList(image!));
           await SSH(ref: ref).imageFileUpload(context, image);

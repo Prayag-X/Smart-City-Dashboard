@@ -123,8 +123,8 @@ class SSH {
             ?.run("echo '' > /var/www/html/kml/slave_$i.kml");
       }
     } catch (error) {
-      showSnackBar(
-          context: context, message: error.toString(), color: Colors.red);
+      await connectionRetry(context);
+      await cleanSlaves(context);
     }
   }
 
@@ -133,7 +133,7 @@ class SSH {
       await ref.read(sshClient)?.run(
           "echo '${BalloonMakers.blankBalloon()}' > /var/www/html/kml/slave_${ref.read(rightmostRigProvider)}.kml");
     } catch (error) {
-      await SSH(ref: ref).connectionRetry(context);
+      await connectionRetry(context);
       await cleanBalloon(context);
     }
   }
@@ -144,8 +144,7 @@ class SSH {
       await ref.read(sshClient)?.run('echo "" > /tmp/query.txt');
       await ref.read(sshClient)?.run("echo '' > /var/www/html/kmls.txt");
     } catch (error) {
-      print('ERRORRRRRRRRRRRRRRRRRRRR');
-      await SSH(ref: ref).connectionRetry(context);
+      await connectionRetry(context);
       await cleanKML(context);
       // showSnackBar(
       //     context: context, message: error.toString(), color: Colors.red);
@@ -264,7 +263,7 @@ class SSH {
       await ref.read(sshClient)?.run(
           'echo "flytoview=${KMLMakers.lookAtLinear(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
     } catch (error) {
-      await SSH(ref: ref).connectionRetry(context);
+      await connectionRetry(context);
       await flyTo(context, latitude, longitude, zoom, tilt, bearing);
     }
   }
@@ -314,8 +313,8 @@ class SSH {
       await ref.read(sshClient)?.run(
           'echo "flytoview=${KMLMakers.orbitLookAtLinear(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
     } catch (error) {
-      showSnackBar(
-          context: context, message: error.toString(), color: Colors.red);
+      await connectionRetry(context);
+      await flyToOrbit(context, latitude, longitude, zoom, tilt, bearing);
     }
   }
 
@@ -355,7 +354,6 @@ class SSH {
       await waitWhile(() => uploading);
       ref.read(loadingPercentageProvider.notifier).state = null;
     } catch (error) {
-        print('ERROR IS OCCUSING HERE');
       showSnackBar(
           context: context, message: error.toString(), color: Colors.red);
     }

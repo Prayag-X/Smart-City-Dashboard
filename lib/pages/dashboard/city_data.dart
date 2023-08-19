@@ -299,5 +299,81 @@ class AllCityData {
         availableToursDescription: [
           ''
         ]),
+    CityCardModel(
+        cityName: translate('city_data.chicago.cityName'),
+        cityNameEnglish: 'Chicago',
+        country: translate('city_data.chicago.country'),
+        description: translate('city_data.chicago.description'),
+        image: ImageConst.chicago,
+        number: 5,
+        location: const LatLng(41.87794826035483, -87.62954182993734),
+        availableTabs: [
+          TabButtonModel(
+            logo: ImageConst.weather,
+            name: translate('city_page.weather'),
+            tab: 0,
+          ),
+          TabButtonModel(
+            logo: ImageConst.health,
+            name: translate('city_data.boulder.health.health'),
+            leftTab: const BoulderHealthTabLeft(),
+            rightTabData: DownloadableContent.blankKml,
+            tab: 1,
+            nameForUrl: 'health',
+            tabWidgetNumbers: 5,
+          ),
+          TabButtonModel(
+            logo: ImageConst.about,
+            name: translate('homepage.about'),
+            tab: 2,
+          ),
+        ],
+        availableTours: [
+          const LatLng(40.01409726578651, -105.25852053941347),
+          const LatLng(40.0311469853605, -105.2873682987872),
+          const LatLng(39.96302696330601, -105.20033598076574),
+        ],
+        availableToursName: [],
+        availableToursDescription: [
+          ''
+        ]),
+    CityCardModel(
+        cityName: translate('city_data.toronto.cityName'),
+        cityNameEnglish: 'Toronto',
+        country: translate('city_data.toronto.country'),
+        description: translate('city_data.toronto.description'),
+        image: ImageConst.toronto,
+        number: 6,
+        location: const LatLng(41.87794826035483, -87.62954182993734),
+        availableTabs: [
+          TabButtonModel(
+            logo: ImageConst.weather,
+            name: translate('city_page.weather'),
+            tab: 0,
+          ),
+          TabButtonModel(
+            logo: ImageConst.health,
+            name: translate('city_data.boulder.health.health'),
+            leftTab: const BoulderHealthTabLeft(),
+            rightTabData: DownloadableContent.blankKml,
+            tab: 1,
+            nameForUrl: 'health',
+            tabWidgetNumbers: 5,
+          ),
+          TabButtonModel(
+            logo: ImageConst.about,
+            name: translate('homepage.about'),
+            tab: 2,
+          ),
+        ],
+        availableTours: [
+          const LatLng(40.01409726578651, -105.25852053941347),
+          const LatLng(40.0311469853605, -105.2873682987872),
+          const LatLng(39.96302696330601, -105.20033598076574),
+        ],
+        availableToursName: [],
+        availableToursDescription: [
+          ''
+        ]),
   ];
 }

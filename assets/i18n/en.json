@@ -503,6 +503,22 @@
         "osmp": "OSMP",
         "status": "Application Status"
       }
+    },
+    "chicago": {
+      "cityName": "Chicago",
+      "country": "United States of America",
+      "description": "Chicago is the most populous city in the U.S. state of Illinois and the third-most populous in the United States after New York City and Los Angeles. With a population of 2,746,388 in the 2020 census, it is also the most populous city in the Midwest. As the seat of Cook County, the second-most populous county in the U.S., Chicago is the center of the Chicago metropolitan area. On the shore of Lake Michigan, Chicago was incorporated as a city in 1837 near a portage between the Great Lakes and the Mississippi River watershed.",
+      "health": {
+
+      }
+    },
+    "toronto": {
+      "cityName": "Toronto",
+      "country": "Canada",
+      "description": "Toronto is the most populous city in Canada and the capital city of the Canadian province of Ontario. With a recorded population of 2,794,356 in 2021, it is the fourth-most populous city in North America. The city is the anchor of the Golden Horseshoe, an urban agglomeration of 9,765,188 people (as of 2021) surrounding the western end of Lake Ontario, while the Greater Toronto Area proper had a 2021 population of 6,712,341. Toronto is an international centre of business, finance, arts, sports and culture, and is recognized as one of the most multicultural and cosmopolitan cities in the world.",
+      "health": {
+
+      }
     }
   }
 }
