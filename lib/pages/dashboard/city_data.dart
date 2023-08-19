@@ -16,6 +16,7 @@ import 'austin/health_left_panel.dart';
 import 'boulder/livable_left_panel.dart';
 import 'charlotte/misc_left_panel.dart';
 import 'charlotte/society_left_panel.dart';
+import 'chicago/ethics_left_panel.dart';
 import 'downloadable_content.dart';
 import 'new_york/environment_left_panel.dart';
 import '../../constants/images.dart';
@@ -314,9 +315,9 @@ class AllCityData {
             tab: 0,
           ),
           TabButtonModel(
-            logo: ImageConst.health,
-            name: translate('city_data.boulder.health.health'),
-            leftTab: const BoulderHealthTabLeft(),
+            logo: ImageConst.ethics,
+            name: translate('city_data.chicago.ethics.ethics'),
+            leftTab: const ChicagoEthicsTabLeft(),
             rightTabData: DownloadableContent.blankKml,
             tab: 1,
             nameForUrl: 'health',

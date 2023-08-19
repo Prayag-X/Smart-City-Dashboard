@@ -353,7 +353,7 @@
         "dept": "Department"
       },
       "transport": {
-        "transport": "transport",
+        "transport": "Transport",
         "ems_title": "EMS - Transport Count",
         "transport_construction_title": "Active Transport Construction",
         "resignal_title": "Traffic Signal Re-timing",
@@ -508,8 +508,22 @@
       "cityName": "Chicago",
       "country": "United States of America",
       "description": "Chicago is the most populous city in the U.S. state of Illinois and the third-most populous in the United States after New York City and Los Angeles. With a population of 2,746,388 in the 2020 census, it is also the most populous city in the Midwest. As the seat of Cook County, the second-most populous county in the U.S., Chicago is the center of the Chicago metropolitan area. On the shore of Lake Michigan, Chicago was incorporated as a city in 1837 near a portage between the Great Lakes and the Mississippi River watershed.",
-      "health": {
-
+      "ethics": {
+        "ethics": "Ethics",
+        "registry_title": "Lobbyist - Registry 2012-15",
+        "client_title": "Lobbyist - Clients",
+        "contributions_title": "Lobbyist - Contributions",
+        "expense1_title": "Lobbyist - Expenditure 2015",
+        "expense2_title": "Lobbyist - Expenditure Hosting",
+        "lobbyist_title": "Lobbyist",
+        "registration": "Registration Version",
+        "id": "ID",
+        "year": "Year",
+        "amount": "Amount",
+        "name": "Name",
+        "expenses": "Expenses",
+        "clients": "Clients",
+        "employees": "Employees"
       }
     },
     "toronto": {
