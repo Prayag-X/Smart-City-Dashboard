@@ -485,6 +485,39 @@ class DownloadableContent {
       'filename': 'lobby_expenditure2.csv',
       'directory': 'Chicago/ethics'
     },
+
+
+    //Toronto Government
+    'Polis Data': {
+      'url':
+          'https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/7bce9bf4-be5c-4261-af01-abfbc3510309/resource/13c405e8-f884-4950-baf8-07e0f7b0e299/download/Polls Data.csv',
+      'filename': 'polis.csv',
+      'directory': 'Toronto/government'
+    },
+    'Daily Shelter': {
+      'url':
+          'https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/21c83b32-d5a8-4106-a54f-010dbe49f6f2/resource/ffd20867-6e3c-4074-8427-d63810edf231/download/Daily shelter overnight occupancy.csv',
+      'filename': 'shelter.csv',
+      'directory': 'Toronto/government'
+    },
+    'Apartment Evaluation': {
+      'url':
+          'https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/4ef82789-e038-44ef-a478-a8f3590c3eb1/resource/979fb513-5186-41e9-bb23-7b5cc6b89915/download/Pre-2023 Apartment Building Evaluations.csv',
+      'filename': 'apartment_evaluation.csv',
+      'directory': 'Toronto/government'
+    },
+    'Apartment Registration': {
+      'url':
+          'https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/2b98b3f3-4f3a-42a4-a4e9-b44d3026595a/resource/97b8b7a4-baca-49c7-915d-335322dbcf95/download/Apartment Building Registration Data.csv',
+      'filename': 'apartment_registration.csv',
+      'directory': 'Toronto/government'
+    },
+    'Measures': {
+      'url':
+          'https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/0ff0cb64-9373-44d3-985c-f8d24bf270ab/resource/2846ef0d-dfce-4d7b-9673-491904220fc4/download/Measures 2020.csv',
+      'filename': 'measures.csv',
+      'directory': 'Toronto/government'
+    },
   };
 
   static List<DownloadableKML> blankKml = [];
