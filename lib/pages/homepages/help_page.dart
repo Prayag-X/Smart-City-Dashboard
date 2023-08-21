@@ -4,15 +4,17 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
+import 'package:smart_city_dashboard/providers/page_providers.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 import 'package:smart_city_dashboard/utils/logo_shower.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../constants/constants.dart';
 import '../../providers/settings_providers.dart';
 import '../../utils/helper.dart';
 
 class HelpPage extends ConsumerWidget {
-  const HelpPage({super.key});
+  HelpPage({super.key});
 
   final double helpPageImageHeight = 300;
 
@@ -27,20 +29,15 @@ class HelpPage extends ConsumerWidget {
           const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
-        child: AnimationLimiter(
-          child: Column(
-              children: AnimationConfiguration.toStaggeredList(
-                  duration: Const.animationDuration,
-                  childAnimationBuilder: (widget) => SlideAnimation(
-                        verticalOffset: Const.animationDistance,
-                        child: FadeInAnimation(
-                          child: widget,
-                        ),
-                      ),
-                  children: [
-                Const.appBarHeight.ph,
+        child: Column(
+          children: [
+            Const.appBarHeight.ph,
+            HelpPageSections(
+              number: 0,
+              children: [
                 HelpPageTitleContainer(
                   title: translate('help_page.nav_title'),
+                  key: ref.read(helpPageKeysProvider)[0],
                 ),
                 spacing.ph,
                 HelpPageContainer(children: [
@@ -92,8 +89,14 @@ class HelpPage extends ConsumerWidget {
                 spacing.ph,
                 spacing.ph,
                 spacing.ph,
+              ],
+            ),
+            HelpPageSections(
+              number: 1,
+              children: [
                 HelpPageTitleContainer(
                   title: translate('help_page.app_bar_title'),
+                  key: ref.read(helpPageKeysProvider)[1],
                 ),
                 spacing.ph,
                 HelpPageContainer(children: [
@@ -123,8 +126,14 @@ class HelpPage extends ConsumerWidget {
                 spacing.ph,
                 spacing.ph,
                 spacing.ph,
+              ],
+            ),
+            HelpPageSections(
+              number: 2,
+              children: [
                 HelpPageTitleContainer(
                   title: translate('help_page.settings_title'),
+                  key: ref.read(helpPageKeysProvider)[2],
                 ),
                 spacing.ph,
                 HelpPageContainer(children: [
@@ -164,8 +173,14 @@ class HelpPage extends ConsumerWidget {
                 spacing.ph,
                 spacing.ph,
                 spacing.ph,
+              ],
+            ),
+            HelpPageSections(
+              number: 3,
+              children: [
                 HelpPageTitleContainer(
                   title: translate('help_page.city_page_title'),
+                  key: ref.read(helpPageKeysProvider)[3],
                 ),
                 spacing.ph,
                 HelpPageContainer(children: [
@@ -241,8 +256,14 @@ class HelpPage extends ConsumerWidget {
                 spacing.ph,
                 spacing.ph,
                 spacing.ph,
+              ],
+            ),
+            HelpPageSections(
+              number: 4,
+              children: [
                 HelpPageTitleContainer(
                   title: translate('help_page.visualizer_page_title'),
+                  key: ref.read(helpPageKeysProvider)[4],
                 ),
                 spacing.ph,
                 HelpPageContainer(children: [
@@ -317,7 +338,9 @@ class HelpPage extends ConsumerWidget {
                   ),
                 ]),
                 spacing.ph,
-              ])),
+              ],
+            ),
+          ],
         ),
       ),
     );
@@ -386,6 +409,40 @@ class HelpPageTitleContainer extends ConsumerWidget {
           title,
           style: textStyleBold.copyWith(color: oppositeColor, fontSize: 40),
         ),
+      ),
+    );
+  }
+}
+
+class HelpPageSections extends ConsumerWidget {
+  const HelpPageSections({
+    super.key,
+    required this.number,
+    required this.children,
+  });
+  final int number;
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return VisibilityDetector(
+      key: GlobalKey(),
+      onVisibilityChanged: (VisibilityInfo info) {
+        if (info.visibleFraction > 0) {
+          ref.read(subTabProvider.notifier).state = number;
+        }
+      },
+      child: AnimationLimiter(
+        child: Column(
+            children: AnimationConfiguration.toStaggeredList(
+                duration: Const.animationDuration,
+                childAnimationBuilder: (widget) => SlideAnimation(
+                      verticalOffset: Const.animationDistance,
+                      child: FadeInAnimation(
+                        child: widget,
+                      ),
+                    ),
+                children: children)),
       ),
     );
   }

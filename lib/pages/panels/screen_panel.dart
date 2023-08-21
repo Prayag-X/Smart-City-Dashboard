@@ -44,7 +44,7 @@ class _ScreenPanelState extends ConsumerState<ScreenPanel> {
                       case 0:
                         return const HomePage();
                       case -3:
-                        return const HelpPage();
+                        return HelpPage();
                       case -1:
                         return const SettingsPage();
                       case -2:
@@ -56,7 +56,7 @@ class _ScreenPanelState extends ConsumerState<ScreenPanel> {
                 : (() {
                     switch (homePageTab) {
                       case -3:
-                        return const HelpPage();
+                        return HelpPage();
                       case -1:
                         return const SettingsPage();
                       case -2:

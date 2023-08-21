@@ -170,8 +170,10 @@
     "nav_title": "Navigation",
     "app_bar_title": "App Bar",
     "settings_title": "Settings Page",
+    "settings_title_short": "Settings",
     "city_page_title": "City Page",
     "visualizer_page_title": "Visualizer Page",
+    "visualizer_page_title_short": "Visualizer",
     "tab": "The left tab bar will change automatically depending on the page of the app. When in the homepage, it will show the general instruction and the help page button. And when in any city page, it will show the tabs of data available for the city. The settings and about page is independent of other pages and can be selected from any page without changing the left tab."
   },
   "visualizer": {

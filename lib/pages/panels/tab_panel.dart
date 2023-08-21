@@ -117,9 +117,39 @@ class _TabPanelState extends ConsumerState<TabPanel> {
               ),
             ),
             isHomePage
-                ? Padding(
-                    padding: const EdgeInsets.all(13.0),
-                    child: AnimationLimiter(
+                ? homePageTab != -3
+                    ? Padding(
+                        padding: const EdgeInsets.all(13.0),
+                        child: AnimationLimiter(
+                          child: Column(
+                            children: AnimationConfiguration.toStaggeredList(
+                              duration: Const.animationDuration,
+                              childAnimationBuilder: (widget) => SlideAnimation(
+                                horizontalOffset: -Const.animationDistance,
+                                child: FadeInAnimation(
+                                  child: widget,
+                                ),
+                              ),
+                              children: [
+                                Text(
+                                  translate('homepage.welcome'),
+                                  style: textStyleNormal.copyWith(
+                                      color: oppositeColor,
+                                      fontSize: Const.tabBarTextSize + 1),
+                                ),
+                                Const.tabBarTextSize.ph,
+                                Text(
+                                  translate('homepage.description'),
+                                  textAlign: TextAlign.center,
+                                  style: textStyleNormal.copyWith(
+                                      color: oppositeColor,
+                                      fontSize: Const.tabBarTextSize),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ))
+                    : AnimationLimiter(
                       child: Column(
                         children: AnimationConfiguration.toStaggeredList(
                           duration: Const.animationDuration,
@@ -130,24 +160,28 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                             ),
                           ),
                           children: [
-                            Text(
-                              translate('homepage.welcome'),
-                              style: textStyleNormal.copyWith(
-                                  color: oppositeColor,
-                                  fontSize: Const.tabBarTextSize + 1),
-                            ),
-                            Const.tabBarTextSize.ph,
-                            Text(
-                              translate('homepage.description'),
-                              textAlign: TextAlign.center,
-                              style: textStyleNormal.copyWith(
-                                  color: oppositeColor,
-                                  fontSize: Const.tabBarTextSize),
-                            ),
+                            HelpTabButton(
+                                name: translate('help_page.nav_title'),
+                                tab: 0),
+                            HelpTabButton(
+                                name: translate('help_page.app_bar_title'),
+                                tab: 1),
+                            HelpTabButton(
+                                name: translate(
+                                    'help_page.settings_title_short'),
+                                tab: 2),
+                            HelpTabButton(
+                                name:
+                                    translate('help_page.city_page_title'),
+                                tab: 3),
+                            HelpTabButton(
+                                name: translate(
+                                    'help_page.visualizer_page_title_short'),
+                                tab: 4),
                           ],
                         ),
                       ),
-                    ))
+                    )
                 : Column(
                     children: [
                       Padding(

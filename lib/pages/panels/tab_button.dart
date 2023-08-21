@@ -8,6 +8,7 @@ import '../../constants/constants.dart';
 import '../../constants/theme.dart';
 import '../../providers/page_providers.dart';
 import '../../providers/settings_providers.dart';
+import '../../utils/helper.dart';
 
 class TabButton extends ConsumerWidget {
   const TabButton({
@@ -51,6 +52,59 @@ class TabButton extends ConsumerWidget {
                 name,
                 style: textStyleNormal.copyWith(
                     color: oppositeColor, fontSize: Const.tabBarTextSize + 5),
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class HelpTabButton extends ConsumerWidget {
+  const HelpTabButton({
+    Key? key,
+    required this.name,
+    required this.tab,
+  }) : super(key: key);
+
+  final String name;
+  final int tab;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
+    int homePageTab = ref.watch(subTabProvider);
+    return GestureDetector(
+      onTap: () {
+        ref.read(subTabProvider.notifier).state = tab;
+        Scrollable.ensureVisible(
+            ref.read(helpPageKeysProvider)[tab].currentContext!);
+      },
+      child: Container(
+          color: homePageTab == tab ? highlightColor : Colors.transparent,
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: Const.tabBarTextSize / 2,
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Const.tabBarTextSize.pw,
+              Text(
+                homePageTab != tab ? '--' : '>',
+                style: textStyleNormal.copyWith(
+                    color: oppositeColor, fontSize: Const.tabBarTextSize + 5),
+              ),
+              Const.tabBarTextSize.pw,
+              Text(
+                name,
+                style: textStyleNormal.copyWith(
+                    color: lightenColor(highlightColor, 0.4),
+                    fontSize: Const.tabBarTextSize + 5),
               )
             ],
           ),
