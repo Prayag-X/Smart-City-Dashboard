@@ -760,4 +760,12 @@ class DownloadableContent {
         name: 'Boulder Stolen Bikes',
         size: '1.69 MB'),
   ];
+
+  static List<DownloadableKML> torontoGovernmentKml = [
+    DownloadableKML(
+        url:
+            'https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/8d8f4405-7b90-4264-8607-b27ab63b9359/resource/fc2d9f28-3758-465c-bb03-412a2b794417/download/library-branch-locations.kml',
+        name: 'Library Locations',
+        size: '40 KB'),
+  ];
 }

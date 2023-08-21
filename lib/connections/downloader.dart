@@ -37,7 +37,7 @@ class Downloader {
     for (MapEntry<String, Map<String, String>> url
         in downloadableContent.entries) {
       tasks.add(DownloadTask(
-        url: url.value['url']!,
+        url: url.value['url']!.replaceAll(' ', '%20'),
         filename: url.value['filename']!,
         directory: url.value['directory']!,
         updates: Updates.statusAndProgress,

@@ -31,23 +31,43 @@ class TorontoGovernmentTabLeft extends ConsumerStatefulWidget {
   ConsumerState createState() => _TorontoGovernmentTabLeftState();
 }
 
-class _TorontoGovernmentTabLeftState extends ConsumerState<TorontoGovernmentTabLeft> {
+class _TorontoGovernmentTabLeftState
+    extends ConsumerState<TorontoGovernmentTabLeft> {
   ScreenshotController screenshotController = ScreenshotController();
   List<List<dynamic>>? data;
-  List<List<dynamic>>? registryData;
-  List<List<dynamic>>? clientsData;
-  List<List<dynamic>>? lobbyistData;
-  List<List<dynamic>>? contributorsData;
-  List<List<dynamic>>? expenditure1Data;
-  List<List<dynamic>>? expenditure2Data;
+  List<List<dynamic>>? polisData;
+  List<List<dynamic>>? shelterData;
+  List<List<dynamic>>? evaluationData;
+  List<List<dynamic>>? registrationData;
+  List<List<dynamic>>? measuresData;
 
   loadCSVData() async {
     Future.delayed(Duration.zero).then((x) async {
       ref.read(isLoadingProvider.notifier).state = true;
       data = await FileParser.parseCSVFromStorage(
-          DownloadableContent.content['Registry']!);
+          DownloadableContent.content['Polis Data']!);
       setState(() {
-        registryData = FileParser.transformer(data!);
+        polisData = FileParser.transformer(data!);
+      });
+      data = await FileParser.parseCSVFromStorage(
+          DownloadableContent.content['Daily Shelter']!);
+      setState(() {
+        shelterData = FileParser.transformer(data!);
+      });
+      data = await FileParser.parseCSVFromStorage(
+          DownloadableContent.content['Apartment Evaluation']!);
+      setState(() {
+        evaluationData = FileParser.transformer(data!);
+      });
+      data = await FileParser.parseCSVFromStorage(
+          DownloadableContent.content['Apartment Registration']!);
+      setState(() {
+        registrationData = FileParser.transformer(data!);
+      });
+      data = await FileParser.parseCSVFromStorage(
+          DownloadableContent.content['Measures']!);
+      setState(() {
+        measuresData = FileParser.transformer(data!);
       });
       if (!mounted) {
         return;
@@ -79,113 +99,138 @@ class _TorontoGovernmentTabLeftState extends ConsumerState<TorontoGovernmentTabL
               ),
             ),
             children: [
-              registryData != null
+              polisData != null
                   ? LineChartParser(
-                  title:
-                  translate('city_data.chicago.ethics.registry_title'),
-                  legendX: translate('city_data.chicago.ethics.id'),
-                  chartData: {
-                    translate('city_data.chicago.ethics.registration'):
-                    Colors.blue,
-                  }, barWidth: 2
-              ).chartParser(
-                // limitMarkerX: 8,
-                dataX: registryData![1],
-                dataY: [
-                  registryData![47],
-                ],
-              )
+                          title: translate(
+                              'city_data.toronto.government.polis_title'),
+                          legendX: translate('city_data.toronto.government.id'),
+                          chartData: {
+                            translate('city_data.toronto.government.pass_rate'):
+                                Colors.blue,
+                            translate(
+                                    'city_data.toronto.government.potential_voters'):
+                                Colors.yellow,
+                          },
+                          barWidth: 2)
+                      .chartParser(
+                      // limitMarkerX: 8,
+                      dataX: polisData![0],
+                      dataY: [
+                        polisData![18],
+                        polisData![23],
+                      ],
+                    )
                   : const BlankDashboardContainer(
-                heightMultiplier: 2,
-                widthMultiplier: 2,
-              ),
+                      heightMultiplier: 2,
+                      widthMultiplier: 2,
+                    ),
               Const.dashboardUISpacing.ph,
-              clientsData != null
-                  ? PieChartParser(
-                  title: translate(
-                      'city_data.chicago.ethics.client_title'),
-                  subTitle: translate(
-                      'city_data.chicago.ethics.clients'))
-                  .chartParser(data: clientsData![0])
-                  : const BlankDashboardContainer(
-                heightMultiplier: 2,
-                widthMultiplier: 2,
-              ),
-              Const.dashboardUISpacing.ph,
-              lobbyistData != null
-                  ? PieChartParser(
-                  title: translate(
-                      'city_data.chicago.ethics.lobbyist_title'),
-                  subTitle: translate(
-                      'city_data.chicago.ethics.lobbyist_title'))
-                  .chartParser(data: lobbyistData![0])
-                  : const BlankDashboardContainer(
-                heightMultiplier: 2,
-                widthMultiplier: 2,
-              ),
-              Const.dashboardUISpacing.ph,
-              contributorsData != null
+              shelterData != null
                   ? LineChartParser(
-                  title:
-                  translate('city_data.chicago.ethics.contributions_title'),
-                  legendX: translate('city_data.chicago.ethics.id'),
-                  chartData: {
-                    translate('city_data.chicago.ethics.amount'):
-                    Colors.blue,
-                  },barWidth: 2
-              ).chartParser(
-                limitMarkerX: 6,
-                dataX: contributorsData![0],
-                dataY: [
-                  contributorsData![5],
-                ],
-              )
+                          title: translate(
+                              'city_data.toronto.government.shelter_title'),
+                          legendX: translate('city_data.toronto.government.id'),
+                          chartData: {
+                            translate('city_data.toronto.government.users'):
+                                Colors.blue,
+                            translate(
+                                    'city_data.toronto.government.occupancy_rate'):
+                                Colors.yellow,
+                          },
+                          barWidth: 1)
+                      .chartParser(
+                      // limitMarkerX: 8,
+                      dataX: shelterData![0],
+                      dataY: [
+                        shelterData![18],
+                        shelterData![31],
+                      ],
+                    )
                   : const BlankDashboardContainer(
-                heightMultiplier: 2,
-                widthMultiplier: 2,
-              ),
+                      heightMultiplier: 2,
+                      widthMultiplier: 2,
+                    ),
               Const.dashboardUISpacing.ph,
-              expenditure1Data != null
+              evaluationData != null
                   ? LineChartParser(
-                title:
-                translate('city_data.chicago.ethics.expense1_title'),
-                legendX: translate('city_data.chicago.ethics.name'),
-                chartData: {
-                  translate('city_data.chicago.ethics.expenses'):
-                  Colors.blue,
-                },
-              ).chartParser(
-                limitMarkerX: 6,
-                dataX: expenditure1Data![2],
-                dataY: [
-                  expenditure1Data![11],
-                ],
-              )
+                          title: translate(
+                              'city_data.toronto.government.evaluation_title'),
+                          legendX: translate('city_data.toronto.government.id'),
+                          chartData: {
+                            translate('city_data.toronto.government.year_built'):
+                                Colors.blue,
+                            translate(
+                                    'city_data.toronto.government.storeys'):
+                                Colors.yellow,
+                            translate(
+                                    'city_data.toronto.government.score'):
+                                Colors.red,
+                          },
+                          barWidth: 1)
+                      .chartParser(
+                      // limitMarkerX: 8,
+                      dataX: evaluationData![0],
+                      dataY: [
+                        evaluationData![4],
+                        evaluationData![9],
+                        evaluationData![12],
+                      ],
+                    )
                   : const BlankDashboardContainer(
-                heightMultiplier: 2,
-                widthMultiplier: 2,
-              ),
+                      heightMultiplier: 2,
+                      widthMultiplier: 2,
+                    ),
               Const.dashboardUISpacing.ph,
-              expenditure2Data != null
+              registrationData != null
                   ? LineChartParser(
-                  title:
-                  translate('city_data.chicago.ethics.expense2_title'),
-                  legendX: translate('city_data.chicago.ethics.id'),
-                  chartData: {
-                    translate('city_data.chicago.ethics.expenses'):
-                    Colors.blue,
-                  }, barWidth: 6
-              ).chartParser(
-                limitMarkerX: 6,
-                dataX: expenditure2Data![0],
-                dataY: [
-                  expenditure2Data![7],
-                ],
-              )
+                          title: translate(
+                              'city_data.toronto.government.registration_title'),
+                          legendX: translate('city_data.toronto.government.id'),
+                          chartData: {
+                            translate('city_data.toronto.government.year_built'):
+                                Colors.blue,
+                            translate(
+                                    'city_data.toronto.government.year_registered'):
+                                Colors.yellow,
+                            translate(
+                                    'city_data.toronto.government.storeys'):
+                                Colors.red,
+                          },
+                          barWidth: 2)
+                      .chartParser(
+                      // limitMarkerX: 8,
+                      dataX: registrationData![0],
+                      dataY: [
+                        registrationData![59],
+                        registrationData![61],
+                        registrationData![9],
+                      ],
+                    )
                   : const BlankDashboardContainer(
-                heightMultiplier: 2,
-                widthMultiplier: 2,
-              ),
+                      heightMultiplier: 2,
+                      widthMultiplier: 2,
+                    ),
+              Const.dashboardUISpacing.ph,
+              measuresData != null
+                  ? LineChartParser(
+                          title: translate(
+                              'city_data.toronto.government.measures_title'),
+                          legendX: translate('city_data.toronto.government.id'),
+                          chartData: {
+                            translate('city_data.toronto.government.result'):
+                                Colors.blue,
+                          },)
+                      .chartParser(
+                      // limitMarkerX: 8,
+                      dataX: measuresData![0],
+                      dataY: [
+                        measuresData![10],
+                      ],
+                    )
+                  : const BlankDashboardContainer(
+                      heightMultiplier: 2,
+                      widthMultiplier: 2,
+                    ),
               Const.dashboardUISpacing.ph,
             ],
           ),

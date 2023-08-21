@@ -530,8 +530,23 @@
       "cityName": "Toronto",
       "country": "Canada",
       "description": "Toronto is the most populous city in Canada and the capital city of the Canadian province of Ontario. With a recorded population of 2,794,356 in 2021, it is the fourth-most populous city in North America. The city is the anchor of the Golden Horseshoe, an urban agglomeration of 9,765,188 people (as of 2021) surrounding the western end of Lake Ontario, while the Greater Toronto Area proper had a 2021 population of 6,712,341. Toronto is an international centre of business, finance, arts, sports and culture, and is recognized as one of the most multicultural and cosmopolitan cities in the world.",
-      "health": {
-
+      "government": {
+        "government": "Government",
+        "polis_title": "Polis Data",
+        "shelter_title": "Daily Shelter Occupancy",
+        "evaluation_title": "Apartment Evaluation",
+        "registration_title": "Apartment Registration",
+        "measures_title": "Measures 2016-20",
+        "pass_rate": "Pass Rate",
+        "potential_voters": "Potential Voters",
+        "users": "Users",
+        "occupancy_rate": "Occupancy Rate",
+        "year_built": "Year Built",
+        "year_registered": "Year Reg",
+        "score": "Score",
+        "storeys": "Storeys",
+        "result": "Result",
+        "id": "ID"
       }
     }
   }

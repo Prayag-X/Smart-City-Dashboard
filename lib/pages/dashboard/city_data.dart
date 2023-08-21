@@ -6,6 +6,7 @@ import 'package:smart_city_dashboard/pages/dashboard/austin/transport_left_panel
 import 'package:smart_city_dashboard/pages/dashboard/boulder/government_left_panel.dart';
 import 'package:smart_city_dashboard/pages/dashboard/boulder/health_left_panel.dart';
 import 'package:smart_city_dashboard/pages/dashboard/new_york/education_left_panel.dart';
+import 'package:smart_city_dashboard/pages/dashboard/toronto/government_left_panel.dart';
 import 'package:smart_city_dashboard/pages/panels/tab_button.dart';
 
 import '../../models/tab_button.dart';
@@ -353,10 +354,10 @@ class AllCityData {
             tab: 0,
           ),
           TabButtonModel(
-            logo: ImageConst.health,
-            name: translate('city_data.boulder.health.health'),
-            leftTab: const BoulderHealthTabLeft(),
-            rightTabData: DownloadableContent.blankKml,
+            logo: ImageConst.government,
+            name: translate('city_data.toronto.government.government'),
+            leftTab: const TorontoGovernmentTabLeft(),
+            rightTabData: DownloadableContent.torontoGovernmentKml,
             tab: 1,
             nameForUrl: 'health',
             tabWidgetNumbers: 5,
