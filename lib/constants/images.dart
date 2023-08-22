@@ -9,6 +9,7 @@ class ImageConst {
   static const boulder = 'assets/images/boulder.jpg';
   static const chicago = 'assets/images/chicago.jpg';
   static const toronto = 'assets/images/toronto.jpg';
+  static const monterrey = 'assets/images/monterrey.jpg';
 
   //
   static const app = 'assets/logos/app_logo.png';

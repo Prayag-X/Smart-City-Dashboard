@@ -518,6 +518,39 @@ class DownloadableContent {
       'filename': 'measures.csv',
       'directory': 'Toronto/government'
     },
+
+
+    //Monterrey Data
+    'EIRs': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/34f90cbd36aa4d3f80d18d06b8c4b188_0/downloads/data?format=csv&spatialRefId=4326&where=1%3D1',
+      'filename': 'eirs.csv',
+      'directory': 'Monterrey/environment'
+    },
+    'Geology': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/8bbbb6b912ca41d790c1bc2dfc3920ad_0/downloads/data?format=csv&spatialRefId=4326&where=1%3D1',
+      'filename': 'geology.csv',
+      'directory': 'Monterrey/environment'
+    },
+    'Mineral Resource Zones': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/0a1f9ac07785495298670cb2d6a598dd_0/downloads/data?format=csv&spatialRefId=4326&where=1%3D1',
+      'filename': 'resource.csv',
+      'directory': 'Monterrey/environment'
+    },
+    'Erosion': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/79ba412ca2144f35a0a449785614f787_0/downloads/data?format=csv&spatialRefId=4326&where=1%3D1',
+      'filename': 'erosion.csv',
+      'directory': 'Monterrey/environment'
+    },
+    'Liquefaction': {
+      'url':
+          'https://opendata.arcgis.com/api/v3/datasets/9dd4c3bb210140e286fcac742235257d_0/downloads/data?format=csv&spatialRefId=4326&where=1%3D1',
+      'filename': 'liquefaction.csv',
+      'directory': 'Monterrey/environment'
+    },
   };
 
   static List<DownloadableKML> blankKml = [];
@@ -767,5 +800,48 @@ class DownloadableContent {
             'https://ckan0.cf.opendata.inter.prod-toronto.ca/dataset/8d8f4405-7b90-4264-8607-b27ab63b9359/resource/fc2d9f28-3758-465c-bb03-412a2b794417/download/library-branch-locations.kml',
         name: 'Library Locations',
         size: '40 KB'),
+  ];
+
+  static List<DownloadableKML> monterreyEnvironmentKml = [
+    DownloadableKML(
+        url:
+            'https://opendata.arcgis.com/api/v3/datasets/0a1f9ac07785495298670cb2d6a598dd_0/downloads/data?format=kml&spatialRefId=4326&where=1%3D1',
+        name: 'Mineral Resource Zones',
+        size: '473 KB'),
+    DownloadableKML(
+        url:
+            'https://opendata.arcgis.com/api/v3/datasets/e1cf610ac767454199e2f1704519b4cd_0/downloads/data?format=kml&spatialRefId=4326&where=1%3D1',
+        name: 'Faults',
+        size: '2.11 MB'),
+    DownloadableKML(
+        url:
+            'https://opendata.arcgis.com/api/v3/datasets/79ba412ca2144f35a0a449785614f787_0/downloads/data?format=kml&spatialRefId=4326&where=1%3D1',
+        name: 'Erosion',
+        size: '31.1 MB'),
+    DownloadableKML(
+        url:
+            'https://opendata.arcgis.com/api/v3/datasets/c6cae0bc46b443f9a913463d2d8ec81b_0/downloads/data?format=kml&spatialRefId=4326&where=1%3D1',
+        name: 'Forest Planning Areas',
+        size: '436 KB'),
+    DownloadableKML(
+        url:
+            'https://opendata.arcgis.com/api/v3/datasets/8bbbb6b912ca41d790c1bc2dfc3920ad_0/downloads/data?format=kml&spatialRefId=4326&where=1%3D1',
+        name: 'Geology',
+        size: '41.8 MB'),
+    DownloadableKML(
+        url:
+            'https://opendata.arcgis.com/api/v3/datasets/34f90cbd36aa4d3f80d18d06b8c4b188_0/downloads/data?format=kml&spatialRefId=4326&where=1%3D1',
+        name: 'Moco EIRs',
+        size: '201 KB'),
+    DownloadableKML(
+        url:
+            'https://opendata.arcgis.com/api/v3/datasets/9dd4c3bb210140e286fcac742235257d_0/downloads/data?format=kml&spatialRefId=4326&where=1%3D1',
+        name: 'Liquefaction',
+        size: '12.7 MB'),
+    DownloadableKML(
+        url:
+            'https://opendata.arcgis.com/api/v3/datasets/cb82c3b4de8f42418272980c0eb46800_0/downloads/data?format=kml&spatialRefId=4326&where=1%3D1',
+        name: 'Paleontology',
+        size: '12.7 MB'),
   ];
 }

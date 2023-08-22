@@ -5,6 +5,7 @@ import 'package:smart_city_dashboard/pages/dashboard/Seattle/finance_left_panel.
 import 'package:smart_city_dashboard/pages/dashboard/austin/transport_left_panel.dart';
 import 'package:smart_city_dashboard/pages/dashboard/boulder/government_left_panel.dart';
 import 'package:smart_city_dashboard/pages/dashboard/boulder/health_left_panel.dart';
+import 'package:smart_city_dashboard/pages/dashboard/monterrey/environment_left_panel.dart';
 import 'package:smart_city_dashboard/pages/dashboard/new_york/education_left_panel.dart';
 import 'package:smart_city_dashboard/pages/dashboard/toronto/government_left_panel.dart';
 import 'package:smart_city_dashboard/pages/panels/tab_button.dart';
@@ -358,6 +359,44 @@ class AllCityData {
             name: translate('city_data.toronto.government.government'),
             leftTab: const TorontoGovernmentTabLeft(),
             rightTabData: DownloadableContent.torontoGovernmentKml,
+            tab: 1,
+            nameForUrl: 'health',
+            tabWidgetNumbers: 5,
+          ),
+          TabButtonModel(
+            logo: ImageConst.about,
+            name: translate('homepage.about'),
+            tab: 2,
+          ),
+        ],
+        availableTours: [
+          const LatLng(40.01409726578651, -105.25852053941347),
+          const LatLng(40.0311469853605, -105.2873682987872),
+          const LatLng(39.96302696330601, -105.20033598076574),
+        ],
+        availableToursName: [],
+        availableToursDescription: [
+          ''
+        ]),
+    CityCardModel(
+        cityName: translate('city_data.monterrey.cityName'),
+        cityNameEnglish: 'Monterrey',
+        country: translate('city_data.monterrey.country'),
+        description: translate('city_data.monterrey.description'),
+        image: ImageConst.monterrey,
+        number: 7,
+        location: const LatLng(25.68691880058488, -100.31822032711216),
+        availableTabs: [
+          TabButtonModel(
+            logo: ImageConst.weather,
+            name: translate('city_page.weather'),
+            tab: 0,
+          ),
+          TabButtonModel(
+            logo: ImageConst.environment,
+            name: translate('city_data.monterrey.environment.environment'),
+            leftTab: const MonterreyEnvironmentTabLeft(),
+            rightTabData: DownloadableContent.monterreyEnvironmentKml,
             tab: 1,
             nameForUrl: 'health',
             tabWidgetNumbers: 5,

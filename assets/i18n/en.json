@@ -554,6 +554,24 @@
         "result": "Result",
         "id": "ID"
       }
+    },
+    "monterrey": {
+      "cityName": "Monterrey",
+      "country": "Mexico",
+      "description": "Monterrey is the capital and largest city of the northeastern state of Nuevo León, Mexico, and the second largest city in Mexico behind Mexico City. Located at the foothills of the Sierra Madre Oriental, the city is anchor to the Monterrey metropolitan area, the second-largest in Mexico with an estimated population of 5,341,171 people as of 2020 and the second most productive metropolitan area in Mexico with a GDP (PPP) of US$140 billion in 2015. According to the 2020 census, the city itself has a population of 1,142,194.",
+      "environment": {
+        "environment": "Environment",
+        "eirs_title": "Moco EIRs",
+        "geology_title": "Geology",
+        "mineral_title": "Mineral Resource Zones",
+        "erosion_title": "Erosion",
+        "liquefaction_title": "Liquefaction",
+        "class": "Classes",
+        "library": "Libraries",
+        "rating": "Ratings",
+        "liquid": "Liquid Suspensions",
+        "mrz": "MRZ"
+      }
     }
   }
 }
