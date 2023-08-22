@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../connections/ssh.dart';
 import '../constants/constants.dart';
 import '../constants/images.dart';
 import '../constants/theme.dart';
@@ -50,6 +51,7 @@ class _SplashScreenState extends ConsumerState<SplashPage> {
     if(!mounted) {
       return;
     }
+    SSH(ref: ref).initialConnect();
     changeLocale(
         context,
         Const.availableLanguageCodes[Const

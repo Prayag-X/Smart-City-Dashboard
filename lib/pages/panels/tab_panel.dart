@@ -117,7 +117,7 @@ class _TabPanelState extends ConsumerState<TabPanel> {
               ),
             ),
             isHomePage
-                ? homePageTab != -3
+                ? homePageTab != -3 && homePageTab != -4
                     ? Padding(
                         padding: const EdgeInsets.all(13.0),
                         child: AnimationLimiter(
@@ -149,39 +149,107 @@ class _TabPanelState extends ConsumerState<TabPanel> {
                             ),
                           ),
                         ))
-                    : AnimationLimiter(
-                      child: Column(
-                        children: AnimationConfiguration.toStaggeredList(
-                          duration: Const.animationDuration,
-                          childAnimationBuilder: (widget) => SlideAnimation(
-                            horizontalOffset: -Const.animationDistance,
-                            child: FadeInAnimation(
-                              child: widget,
+                    : homePageTab == -3
+                        ? AnimationLimiter(
+                            child: Column(
+                              children: AnimationConfiguration.toStaggeredList(
+                                duration: Const.animationDuration,
+                                childAnimationBuilder: (widget) =>
+                                    SlideAnimation(
+                                  horizontalOffset: -Const.animationDistance,
+                                  child: FadeInAnimation(
+                                    child: widget,
+                                  ),
+                                ),
+                                children: [
+                                  Text(translate('help_page.section'),
+                                      style: textStyleNormal.copyWith(
+                                          fontSize: Const.tabBarTextSize - 3,
+                                          color: oppositeColor)),
+                                  Divider(
+                                    color: oppositeColor,
+                                    indent: 10,
+                                    endIndent: 10,
+                                  ),
+                                  SubTabButton(
+                                    name: translate('help_page.nav_title'),
+                                    tab: 0,
+                                    provider: helpPageKeysProvider,
+                                  ),
+                                  SubTabButton(
+                                    name: translate('help_page.app_bar_title'),
+                                    tab: 1,
+                                    provider: helpPageKeysProvider,
+                                  ),
+                                  SubTabButton(
+                                    name: translate(
+                                        'help_page.settings_title_short'),
+                                    tab: 2,
+                                    provider: helpPageKeysProvider,
+                                  ),
+                                  SubTabButton(
+                                    name:
+                                        translate('help_page.city_page_title'),
+                                    tab: 3,
+                                    provider: helpPageKeysProvider,
+                                  ),
+                                  SubTabButton(
+                                    name: translate(
+                                        'help_page.visualizer_page_title_short'),
+                                    tab: 4,
+                                    provider: helpPageKeysProvider,
+                                  ),
+                                  Divider(
+                                    color: oppositeColor,
+                                    indent: 10,
+                                    endIndent: 10,
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                          children: [
-                            HelpTabButton(
-                                name: translate('help_page.nav_title'),
-                                tab: 0),
-                            HelpTabButton(
-                                name: translate('help_page.app_bar_title'),
-                                tab: 1),
-                            HelpTabButton(
-                                name: translate(
-                                    'help_page.settings_title_short'),
-                                tab: 2),
-                            HelpTabButton(
-                                name:
-                                    translate('help_page.city_page_title'),
-                                tab: 3),
-                            HelpTabButton(
-                                name: translate(
-                                    'help_page.visualizer_page_title_short'),
-                                tab: 4),
-                          ],
-                        ),
-                      ),
-                    )
+                          )
+                        : AnimationLimiter(
+                            child: Column(
+                              children: AnimationConfiguration.toStaggeredList(
+                                duration: Const.animationDuration,
+                                childAnimationBuilder: (widget) =>
+                                    SlideAnimation(
+                                  horizontalOffset: -Const.animationDistance,
+                                  child: FadeInAnimation(
+                                    child: widget,
+                                  ),
+                                ),
+                                children: [
+                                  Text(translate('visualizer.section'),
+                                      style: textStyleNormal.copyWith(
+                                          fontSize: Const.tabBarTextSize - 3,
+                                          color: oppositeColor)),
+                                  Divider(
+                                    color: oppositeColor,
+                                    indent: 10,
+                                    endIndent: 10,
+                                  ),
+                                  SubTabButton(
+                                    name:
+                                        translate('visualizer.csv_title_short'),
+                                    tab: 0,
+                                    provider: visualizerPageKeysProvider,
+                                  ),
+                                  SubTabButton(
+                                    name:
+                                        translate('visualizer.kml_title_short'),
+                                    tab: 1,
+                                    provider: visualizerPageKeysProvider,
+                                  ),
+                                  Divider(
+                                    color: oppositeColor,
+                                    indent: 10,
+                                    endIndent: 10,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          )
                 : Column(
                     children: [
                       Padding(

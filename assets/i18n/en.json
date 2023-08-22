@@ -168,6 +168,7 @@
     "visualizer6": "When you click on the color button, you will be presented with this screen where you can choose the color of your choice. You can select from basic colors to any color wheel.",
     "content": "If you see this screen, then go to settings and download the additional content.",
     "nav_title": "Navigation",
+    "section": "Sections",
     "app_bar_title": "App Bar",
     "settings_title": "Settings Page",
     "settings_title_short": "Settings",
@@ -178,7 +179,9 @@
   },
   "visualizer": {
     "visualizer": "Visualizer",
+    "section": "Sections",
     "csv_title": "CSV Data Visualizer",
+    "csv_title_short": "CSV",
     "url": "Link",
     "plotx": "X-Axis Plot",
     "ploty": "Y-Axis Plot",
@@ -190,6 +193,7 @@
     "download_url_hint": "File Download Link",
     "column_no_hint": "Column Number",
     "download_failed": "Download Failed",
+    "kml_title_short": "KML",
     "kml_title": "KML Data Visualizer"
   },
   "tour": {

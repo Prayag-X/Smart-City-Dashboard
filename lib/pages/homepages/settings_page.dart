@@ -63,6 +63,645 @@ class _SettingsState extends ConsumerState<SettingsPage> {
     prefs = await SharedPreferences.getInstance();
   }
 
+  connectionSection() {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
+    bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
+    bool darkMode = ref.watch(darkModeOnProvider);
+    bool downloadableContentAvailable =
+        ref.watch(downloadableContentAvailableProvider);
+    return Column(
+      children: [
+        TitleContainer(title: translate('settings.connection_management')),
+        30.ph,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AnimationLimiter(
+              child: Column(
+                children: AnimationConfiguration.toStaggeredList(
+                  duration: Const.animationDuration,
+                  childAnimationBuilder: (widget) => SlideAnimation(
+                    horizontalOffset: -Const.animationDistance,
+                    child: FadeInAnimation(
+                      child: widget,
+                    ),
+                  ),
+                  children: [
+                    TextFormFieldCustom(
+                      icon: Icons.network_check_rounded,
+                      hintText: 'IP address',
+                      controller: ipController,
+                    ),
+                    TextFormFieldCustom(
+                      icon: Icons.person,
+                      hintText: 'LG Username',
+                      controller: usernameController,
+                    ),
+                    TextFormFieldCustom(
+                      icon: Icons.key_rounded,
+                      hintText: 'LG Password',
+                      controller: passwordController,
+                    ),
+                    TextFormFieldCustom(
+                      icon: Icons.private_connectivity_rounded,
+                      hintText: 'SSH Port',
+                      controller: portController,
+                    ),
+                    TextFormFieldCustom(
+                      icon: Icons.monitor,
+                      hintText: 'No. of LG rigs',
+                      controller: rigsController,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 300,
+              child: VerticalDivider(
+                color: oppositeColor,
+                indent: 30,
+                endIndent: 30,
+              ),
+            ),
+            AnimationLimiter(
+              child: Column(
+                children: AnimationConfiguration.toStaggeredList(
+                  duration: Const.animationDuration,
+                  childAnimationBuilder: (widget) => SlideAnimation(
+                    horizontalOffset: Const.animationDistance,
+                    child: FadeInAnimation(
+                      child: widget,
+                    ),
+                  ),
+                  children: [
+                    100.ph,
+                    SizedBox(
+                        width: screenSize(context).width / 2 - 200,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              translate('settings.theme'),
+                              style: textStyleBold.copyWith(
+                                  color: oppositeColor, fontSize: 20),
+                            ),
+                            FlutterSwitch(
+                              width: 70.0,
+                              height: 35.0,
+                              valueFontSize: 10.0,
+                              toggleSize: 25.0,
+                              activeColor: Colors.black,
+                              inactiveColor: Colors.white,
+                              toggleColor: Colors.blue,
+                              value: darkMode,
+                              borderRadius: 30.0,
+                              padding: 8.0,
+                              showOnOff: false,
+                              onToggle: (val) async {
+                                setState(() {
+                                  ref.read(darkModeOnProvider.notifier).state =
+                                      val;
+                                });
+                                if (val == true) {
+                                  await prefs.setBool('theme', true);
+                                  setDarkTheme(ref);
+                                } else {
+                                  await prefs.setBool('theme', false);
+                                  setLightTheme(ref);
+                                }
+                              },
+                            ),
+                          ],
+                        )),
+                    20.ph,
+                    SizedBox(
+                      width: screenSize(context).width / 2 - 200,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            translate('settings.language'),
+                            style: textStyleBold.copyWith(
+                                color: oppositeColor, fontSize: 20),
+                          ),
+                          DropdownButton<String>(
+                            value: dropdownValue,
+                            dropdownColor: darkenColor(normalColor, 0.02),
+                            elevation: 10,
+                            style: textStyleNormal.copyWith(
+                                color: oppositeColor, fontSize: 15),
+                            onChanged: (String? value) async {
+                              setState(() {
+                                dropdownValue = value!;
+                              });
+                              await prefs.setString('language', value!);
+                              if (!mounted) {
+                                return;
+                              }
+                              ref.read(languageProvider.notifier).state = value;
+                              changeLocale(
+                                  context,
+                                  Const.availableLanguageCodes[
+                                      Const.availableLanguages.indexOf(value)]);
+                            },
+                            items: Const.availableLanguages
+                                .map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        30.ph,
+        AnimationLimiter(
+          child: Column(
+            children: AnimationConfiguration.toStaggeredList(
+              duration: Const.animationDuration,
+              childAnimationBuilder: (widget) => SlideAnimation(
+                verticalOffset: -Const.animationDistance,
+                child: FadeInAnimation(
+                  child: widget,
+                ),
+              ),
+              children: [
+                TextButtonCustom(
+                  onPressed: () async {
+                    if (!isConnectedToLg) {
+                      await setSharedPrefs();
+                      if (!mounted) {
+                        return;
+                      }
+                      await SSH(ref: ref).connect(
+                        context,
+                      );
+                      if (!mounted) {
+                        return;
+                      }
+                      await SSH(ref: ref).cleanBalloon(
+                        context,
+                      );
+                      if (!mounted) {
+                        return;
+                      }
+                      await SSH(ref: ref).renderInSlave(
+                          context,
+                          ref.read(leftmostRigProvider),
+                          KMLMakers.screenOverlayImage(ImageConst.splashOnline,
+                              Const.splashAspectRatio));
+                      if (!mounted) {
+                        return;
+                      }
+                      await SSH(ref: ref).flyTo(
+                          context,
+                          Const.initialMapPosition.target.latitude,
+                          Const.initialMapPosition.target.longitude,
+                          Const.initialMapPosition.zoom.zoomLG,
+                          Const.initialMapPosition.tilt,
+                          Const.initialMapPosition.bearing);
+                    } else {
+                      await SSH(ref: ref).disconnect(
+                        context,
+                      );
+                    }
+                  },
+                  name: isConnectedToLg
+                      ? translate('settings.disconnect')
+                      : translate('settings.connect'),
+                  width: screenSize(context).width - 400,
+                  icon: isConnectedToLg
+                      ? Icons.cloud_off
+                      : Icons.cast_connected_rounded,
+                  color: isConnectedToLg ? Colors.red : Colors.green,
+                  ref: ref,
+                ),
+              ],
+            ),
+          ),
+        ),
+        70.ph,
+      ],
+    );
+  }
+
+  contentSection() {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
+    bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
+    bool darkMode = ref.watch(darkModeOnProvider);
+    bool downloadableContentAvailable =
+        ref.watch(downloadableContentAvailableProvider);
+    return Column(
+      children: [
+        TitleContainer(title: translate('settings.content_management')),
+        30.ph,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            AnimationLimiter(
+              child: Column(
+                children: AnimationConfiguration.toStaggeredList(
+                  duration: Const.animationDuration,
+                  childAnimationBuilder: (widget) => SlideAnimation(
+                    verticalOffset: Const.animationDistance,
+                    child: FadeInAnimation(
+                      child: widget,
+                    ),
+                  ),
+                  children: [
+                    TextButtonCustom(
+                      onPressed: () async {
+                        showSnackBar(
+                            context: context,
+                            message: translate('settings.download_started'));
+                        await Downloader(ref: ref)
+                            .downloadAllContent(DownloadableContent.content);
+                        await prefs.setBool('downloadableContent', true);
+                        ref
+                            .read(downloadableContentAvailableProvider.notifier)
+                            .state = true;
+                        if (!mounted) {
+                          return;
+                        }
+                        showSnackBar(
+                            context: context,
+                            message: translate('settings.download_completed'));
+                      },
+                      name: translate('settings.download'),
+                      width: screenSize(context).width / 2 - 200,
+                      icon: Icons.download_rounded,
+                      color: darkenColor(Colors.blue),
+                      ref: ref,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 150,
+              child: VerticalDivider(
+                color: oppositeColor,
+                indent: 30,
+                endIndent: 30,
+              ),
+            ),
+            AnimationLimiter(
+              child: Column(
+                children: AnimationConfiguration.toStaggeredList(
+                  duration: Const.animationDuration,
+                  childAnimationBuilder: (widget) => SlideAnimation(
+                    verticalOffset: Const.animationDistance,
+                    child: FadeInAnimation(
+                      child: widget,
+                    ),
+                  ),
+                  children: [
+                    TextButtonCustom(
+                      onPressed: () async {
+                        var localPath =
+                            await getApplicationDocumentsDirectory();
+                        for (MapEntry<String, Map<String, String>> fileData
+                            in DownloadableContent.content.entries) {
+                          File file = File(
+                              "${localPath.path}/${fileData.value['directory']}/${fileData.value['filename']}");
+                          try {
+                            if (downloadableContentAvailable) {
+                              await file.delete();
+                            }
+                          } catch (error) {
+                            if (!mounted) {
+                              return;
+                            }
+                            showSnackBar(
+                                context: context, message: error.toString());
+                          }
+                        }
+                        await prefs.setBool('downloadableContent', false);
+                        ref
+                            .read(downloadableContentAvailableProvider.notifier)
+                            .state = false;
+                        if (!mounted) {
+                          return;
+                        }
+                        File file = File(
+                            "${localPath.path}/${Const.kmlCustomFileName}.kml");
+                        try {
+                          await file.delete();
+                        } catch (error) {}
+                        if (!mounted) {
+                          return;
+                        }
+                        await SSH(ref: ref).fileDelete(
+                            context, "${Const.kmlCustomFileName}.kml");
+                        if (!mounted) {
+                          return;
+                        }
+                        showSnackBar(
+                            context: context,
+                            message: translate('settings.delete_success'));
+                      },
+                      name: translate('settings.delete_kml'),
+                      width: screenSize(context).width / 2 - 200,
+                      icon: Icons.delete_forever_rounded,
+                      color: darkenColor(Colors.red),
+                      ref: ref,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        70.ph,
+      ],
+    );
+  }
+
+  lgSection() {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
+    bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
+    bool darkMode = ref.watch(darkModeOnProvider);
+    bool downloadableContentAvailable =
+        ref.watch(downloadableContentAvailableProvider);
+    return Column(
+      children: [
+        TitleContainer(title: translate('settings.lg_management')),
+        30.ph,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            AnimationLimiter(
+              child: Column(
+                children: AnimationConfiguration.toStaggeredList(
+                  duration: Const.animationDuration,
+                  childAnimationBuilder: (widget) => SlideAnimation(
+                    horizontalOffset: -Const.animationDistance,
+                    child: FadeInAnimation(
+                      child: widget,
+                    ),
+                  ),
+                  children: [
+                    TextButtonCustom(
+                      onPressed: () async {
+                        if (isConnectedToLg) {
+                          await SSH(ref: ref).cleanSlaves(
+                            context,
+                          );
+                        } else {
+                          showSnackBar(
+                              context: context,
+                              message:
+                                  translate('settings.connection_required'));
+                        }
+                      },
+                      name: isConnectedToLg
+                          ? translate('settings.clean_logo')
+                          : '--',
+                      width: screenSize(context).width / 3 - 150,
+                      icon: Icons.cleaning_services_rounded,
+                      color: isConnectedToLg
+                          ? darkenColor(Colors.orange, 0.05)
+                          : lightenColor(normalColor, 0.01),
+                      ref: ref,
+                    ),
+                    TextButtonCustom(
+                      onPressed: () async {
+                        if (isConnectedToLg) {
+                          await SSH(ref: ref).renderInSlave(
+                              context,
+                              ref.read(leftmostRigProvider),
+                              KMLMakers.screenOverlayImage(
+                                  ImageConst.splashOnline,
+                                  Const.splashAspectRatio));
+                        } else {
+                          showSnackBar(
+                              context: context,
+                              message:
+                                  translate('settings.connection_required'));
+                        }
+                      },
+                      name: isConnectedToLg
+                          ? translate('settings.show_logo')
+                          : '--',
+                      width: screenSize(context).width / 3 - 150,
+                      icon: Icons.logo_dev_rounded,
+                      color: isConnectedToLg
+                          ? darkenColor(Colors.orange, 0.05)
+                          : lightenColor(normalColor, 0.01),
+                      ref: ref,
+                    ),
+                    TextButtonCustom(
+                      onPressed: () async {
+                        if (isConnectedToLg) {
+                          await SSH(ref: ref).cleanKML(
+                            context,
+                          );
+                        } else {
+                          showSnackBar(
+                              context: context,
+                              message:
+                                  translate('settings.connection_required'));
+                        }
+                      },
+                      name: isConnectedToLg
+                          ? translate('settings.clean_kml')
+                          : '--',
+                      width: screenSize(context).width / 3 - 150,
+                      icon: Icons.cleaning_services_rounded,
+                      color: isConnectedToLg
+                          ? darkenColor(Colors.orange, 0.05)
+                          : lightenColor(normalColor, 0.01),
+                      ref: ref,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 300,
+              child: VerticalDivider(
+                color: oppositeColor,
+                indent: 30,
+                endIndent: 30,
+              ),
+            ),
+            AnimationLimiter(
+              child: Column(
+                children: AnimationConfiguration.toStaggeredList(
+                  duration: Const.animationDuration,
+                  childAnimationBuilder: (widget) => SlideAnimation(
+                    verticalOffset: Const.animationDistance,
+                    child: FadeInAnimation(
+                      child: widget,
+                    ),
+                  ),
+                  children: [
+                    TextButtonCustom(
+                      onPressed: () async {
+                        if (isConnectedToLg) {
+                          await SSH(ref: ref).setRefresh(
+                            context,
+                          );
+                        } else {
+                          showSnackBar(
+                              context: context,
+                              message:
+                                  translate('settings.connection_required'));
+                        }
+                      },
+                      name: isConnectedToLg
+                          ? translate('settings.set_refresh')
+                          : '--',
+                      width: screenSize(context).width / 3 - 150,
+                      icon: Icons.restart_alt_rounded,
+                      color: isConnectedToLg
+                          ? Colors.blue
+                          : lightenColor(normalColor, 0.01),
+                      ref: ref,
+                    ),
+                    TextButtonCustom(
+                      onPressed: () async {
+                        if (isConnectedToLg) {
+                          await SSH(ref: ref).resetRefresh(
+                            context,
+                          );
+                        } else {
+                          showSnackBar(
+                              context: context,
+                              message:
+                                  translate('settings.connection_required'));
+                        }
+                      },
+                      name: isConnectedToLg
+                          ? translate('settings.reset_refresh')
+                          : '--',
+                      width: screenSize(context).width / 3 - 150,
+                      icon: Icons.restart_alt_rounded,
+                      color: isConnectedToLg
+                          ? Colors.blue
+                          : lightenColor(normalColor, 0.01),
+                      ref: ref,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 300,
+              child: VerticalDivider(
+                color: oppositeColor,
+                indent: 30,
+                endIndent: 30,
+              ),
+            ),
+            AnimationLimiter(
+              child: Column(
+                children: AnimationConfiguration.toStaggeredList(
+                  duration: Const.animationDuration,
+                  childAnimationBuilder: (widget) => SlideAnimation(
+                    horizontalOffset: Const.animationDistance,
+                    child: FadeInAnimation(
+                      child: widget,
+                    ),
+                  ),
+                  children: [
+                    TextButtonCustom(
+                      onPressed: () async {
+                        if (isConnectedToLg) {
+                          await SSH(ref: ref).relaunchLG(
+                            context,
+                          );
+                        } else {
+                          showSnackBar(
+                              context: context,
+                              message:
+                                  translate('settings.connection_required'));
+                        }
+                      },
+                      name: isConnectedToLg
+                          ? translate('settings.relaunch_lg')
+                          : '--',
+                      width: screenSize(context).width / 3 - 150,
+                      icon: Icons.power_rounded,
+                      color: isConnectedToLg
+                          ? Colors.redAccent
+                          : lightenColor(normalColor, 0.01),
+                      ref: ref,
+                    ),
+                    TextButtonCustom(
+                      onPressed: () async {
+                        if (isConnectedToLg) {
+                          await SSH(ref: ref).rebootLG(
+                            context,
+                          );
+                        } else {
+                          showSnackBar(
+                              context: context,
+                              message:
+                                  translate('settings.connection_required'));
+                        }
+                      },
+                      name: isConnectedToLg
+                          ? translate('settings.reboot_lg')
+                          : '--',
+                      width: screenSize(context).width / 3 - 150,
+                      icon: Icons.settings_power_rounded,
+                      color: isConnectedToLg
+                          ? Colors.redAccent
+                          : lightenColor(normalColor, 0.01),
+                      ref: ref,
+                    ),
+                    TextButtonCustom(
+                      onPressed: () async {
+                        if (isConnectedToLg) {
+                          await SSH(ref: ref).shutdownLG(
+                            context,
+                          );
+                        } else {
+                          showSnackBar(
+                              context: context,
+                              message:
+                                  translate('settings.connection_required'));
+                        }
+                      },
+                      name: isConnectedToLg
+                          ? translate('settings.shutdown_lg')
+                          : '--',
+                      width: screenSize(context).width / 3 - 150,
+                      icon: Icons.power_settings_new_rounded,
+                      color: isConnectedToLg
+                          ? Colors.redAccent
+                          : lightenColor(normalColor, 0.01),
+                      ref: ref,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        )
+      ],
+    );
+  }
+
   @override
   void initState() {
     super.initState();
@@ -74,621 +713,15 @@ class _SettingsState extends ConsumerState<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    Color normalColor = ref.watch(normalColorProvider);
-    Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
-    bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
-    bool darkMode = ref.watch(darkModeOnProvider);
-    bool downloadableContentAvailable =
-        ref.watch(downloadableContentAvailableProvider);
     return SingleChildScrollView(
       physics:
           const BouncingScrollPhysics(parent: AlwaysScrollableScrollPhysics()),
       child: Column(
         children: [
           Const.appBarHeight.ph,
-          TitleContainer(title: translate('settings.connection_management')),
-          30.ph,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              AnimationLimiter(
-                child: Column(
-                  children: AnimationConfiguration.toStaggeredList(
-                    duration: Const.animationDuration,
-                    childAnimationBuilder: (widget) => SlideAnimation(
-                      horizontalOffset: -Const.animationDistance,
-                      child: FadeInAnimation(
-                        child: widget,
-                      ),
-                    ),
-                    children: [
-                      TextFormFieldCustom(
-                        icon: Icons.network_check_rounded,
-                        hintText: 'IP address',
-                        controller: ipController,
-                      ),
-                      TextFormFieldCustom(
-                        icon: Icons.person,
-                        hintText: 'LG Username',
-                        controller: usernameController,
-                      ),
-                      TextFormFieldCustom(
-                        icon: Icons.key_rounded,
-                        hintText: 'LG Password',
-                        controller: passwordController,
-                      ),
-                      TextFormFieldCustom(
-                        icon: Icons.private_connectivity_rounded,
-                        hintText: 'SSH Port',
-                        controller: portController,
-                      ),
-                      TextFormFieldCustom(
-                        icon: Icons.monitor,
-                        hintText: 'No. of LG rigs',
-                        controller: rigsController,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 300,
-                child: VerticalDivider(
-                  color: oppositeColor,
-                  indent: 30,
-                  endIndent: 30,
-                ),
-              ),
-              AnimationLimiter(
-                child: Column(
-                  children: AnimationConfiguration.toStaggeredList(
-                    duration: Const.animationDuration,
-                    childAnimationBuilder: (widget) => SlideAnimation(
-                      horizontalOffset: Const.animationDistance,
-                      child: FadeInAnimation(
-                        child: widget,
-                      ),
-                    ),
-                    children: [
-                      100.ph,
-                      SizedBox(
-                          width: screenSize(context).width / 2 - 200,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                translate('settings.theme'),
-                                style: textStyleBold.copyWith(
-                                    color: oppositeColor, fontSize: 20),
-                              ),
-                              FlutterSwitch(
-                                width: 70.0,
-                                height: 35.0,
-                                valueFontSize: 10.0,
-                                toggleSize: 25.0,
-                                activeColor: Colors.black,
-                                inactiveColor: Colors.white,
-                                toggleColor: Colors.blue,
-                                value: darkMode,
-                                borderRadius: 30.0,
-                                padding: 8.0,
-                                showOnOff: false,
-                                onToggle: (val) async {
-                                  setState(() {
-                                    ref
-                                        .read(darkModeOnProvider.notifier)
-                                        .state = val;
-                                  });
-                                  if (val == true) {
-                                    await prefs.setBool('theme', true);
-                                    setDarkTheme(ref);
-                                  } else {
-                                    await prefs.setBool('theme', false);
-                                    setLightTheme(ref);
-                                  }
-                                },
-                              ),
-                            ],
-                          )),
-                      20.ph,
-                      SizedBox(
-                        width: screenSize(context).width / 2 - 200,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              translate('settings.language'),
-                              style: textStyleBold.copyWith(
-                                  color: oppositeColor, fontSize: 20),
-                            ),
-                            DropdownButton<String>(
-                              value: dropdownValue,
-                              dropdownColor: darkenColor(normalColor, 0.02),
-                              elevation: 10,
-                              style: textStyleNormal.copyWith(
-                                  color: oppositeColor, fontSize: 15),
-                              onChanged: (String? value) async {
-                                setState(() {
-                                  dropdownValue = value!;
-                                });
-                                await prefs.setString('language', value!);
-                                if (!mounted) {
-                                  return;
-                                }
-                                ref.read(languageProvider.notifier).state = value;
-                                changeLocale(
-                                    context,
-                                    Const.availableLanguageCodes[Const
-                                        .availableLanguages
-                                        .indexOf(value)]);
-                              },
-                              items: Const.availableLanguages
-                                  .map<DropdownMenuItem<String>>(
-                                      (String value) {
-                                return DropdownMenuItem<String>(
-                                  value: value,
-                                  child: Text(value),
-                                );
-                              }).toList(),
-                            )
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-          30.ph,
-          AnimationLimiter(
-            child: Column(
-              children: AnimationConfiguration.toStaggeredList(
-                duration: Const.animationDuration,
-                childAnimationBuilder: (widget) => SlideAnimation(
-                  verticalOffset: -Const.animationDistance,
-                  child: FadeInAnimation(
-                    child: widget,
-                  ),
-                ),
-                children: [
-                  TextButtonCustom(
-                    onPressed: () async {
-                      if (!isConnectedToLg) {
-                        await setSharedPrefs();
-                        if (!mounted) {
-                          return;
-                        }
-                        await SSH(ref: ref).connect(
-                          context,
-                        );
-                        if (!mounted) {
-                          return;
-                        }
-                        await SSH(ref: ref).cleanBalloon(
-                          context,
-                        );
-                        if (!mounted) {
-                          return;
-                        }
-                        await SSH(ref: ref).renderInSlave(
-                            context,
-                            ref.read(leftmostRigProvider),
-                            KMLMakers.screenOverlayImage(
-                                ImageConst.splashOnline,
-                                Const.splashAspectRatio));
-                        if (!mounted) {
-                          return;
-                        }
-                        await SSH(ref: ref).flyTo(
-                            context,
-                            Const.initialMapPosition.target.latitude,
-                            Const.initialMapPosition.target.longitude,
-                            Const.initialMapPosition.zoom.zoomLG,
-                            Const.initialMapPosition.tilt,
-                            Const.initialMapPosition.bearing);
-                      } else {
-                        await SSH(ref: ref).disconnect(
-                          context,
-                        );
-                      }
-                    },
-                    name: isConnectedToLg
-                        ? translate('settings.disconnect')
-                        : translate('settings.connect'),
-                    width: screenSize(context).width - 400,
-                    icon: isConnectedToLg
-                        ? Icons.cloud_off
-                        : Icons.cast_connected_rounded,
-                    color: isConnectedToLg ? Colors.red : Colors.green,
-                    ref: ref,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          70.ph,
-          TitleContainer(title: translate('settings.content_management')),
-          30.ph,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              AnimationLimiter(
-                child: Column(
-                  children: AnimationConfiguration.toStaggeredList(
-                    duration: Const.animationDuration,
-                    childAnimationBuilder: (widget) => SlideAnimation(
-                      verticalOffset: Const.animationDistance,
-                      child: FadeInAnimation(
-                        child: widget,
-                      ),
-                    ),
-                    children: [
-                      TextButtonCustom(
-                        onPressed: () async {
-                          showSnackBar(
-                              context: context,
-                              message: translate('settings.download_started'));
-                          await Downloader(ref: ref)
-                              .downloadAllContent(DownloadableContent.content);
-                          await prefs.setBool('downloadableContent', true);
-                          ref
-                              .read(
-                                  downloadableContentAvailableProvider.notifier)
-                              .state = true;
-                          if (!mounted) {
-                            return;
-                          }
-                          showSnackBar(
-                              context: context,
-                              message:
-                                  translate('settings.download_completed'));
-                        },
-                        name: translate('settings.download'),
-                        width: screenSize(context).width / 2 - 200,
-                        icon: Icons.download_rounded,
-                        color: darkenColor(Colors.blue),
-                        ref: ref,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 150,
-                child: VerticalDivider(
-                  color: oppositeColor,
-                  indent: 30,
-                  endIndent: 30,
-                ),
-              ),
-              AnimationLimiter(
-                child: Column(
-                  children: AnimationConfiguration.toStaggeredList(
-                    duration: Const.animationDuration,
-                    childAnimationBuilder: (widget) => SlideAnimation(
-                      verticalOffset: Const.animationDistance,
-                      child: FadeInAnimation(
-                        child: widget,
-                      ),
-                    ),
-                    children: [
-                      TextButtonCustom(
-                        onPressed: () async {
-                          var localPath =
-                              await getApplicationDocumentsDirectory();
-                          for (MapEntry<String, Map<String, String>> fileData
-                              in DownloadableContent.content.entries) {
-                            File file = File(
-                                "${localPath.path}/${fileData.value['directory']}/${fileData.value['filename']}");
-                            try {
-                              if (downloadableContentAvailable) {
-                                await file.delete();
-                              }
-                            } catch (error) {
-                              if (!mounted) {
-                                return;
-                              }
-                              showSnackBar(
-                                  context: context, message: error.toString());
-                            }
-                          }
-                          await prefs.setBool('downloadableContent', false);
-                          ref
-                              .read(
-                                  downloadableContentAvailableProvider.notifier)
-                              .state = false;
-                          if (!mounted) {
-                            return;
-                          }
-                          File file = File(
-                              "${localPath.path}/${Const.kmlCustomFileName}.kml");
-                          try {
-                            await file.delete();
-                          } catch (error) {}
-                          if (!mounted) {
-                            return;
-                          }
-                          await SSH(ref: ref).fileDelete(
-                              context, "${Const.kmlCustomFileName}.kml");
-                          if (!mounted) {
-                            return;
-                          }
-                          showSnackBar(
-                              context: context,
-                              message: translate('settings.delete_success'));
-                        },
-                        name: translate('settings.delete_kml'),
-                        width: screenSize(context).width / 2 - 200,
-                        icon: Icons.delete_forever_rounded,
-                        color: darkenColor(Colors.red),
-                        ref: ref,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-          70.ph,
-          TitleContainer(title: translate('settings.lg_management')),
-          30.ph,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              AnimationLimiter(
-                child: Column(
-                  children: AnimationConfiguration.toStaggeredList(
-                    duration: Const.animationDuration,
-                    childAnimationBuilder: (widget) => SlideAnimation(
-                      horizontalOffset: -Const.animationDistance,
-                      child: FadeInAnimation(
-                        child: widget,
-                      ),
-                    ),
-                    children: [
-                      TextButtonCustom(
-                        onPressed: () async {
-                          if (isConnectedToLg) {
-                            await SSH(ref: ref).cleanSlaves(
-                              context,
-                            );
-                          } else {
-                            showSnackBar(
-                                context: context,
-                                message:
-                                    translate('settings.connection_required'));
-                          }
-                        },
-                        name: isConnectedToLg
-                            ? translate('settings.clean_logo')
-                            : '--',
-                        width: screenSize(context).width / 3 - 150,
-                        icon: Icons.cleaning_services_rounded,
-                        color: isConnectedToLg
-                            ? darkenColor(Colors.orange, 0.05)
-                            : lightenColor(normalColor, 0.01),
-                        ref: ref,
-                      ),
-                      TextButtonCustom(
-                        onPressed: () async {
-                          if (isConnectedToLg) {
-                            await SSH(ref: ref).renderInSlave(
-                                context,
-                                ref.read(leftmostRigProvider),
-                                KMLMakers.screenOverlayImage(
-                                    ImageConst.splashOnline,
-                                    Const.splashAspectRatio));
-                          } else {
-                            showSnackBar(
-                                context: context,
-                                message:
-                                    translate('settings.connection_required'));
-                          }
-                        },
-                        name: isConnectedToLg
-                            ? translate('settings.show_logo')
-                            : '--',
-                        width: screenSize(context).width / 3 - 150,
-                        icon: Icons.logo_dev_rounded,
-                        color: isConnectedToLg
-                            ? darkenColor(Colors.orange, 0.05)
-                            : lightenColor(normalColor, 0.01),
-                        ref: ref,
-                      ),
-                      TextButtonCustom(
-                        onPressed: () async {
-                          if (isConnectedToLg) {
-                            await SSH(ref: ref).cleanKML(
-                              context,
-                            );
-                          } else {
-                            showSnackBar(
-                                context: context,
-                                message:
-                                    translate('settings.connection_required'));
-                          }
-                        },
-                        name: isConnectedToLg
-                            ? translate('settings.clean_kml')
-                            : '--',
-                        width: screenSize(context).width / 3 - 150,
-                        icon: Icons.cleaning_services_rounded,
-                        color: isConnectedToLg
-                            ? darkenColor(Colors.orange, 0.05)
-                            : lightenColor(normalColor, 0.01),
-                        ref: ref,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 300,
-                child: VerticalDivider(
-                  color: oppositeColor,
-                  indent: 30,
-                  endIndent: 30,
-                ),
-              ),
-              AnimationLimiter(
-                child: Column(
-                  children: AnimationConfiguration.toStaggeredList(
-                    duration: Const.animationDuration,
-                    childAnimationBuilder: (widget) => SlideAnimation(
-                      verticalOffset: Const.animationDistance,
-                      child: FadeInAnimation(
-                        child: widget,
-                      ),
-                    ),
-                    children: [
-                      TextButtonCustom(
-                        onPressed: () async {
-                          if (isConnectedToLg) {
-                            await SSH(ref: ref).setRefresh(
-                              context,
-                            );
-                          } else {
-                            showSnackBar(
-                                context: context,
-                                message:
-                                    translate('settings.connection_required'));
-                          }
-                        },
-                        name: isConnectedToLg
-                            ? translate('settings.set_refresh')
-                            : '--',
-                        width: screenSize(context).width / 3 - 150,
-                        icon: Icons.restart_alt_rounded,
-                        color: isConnectedToLg
-                            ? Colors.blue
-                            : lightenColor(normalColor, 0.01),
-                        ref: ref,
-                      ),
-                      TextButtonCustom(
-                        onPressed: () async {
-                          if (isConnectedToLg) {
-                            await SSH(ref: ref).resetRefresh(
-                              context,
-                            );
-                          } else {
-                            showSnackBar(
-                                context: context,
-                                message:
-                                    translate('settings.connection_required'));
-                          }
-                        },
-                        name: isConnectedToLg
-                            ? translate('settings.reset_refresh')
-                            : '--',
-                        width: screenSize(context).width / 3 - 150,
-                        icon: Icons.restart_alt_rounded,
-                        color: isConnectedToLg
-                            ? Colors.blue
-                            : lightenColor(normalColor, 0.01),
-                        ref: ref,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 300,
-                child: VerticalDivider(
-                  color: oppositeColor,
-                  indent: 30,
-                  endIndent: 30,
-                ),
-              ),
-              AnimationLimiter(
-                child: Column(
-                  children: AnimationConfiguration.toStaggeredList(
-                    duration: Const.animationDuration,
-                    childAnimationBuilder: (widget) => SlideAnimation(
-                      horizontalOffset: Const.animationDistance,
-                      child: FadeInAnimation(
-                        child: widget,
-                      ),
-                    ),
-                    children: [
-                      TextButtonCustom(
-                        onPressed: () async {
-                          if (isConnectedToLg) {
-                            await SSH(ref: ref).relaunchLG(
-                              context,
-                            );
-                          } else {
-                            showSnackBar(
-                                context: context,
-                                message:
-                                    translate('settings.connection_required'));
-                          }
-                        },
-                        name: isConnectedToLg
-                            ? translate('settings.relaunch_lg')
-                            : '--',
-                        width: screenSize(context).width / 3 - 150,
-                        icon: Icons.power_rounded,
-                        color: isConnectedToLg
-                            ? Colors.redAccent
-                            : lightenColor(normalColor, 0.01),
-                        ref: ref,
-                      ),
-                      TextButtonCustom(
-                        onPressed: () async {
-                          if (isConnectedToLg) {
-                            await SSH(ref: ref).rebootLG(
-                              context,
-                            );
-                          } else {
-                            showSnackBar(
-                                context: context,
-                                message:
-                                    translate('settings.connection_required'));
-                          }
-                        },
-                        name: isConnectedToLg
-                            ? translate('settings.reboot_lg')
-                            : '--',
-                        width: screenSize(context).width / 3 - 150,
-                        icon: Icons.settings_power_rounded,
-                        color: isConnectedToLg
-                            ? Colors.redAccent
-                            : lightenColor(normalColor, 0.01),
-                        ref: ref,
-                      ),
-                      TextButtonCustom(
-                        onPressed: () async {
-                          if (isConnectedToLg) {
-                            await SSH(ref: ref).shutdownLG(
-                              context,
-                            );
-                          } else {
-                            showSnackBar(
-                                context: context,
-                                message:
-                                    translate('settings.connection_required'));
-                          }
-                        },
-                        name: isConnectedToLg
-                            ? translate('settings.shutdown_lg')
-                            : '--',
-                        width: screenSize(context).width / 3 - 150,
-                        icon: Icons.power_settings_new_rounded,
-                        color: isConnectedToLg
-                            ? Colors.redAccent
-                            : lightenColor(normalColor, 0.01),
-                        ref: ref,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
+          connectionSection(),
+          contentSection(),
+          lgSection()
         ],
       ),
     );

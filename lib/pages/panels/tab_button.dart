@@ -61,15 +61,17 @@ class TabButton extends ConsumerWidget {
   }
 }
 
-class HelpTabButton extends ConsumerWidget {
-  const HelpTabButton({
+class SubTabButton extends ConsumerWidget {
+  const SubTabButton({
     Key? key,
     required this.name,
     required this.tab,
+    required this.provider,
   }) : super(key: key);
 
   final String name;
   final int tab;
+  final StateProvider<List<GlobalKey<State<StatefulWidget>>>> provider;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -82,7 +84,7 @@ class HelpTabButton extends ConsumerWidget {
       onTap: () {
         ref.read(subTabProvider.notifier).state = tab;
         Scrollable.ensureVisible(
-            ref.read(helpPageKeysProvider)[tab].currentContext!);
+            ref.read(provider)[tab].currentContext!);
       },
       child: Container(
           color: homePageTab == tab ? highlightColor : Colors.transparent,
@@ -103,7 +105,7 @@ class HelpTabButton extends ConsumerWidget {
               Text(
                 name,
                 style: textStyleNormal.copyWith(
-                    color: lightenColor(highlightColor, 0.4),
+                    color: oppositeColor,
                     fontSize: Const.tabBarTextSize + 5),
               )
             ],

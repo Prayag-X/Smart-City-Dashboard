@@ -16,6 +16,7 @@ import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 import 'package:smart_city_dashboard/utils/logo_shower.dart';
+import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../connections/ssh.dart';
 import '../../constants/constants.dart';
@@ -64,9 +65,12 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
   List<List<dynamic>>? chartData;
   List<List<dynamic>> chartDataForVisualization = [];
   bool downloaded = false;
-  List<Color> chartColors = [Colors.primaries[Random()
-      .nextInt(Colors.primaries.length)]];
-  List<TextEditingController> chartYControllers = [TextEditingController(text: '0')];
+  List<Color> chartColors = [
+    Colors.primaries[Random().nextInt(Colors.primaries.length)]
+  ];
+  List<TextEditingController> chartYControllers = [
+    TextEditingController(text: '0')
+  ];
   TextEditingController chartXController = TextEditingController(text: '0');
   TextEditingController csvUrlController = TextEditingController(text: '');
   TextEditingController kmlUrlController = TextEditingController(text: '');
@@ -221,16 +225,409 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
   }
 
   showFeatureTour() async {
-    if(ref.read(showVisualizerTourProvider)) {
+    if (ref.read(showVisualizerTourProvider)) {
       ref.read(featureTourControllerVisualizerProvider).start(
-        context: context,
-        delay: Duration.zero,
-        force: true,
-      );
+            context: context,
+            delay: Duration.zero,
+            force: true,
+          );
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool('showVisualizerTour', false);
       ref.read(showVisualizerTourProvider.notifier).state = false;
     }
+  }
+
+  csvSection() {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
+    FeaturesTourController featuresTourVisualizerController =
+        ref.watch(featureTourControllerVisualizerProvider);
+    return VisualizerPageSections(
+      number: 0,
+      children: [
+        Container(
+          key: ref.read(visualizerPageKeysProvider)[0],
+          height: 100,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(Const.dashboardUIRoundness * 3),
+            color: highlightColor,
+          ),
+          child: Center(
+            child: Text(
+              translate('visualizer.csv_title'),
+              style: textStyleBold.copyWith(color: oppositeColor, fontSize: 40),
+            ),
+          ),
+        ),
+        (Const.dashboardUISpacing * 6).ph,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              '${translate('visualizer.url')}:  ',
+              style:
+                  textStyleNormal.copyWith(color: oppositeColor, fontSize: 25),
+            ),
+            TextFormFieldCustom(
+              controller: csvUrlController,
+              hintText: translate('visualizer.download_url_hint'),
+            ),
+            FeaturesTour(
+              index: 1,
+              controller: featuresTourVisualizerController,
+              introduce: FeatureTourContainer(
+                text: translate('tour.v1'),
+              ),
+              introduceConfig: IntroduceConfig.copyWith(
+                quadrantAlignment: QuadrantAlignment.bottom,
+              ),
+              child: Container(
+                height: 50,
+                width: screenSize(context).width / 2 -
+                    20 -
+                    screenSize(context).width / Const.tabBarWidthDivider,
+                decoration: BoxDecoration(
+                  borderRadius:
+                      BorderRadius.circular(Const.dashboardUIRoundness),
+                  border: Border.all(
+                    color: highlightColor,
+                    width: 2.0,
+                  ),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                        child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          chartType = 0;
+                        });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: chartType == 0
+                              ? lightenColor(tabBarColor)
+                              : Colors.transparent,
+                          borderRadius: BorderRadius.only(
+                              topLeft: Radius.circular(
+                                  Const.dashboardUIRoundness - 3),
+                              bottomLeft: Radius.circular(
+                                  Const.dashboardUIRoundness - 3)),
+                        ),
+                        child: Center(
+                            child: Text(
+                          translate('visualizer.line_chart'),
+                          style: textStyleNormal.copyWith(
+                              color: oppositeColor,
+                              fontSize: Const.dashboardTextSize),
+                        )),
+                      ),
+                    )),
+                    Expanded(
+                        child: GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          chartType = 1;
+                        });
+                      },
+                      child: Container(
+                        color: chartType == 1
+                            ? lightenColor(tabBarColor)
+                            : Colors.transparent,
+                        child: Center(
+                            child: Text(
+                          translate('visualizer.pie_chart'),
+                          style: textStyleNormal.copyWith(
+                              color: oppositeColor,
+                              fontSize: Const.dashboardTextSize),
+                        )),
+                      ),
+                    )),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        (Const.dashboardUISpacing * 3).ph,
+        Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+          Text(
+            '${translate('visualizer.plotx')}:  ',
+            style: textStyleNormal.copyWith(color: oppositeColor, fontSize: 25),
+          ),
+          FeaturesTour(
+            index: 2,
+            controller: featuresTourVisualizerController,
+            introduce: FeatureTourContainer(
+              text: translate('tour.v2'),
+            ),
+            introduceConfig: IntroduceConfig.copyWith(
+              quadrantAlignment: QuadrantAlignment.bottom,
+            ),
+            child: TextFormFieldIntegerCustom(
+              controller: chartXController,
+              hintText: translate('visualizer.column_no_hint'),
+            ),
+          ),
+          FeaturesTour(
+            index: 3,
+            controller: featuresTourVisualizerController,
+            introduce: FeatureTourContainer(
+              text: translate('tour.v3'),
+            ),
+            introduceConfig: IntroduceConfig.copyWith(
+              quadrantAlignment: QuadrantAlignment.bottom,
+            ),
+            child: ControllerValueControl(
+              controller: chartXController,
+              oppositeColor: oppositeColor,
+            ),
+          )
+        ]),
+        (Const.dashboardUISpacing * 3).ph,
+        chartType == 0
+            ? Column(
+                children: [
+                  Text(
+                    '${translate('visualizer.ploty')}:  ',
+                    style: textStyleNormal.copyWith(
+                        color: oppositeColor, fontSize: 25),
+                  ),
+                  ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemCount: chartYNumbers,
+                      itemBuilder: (_, index) => Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                FeaturesTour(
+                                  index: 5,
+                                  controller: featuresTourVisualizerController,
+                                  introduce: FeatureTourContainer(
+                                    text: translate('tour.v5'),
+                                  ),
+                                  introduceConfig: IntroduceConfig.copyWith(
+                                    quadrantAlignment: QuadrantAlignment.bottom,
+                                  ),
+                                  child: TextButton(
+                                    style: TextButton.styleFrom(
+                                        minimumSize: Size.zero,
+                                        padding: EdgeInsets.zero,
+                                        backgroundColor: Colors.transparent,
+                                        tapTargetSize:
+                                            MaterialTapTargetSize.shrinkWrap,
+                                        shape: RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.circular(
+                                                Const.dashboardUIRoundness *
+                                                    100),
+                                            side: const BorderSide(
+                                                color: Colors.red, width: 1))),
+                                    onPressed: () {
+                                      setState(() {
+                                        chartYNumbers--;
+                                        chartColors.removeAt(index);
+                                        chartYControllers.removeAt(index);
+                                      });
+                                    },
+                                    child: const SizedBox(
+                                      height: 50,
+                                      width: 50,
+                                      child: Icon(
+                                        Icons.remove,
+                                        color: Colors.red,
+                                        size: 30,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                FeaturesTour(
+                                  index: 6,
+                                  controller: featuresTourVisualizerController,
+                                  introduce: FeatureTourContainer(
+                                    text: translate('tour.v6'),
+                                  ),
+                                  introduceConfig: IntroduceConfig.copyWith(
+                                    quadrantAlignment: QuadrantAlignment.bottom,
+                                  ),
+                                  child: TextFormFieldIntegerCustom(
+                                    controller: chartYControllers[index],
+                                    hintText:
+                                        translate('visualizer.column_no_hint'),
+                                  ),
+                                ),
+                                ControllerValueControl(
+                                  controller: chartYControllers[index],
+                                  oppositeColor: oppositeColor,
+                                ),
+                                FeaturesTour(
+                                  index: 7,
+                                  controller: featuresTourVisualizerController,
+                                  introduce: FeatureTourContainer(
+                                    text: translate('tour.v7'),
+                                  ),
+                                  introduceConfig: IntroduceConfig.copyWith(
+                                    quadrantAlignment: QuadrantAlignment.bottom,
+                                  ),
+                                  child: ColorIndicator(
+                                    width: 50,
+                                    height: 50,
+                                    borderRadius: 400,
+                                    color: chartColors[index],
+                                    onSelectFocus: false,
+                                    onSelect: () async {
+                                      final Color colorBeforeDialog =
+                                          chartColors[index];
+                                      if (!(await colorPickerDialog(index,
+                                          highlightColor, oppositeColor))) {
+                                        setState(() {
+                                          chartColors[index] =
+                                              colorBeforeDialog;
+                                        });
+                                      }
+                                    },
+                                  ),
+                                ),
+                              ])),
+                  (Const.dashboardUISpacing * 1).ph,
+                  FeaturesTour(
+                    index: 4,
+                    controller: featuresTourVisualizerController,
+                    introduce: FeatureTourContainer(
+                      text: translate('tour.v4'),
+                    ),
+                    introduceConfig: IntroduceConfig.copyWith(
+                      quadrantAlignment: QuadrantAlignment.bottom,
+                    ),
+                    child: TextButton(
+                        style: TextButton.styleFrom(
+                            minimumSize: Size.zero,
+                            padding: EdgeInsets.zero,
+                            backgroundColor: Colors.transparent,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(300),
+                                side: const BorderSide(
+                                    color: Colors.green, width: 1))),
+                        onPressed: () {
+                          setState(() {
+                            chartColors.add(Colors.primaries[
+                                Random().nextInt(Colors.primaries.length)]);
+                            chartYControllers
+                                .add(TextEditingController(text: '0'));
+                            chartYNumbers++;
+                          });
+                        },
+                        child: const SizedBox(
+                          height: 50,
+                          width: 50,
+                          child: Center(
+                            child: Icon(
+                              Icons.add,
+                              color: Colors.green,
+                              size: 30,
+                            ),
+                          ),
+                        )),
+                  )
+                ],
+              )
+            : const SizedBox.shrink(),
+        (Const.dashboardUISpacing * 4).ph,
+        FeaturesTour(
+          index: 8,
+          controller: featuresTourVisualizerController,
+          introduce: FeatureTourContainer(
+            text: translate('tour.v8'),
+          ),
+          introduceConfig: IntroduceConfig.copyWith(
+            quadrantAlignment: QuadrantAlignment.top,
+          ),
+          child: DownloadButton(
+            onPressed: () async {
+              await visualizeCSV();
+            },
+            highlightColor: lightenColor(tabBarColor),
+            oppositeColor: oppositeColor,
+          ),
+        ),
+        (Const.dashboardUISpacing * 4).ph,
+        downloaded
+            ? chartType == 0
+                ? LineChartParser(
+                    title: '',
+                    chartData: {},
+                    legendX: '',
+                  ).chartParserForVisualizer(
+                    limitMarkerX: 5,
+                    dataX: chartData![int.parse(chartXController.text)],
+                    dataY: chartDataForVisualization,
+                    chartColors: chartColors)
+                : PieChartParser(title: '', subTitle: '')
+                    .chartParserForVisualizer(
+                        data: chartData![int.parse(chartXController.text)])
+            // :Container()
+            : const SizedBox.shrink(),
+        (Const.dashboardUISpacing * 9).ph,
+      ],
+    );
+  }
+
+  kmlSection() {
+    Color normalColor = ref.watch(normalColorProvider);
+    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Color tabBarColor = ref.watch(tabBarColorProvider);
+    Color highlightColor = ref.watch(highlightColorProvider);
+    FeaturesTourController featuresTourVisualizerController =
+        ref.watch(featureTourControllerVisualizerProvider);
+    return VisualizerPageSections(
+      number: 1,
+      children: [
+        Container(
+          key: ref.read(visualizerPageKeysProvider)[1],
+          height: 100,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(Const.dashboardUIRoundness * 3),
+            color: highlightColor,
+          ),
+          child: Center(
+            child: Text(
+              translate('visualizer.kml_title'),
+              style: textStyleBold.copyWith(color: oppositeColor, fontSize: 40),
+            ),
+          ),
+        ),
+        (Const.dashboardUISpacing * 3).ph,
+        SizedBox(
+            height: 400,
+            width: screenSize(context).width - 300,
+            child: const GoogleMapPart(
+              visualizer: true,
+            )),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            Text(
+              '${translate('visualizer.url')}:  ',
+              style:
+                  textStyleNormal.copyWith(color: oppositeColor, fontSize: 25),
+            ),
+            TextFormFieldCustom(
+              controller: kmlUrlController,
+              hintText: translate('visualizer.download_url_hint'),
+              kml: true,
+            ),
+          ],
+        ),
+        (Const.dashboardUISpacing * 2).ph,
+        DownloadButton(
+          onPressed: () {},
+          highlightColor: lightenColor(tabBarColor),
+          oppositeColor: oppositeColor,
+        ),
+        (Const.dashboardUISpacing * 4).ph,
+      ],
+    );
   }
 
   @override
@@ -241,12 +638,6 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
 
   @override
   Widget build(BuildContext context) {
-    Color normalColor = ref.watch(normalColorProvider);
-    Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
-    FeaturesTourController featuresTourVisualizerController =
-      ref.watch(featureTourControllerVisualizerProvider);
     return Padding(
       padding: EdgeInsets.only(left: 20, right: 20, top: Const.appBarHeight),
       child: SingleChildScrollView(
@@ -262,389 +653,44 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                   child: widget,
                 ),
               ),
-              children: [
-                Container(
-                  height: 100,
-                  decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.circular(Const.dashboardUIRoundness * 3),
-                    color: highlightColor,
-                  ),
-                  child: Center(
-                    child: Text(
-                      translate('visualizer.csv_title'),
-                      style: textStyleBold.copyWith(
-                          color: oppositeColor, fontSize: 40),
-                    ),
-                  ),
-                ),
-                (Const.dashboardUISpacing * 6).ph,
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '${translate('visualizer.url')}:  ',
-                      style: textStyleNormal.copyWith(
-                          color: oppositeColor, fontSize: 25),
-                    ),
-                    TextFormFieldCustom(
-                      controller: csvUrlController,
-                      hintText: translate('visualizer.download_url_hint'),
-                    ),
-                    FeaturesTour(
-                      index: 1,
-                      controller: featuresTourVisualizerController,
-                      introduce: FeatureTourContainer(
-                        text: translate('tour.v1'),
-                      ),
-                      introduceConfig: IntroduceConfig.copyWith(
-                        quadrantAlignment: QuadrantAlignment.bottom,
-                      ),
-                      child: Container(
-                        height: 50,
-                        width: screenSize(context).width / 2 -
-                            20 -
-                            screenSize(context).width / Const.tabBarWidthDivider,
-                        decoration: BoxDecoration(
-                          borderRadius:
-                              BorderRadius.circular(Const.dashboardUIRoundness),
-                          border: Border.all(
-                            color: highlightColor,
-                            width: 2.0,
-                          ),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  chartType = 0;
-                                });
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  color: chartType == 0
-                                      ? lightenColor(tabBarColor)
-                                      : Colors.transparent,
-                                  borderRadius: BorderRadius.only(
-                                      topLeft: Radius.circular(
-                                          Const.dashboardUIRoundness - 3),
-                                      bottomLeft: Radius.circular(
-                                          Const.dashboardUIRoundness - 3)),
-                                ),
-                                child: Center(
-                                    child: Text(
-                                  translate('visualizer.line_chart'),
-                                  style: textStyleNormal.copyWith(
-                                      color: oppositeColor,
-                                      fontSize: Const.dashboardTextSize),
-                                )),
-                              ),
-                            )),
-                            Expanded(
-                                child: GestureDetector(
-                              onTap: () {
-                                setState(() {
-                                  chartType = 1;
-                                });
-                              },
-                              child: Container(
-                                color: chartType == 1
-                                    ? lightenColor(tabBarColor)
-                                    : Colors.transparent,
-                                child: Center(
-                                    child: Text(
-                                  translate('visualizer.pie_chart'),
-                                  style: textStyleNormal.copyWith(
-                                      color: oppositeColor,
-                                      fontSize: Const.dashboardTextSize),
-                                )),
-                              ),
-                            )),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                (Const.dashboardUISpacing * 3).ph,
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        '${translate('visualizer.plotx')}:  ',
-                        style: textStyleNormal.copyWith(
-                            color: oppositeColor, fontSize: 25),
-                      ),
-                      FeaturesTour(
-                        index: 2,
-                        controller: featuresTourVisualizerController,
-                        introduce: FeatureTourContainer(
-                          text: translate('tour.v2'),
-                        ),
-                        introduceConfig: IntroduceConfig.copyWith(
-                          quadrantAlignment: QuadrantAlignment.bottom,
-                        ),
-                        child: TextFormFieldIntegerCustom(
-                          controller: chartXController,
-                          hintText: translate('visualizer.column_no_hint'),
-                        ),
-                      ),
-                      FeaturesTour(
-                        index: 3,
-                        controller: featuresTourVisualizerController,
-                        introduce: FeatureTourContainer(
-                          text: translate('tour.v3'),
-                        ),
-                        introduceConfig: IntroduceConfig.copyWith(
-                          quadrantAlignment: QuadrantAlignment.bottom,
-                        ),
-                        child: ControllerValueControl(
-                          controller: chartXController,
-                          oppositeColor: oppositeColor,
-                        ),
-                      )
-                    ]),
-                (Const.dashboardUISpacing * 3).ph,
-                chartType == 0
-                    ? Column(
-                        children: [
-                          Text(
-                            '${translate('visualizer.ploty')}:  ',
-                            style: textStyleNormal.copyWith(
-                                color: oppositeColor, fontSize: 25),
-                          ),
-                          ListView.builder(
-                              physics: const NeverScrollableScrollPhysics(),
-                              shrinkWrap: true,
-                              itemCount: chartYNumbers,
-                              itemBuilder: (_, index) => Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        FeaturesTour(
-                                          index: 5,
-                                          controller: featuresTourVisualizerController,
-                                          introduce: FeatureTourContainer(
-                                            text: translate('tour.v5'),
-                                          ),
-                                          introduceConfig: IntroduceConfig.copyWith(
-                                            quadrantAlignment: QuadrantAlignment.bottom,
-                                          ),
-                                          child: TextButton(
-                                            style: TextButton.styleFrom(
-                                                minimumSize: Size.zero,
-                                                padding: EdgeInsets.zero,
-                                                backgroundColor:
-                                                    Colors.transparent,
-                                                tapTargetSize:
-                                                    MaterialTapTargetSize
-                                                        .shrinkWrap,
-                                                shape: RoundedRectangleBorder(
-                                                    borderRadius: BorderRadius
-                                                        .circular(Const
-                                                                .dashboardUIRoundness *
-                                                            100),
-                                                    side: const BorderSide(
-                                                        color: Colors.red,
-                                                        width: 1))),
-                                            onPressed: () {
-                                              setState(() {
-                                                chartYNumbers--;
-                                                chartColors.removeAt(index);
-                                                chartYControllers.removeAt(index);
-                                              });
-                                            },
-                                            child: const SizedBox(
-                                              height: 50,
-                                              width: 50,
-                                              child: Icon(
-                                                Icons.remove,
-                                                color: Colors.red,
-                                                size: 30,
-                                              ),
-                                            ),
-                                          ),
-                                        ),
-                                        FeaturesTour(
-                                          index: 6,
-                                          controller: featuresTourVisualizerController,
-                                          introduce: FeatureTourContainer(
-                                            text: translate('tour.v6'),
-                                          ),
-                                          introduceConfig: IntroduceConfig.copyWith(
-                                            quadrantAlignment: QuadrantAlignment.bottom,
-                                          ),
-                                          child: TextFormFieldIntegerCustom(
-                                            controller: chartYControllers[index],
-                                            hintText: translate(
-                                                'visualizer.column_no_hint'),
-                                          ),
-                                        ),
-                                        ControllerValueControl(
-                                          controller: chartYControllers[index],
-                                          oppositeColor: oppositeColor,
-                                        ),
-                                        FeaturesTour(
-                                          index: 7,
-                                          controller: featuresTourVisualizerController,
-                                          introduce: FeatureTourContainer(
-                                            text: translate('tour.v7'),
-                                          ),
-                                          introduceConfig: IntroduceConfig.copyWith(
-                                            quadrantAlignment: QuadrantAlignment.bottom,
-                                          ),
-                                          child: ColorIndicator(
-                                            width: 50,
-                                            height: 50,
-                                            borderRadius: 400,
-                                            color: chartColors[index],
-                                            onSelectFocus: false,
-                                            onSelect: () async {
-                                              final Color colorBeforeDialog =
-                                                  chartColors[index];
-                                              if (!(await colorPickerDialog(
-                                                  index,
-                                                  highlightColor,
-                                                  oppositeColor))) {
-                                                setState(() {
-                                                  chartColors[index] =
-                                                      colorBeforeDialog;
-                                                });
-                                              }
-                                            },
-                                          ),
-                                        ),
-                                      ])),
-                          (Const.dashboardUISpacing * 1).ph,
-                          FeaturesTour(
-                            index: 4,
-                            controller: featuresTourVisualizerController,
-                            introduce: FeatureTourContainer(
-                              text: translate('tour.v4'),
-                            ),
-                            introduceConfig: IntroduceConfig.copyWith(
-                              quadrantAlignment: QuadrantAlignment.bottom,
-                            ),
-                            child: TextButton(
-                                style: TextButton.styleFrom(
-                                    minimumSize: Size.zero,
-                                    padding: EdgeInsets.zero,
-                                    backgroundColor: Colors.transparent,
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(300),
-                                        side: const BorderSide(
-                                            color: Colors.green, width: 1))),
-                                onPressed: () {
-                                  setState(() {
-                                    chartColors.add(Colors.primaries[Random()
-                                        .nextInt(Colors.primaries.length)]);
-                                    chartYControllers
-                                        .add(TextEditingController(text: '0'));
-                                    chartYNumbers++;
-                                  });
-                                },
-                                child: const SizedBox(
-                                  height: 50,
-                                  width: 50,
-                                  child: Center(
-                                    child: Icon(
-                                      Icons.add,
-                                      color: Colors.green,
-                                      size: 30,
-                                    ),
-                                  ),
-                                )),
-                          )
-                        ],
-                      )
-                    : const SizedBox.shrink(),
-                (Const.dashboardUISpacing * 4).ph,
-                FeaturesTour(
-                  index: 8,
-                  controller: featuresTourVisualizerController,
-                  introduce: FeatureTourContainer(
-                    text: translate('tour.v8'),
-                  ),
-                  introduceConfig: IntroduceConfig.copyWith(
-                    quadrantAlignment: QuadrantAlignment.top,
-                  ),
-                  child: DownloadButton(
-                    onPressed: () async {
-                      await visualizeCSV();
-                    },
-                    highlightColor: lightenColor(tabBarColor),
-                    oppositeColor: oppositeColor,
-                  ),
-                ),
-                (Const.dashboardUISpacing * 4).ph,
-                downloaded
-                    ? chartType == 0
-                        ? LineChartParser(
-                            title: '',
-                            chartData: {},
-                            legendX: '',
-                          ).chartParserForVisualizer(
-                            limitMarkerX: 5,
-                            dataX: chartData![int.parse(chartXController.text)],
-                            dataY: chartDataForVisualization,
-                            chartColors: chartColors)
-                        : PieChartParser(title: '', subTitle: '')
-                            .chartParserForVisualizer(
-                                data: chartData![
-                                    int.parse(chartXController.text)])
-                    // :Container()
-                    : const SizedBox.shrink(),
-                (Const.dashboardUISpacing * 9).ph,
-                Container(
-                  height: 100,
-                  decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.circular(Const.dashboardUIRoundness * 3),
-                    color: highlightColor,
-                  ),
-                  child: Center(
-                    child: Text(
-                      translate('visualizer.kml_title'),
-                      style: textStyleBold.copyWith(
-                          color: oppositeColor, fontSize: 40),
-                    ),
-                  ),
-                ),
-                (Const.dashboardUISpacing * 3).ph,
-                SizedBox(
-                    height: 400,
-                    width: screenSize(context).width - 300,
-                    child: const GoogleMapPart(
-                      visualizer: true,
-                    )),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Text(
-                      '${translate('visualizer.url')}:  ',
-                      style: textStyleNormal.copyWith(
-                          color: oppositeColor, fontSize: 25),
-                    ),
-                    TextFormFieldCustom(
-                      controller: kmlUrlController,
-                      hintText: translate('visualizer.download_url_hint'),
-                      kml: true,
-                    ),
-                  ],
-                ),
-                (Const.dashboardUISpacing * 2).ph,
-                DownloadButton(
-                  onPressed: () {},
-                  highlightColor: lightenColor(tabBarColor),
-                  oppositeColor: oppositeColor,
-                ),
-                (Const.dashboardUISpacing * 4).ph,
-              ],
+              children: [csvSection(), kmlSection()],
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class VisualizerPageSections extends ConsumerWidget {
+  const VisualizerPageSections({
+    super.key,
+    required this.number,
+    required this.children,
+  });
+  final int number;
+  final List<Widget> children;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    return VisibilityDetector(
+      key: GlobalKey(),
+      onVisibilityChanged: (VisibilityInfo info) {
+        if (info.visibleFraction > 0) {
+          ref.read(subTabProvider.notifier).state = number;
+        }
+      },
+      child: AnimationLimiter(
+        child: Column(
+            children: AnimationConfiguration.toStaggeredList(
+                duration: Const.animationDuration,
+                childAnimationBuilder: (widget) => SlideAnimation(
+                      verticalOffset: Const.animationDistance,
+                      child: FadeInAnimation(
+                        child: widget,
+                      ),
+                    ),
+                children: children)),
       ),
     );
   }
@@ -779,7 +825,7 @@ class TextFormFieldCustom extends ConsumerWidget {
             ? screenSize(context).width -
                 150 -
                 screenSize(context).width / Const.tabBarWidthDivider
-            : screenSize(context).width / 1.75  -
+            : screenSize(context).width / 1.75 -
                 screenSize(context).width / Const.tabBarWidthDivider,
         child: TextFormField(
           decoration: InputDecoration(

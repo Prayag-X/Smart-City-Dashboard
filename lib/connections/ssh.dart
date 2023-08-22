@@ -15,6 +15,7 @@ import 'package:smart_city_dashboard/providers/page_providers.dart';
 import 'package:smart_city_dashboard/providers/settings_providers.dart';
 
 import '../constants/constants.dart';
+import '../constants/images.dart';
 import '../kml_makers/balloon_makers.dart';
 import '../utils/helper.dart';
 
@@ -67,6 +68,48 @@ class SSH {
           message: translate('settings.connection_completed'));
     }
     return true;
+  }
+
+  initialConnect({int i = 0}) async {
+    SSHSocket socket;
+    try {
+      socket = await SSHSocket.connect(
+          ref.read(ipProvider), ref.read(portProvider),
+          timeout: const Duration(seconds: 5));
+    } catch (error) {
+      ref.read(isConnectedToLGProvider.notifier).state = false;
+      return;
+    }
+
+    ref.read(sshClient.notifier).state = SSHClient(
+      socket,
+      username: ref.read(usernameProvider)!,
+      onPasswordRequest: () => ref.read(passwordProvider)!,
+    );
+
+    try {
+      final sftp = await ref.read(sshClient)?.sftp();
+      await sftp?.open('/var/www/html/connection.txt',
+          mode: SftpFileOpenMode.create |
+              SftpFileOpenMode.truncate |
+              SftpFileOpenMode.write);
+    } catch (error) {
+      if (i < 2) {
+        ref.read(sshClient)?.close();
+        ref.read(sshClient.notifier).state = null;
+        ref.read(isConnectedToLGProvider.notifier).state = false;
+        return await initialConnect(i: i++);
+      } else {
+        return;
+      }
+    }
+    if (i == 0) {
+      await ref.read(sshClient)?.run(
+          "echo '${BalloonMakers.blankBalloon()}' > /var/www/html/kml/slave_${ref.read(rightmostRigProvider)}.kml");
+      await ref.read(sshClient)?.run(
+          "echo '${KMLMakers.screenOverlayImage(ImageConst.splashOnline, Const.splashAspectRatio)}' > /var/www/html/kml/slave_${ref.read(leftmostRigProvider)}.kml");
+      ref.read(isConnectedToLGProvider.notifier).state = true;
+    }
   }
 
   connectionRetry(context, {int i = 0}) async {
@@ -254,17 +297,21 @@ class SSH {
   flyTo(context, double latitude, double longitude, double zoom, double tilt,
       double bearing) async {
     try {
-      ref.read(lastGMapPositionProvider.notifier).state = CameraPosition(
-        target: LatLng(latitude, longitude),
-        zoom: zoom,
-        tilt: tilt,
-        bearing: bearing,
-      );
+      Future.delayed(Duration.zero).then((x) async {
+        ref.read(lastGMapPositionProvider.notifier).state = CameraPosition(
+          target: LatLng(latitude, longitude),
+          zoom: zoom,
+          tilt: tilt,
+          bearing: bearing,
+        );
+      });
       await ref.read(sshClient)?.run(
           'echo "flytoview=${KMLMakers.lookAtLinear(latitude, longitude, zoom, tilt, bearing)}" > /tmp/query.txt');
     } catch (error) {
-      await connectionRetry(context);
-      await flyTo(context, latitude, longitude, zoom, tilt, bearing);
+      try {
+        await connectionRetry(context);
+        await flyTo(context, latitude, longitude, zoom, tilt, bearing);
+      } catch (e) {}
     }
   }
 
