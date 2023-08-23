@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_city_dashboard/models/city_card_model.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/dashboard_right_panel.dart';
@@ -14,7 +13,6 @@ import 'package:smart_city_dashboard/utils/helper.dart';
 import '../../connections/ssh.dart';
 import '../../constants/constants.dart';
 import '../../constants/text_styles.dart';
-import '../../kml_makers/balloon_makers.dart';
 import '../../providers/data_providers.dart';
 import '../../providers/page_providers.dart';
 import '../../providers/settings_providers.dart';
@@ -33,12 +31,12 @@ class Dashboard extends ConsumerStatefulWidget {
 
 class _DashboardState extends ConsumerState<Dashboard> {
   showFeatureTour() async {
-    if(ref.read(showDashboardTourProvider)) {
+    if (ref.read(showDashboardTourProvider)) {
       ref.read(featureTourControllerDashboardProvider).start(
-        context: context,
-        delay: Duration.zero,
-        force: true,
-      );
+            context: context,
+            delay: Duration.zero,
+            force: true,
+          );
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool('showDashboardTour', false);
       ref.read(showDashboardTourProvider.notifier).state = false;
@@ -53,10 +51,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    Color normalColor = ref.watch(normalColorProvider);
     Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
     CityCardModel city = ref.watch(cityDataProvider)!;
     int tab = ref.watch(tabProvider);
     bool downloadableContentAvailable =
@@ -85,7 +80,6 @@ class _DashboardState extends ConsumerState<Dashboard> {
                         screenSize(context).width / Const.tabBarWidthDivider) /
                     2,
                 height: screenSize(context).height - Const.appBarHeight,
-                // color: Colors.blue,
                 child: SingleChildScrollView(
                   physics: const BouncingScrollPhysics(
                       parent: AlwaysScrollableScrollPhysics()),
@@ -98,9 +92,6 @@ class _DashboardState extends ConsumerState<Dashboard> {
                     }
                     Future.delayed(Duration.zero).then((x) async {
                       ref.read(isLoadingProvider.notifier).state = false;
-                      // await SSH(ref: ref).cleanBalloon(
-                      //   context,
-                      // );
                       SSH(ref: ref).cleanKML(
                         context,
                       );
@@ -159,7 +150,6 @@ class _DashboardState extends ConsumerState<Dashboard> {
                                 Const.tabBarWidthDivider) /
                         2 -
                     Const.dashboardUISpacing * 2,
-                // color: Colors.blue,
                 child: Column(
                   children: [
                     const GoogleMapPart(),
@@ -176,20 +166,12 @@ class _DashboardState extends ConsumerState<Dashboard> {
                         borderRadius:
                             BorderRadius.circular(Const.dashboardUIRoundness),
                         child: SizedBox(
-                          height:
-                              (screenSize(context).height - Const.appBarHeight) /
-                                      2 -
-                                  25 -
-                                  Const.dashboardUISpacing,
-                          // color: Themes.darkHighlightColor,
+                          height: (screenSize(context).height -
+                                      Const.appBarHeight) /
+                                  2 -
+                              25 -
+                              Const.dashboardUISpacing,
                           child: (() {
-                            // return Container(
-                            //   color: Themes.darkHighlightColor,
-                            //   height: (screenSize(context).height -
-                            //               Const.appBarHeight) /
-                            //           2 -
-                            //       40,
-                            // );
                             Future.delayed(Duration.zero).then((x) async {
                               SSH(ref: ref).cleanKML(context);
                             });
@@ -210,16 +192,19 @@ class _DashboardState extends ConsumerState<Dashboard> {
                                       child: Text(
                                         translate('city_data.no_kml'),
                                         style: textStyleNormal.copyWith(
-                                            fontSize: Const.dashboardTextSize - 3,
+                                            fontSize:
+                                                Const.dashboardTextSize - 3,
                                             color:
                                                 oppositeColor.withOpacity(0.5)),
                                       ),
                                     );
                                   }
                                   Future.delayed(Duration.zero).then((x) async {
-                                    ref.read(kmlClickedProvider.notifier).state =
+                                    ref
+                                        .read(kmlClickedProvider.notifier)
+                                        .state = -1;
+                                    ref.read(kmlPlayProvider.notifier).state =
                                         -1;
-                                    ref.read(kmlPlayProvider.notifier).state = -1;
                                   });
                                   return DashboardRightPanel(
                                       headers: [

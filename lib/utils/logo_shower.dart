@@ -42,10 +42,7 @@ class HelpLogoShower extends StatelessWidget {
       height: height,
       width: width,
       decoration: BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(logo),
-          fit: BoxFit.contain
-        ),
+        image: DecorationImage(image: AssetImage(logo), fit: BoxFit.contain),
       ),
     );
   }
@@ -74,7 +71,6 @@ class LogoShower extends StatelessWidget {
     );
   }
 }
-
 
 class AboutLogoShower extends StatelessWidget {
   const AboutLogoShower({
@@ -106,7 +102,8 @@ class ImageShower extends StatelessWidget {
   const ImageShower({
     Key? key,
     required this.logo,
-    required this.size, this.curve,
+    required this.size,
+    this.curve,
   }) : super(key: key);
 
   final String logo;
@@ -120,10 +117,7 @@ class ImageShower extends StatelessWidget {
       width: size,
       decoration: BoxDecoration(
         borderRadius: curve,
-        image: DecorationImage(
-          image: AssetImage(logo),
-          fit: BoxFit.fitHeight
-        ),
+        image: DecorationImage(image: AssetImage(logo), fit: BoxFit.fitHeight),
       ),
     );
   }

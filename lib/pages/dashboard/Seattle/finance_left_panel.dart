@@ -1,23 +1,13 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:image/image.dart' as img;
 import 'package:screenshot/screenshot.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/charts/pie_chart_parser.dart';
-import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 
-import '../../../connections/ssh.dart';
 import '../../../constants/constants.dart';
-import '../../../kml_makers/balloon_makers.dart';
-import '../../../providers/page_providers.dart';
-import '../../../utils/helper.dart';
 import '../downloadable_content.dart';
-import '../../../constants/images.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../utils/csv_parser.dart';
 import '../widgets/charts/line_chart_parser.dart';
@@ -65,7 +55,8 @@ class _SeattleFinanceTabLeftState extends ConsumerState<SeattleFinanceTabLeft> {
         cipData = FileParser.transformer(data!);
       });
       data = await FileParser.parseCSVFromStorage(
-          DownloadableContent.content['Operating budget']!, limit: -1);
+          DownloadableContent.content['Operating budget']!,
+          limit: -1);
       setState(() {
         operatingBudgetData = FileParser.transformer(data!);
       });
@@ -139,16 +130,15 @@ class _SeattleFinanceTabLeftState extends ConsumerState<SeattleFinanceTabLeft> {
               Const.dashboardUISpacing.ph,
               openBudgetData != null
                   ? LineChartParser(
-                          title: translate(
-                              'city_data.seattle.finance.open_budget_title'),
-                          legendX: translate('city_data.seattle.finance.year'),
-                          chartData: {
-                            translate(
-                                    'city_data.seattle.finance.approved_amount'):
-                                Colors.green,
-                          },)
-                      .chartParserWithDuplicate(
-                sortX: true,
+                      title: translate(
+                          'city_data.seattle.finance.open_budget_title'),
+                      legendX: translate('city_data.seattle.finance.year'),
+                      chartData: {
+                        translate('city_data.seattle.finance.approved_amount'):
+                            Colors.green,
+                      },
+                    ).chartParserWithDuplicate(
+                      sortX: true,
                       dataX: openBudgetData![0],
                       dataY: [openBudgetData![10]],
                     )
@@ -159,15 +149,21 @@ class _SeattleFinanceTabLeftState extends ConsumerState<SeattleFinanceTabLeft> {
               Const.dashboardUISpacing.ph,
               cipData != null
                   ? LineChartParser(
-                      title: translate('city_data.seattle.finance.cip_title'),
-                      legendX: translate('city_data.seattle.finance.bcl_only'),
-                      chartData: {
-                        translate('city_data.seattle.finance.2011'): Colors.blue,
-                        translate('city_data.seattle.finance.2013'):
-                            Colors.yellow,
-                        translate('city_data.seattle.finance.2015'): Colors.red,
-                      }, barWidth: 4, markerIntervalY: 6
-                    ).chartParser(
+                          title:
+                              translate('city_data.seattle.finance.cip_title'),
+                          legendX:
+                              translate('city_data.seattle.finance.bcl_only'),
+                          chartData: {
+                            translate('city_data.seattle.finance.2011'):
+                                Colors.blue,
+                            translate('city_data.seattle.finance.2013'):
+                                Colors.yellow,
+                            translate('city_data.seattle.finance.2015'):
+                                Colors.red,
+                          },
+                          barWidth: 4,
+                          markerIntervalY: 6)
+                      .chartParser(
                       dataX: cipData![1],
                       dataY: [
                         cipData![3],
@@ -182,45 +178,49 @@ class _SeattleFinanceTabLeftState extends ConsumerState<SeattleFinanceTabLeft> {
               Const.dashboardUISpacing.ph,
               operatingBudgetData != null
                   ? LineChartParser(
-                  title: translate(
-                      'city_data.seattle.finance.operating_budget_title'),
-                  legendX: translate('city_data.seattle.finance.year'),
-                  chartData: {
-                    translate(
-                        'city_data.seattle.finance.approved_amount'):
-                    Colors.green,
-                  },)
-                  .chartParserWithDuplicate(
-                dataX: operatingBudgetData![0],
-                dataY: [operatingBudgetData![8]],
-              )
+                      title: translate(
+                          'city_data.seattle.finance.operating_budget_title'),
+                      legendX: translate('city_data.seattle.finance.year'),
+                      chartData: {
+                        translate('city_data.seattle.finance.approved_amount'):
+                            Colors.green,
+                      },
+                    ).chartParserWithDuplicate(
+                      dataX: operatingBudgetData![0],
+                      dataY: [operatingBudgetData![8]],
+                    )
                   : const BlankDashboardContainer(
-                heightMultiplier: 2,
-                widthMultiplier: 2,
-              ),
+                      heightMultiplier: 2,
+                      widthMultiplier: 2,
+                    ),
               Const.dashboardUISpacing.ph,
               adoptedBudgetData != null
                   ? LineChartParser(
-                title: translate('city_data.seattle.finance.adopted_budget_title'),
-                legendX: translate('city_data.seattle.finance.code'),
-                chartData: {
-                  translate('city_data.seattle.finance.2018_adopted'): Colors.blue,
-                  translate('city_data.seattle.finance.2019_adopted'):
-                  Colors.yellow,
-                  translate('city_data.seattle.finance.2020_endorsed'): Colors.red.withOpacity(0.5),
-                },barWidth: 4
-              ).chartParser(
-                dataX: adoptedBudgetData![0],
-                dataY: [
-                  adoptedBudgetData![4],
-                  adoptedBudgetData![5],
-                  adoptedBudgetData![6],
-                ],
-              )
+                          title: translate(
+                              'city_data.seattle.finance.adopted_budget_title'),
+                          legendX: translate('city_data.seattle.finance.code'),
+                          chartData: {
+                            translate('city_data.seattle.finance.2018_adopted'):
+                                Colors.blue,
+                            translate('city_data.seattle.finance.2019_adopted'):
+                                Colors.yellow,
+                            translate(
+                                    'city_data.seattle.finance.2020_endorsed'):
+                                Colors.red.withOpacity(0.5),
+                          },
+                          barWidth: 4)
+                      .chartParser(
+                      dataX: adoptedBudgetData![0],
+                      dataY: [
+                        adoptedBudgetData![4],
+                        adoptedBudgetData![5],
+                        adoptedBudgetData![6],
+                      ],
+                    )
                   : const BlankDashboardContainer(
-                heightMultiplier: 2,
-                widthMultiplier: 2,
-              ),
+                      heightMultiplier: 2,
+                      widthMultiplier: 2,
+                    ),
               Const.dashboardUISpacing.ph,
             ],
           ),

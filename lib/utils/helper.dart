@@ -53,7 +53,8 @@ Color invertColor(Color color) {
   final g = 255 - color.green;
   final b = 255 - color.blue;
 
-  return lightenColor(Color.fromARGB((color.opacity * 255).round(), r, g, b), 0.4);
+  return lightenColor(
+      Color.fromARGB((color.opacity * 255).round(), r, g, b), 0.4);
 }
 
 double roundDouble(double value, int places) {
@@ -72,7 +73,11 @@ String shortenNum(double value) {
   return value.toStringAsFixed(1);
 }
 
-showSnackBar({required BuildContext context, required String message, int duration = 3, Color color = Colors.green}) =>
+showSnackBar(
+        {required BuildContext context,
+        required String message,
+        int duration = 3,
+        Color color = Colors.green}) =>
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
         content: Text(

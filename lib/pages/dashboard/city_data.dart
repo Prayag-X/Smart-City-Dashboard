@@ -32,7 +32,6 @@ class AllCityData {
         country: translate('city_data.new_york.country'),
         description: translate('city_data.new_york.description'),
         image: ImageConst.newYork,
-        number: 0,
         location: const LatLng(40.730610, -73.935242),
         availableTabs: [
           TabButtonModel(
@@ -47,8 +46,6 @@ class AllCityData {
             leftTab: const NYCEnvironmentTabLeft(),
             rightTabData: DownloadableContent.nycEnvironmentKml,
             nameForUrl: 'environment',
-            tabWidgetNumbers: 4,
-            tabMiniWidgetNumbers: [1],
           ),
           TabButtonModel(
             logo: ImageConst.health,
@@ -57,7 +54,6 @@ class AllCityData {
             leftTab: const NYCHealthTabLeft(),
             rightTabData: DownloadableContent.nycHealthKml,
             nameForUrl: 'health',
-            tabWidgetNumbers: 5,
           ),
           TabButtonModel(
             logo: ImageConst.education,
@@ -66,7 +62,6 @@ class AllCityData {
             leftTab: const NYCEducationTabLeft(),
             rightTabData: DownloadableContent.nycEducationKml,
             nameForUrl: 'education',
-            tabWidgetNumbers: 4,
           ),
           TabButtonModel(
             logo: ImageConst.about,
@@ -81,19 +76,13 @@ class AllCityData {
           const LatLng(40.78027830508383, -73.96330202877064),
           const LatLng(40.821568328698696, -73.94909704948456),
         ],
-        availableToursName: [
-          'Empire State Building'
-        ],
-        availableToursDescription: [
-          ''
-        ]),
+    ),
     CityCardModel(
         cityName: translate('city_data.charlotte.cityName'),
         cityNameEnglish: 'Charlotte',
         country: translate('city_data.charlotte.country'),
         description: translate('city_data.charlotte.description'),
         image: ImageConst.charlotte,
-        number: 1,
         location: const LatLng(35.226841065880684, -80.84285320438734),
         availableTabs: [
           TabButtonModel(
@@ -108,7 +97,6 @@ class AllCityData {
             leftTab: const CharlotteSocietyTabLeft(),
             rightTabData: DownloadableContent.charlotteProductionKml,
             nameForUrl: 'society',
-            tabWidgetNumbers: 3,
           ),
           TabButtonModel(
             logo: ImageConst.misc,
@@ -117,7 +105,6 @@ class AllCityData {
             leftTab: const CharlotteMiscTabLeft(),
             rightTabData: DownloadableContent.charlotteMiscKml,
             nameForUrl: 'misc',
-            tabWidgetNumbers: 3,
           ),
           TabButtonModel(
             logo: ImageConst.about,
@@ -129,18 +116,13 @@ class AllCityData {
           const LatLng(35.19802709514496, -80.81439580678503),
           const LatLng(35.20616267388421, -80.79800214535496),
           const LatLng(35.21506879539595, -80.82074727779712),
-        ],
-        availableToursName: [],
-        availableToursDescription: [
-          ''
-        ]),
+        ],),
     CityCardModel(
         cityName: translate('city_data.seattle.cityName'),
         cityNameEnglish: 'Seattle',
         country: translate('city_data.seattle.country'),
         description: translate('city_data.seattle.description'),
         image: ImageConst.seattle,
-        number: 2,
         location: const LatLng(47.61088523425851, -122.32392408029098),
         availableTabs: [
           TabButtonModel(
@@ -155,7 +137,6 @@ class AllCityData {
             leftTab: const SeattleFinanceTabLeft(),
             rightTabData: DownloadableContent.blankKml,
             nameForUrl: 'finance',
-            tabWidgetNumbers: 6,
           ),
           TabButtonModel(
             logo: ImageConst.transportation,
@@ -164,7 +145,6 @@ class AllCityData {
             leftTab: const SeattleTransportationTabLeft(),
             rightTabData: DownloadableContent.seattleTransportKml,
             nameForUrl: 'transport',
-            tabWidgetNumbers: 7,
           ),
           TabButtonModel(
             logo: ImageConst.education,
@@ -173,7 +153,6 @@ class AllCityData {
             leftTab: const SeattleEducationTabLeft(),
             rightTabData: DownloadableContent.blankKml,
             nameForUrl: 'education',
-            tabWidgetNumbers: 4,
           ),
           TabButtonModel(
             logo: ImageConst.about,
@@ -185,18 +164,13 @@ class AllCityData {
           const LatLng(47.60796303093698, -122.33769990580109),
           const LatLng(47.60321771936339, -122.3145685354345),
           const LatLng(47.59795107695832, -122.31577016509245),
-        ],
-        availableToursName: [],
-        availableToursDescription: [
-          ''
-        ]),
+        ],),
     CityCardModel(
         cityName: translate('city_data.austin.cityName'),
         cityNameEnglish: 'Austin',
         country: translate('city_data.austin.country'),
         description: translate('city_data.austin.description'),
         image: ImageConst.austin,
-        number: 3,
         location: const LatLng(30.29304532971849, -97.73443720721826),
         availableTabs: [
           TabButtonModel(
@@ -211,7 +185,6 @@ class AllCityData {
             leftTab: const AustinEnvironmentTabLeft(),
             rightTabData: DownloadableContent.austinEnvironmentKml,
             nameForUrl: 'environment',
-            tabWidgetNumbers: 7,
           ),
           TabButtonModel(
             logo: ImageConst.health,
@@ -220,7 +193,6 @@ class AllCityData {
             leftTab: const AustinHealthTabLeft(),
             rightTabData: DownloadableContent.austinHealthKml,
             nameForUrl: 'health',
-            tabWidgetNumbers: 6,
           ),
           TabButtonModel(
             logo: ImageConst.transportation,
@@ -229,7 +201,6 @@ class AllCityData {
             leftTab: const AustinTransportTabLeft(),
             rightTabData: DownloadableContent.austinTransportKml,
             nameForUrl: 'transport',
-            tabWidgetNumbers: 6,
           ),
           TabButtonModel(
             logo: ImageConst.about,
@@ -241,18 +212,13 @@ class AllCityData {
           const LatLng(30.281409198164788, -97.73864291082809),
           const LatLng(30.292971218094596, -97.69366763014077),
           const LatLng(30.328686283420616, -97.74121783146857),
-        ],
-        availableToursName: [],
-        availableToursDescription: [
-          ''
-        ]),
+        ],),
     CityCardModel(
         cityName: translate('city_data.boulder.cityName'),
         cityNameEnglish: 'Boulder',
         country: translate('city_data.boulder.country'),
         description: translate('city_data.boulder.description'),
         image: ImageConst.boulder,
-        number: 4,
         location: const LatLng(40.015116174616196, -105.26924937530075),
         availableTabs: [
           TabButtonModel(
@@ -267,7 +233,6 @@ class AllCityData {
             rightTabData: DownloadableContent.blankKml,
             tab: 1,
             nameForUrl: 'health',
-            tabWidgetNumbers: 5,
           ),
           TabButtonModel(
             logo: ImageConst.living,
@@ -276,7 +241,6 @@ class AllCityData {
             rightTabData: DownloadableContent.boulderLivableKml,
             tab: 2,
             nameForUrl: 'livable',
-            tabWidgetNumbers: 4,
           ),
           TabButtonModel(
             logo: ImageConst.government,
@@ -285,7 +249,6 @@ class AllCityData {
             rightTabData: DownloadableContent.blankKml,
             tab: 3,
             nameForUrl: 'government',
-            tabWidgetNumbers: 6,
           ),
           TabButtonModel(
             logo: ImageConst.about,
@@ -297,18 +260,13 @@ class AllCityData {
           const LatLng(40.01409726578651, -105.25852053941347),
           const LatLng(40.0311469853605, -105.2873682987872),
           const LatLng(39.96302696330601, -105.20033598076574),
-        ],
-        availableToursName: [],
-        availableToursDescription: [
-          ''
-        ]),
+        ],),
     CityCardModel(
         cityName: translate('city_data.chicago.cityName'),
         cityNameEnglish: 'Chicago',
         country: translate('city_data.chicago.country'),
         description: translate('city_data.chicago.description'),
         image: ImageConst.chicago,
-        number: 5,
         location: const LatLng(41.87794826035483, -87.62954182993734),
         availableTabs: [
           TabButtonModel(
@@ -322,8 +280,7 @@ class AllCityData {
             leftTab: const ChicagoEthicsTabLeft(),
             rightTabData: DownloadableContent.blankKml,
             tab: 1,
-            nameForUrl: 'health',
-            tabWidgetNumbers: 5,
+            nameForUrl: 'ethics',
           ),
           TabButtonModel(
             logo: ImageConst.about,
@@ -335,18 +292,13 @@ class AllCityData {
           const LatLng(40.01409726578651, -105.25852053941347),
           const LatLng(40.0311469853605, -105.2873682987872),
           const LatLng(39.96302696330601, -105.20033598076574),
-        ],
-        availableToursName: [],
-        availableToursDescription: [
-          ''
-        ]),
+        ],),
     CityCardModel(
         cityName: translate('city_data.toronto.cityName'),
         cityNameEnglish: 'Toronto',
         country: translate('city_data.toronto.country'),
         description: translate('city_data.toronto.description'),
         image: ImageConst.toronto,
-        number: 6,
         location: const LatLng(41.87794826035483, -87.62954182993734),
         availableTabs: [
           TabButtonModel(
@@ -360,8 +312,7 @@ class AllCityData {
             leftTab: const TorontoGovernmentTabLeft(),
             rightTabData: DownloadableContent.torontoGovernmentKml,
             tab: 1,
-            nameForUrl: 'health',
-            tabWidgetNumbers: 5,
+            nameForUrl: 'government',
           ),
           TabButtonModel(
             logo: ImageConst.about,
@@ -373,18 +324,13 @@ class AllCityData {
           const LatLng(40.01409726578651, -105.25852053941347),
           const LatLng(40.0311469853605, -105.2873682987872),
           const LatLng(39.96302696330601, -105.20033598076574),
-        ],
-        availableToursName: [],
-        availableToursDescription: [
-          ''
-        ]),
+        ],),
     CityCardModel(
         cityName: translate('city_data.monterrey.cityName'),
         cityNameEnglish: 'Monterrey',
         country: translate('city_data.monterrey.country'),
         description: translate('city_data.monterrey.description'),
         image: ImageConst.monterrey,
-        number: 7,
         location: const LatLng(25.68691880058488, -100.31822032711216),
         availableTabs: [
           TabButtonModel(
@@ -399,7 +345,6 @@ class AllCityData {
             rightTabData: DownloadableContent.monterreyEnvironmentKml,
             tab: 1,
             nameForUrl: 'health',
-            tabWidgetNumbers: 5,
           ),
           TabButtonModel(
             logo: ImageConst.about,
@@ -411,10 +356,6 @@ class AllCityData {
           const LatLng(40.01409726578651, -105.25852053941347),
           const LatLng(40.0311469853605, -105.2873682987872),
           const LatLng(39.96302696330601, -105.20033598076574),
-        ],
-        availableToursName: [],
-        availableToursDescription: [
-          ''
-        ]),
+        ],),
   ];
 }

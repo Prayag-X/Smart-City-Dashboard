@@ -1,23 +1,12 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:image/image.dart' as img;
 import 'package:screenshot/screenshot.dart';
-import 'package:smart_city_dashboard/pages/dashboard/widgets/charts/pie_chart_parser.dart';
-import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 
-import '../../../connections/ssh.dart';
 import '../../../constants/constants.dart';
-import '../../../kml_makers/balloon_makers.dart';
-import '../../../providers/page_providers.dart';
-import '../../../utils/helper.dart';
 import '../downloadable_content.dart';
-import '../../../constants/images.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../utils/csv_parser.dart';
 import '../widgets/charts/line_chart_parser.dart';
@@ -106,19 +95,22 @@ class _AustinHealthTabLeftState extends ConsumerState<AustinHealthTabLeft> {
             children: [
               sa4Data != null
                   ? LineChartParser(
-                      title: translate('city_data.austin.health.sa4_title'),
-                      legendX: translate('city_data.austin.health.dept'),
-                      chartData: {
-                          translate('city_data.austin.health.attendees'):
-                              Colors.yellow,
-                          translate('city_data.austin.health.eligible'):
-                              Colors.blue,
-                        }, markerIntervalX: 6).chartParser(
-                limitMarkerX: 14,
-                  dataX: sa4Data![0], dataY: [
-                      sa4Data![1],
-                      sa4Data![2],
-                    ])
+                          title: translate('city_data.austin.health.sa4_title'),
+                          legendX: translate('city_data.austin.health.dept'),
+                          chartData: {
+                            translate('city_data.austin.health.attendees'):
+                                Colors.yellow,
+                            translate('city_data.austin.health.eligible'):
+                                Colors.blue,
+                          },
+                          markerIntervalX: 6)
+                      .chartParser(
+                          limitMarkerX: 14,
+                          dataX: sa4Data![0],
+                          dataY: [
+                          sa4Data![1],
+                          sa4Data![2],
+                        ])
                   : const BlankDashboardContainer(
                       heightMultiplier: 2,
                       widthMultiplier: 2,
@@ -144,13 +136,21 @@ class _AustinHealthTabLeftState extends ConsumerState<AustinHealthTabLeft> {
               Const.dashboardUISpacing.ph,
               foodInspectionData != null
                   ? LineChartParser(
-                      title: translate('city_data.austin.health.food_title'),
-                      legendX: translate('city_data.austin.health.restaurant'),
-                      chartData: {
-                          translate('city_data.austin.health.score'): Colors.blue,
-                        }, barWidth: 2).chartParser(dataX: foodInspectionData![0], dataY: [
-                      foodInspectionData![3],
-                    ], limitMarkerX: 6)
+                          title:
+                              translate('city_data.austin.health.food_title'),
+                          legendX:
+                              translate('city_data.austin.health.restaurant'),
+                          chartData: {
+                            translate('city_data.austin.health.score'):
+                                Colors.blue,
+                          },
+                          barWidth: 2)
+                      .chartParser(
+                          dataX: foodInspectionData![0],
+                          dataY: [
+                            foodInspectionData![3],
+                          ],
+                          limitMarkerX: 6)
                   : const BlankDashboardContainer(
                       heightMultiplier: 2,
                       widthMultiplier: 2,
@@ -176,17 +176,17 @@ class _AustinHealthTabLeftState extends ConsumerState<AustinHealthTabLeft> {
               Const.dashboardUISpacing.ph,
               lakeData != null
                   ? LineChartParser(
-                      title:
-                          translate('city_data.austin.health.lake_health'),
-                      legendX: translate('city_data.austin.health.reach'),
-                      chartData: {
-                          translate('city_data.austin.health.score'):
-                              Colors.blue,
-                        }, barWidth: 2).chartParser(
-                      dataX: lakeData![0],
-                      dataY: [
-                        lakeData![5],
-                        ])
+                          title:
+                              translate('city_data.austin.health.lake_health'),
+                          legendX: translate('city_data.austin.health.reach'),
+                          chartData: {
+                            translate('city_data.austin.health.score'):
+                                Colors.blue,
+                          },
+                          barWidth: 2)
+                      .chartParser(dataX: lakeData![0], dataY: [
+                      lakeData![5],
+                    ])
                   : const BlankDashboardContainer(
                       heightMultiplier: 2,
                       widthMultiplier: 2,
@@ -194,17 +194,15 @@ class _AustinHealthTabLeftState extends ConsumerState<AustinHealthTabLeft> {
               Const.dashboardUISpacing.ph,
               badHealthData != null
                   ? LineChartParser(
-                      title:
-                          translate('city_data.austin.health.bad_mental_health'),
+                      title: translate(
+                          'city_data.austin.health.bad_mental_health'),
                       legendX: translate('city_data.austin.health.year'),
                       chartData: {
                           translate('city_data.austin.health.percent'):
                               Colors.blue,
-                        }).chartParser(
-                      dataX: badHealthData![0],
-                      dataY: [
-                        badHealthData![1],
-                        ])
+                        }).chartParser(dataX: badHealthData![0], dataY: [
+                      badHealthData![1],
+                    ])
                   : const BlankDashboardContainer(
                       heightMultiplier: 2,
                       widthMultiplier: 2,

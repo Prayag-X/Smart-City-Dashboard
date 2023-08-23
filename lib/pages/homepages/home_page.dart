@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_city_dashboard/pages/dashboard/city_data.dart';
 import 'package:smart_city_dashboard/models/tab_button.dart';
 import 'package:smart_city_dashboard/pages/panels/feature_tour_widget.dart';
@@ -151,9 +150,7 @@ class CityCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Color normalColor = ref.watch(normalColorProvider);
     Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
     Color highlightColor = ref.watch(highlightColorProvider);
     double height = max(min(screenSize(context).height - 600, 200), 150);
     double width = min(screenSize(context).width - 400, 700);

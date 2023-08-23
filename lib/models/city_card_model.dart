@@ -8,11 +8,8 @@ class CityCardModel {
   String image;
   String description;
   LatLng location;
-  int number;
   List<TabButtonModel> availableTabs;
   List<LatLng> availableTours;
-  List<String> availableToursName;
-  List<String> availableToursDescription;
 
   CityCardModel({
     required this.cityName,
@@ -20,11 +17,8 @@ class CityCardModel {
     required this.country,
     required this.image,
     required this.location,
-    required this.number,
     required this.availableTabs,
     required this.description,
     required this.availableTours,
-    required this.availableToursName,
-    required this.availableToursDescription,
   });
 }

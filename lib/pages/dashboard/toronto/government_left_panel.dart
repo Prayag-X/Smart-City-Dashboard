@@ -4,20 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:image/image.dart' as img;
 import 'package:screenshot/screenshot.dart';
-import 'package:smart_city_dashboard/pages/dashboard/widgets/charts/pie_chart_parser.dart';
-import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 
-import '../../../connections/ssh.dart';
 import '../../../constants/constants.dart';
-import '../../../kml_makers/balloon_makers.dart';
-import '../../../providers/page_providers.dart';
-import '../../../utils/helper.dart';
 import '../downloadable_content.dart';
-import '../../../constants/images.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../utils/csv_parser.dart';
 import '../widgets/charts/line_chart_parser.dart';
@@ -157,13 +148,12 @@ class _TorontoGovernmentTabLeftState
                               'city_data.toronto.government.evaluation_title'),
                           legendX: translate('city_data.toronto.government.id'),
                           chartData: {
-                            translate('city_data.toronto.government.year_built'):
+                            translate(
+                                    'city_data.toronto.government.year_built'):
                                 Colors.blue,
-                            translate(
-                                    'city_data.toronto.government.storeys'):
+                            translate('city_data.toronto.government.storeys'):
                                 Colors.yellow,
-                            translate(
-                                    'city_data.toronto.government.score'):
+                            translate('city_data.toronto.government.score'):
                                 Colors.red,
                           },
                           barWidth: 1)
@@ -187,13 +177,13 @@ class _TorontoGovernmentTabLeftState
                               'city_data.toronto.government.registration_title'),
                           legendX: translate('city_data.toronto.government.id'),
                           chartData: {
-                            translate('city_data.toronto.government.year_built'):
+                            translate(
+                                    'city_data.toronto.government.year_built'):
                                 Colors.blue,
                             translate(
                                     'city_data.toronto.government.year_registered'):
                                 Colors.yellow,
-                            translate(
-                                    'city_data.toronto.government.storeys'):
+                            translate('city_data.toronto.government.storeys'):
                                 Colors.red,
                           },
                           barWidth: 2)
@@ -213,14 +203,14 @@ class _TorontoGovernmentTabLeftState
               Const.dashboardUISpacing.ph,
               measuresData != null
                   ? LineChartParser(
-                          title: translate(
-                              'city_data.toronto.government.measures_title'),
-                          legendX: translate('city_data.toronto.government.id'),
-                          chartData: {
-                            translate('city_data.toronto.government.result'):
-                                Colors.blue,
-                          },)
-                      .chartParser(
+                      title: translate(
+                          'city_data.toronto.government.measures_title'),
+                      legendX: translate('city_data.toronto.government.id'),
+                      chartData: {
+                        translate('city_data.toronto.government.result'):
+                            Colors.blue,
+                      },
+                    ).chartParser(
                       // limitMarkerX: 8,
                       dataX: measuresData![0],
                       dataY: [

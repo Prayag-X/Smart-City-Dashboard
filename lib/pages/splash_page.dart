@@ -48,15 +48,14 @@ class _SplashScreenState extends ConsumerState<SplashPage> {
     } else {
       setLightTheme(ref);
     }
-    if(!mounted) {
+    if (!mounted) {
       return;
     }
     SSH(ref: ref).initialConnect();
     changeLocale(
         context,
-        Const.availableLanguageCodes[Const
-            .availableLanguages
-            .indexOf(ref.read(languageProvider))]);
+        Const.availableLanguageCodes[
+            Const.availableLanguages.indexOf(ref.read(languageProvider))]);
   }
 
   @override

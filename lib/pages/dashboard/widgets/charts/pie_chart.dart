@@ -49,9 +49,6 @@ class _DashboardPieChartState extends ConsumerState<DashboardPieChart> {
                     useSeriesColor: true),
                 innerRadius: '100%',
                 radius: '80%',
-                // explodeGesture: ActivationMode.none,
-                // explode: true,
-                // explodeIndex: touchedIndex,
                 animationDuration: Const.animationDurationDouble)
           ]),
           SfCircularChart(series: <CircularSeries>[
@@ -69,17 +66,8 @@ class _DashboardPieChartState extends ConsumerState<DashboardPieChart> {
                   labelPosition: ChartDataLabelPosition.inside,
                   textStyle: textStyleBold.copyWith(fontSize: 14),
                   overflowMode: OverflowMode.hide),
-              // onPointTap: (x) {
-              //   if (x.pointIndex != null) {
-              //     setState(() {
-              //       touchedIndex = x.pointIndex!;
-              //     });
-              //   }
-              // },
               innerRadius: '40%',
               radius: '80%',
-              // explodeGesture: ActivationMode.singleTap,
-              // explode: true,
               animationDuration: Const.animationDurationDouble,
             )
           ]),
@@ -88,9 +76,7 @@ class _DashboardPieChartState extends ConsumerState<DashboardPieChart> {
 
   @override
   Widget build(BuildContext context) {
-    Color normalColor = ref.watch(normalColorProvider);
     Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
     Color highlightColor = ref.watch(highlightColorProvider);
     return Container(
       width: (screenSize(context).width -
@@ -157,7 +143,6 @@ class _VisualizerPieChartState extends ConsumerState<VisualizerPieChart> {
   pieChart() => Stack(
         children: [
           SfCircularChart(series: <CircularSeries>[
-            // Renders doughnut chart
             DoughnutSeries<ChartData, String>(
                 dataSource: widget.chartData,
                 pointColorMapper: (ChartData data, _) => data.color,
@@ -176,13 +161,9 @@ class _VisualizerPieChartState extends ConsumerState<VisualizerPieChart> {
                     useSeriesColor: true),
                 innerRadius: '100%',
                 radius: '80%',
-                // explodeGesture: ActivationMode.none,
-                // explode: true,
-                // explodeIndex: touchedIndex,
                 animationDuration: Const.animationDurationDouble)
           ]),
           SfCircularChart(series: <CircularSeries>[
-            // Renders doughnut chart
             DoughnutSeries<ChartData, String>(
               dataSource: widget.chartData,
               pointColorMapper: (ChartData data, _) => data.color,
@@ -196,17 +177,8 @@ class _VisualizerPieChartState extends ConsumerState<VisualizerPieChart> {
                   labelPosition: ChartDataLabelPosition.inside,
                   textStyle: textStyleBold.copyWith(fontSize: 14),
                   overflowMode: OverflowMode.hide),
-              // onPointTap: (x) {
-              //   if (x.pointIndex != null) {
-              //     setState(() {
-              //       touchedIndex = x.pointIndex!;
-              //     });
-              //   }
-              // },
               innerRadius: '40%',
               radius: '80%',
-              // explodeGesture: ActivationMode.singleTap,
-              // explode: true,
               animationDuration: Const.animationDurationDouble,
             )
           ]),
@@ -215,9 +187,6 @@ class _VisualizerPieChartState extends ConsumerState<VisualizerPieChart> {
 
   @override
   Widget build(BuildContext context) {
-    Color normalColor = ref.watch(normalColorProvider);
-    Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
     Color highlightColor = ref.watch(highlightColorProvider);
     return Container(
       width: screenSize(context).width * 0.8 -

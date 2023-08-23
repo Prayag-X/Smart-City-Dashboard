@@ -108,9 +108,7 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
 
   @override
   Widget build(BuildContext context) {
-    Color normalColor = ref.watch(normalColorProvider);
     Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
     Color highlightColor = ref.watch(highlightColorProvider);
     bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
     MapType mapType = ref.watch(mapTypeProvider);
@@ -132,8 +130,7 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
                   25 -
                   Const.dashboardUISpacing,
               child: ClipRRect(
-                borderRadius:
-                    BorderRadius.circular(Const.dashboardUIRoundness),
+                borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
                 child: Stack(
                   alignment: AlignmentDirectional.topEnd,
                   children: [
@@ -178,9 +175,7 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
                                     backgroundColor:
                                         Colors.white.withOpacity(0.7),
                                     shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(300),
-                                      // side: const BorderSide(width: 1, color: Colors.white)
+                                      borderRadius: BorderRadius.circular(300),
                                     )),
                                 onPressed: () async {
                                   if (!isConnectedToLg) {
@@ -212,10 +207,8 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
                                       3.pw,
                                       Text(
                                         orbitPlaying
-                                            ? translate(
-                                                'dashboard.stop_orbit')
-                                            : translate(
-                                                'dashboard.play_orbit'),
+                                            ? translate('dashboard.stop_orbit')
+                                            : translate('dashboard.play_orbit'),
                                         style: textStyleBold.copyWith(
                                             color:
                                                 Colors.black.withOpacity(0.8),
@@ -246,7 +239,8 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
               child: Container(
                 height: 40,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
+                  borderRadius:
+                      BorderRadius.circular(Const.dashboardUIRoundness),
                   border: Border.all(
                     color: highlightColor,
                     width: 2.0,
@@ -257,7 +251,8 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
                     Expanded(
                         child: GestureDetector(
                       onTap: () {
-                        ref.read(mapTypeProvider.notifier).state = MapType.hybrid;
+                        ref.read(mapTypeProvider.notifier).state =
+                            MapType.hybrid;
                       },
                       child: Container(
                         decoration: BoxDecoration(
@@ -265,8 +260,8 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
                               ? highlightColor
                               : Colors.transparent,
                           borderRadius: BorderRadius.only(
-                              topLeft:
-                                  Radius.circular(Const.dashboardUIRoundness - 3),
+                              topLeft: Radius.circular(
+                                  Const.dashboardUIRoundness - 3),
                               bottomLeft: Radius.circular(
                                   Const.dashboardUIRoundness - 3)),
                         ),
@@ -282,7 +277,8 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
                     Expanded(
                         child: GestureDetector(
                       onTap: () {
-                        ref.read(mapTypeProvider.notifier).state = MapType.normal;
+                        ref.read(mapTypeProvider.notifier).state =
+                            MapType.normal;
                       },
                       child: Container(
                         color: mapType == MapType.normal
@@ -309,8 +305,8 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
                               ? highlightColor
                               : Colors.transparent,
                           borderRadius: BorderRadius.only(
-                              topRight:
-                                  Radius.circular(Const.dashboardUIRoundness - 3),
+                              topRight: Radius.circular(
+                                  Const.dashboardUIRoundness - 3),
                               bottomRight: Radius.circular(
                                   Const.dashboardUIRoundness - 3)),
                         ),

@@ -447,7 +447,6 @@ class DownloadableContent {
       'directory': 'Boulder/government'
     },
 
-
     //Chicago Ethics
     'Registry': {
       'url':
@@ -486,7 +485,6 @@ class DownloadableContent {
       'directory': 'Chicago/ethics'
     },
 
-
     //Toronto Government
     'Polis Data': {
       'url':
@@ -518,7 +516,6 @@ class DownloadableContent {
       'filename': 'measures.csv',
       'directory': 'Toronto/government'
     },
-
 
     //Monterrey Data
     'EIRs': {
@@ -560,8 +557,6 @@ class DownloadableContent {
         url:
             'https://data.cityofnewyork.us/api/geospatial/uyj8-7rv5?method=export&format=KML',
         name: 'Sandy inundation zone',
-        description:
-            'Areas of New York City that were flooded as a result of Hurricane Sandy.',
         size: '100 MB'),
     DownloadableKML(
         url:
@@ -572,8 +567,6 @@ class DownloadableContent {
         url:
             'https://data.cityofnewyork.us/api/geospatial/ajyu-7sgg?method=export&format=KML',
         name: 'Sea level rising',
-        description:
-            'This is the 500-Year Floodplain for the 2050s based on FEMAs Preliminary Work Map data and the New York Panel on Climate Changes 90th Percentile Projects for Sea-Level Rise (31 inches).',
         size: '24 MB'),
   ];
 

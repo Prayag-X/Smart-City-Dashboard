@@ -1,21 +1,11 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:image/image.dart' as img;
 import 'package:screenshot/screenshot.dart';
-import 'package:smart_city_dashboard/pages/dashboard/widgets/charts/pie_chart_parser.dart';
-import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 
-import '../../../connections/ssh.dart';
 import '../../../constants/constants.dart';
-import '../../../kml_makers/balloon_makers.dart';
-import '../../../providers/page_providers.dart';
-import '../../../utils/helper.dart';
 import '../downloadable_content.dart';
 import '../../../constants/images.dart';
 import '../../../providers/settings_providers.dart';
@@ -99,29 +89,33 @@ class _NYCHealthTabLeftState extends ConsumerState<NYCHealthTabLeft> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  covidCases != null ? DashboardContainer(
-                    title: translate('city_data.new_york.health.case'),
-                    data: covidCases!.toStringAsFixed(0),
-                    image: ImageConst.corona,
-                    showPercentage: true,
-                    percentage: 1,
-                    progressColor: Colors.yellow,
-                  ) : const BlankDashboardContainer(),
-                  covidDeaths != null ? DashboardContainer(
-                    title: translate('city_data.new_york.health.death'),
-                    data: covidDeaths!.toStringAsFixed(0),
-                    image: ImageConst.corona,
-                    showPercentage: true,
-                    percentage: covidDeaths!/covidCases!,
-                    progressColor: Colors.red,
-                  ) : const BlankDashboardContainer(),
+                  covidCases != null
+                      ? DashboardContainer(
+                          title: translate('city_data.new_york.health.case'),
+                          data: covidCases!.toStringAsFixed(0),
+                          image: ImageConst.corona,
+                          showPercentage: true,
+                          percentage: 1,
+                          progressColor: Colors.yellow,
+                        )
+                      : const BlankDashboardContainer(),
+                  covidDeaths != null
+                      ? DashboardContainer(
+                          title: translate('city_data.new_york.health.death'),
+                          data: covidDeaths!.toStringAsFixed(0),
+                          image: ImageConst.corona,
+                          showPercentage: true,
+                          percentage: covidDeaths! / covidCases!,
+                          progressColor: Colors.red,
+                        )
+                      : const BlankDashboardContainer(),
                 ],
               ),
               Const.dashboardUISpacing.ph,
               covidData != null
                   ? LineChartParser(
-                          title:
-                              translate('city_data.new_york.health.covid_title'),
+                          title: translate(
+                              'city_data.new_york.health.covid_title'),
                           legendX: translate('city_data.new_york.health.date'),
                           chartData: {
                             translate('city_data.new_york.health.case'):
@@ -145,7 +139,8 @@ class _NYCHealthTabLeftState extends ConsumerState<NYCHealthTabLeft> {
                               translate('city_data.new_york.health.sars_title'),
                           legendX: translate('city_data.new_york.health.date'),
                           chartData: {
-                            translate('city_data.new_york.health.concentration'):
+                            translate(
+                                    'city_data.new_york.health.concentration'):
                                 Colors.green,
                             translate('city_data.new_york.health.served'):
                                 Colors.brown
@@ -163,7 +158,8 @@ class _NYCHealthTabLeftState extends ConsumerState<NYCHealthTabLeft> {
               Const.dashboardUISpacing.ph,
               infantData != null
                   ? LineChartParser(
-                          title: translate('city_data.new_york.health.infant_title'),
+                          title: translate(
+                              'city_data.new_york.health.infant_title'),
                           legendX: translate('city_data.new_york.health.year'),
                           chartData: {
                             translate('city_data.new_york.health.infant_death'):
@@ -183,7 +179,8 @@ class _NYCHealthTabLeftState extends ConsumerState<NYCHealthTabLeft> {
               Const.dashboardUISpacing.ph,
               hivData != null
                   ? LineChartParser(
-                          title: translate('city_data.new_york.health.hiv_title'),
+                          title:
+                              translate('city_data.new_york.health.hiv_title'),
                           legendX: translate('city_data.new_york.health.year'),
                           chartData: {
                             translate('city_data.new_york.health.hiv'):

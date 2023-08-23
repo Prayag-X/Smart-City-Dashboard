@@ -1,23 +1,12 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:image/image.dart' as img;
 import 'package:screenshot/screenshot.dart';
-import 'package:smart_city_dashboard/pages/dashboard/widgets/charts/pie_chart_parser.dart';
-import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 
-import '../../../connections/ssh.dart';
 import '../../../constants/constants.dart';
-import '../../../kml_makers/balloon_makers.dart';
-import '../../../providers/page_providers.dart';
-import '../../../utils/helper.dart';
 import '../downloadable_content.dart';
-import '../../../constants/images.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../utils/csv_parser.dart';
 import '../widgets/charts/line_chart_parser.dart';
@@ -97,7 +86,8 @@ class _SeattleEducationTabLeftState
                   ? LineChartParser(
                           title: translate(
                               'city_data.seattle.education.tsg_overall_title'),
-                          legendX: translate('city_data.seattle.education.group'),
+                          legendX:
+                              translate('city_data.seattle.education.group'),
                           chartData: {
                             translate('city_data.seattle.education.percentage'):
                                 Colors.blue,
@@ -126,11 +116,13 @@ class _SeattleEducationTabLeftState
                   ? LineChartParser(
                           title: translate(
                               'city_data.seattle.education.tsg_domain_title'),
-                          legendX: translate('city_data.seattle.education.group'),
+                          legendX:
+                              translate('city_data.seattle.education.group'),
                           chartData: {
                             translate('city_data.seattle.education.lan_met'):
                                 Colors.blue,
-                            translate('city_data.seattle.education.literacy_met'):
+                            translate(
+                                    'city_data.seattle.education.literacy_met'):
                                 Colors.yellow,
                             translate(
                                     'city_data.seattle.education.children_count'):
@@ -155,7 +147,8 @@ class _SeattleEducationTabLeftState
                   ? LineChartParser(
                           title: translate(
                               'city_data.seattle.education.spp_title'),
-                          legendX: translate('city_data.seattle.education.year'),
+                          legendX:
+                              translate('city_data.seattle.education.year'),
                           chartData: {
                             translate(
                                     'city_data.seattle.education.children_count'):
@@ -178,7 +171,8 @@ class _SeattleEducationTabLeftState
                   ? LineChartParser(
                           title: translate(
                               'city_data.seattle.education.spp_sps_title'),
-                          legendX: translate('city_data.seattle.education.year'),
+                          legendX:
+                              translate('city_data.seattle.education.year'),
                           chartData: {
                             translate(
                                     'city_data.seattle.education.children_count'):

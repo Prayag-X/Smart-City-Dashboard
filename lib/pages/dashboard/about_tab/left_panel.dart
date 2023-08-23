@@ -54,18 +54,15 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
         }
         ref.read(lastBalloonProvider.notifier).state = await SSH(ref: ref)
             .renderInSlave(
-            context,
-            ref.read(rightmostRigProvider),
-            BalloonMakers.dashboardBalloon(
-                initialMapPosition,
-                ref.read(cityDataProvider)!.cityNameEnglish,
-                'about',
-                imageDecoded!.height / imageDecoded.width));
+                context,
+                ref.read(rightmostRigProvider),
+                BalloonMakers.dashboardBalloon(
+                    initialMapPosition,
+                    ref.read(cityDataProvider)!.cityNameEnglish,
+                    'about',
+                    imageDecoded!.height / imageDecoded.width));
       }).catchError((onError) {
-        showSnackBar(
-            context: context,
-            message:
-            onError.toString());
+        showSnackBar(context: context, message: onError.toString());
       });
     });
   }
@@ -167,7 +164,8 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             DashboardContainer(
-                              title: translate('dashboard.about.smart_mobility'),
+                              title:
+                                  translate('dashboard.about.smart_mobility'),
                               image: ImageConst.mobility,
                               showPercentage: true,
                               progressColor: Colors.white,
@@ -200,8 +198,8 @@ class _AboutTabLeftState extends ConsumerState<AboutTabLeft> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             DashboardContainer(
-                              title:
-                                  translate('dashboard.about.smart_environment'),
+                              title: translate(
+                                  'dashboard.about.smart_environment'),
                               image: ImageConst.environment,
                               showPercentage: true,
                               progressColor: Colors.green,

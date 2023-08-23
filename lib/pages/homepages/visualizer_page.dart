@@ -10,25 +10,19 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_city_dashboard/connections/downloader.dart';
-import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:smart_city_dashboard/constants/images.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
-import 'package:smart_city_dashboard/utils/logo_shower.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 import '../../connections/ssh.dart';
 import '../../constants/constants.dart';
-import '../../kml_makers/balloon_makers.dart';
 import '../../providers/page_providers.dart';
 import '../../providers/settings_providers.dart';
 import '../../utils/csv_parser.dart';
 import '../../utils/helper.dart';
-import '../dashboard/downloadable_content.dart';
 import '../dashboard/widgets/charts/line_chart_parser.dart';
 import '../dashboard/widgets/charts/pie_chart_parser.dart';
-import '../dashboard/widgets/dashboard_container.dart';
 import '../dashboard/widgets/google_map.dart';
 import '../panels/feature_tour_widget.dart';
 
@@ -48,7 +42,6 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
   static const Color guideErrorDark = Color(0xFFCF6679);
   static const Color blueBlues = Color(0xFF174378);
 
-  // Make a custom ColorSwatch to name map from the above custom colors.
   final Map<ColorSwatch<Object>, String> colorsNameMap =
       <ColorSwatch<Object>, String>{
     ColorTools.createPrimarySwatch(guidePrimary): 'Guide Purple',

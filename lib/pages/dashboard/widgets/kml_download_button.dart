@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:smart_city_dashboard/connections/downloader.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/load_balloon.dart';
@@ -15,7 +14,6 @@ import 'package:smart_city_dashboard/utils/helper.dart';
 import '../../../connections/ssh.dart';
 import '../../../constants/constants.dart';
 import '../../../constants/text_styles.dart';
-import '../../../kml_makers/balloon_makers.dart';
 import '../../../models/downloadable_kml.dart';
 
 class KmlDownloaderButton extends ConsumerStatefulWidget {
@@ -31,9 +29,7 @@ class KmlDownloaderButton extends ConsumerStatefulWidget {
 class _KmlDownloaderButtonState extends ConsumerState<KmlDownloaderButton> {
   @override
   Widget build(BuildContext context) {
-    Color normalColor = ref.watch(normalColorProvider);
     Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
     Color highlightColor = ref.watch(highlightColorProvider);
     int kmlClicked = ref.watch(kmlClickedProvider);
     int kmlPlaying = ref.watch(kmlPlayProvider);
@@ -77,7 +73,8 @@ class _KmlDownloaderButtonState extends ConsumerState<KmlDownloaderButton> {
               if (!isConnectedToLG) {
                 showSnackBar(
                     context: context,
-                    message: translate('settings.connection_required'), color: Colors.red);
+                    message: translate('settings.connection_required'),
+                    color: Colors.red);
                 return;
               }
               ref.read(kmlClickedProvider.notifier).state = widget.index;
@@ -100,7 +97,8 @@ class _KmlDownloaderButtonState extends ConsumerState<KmlDownloaderButton> {
               if (!mounted) {
                 return;
               }
-              await BalloonLoader(ref: ref, context: context, mounted: mounted).loadKmlBalloon(widget.data.name, widget.data.size);
+              await BalloonLoader(ref: ref, context: context, mounted: mounted)
+                  .loadKmlBalloon(widget.data.name, widget.data.size);
               if (!mounted) {
                 return;
               }

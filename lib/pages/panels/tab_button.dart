@@ -5,10 +5,8 @@ import 'package:smart_city_dashboard/utils/extensions.dart';
 import 'package:smart_city_dashboard/utils/logo_shower.dart';
 
 import '../../constants/constants.dart';
-import '../../constants/theme.dart';
 import '../../providers/page_providers.dart';
 import '../../providers/settings_providers.dart';
-import '../../utils/helper.dart';
 
 class TabButton extends ConsumerWidget {
   const TabButton({
@@ -75,19 +73,16 @@ class SubTabButton extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Color normalColor = ref.watch(normalColorProvider);
     Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
     Color highlightColor = ref.watch(highlightColorProvider);
     int homePageTab = ref.watch(subTabProvider);
     return GestureDetector(
       onTap: () {
         ref.read(subTabProvider.notifier).state = tab;
-        Scrollable.ensureVisible(
-            ref.read(provider)[tab].currentContext!);
+        Scrollable.ensureVisible(ref.read(provider)[tab].currentContext!);
       },
       child: Container(
-          color: homePageTab == tab ? highlightColor : Colors.transparent,
+        color: homePageTab == tab ? highlightColor : Colors.transparent,
         child: Padding(
           padding: EdgeInsets.symmetric(
             vertical: Const.tabBarTextSize / 2,
@@ -105,8 +100,7 @@ class SubTabButton extends ConsumerWidget {
               Text(
                 name,
                 style: textStyleNormal.copyWith(
-                    color: oppositeColor,
-                    fontSize: Const.tabBarTextSize + 5),
+                    color: oppositeColor, fontSize: Const.tabBarTextSize + 5),
               )
             ],
           ),

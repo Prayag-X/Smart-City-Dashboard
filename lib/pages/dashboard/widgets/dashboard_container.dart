@@ -7,7 +7,6 @@ import 'package:smart_city_dashboard/utils/logo_shower.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 import '../../../constants/constants.dart';
-import '../../../constants/theme.dart';
 import '../../../providers/settings_providers.dart';
 
 class DashboardContainer extends ConsumerStatefulWidget {
@@ -40,9 +39,7 @@ class _DashboardContainerConsumerState
     extends ConsumerState<DashboardContainer> {
   @override
   Widget build(BuildContext context) {
-    Color normalColor = ref.watch(normalColorProvider);
     Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
     Color highlightColor = ref.watch(highlightColorProvider);
     return Container(
       width: (screenSize(context).width -
@@ -149,9 +146,7 @@ class AboutContainer extends ConsumerStatefulWidget {
 class _AboutContainerConsumerState extends ConsumerState<AboutContainer> {
   @override
   Widget build(BuildContext context) {
-    Color normalColor = ref.watch(normalColorProvider);
     Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
     Color highlightColor = ref.watch(highlightColorProvider);
     return Container(
       width: (screenSize(context).width -
@@ -217,9 +212,7 @@ class BlankDashboardContainer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Color normalColor = ref.watch(normalColorProvider);
     Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
     Color highlightColor = ref.watch(highlightColorProvider);
     return Container(
         width: (screenSize(context).width -
@@ -251,9 +244,7 @@ class BlankVisualizerContainer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Color normalColor = ref.watch(normalColorProvider);
     Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
     Color highlightColor = ref.watch(highlightColorProvider);
     return Container(
         width: screenSize(context).width * 0.8 -

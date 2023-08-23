@@ -1,23 +1,13 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:image/image.dart' as img;
 import 'package:screenshot/screenshot.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/charts/pie_chart_parser.dart';
-import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 
-import '../../../connections/ssh.dart';
 import '../../../constants/constants.dart';
-import '../../../kml_makers/balloon_makers.dart';
-import '../../../providers/page_providers.dart';
-import '../../../utils/helper.dart';
 import '../downloadable_content.dart';
-import '../../../constants/images.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../utils/csv_parser.dart';
 import '../widgets/charts/line_chart_parser.dart';
@@ -94,9 +84,10 @@ class _NYCEducationTabLeftState extends ConsumerState<NYCEducationTabLeft> {
             children: [
               satData != null
                   ? LineChartParser(
-                          title:
-                              translate('city_data.new_york.education.sat_title'),
-                          legendX: translate('city_data.new_york.education.dbn'),
+                          title: translate(
+                              'city_data.new_york.education.sat_title'),
+                          legendX:
+                              translate('city_data.new_york.education.dbn'),
                           chartData: {
                             translate('city_data.new_york.education.students'):
                                 Colors.blue,
@@ -111,7 +102,12 @@ class _NYCEducationTabLeftState extends ConsumerState<NYCEducationTabLeft> {
                           barWidth: 1)
                       .chartParser(
                       dataX: satData![0],
-                      dataY: [satData![2], satData![3], satData![4], satData![5]],
+                      dataY: [
+                        satData![2],
+                        satData![3],
+                        satData![4],
+                        satData![5]
+                      ],
                     )
                   : const BlankDashboardContainer(
                       heightMultiplier: 2,
@@ -120,21 +116,22 @@ class _NYCEducationTabLeftState extends ConsumerState<NYCEducationTabLeft> {
               Const.dashboardUISpacing.ph,
               bilingualData != null
                   ? PieChartParser(
-                  title: translate(
-                      'city_data.new_york.education.bilingual_title'),
-                  subTitle:
-                  translate('city_data.new_york.education.school'))
-                  .chartParser(data: bilingualData![7])
+                          title: translate(
+                              'city_data.new_york.education.bilingual_title'),
+                          subTitle:
+                              translate('city_data.new_york.education.school'))
+                      .chartParser(data: bilingualData![7])
                   : const BlankDashboardContainer(
-                heightMultiplier: 2,
-                widthMultiplier: 2,
-              ),
+                      heightMultiplier: 2,
+                      widthMultiplier: 2,
+                    ),
               Const.dashboardUISpacing.ph,
               mathData != null
                   ? LineChartParser(
                           title: translate(
                               'city_data.new_york.education.math_title'),
-                          legendX: translate('city_data.new_york.education.year'),
+                          legendX:
+                              translate('city_data.new_york.education.year'),
                           chartData: {
                             translate('city_data.new_york.education.num'):
                                 Colors.blue,
@@ -153,17 +150,20 @@ class _NYCEducationTabLeftState extends ConsumerState<NYCEducationTabLeft> {
               Const.dashboardUISpacing.ph,
               attendanceData != null
                   ? LineChartParser(
-                      title: translate(
-                          'city_data.new_york.education.attendance_title'),
-                      legendX: translate('city_data.new_york.education.district'),
-                      chartData: {
-                        translate('city_data.new_york.education.attendance'):
-                            Colors.yellow,
-                        translate('city_data.new_york.education.enrollment'):
-                            Colors.green,
-                      },
-                markerIntervalX: 6
-                    ).chartParser(
+                          title: translate(
+                              'city_data.new_york.education.attendance_title'),
+                          legendX: translate(
+                              'city_data.new_york.education.district'),
+                          chartData: {
+                            translate(
+                                    'city_data.new_york.education.attendance'):
+                                Colors.yellow,
+                            translate(
+                                    'city_data.new_york.education.enrollment'):
+                                Colors.green,
+                          },
+                          markerIntervalX: 6)
+                      .chartParser(
                       dataX: attendanceData![0],
                       dataY: [attendanceData![1], attendanceData![2]],
                     )
@@ -172,7 +172,6 @@ class _NYCEducationTabLeftState extends ConsumerState<NYCEducationTabLeft> {
                       widthMultiplier: 2,
                     ),
               Const.dashboardUISpacing.ph,
-
             ],
           ),
         ),

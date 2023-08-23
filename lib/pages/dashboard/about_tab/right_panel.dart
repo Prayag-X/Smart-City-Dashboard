@@ -2,11 +2,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:smart_city_dashboard/constants/text_styles.dart';
 import 'package:smart_city_dashboard/kml_makers/kml_makers.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/dashboard_right_panel.dart';
-import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 
 import '../../../constants/constants.dart';
@@ -47,7 +45,8 @@ class _AboutTabRightState extends ConsumerState<AboutTabRight> {
                 });
                 try {
                   File file = await SSH(ref: ref).makeFile(
-                      Const.kmlOrbitFileName, KMLMakers.buildTourOfCityAbout(ref));
+                      Const.kmlOrbitFileName,
+                      KMLMakers.buildTourOfCityAbout(ref));
                   if (!mounted) {
                     return;
                   }
@@ -87,7 +86,7 @@ class _AboutTabRightState extends ConsumerState<AboutTabRight> {
                 decoration: BoxDecoration(
                   color: selectedTask == 0 ? highlightColor : null,
                   borderRadius:
-                  BorderRadius.circular(Const.dashboardUIRoundness),
+                      BorderRadius.circular(Const.dashboardUIRoundness),
                 ),
                 child: Padding(
                     padding: const EdgeInsets.symmetric(
@@ -119,7 +118,7 @@ class _AboutTabRightState extends ConsumerState<AboutTabRight> {
                 setState(() {
                   selectedTask = 1;
                 });
-                if(!mounted) {
+                if (!mounted) {
                   return;
                 }
                 await SSH(ref: ref).stopOrbit(

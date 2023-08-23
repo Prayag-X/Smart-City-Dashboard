@@ -19,10 +19,11 @@ StateProvider<List<GlobalKey>> helpPageKeysProvider = StateProvider((ref) => [
       GlobalKey(),
     ]);
 
-StateProvider<List<GlobalKey>> visualizerPageKeysProvider = StateProvider((ref) => [
-      GlobalKey(),
-      GlobalKey(),
-    ]);
+StateProvider<List<GlobalKey>> visualizerPageKeysProvider =
+    StateProvider((ref) => [
+          GlobalKey(),
+          GlobalKey(),
+        ]);
 
 StateProvider<FeaturesTourController> featureTourControllerHomepageProvider =
     StateProvider((ref) => FeaturesTourController('Homepage'));

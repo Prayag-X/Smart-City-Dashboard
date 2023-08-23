@@ -5,8 +5,6 @@ class TabButtonModel {
   String? logo;
   String? name;
   String? nameForUrl;
-  int? tabWidgetNumbers;
-  List<int>? tabMiniWidgetNumbers;
   int tab;
   ConsumerStatefulWidget? leftTab;
   ConsumerStatefulWidget? rightTab;
@@ -17,8 +15,6 @@ class TabButtonModel {
     this.logo,
     this.name,
     this.nameForUrl,
-    this.tabWidgetNumbers,
-    this.tabMiniWidgetNumbers,
     required this.tab,
     this.leftTab,
     this.rightTab,

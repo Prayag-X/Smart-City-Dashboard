@@ -29,12 +29,10 @@ class TabPanel extends ConsumerStatefulWidget {
 class _TabPanelState extends ConsumerState<TabPanel> {
   @override
   Widget build(BuildContext context) {
-    Color normalColor = ref.watch(normalColorProvider);
     Color oppositeColor = ref.watch(oppositeColorProvider);
     Color tabBarColor = ref.watch(tabBarColorProvider);
     Color highlightColor = ref.watch(highlightColorProvider);
     bool isHomePage = ref.watch(isHomePageProvider);
-    String language = ref.watch(languageProvider);
     int homePageTab = ref.watch(tabProvider);
     CityCardModel? cityData = ref.watch(cityDataProvider);
     FeaturesTourController featuresTourController =

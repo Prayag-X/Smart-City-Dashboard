@@ -29,9 +29,6 @@ class PieChartParser {
       }
     }
 
-    // lightenColor(const Color(0xFF00166E), frequency[i] / data.length * 0.7)
-    // Colors.primaries[Random().nextInt(Colors.primaries.length)]
-
     for (int i = 0; i < headers.length; i++) {
       chartData.add(ChartData(
           headers[i],
@@ -44,7 +41,6 @@ class PieChartParser {
                       const Color(0xFF003EFF), Random().nextDouble() * 0.3)
               : darkenColor(
                   const Color(0xFFFFCF00), Random().nextDouble() * 0.3)
-          // Colors.primaries[Random().nextInt(Colors.primaries.length)]
           ));
     }
 
@@ -82,9 +78,6 @@ class PieChartParser {
       }
     }
 
-    // lightenColor(const Color(0xFF00166E), frequency[i] / data.length * 0.7)
-    // Colors.primaries[Random().nextInt(Colors.primaries.length)]
-
     for (int i = 0; i < headers.length; i++) {
       chartData.add(ChartData(
           headers[i],
@@ -97,7 +90,6 @@ class PieChartParser {
                       const Color(0xFF003EFF), Random().nextDouble() * 0.3)
               : darkenColor(
                   const Color(0xFFFFCF00), Random().nextDouble() * 0.3)
-          // Colors.primaries[Random().nextInt(Colors.primaries.length)]
           ));
     }
 

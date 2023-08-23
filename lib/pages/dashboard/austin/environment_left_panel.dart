@@ -1,23 +1,12 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:image/image.dart' as img;
 import 'package:screenshot/screenshot.dart';
-import 'package:smart_city_dashboard/pages/dashboard/widgets/charts/pie_chart_parser.dart';
-import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 
-import '../../../connections/ssh.dart';
 import '../../../constants/constants.dart';
-import '../../../kml_makers/balloon_makers.dart';
-import '../../../providers/page_providers.dart';
-import '../../../utils/helper.dart';
 import '../downloadable_content.dart';
-import '../../../constants/images.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../utils/csv_parser.dart';
 import '../widgets/charts/line_chart_parser.dart';
@@ -101,7 +90,7 @@ class _AustinEnvironmentTabLeftState
     return Screenshot(
       controller: screenshotController,
       child: AnimationLimiter(
-          child: Column(
+        child: Column(
           children: AnimationConfiguration.toStaggeredList(
             duration: Const.animationDuration,
             childAnimationBuilder: (widget) => SlideAnimation(
@@ -135,13 +124,16 @@ class _AustinEnvironmentTabLeftState
               Const.dashboardUISpacing.ph,
               cpi38Data != null
                   ? LineChartParser(
-                      title:
-                          translate('city_data.austin.environment.cpi_38_title'),
-                      legendX: translate('city_data.austin.environment.year'),
-                      chartData: {
-                          translate('city_data.austin.environment.victims'):
-                              Colors.red,
-                        },markerIntervalX: 1).chartParserWithDuplicate(dataX: cpi38Data![0], dataY: [
+                          title: translate(
+                              'city_data.austin.environment.cpi_38_title'),
+                          legendX:
+                              translate('city_data.austin.environment.year'),
+                          chartData: {
+                            translate('city_data.austin.environment.victims'):
+                                Colors.red,
+                          },
+                          markerIntervalX: 1)
+                      .chartParserWithDuplicate(dataX: cpi38Data![0], dataY: [
                       cpi38Data![4],
                     ])
                   : const BlankDashboardContainer(
@@ -151,13 +143,16 @@ class _AustinEnvironmentTabLeftState
               Const.dashboardUISpacing.ph,
               cpi33Data != null
                   ? LineChartParser(
-                      title:
-                          translate('city_data.austin.environment.cpi_33_title'),
-                      legendX: translate('city_data.austin.environment.year'),
-                      chartData: {
-                          translate('city_data.austin.environment.victims'):
-                              Colors.red,
-                        },markerIntervalX: 1).chartParserWithDuplicate(dataX: cpi33Data![0], dataY: [
+                          title: translate(
+                              'city_data.austin.environment.cpi_33_title'),
+                          legendX:
+                              translate('city_data.austin.environment.year'),
+                          chartData: {
+                            translate('city_data.austin.environment.victims'):
+                                Colors.red,
+                          },
+                          markerIntervalX: 1)
+                      .chartParserWithDuplicate(dataX: cpi33Data![0], dataY: [
                       cpi33Data![4],
                     ])
                   : const BlankDashboardContainer(
@@ -192,16 +187,19 @@ class _AustinEnvironmentTabLeftState
               Const.dashboardUISpacing.ph,
               ecadData != null
                   ? LineChartParser(
-                      title: translate('city_data.austin.environment.ecad_title'),
-                      legendX: translate('city_data.austin.environment.id'),
-                      chartData: {
-                          translate('city_data.austin.environment.number'):
-                              Colors.blue,
-                          translate('city_data.austin.environment.apts'):
-                              Colors.yellow,
-                          translate('city_data.austin.environment.costs'):
-                              Colors.red,
-                        },barWidth: 1).chartParser(dataX: ecadData![0], dataY: [
+                          title: translate(
+                              'city_data.austin.environment.ecad_title'),
+                          legendX: translate('city_data.austin.environment.id'),
+                          chartData: {
+                            translate('city_data.austin.environment.number'):
+                                Colors.blue,
+                            translate('city_data.austin.environment.apts'):
+                                Colors.yellow,
+                            translate('city_data.austin.environment.costs'):
+                                Colors.red,
+                          },
+                          barWidth: 1)
+                      .chartParser(dataX: ecadData![0], dataY: [
                       ecadData![9],
                       ecadData![10],
                       ecadData![12],
@@ -230,7 +228,8 @@ class _AustinEnvironmentTabLeftState
               hee5cData != null
                   ? LineChartParser(
                       title: translate('city_data.austin.environment.heec5'),
-                      legendX: translate('city_data.austin.environment.district'),
+                      legendX:
+                          translate('city_data.austin.environment.district'),
                       chartData: {
                           translate('city_data.austin.environment.treated'):
                               Colors.blue,

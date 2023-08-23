@@ -1,23 +1,12 @@
-import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:image/image.dart' as img;
 import 'package:screenshot/screenshot.dart';
-import 'package:smart_city_dashboard/pages/dashboard/widgets/charts/pie_chart_parser.dart';
-import 'package:smart_city_dashboard/providers/data_providers.dart';
 import 'package:smart_city_dashboard/utils/extensions.dart';
 
-import '../../../connections/ssh.dart';
 import '../../../constants/constants.dart';
-import '../../../kml_makers/balloon_makers.dart';
-import '../../../providers/page_providers.dart';
-import '../../../utils/helper.dart';
 import '../downloadable_content.dart';
-import '../../../constants/images.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../utils/csv_parser.dart';
 import '../widgets/charts/line_chart_parser.dart';
@@ -94,15 +83,17 @@ class _BoulderLivableTabLeftState extends ConsumerState<BoulderLivableTabLeft> {
             children: [
               buildingData != null
                   ? LineChartParser(
-                      title:
-                          translate('city_data.boulder.livable.building_title'),
-                      legendX: translate('city_data.boulder.livable.id'),
-                      chartData: {
-                        translate('city_data.boulder.livable.areaSF'):
-                            Colors.yellow,
-                        translate('city_data.boulder.livable.row'): Colors.blue,
-                      },barWidth: 2
-                    ).chartParser(dataX: buildingData![11], dataY: [
+                          title: translate(
+                              'city_data.boulder.livable.building_title'),
+                          legendX: translate('city_data.boulder.livable.id'),
+                          chartData: {
+                            translate('city_data.boulder.livable.areaSF'):
+                                Colors.yellow,
+                            translate('city_data.boulder.livable.row'):
+                                Colors.blue,
+                          },
+                          barWidth: 2)
+                      .chartParser(dataX: buildingData![11], dataY: [
                       buildingData![7],
                       buildingData![2],
                     ])
@@ -113,14 +104,15 @@ class _BoulderLivableTabLeftState extends ConsumerState<BoulderLivableTabLeft> {
               Const.dashboardUISpacing.ph,
               homelessnessData != null
                   ? LineChartParser(
-                      title: translate(
-                          'city_data.boulder.livable.homelessness_title'),
-                      legendX: translate('city_data.boulder.livable.id'),
-                      chartData: {
-                        translate('city_data.boulder.livable.attendance'):
-                            Colors.blue,
-                      },barWidth: 2
-                    ).chartParser(dataX: homelessnessData![0], dataY: [
+                          title: translate(
+                              'city_data.boulder.livable.homelessness_title'),
+                          legendX: translate('city_data.boulder.livable.id'),
+                          chartData: {
+                            translate('city_data.boulder.livable.attendance'):
+                                Colors.blue,
+                          },
+                          barWidth: 2)
+                      .chartParser(dataX: homelessnessData![0], dataY: [
                       homelessnessData![4],
                     ])
                   : const BlankDashboardContainer(
@@ -130,14 +122,15 @@ class _BoulderLivableTabLeftState extends ConsumerState<BoulderLivableTabLeft> {
               Const.dashboardUISpacing.ph,
               communityData != null
                   ? LineChartParser(
-                      title:
-                          translate('city_data.boulder.livable.community_title'),
-                      legendX: translate('city_data.boulder.livable.id'),
-                      chartData: {
-                        translate('city_data.boulder.livable.no_people'):
-                            Colors.blue,
-                      },barWidth: 1
-                    ).chartParser(dataX: communityData![0], dataY: [
+                          title: translate(
+                              'city_data.boulder.livable.community_title'),
+                          legendX: translate('city_data.boulder.livable.id'),
+                          chartData: {
+                            translate('city_data.boulder.livable.no_people'):
+                                Colors.blue,
+                          },
+                          barWidth: 1)
+                      .chartParser(dataX: communityData![0], dataY: [
                       communityData![133],
                     ])
                   : const BlankDashboardContainer(
@@ -147,15 +140,19 @@ class _BoulderLivableTabLeftState extends ConsumerState<BoulderLivableTabLeft> {
               Const.dashboardUISpacing.ph,
               policeData != null
                   ? LineChartParser(
-                      title: translate('city_data.boulder.livable.police_title'),
-                      legendX: translate('city_data.boulder.livable.id'),
-                      chartData: {
-                        translate('city_data.boulder.livable.stop_time'):
-                            Colors.blue,
-                        translate('city_data.boulder.livable.min'): Colors.yellow,
-                        translate('city_data.boulder.livable.dob'): Colors.red,
-                      },barWidth: 1
-                    ).chartParser(dataX: policeData![0], dataY: [
+                          title: translate(
+                              'city_data.boulder.livable.police_title'),
+                          legendX: translate('city_data.boulder.livable.id'),
+                          chartData: {
+                            translate('city_data.boulder.livable.stop_time'):
+                                Colors.blue,
+                            translate('city_data.boulder.livable.min'):
+                                Colors.yellow,
+                            translate('city_data.boulder.livable.dob'):
+                                Colors.red,
+                          },
+                          barWidth: 1)
+                      .chartParser(dataX: policeData![0], dataY: [
                       policeData![2],
                       policeData![6],
                       policeData![10],

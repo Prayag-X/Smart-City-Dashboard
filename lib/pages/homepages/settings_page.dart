@@ -4,7 +4,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smart_city_dashboard/connections/downloader.dart';
@@ -17,7 +16,6 @@ import 'package:smart_city_dashboard/utils/extensions.dart';
 import 'package:smart_city_dashboard/utils/helper.dart';
 
 import '../../constants/constants.dart';
-import '../../constants/theme.dart';
 import '../../connections/ssh.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
@@ -66,12 +64,9 @@ class _SettingsState extends ConsumerState<SettingsPage> {
   connectionSection() {
     Color normalColor = ref.watch(normalColorProvider);
     Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
     bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
     bool darkMode = ref.watch(darkModeOnProvider);
-    bool downloadableContentAvailable =
-        ref.watch(downloadableContentAvailableProvider);
+    double widgetSize = screenSize(context).width / 2 - 200;
     return Column(
       children: [
         TitleContainer(title: translate('settings.connection_management')),
@@ -141,7 +136,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                   children: [
                     100.ph,
                     SizedBox(
-                        width: screenSize(context).width / 2 - 200,
+                        width: widgetSize,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -180,7 +175,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                         )),
                     20.ph,
                     SizedBox(
-                      width: screenSize(context).width / 2 - 200,
+                      width: widgetSize,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -298,12 +293,8 @@ class _SettingsState extends ConsumerState<SettingsPage> {
   }
 
   contentSection() {
-    Color normalColor = ref.watch(normalColorProvider);
     Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
-    bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
-    bool darkMode = ref.watch(darkModeOnProvider);
+    double widgetSize = screenSize(context).width / 2 - 200;
     bool downloadableContentAvailable =
         ref.watch(downloadableContentAvailableProvider);
     return Column(
@@ -343,7 +334,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                             message: translate('settings.download_completed'));
                       },
                       name: translate('settings.download'),
-                      width: screenSize(context).width / 2 - 200,
+                      width: widgetSize,
                       icon: Icons.download_rounded,
                       color: darkenColor(Colors.blue),
                       ref: ref,
@@ -416,7 +407,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                             message: translate('settings.delete_success'));
                       },
                       name: translate('settings.delete_kml'),
-                      width: screenSize(context).width / 2 - 200,
+                      width: widgetSize,
                       icon: Icons.delete_forever_rounded,
                       color: darkenColor(Colors.red),
                       ref: ref,
@@ -435,12 +426,8 @@ class _SettingsState extends ConsumerState<SettingsPage> {
   lgSection() {
     Color normalColor = ref.watch(normalColorProvider);
     Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
     bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
-    bool darkMode = ref.watch(darkModeOnProvider);
-    bool downloadableContentAvailable =
-        ref.watch(downloadableContentAvailableProvider);
+    double widgetSize = screenSize(context).width / 3 - 150;
     return Column(
       children: [
         TitleContainer(title: translate('settings.lg_management')),
@@ -475,7 +462,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       name: isConnectedToLg
                           ? translate('settings.clean_logo')
                           : '--',
-                      width: screenSize(context).width / 3 - 150,
+                      width: widgetSize,
                       icon: Icons.cleaning_services_rounded,
                       color: isConnectedToLg
                           ? darkenColor(Colors.orange, 0.05)
@@ -501,7 +488,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       name: isConnectedToLg
                           ? translate('settings.show_logo')
                           : '--',
-                      width: screenSize(context).width / 3 - 150,
+                      width: widgetSize,
                       icon: Icons.logo_dev_rounded,
                       color: isConnectedToLg
                           ? darkenColor(Colors.orange, 0.05)
@@ -524,7 +511,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       name: isConnectedToLg
                           ? translate('settings.clean_kml')
                           : '--',
-                      width: screenSize(context).width / 3 - 150,
+                      width: widgetSize,
                       icon: Icons.cleaning_services_rounded,
                       color: isConnectedToLg
                           ? darkenColor(Colors.orange, 0.05)
@@ -570,7 +557,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       name: isConnectedToLg
                           ? translate('settings.set_refresh')
                           : '--',
-                      width: screenSize(context).width / 3 - 150,
+                      width: widgetSize,
                       icon: Icons.restart_alt_rounded,
                       color: isConnectedToLg
                           ? Colors.blue
@@ -593,7 +580,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       name: isConnectedToLg
                           ? translate('settings.reset_refresh')
                           : '--',
-                      width: screenSize(context).width / 3 - 150,
+                      width: widgetSize,
                       icon: Icons.restart_alt_rounded,
                       color: isConnectedToLg
                           ? Colors.blue
@@ -639,7 +626,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       name: isConnectedToLg
                           ? translate('settings.relaunch_lg')
                           : '--',
-                      width: screenSize(context).width / 3 - 150,
+                      width: widgetSize,
                       icon: Icons.power_rounded,
                       color: isConnectedToLg
                           ? Colors.redAccent
@@ -662,7 +649,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       name: isConnectedToLg
                           ? translate('settings.reboot_lg')
                           : '--',
-                      width: screenSize(context).width / 3 - 150,
+                      width: widgetSize,
                       icon: Icons.settings_power_rounded,
                       color: isConnectedToLg
                           ? Colors.redAccent
@@ -685,7 +672,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       name: isConnectedToLg
                           ? translate('settings.shutdown_lg')
                           : '--',
-                      width: screenSize(context).width / 3 - 150,
+                      width: widgetSize,
                       icon: Icons.power_settings_new_rounded,
                       color: isConnectedToLg
                           ? Colors.redAccent
@@ -750,8 +737,6 @@ class TextButtonCustom extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     Color normalColor = ref.watch(normalColorProvider);
     Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextButton(

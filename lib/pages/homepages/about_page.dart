@@ -167,7 +167,6 @@ class _AboutPageState extends ConsumerState<AboutPage> {
                                             'homepage.about_page.organization_admin'),
                                         text2: translate(
                                             'homepage.about_page.andrew')),
-
                                   ],
                                 ),
                               ),

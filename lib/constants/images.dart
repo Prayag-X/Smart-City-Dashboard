@@ -1,7 +1,8 @@
 class ImageConst {
   //
   static const splash = 'assets/images/splash.png';
-  static const splashOnline = 'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/images/splash.png';
+  static const splashOnline =
+      'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/images/splash.png';
   static const newYork = 'assets/images/new_york.png';
   static const austin = 'assets/images/austin.jpg';
   static const charlotte = 'assets/images/charlotte.jpg';
@@ -20,13 +21,20 @@ class ImageConst {
   static const marker = 'assets/logos/marker.jpg';
 
   //
-  static const cloudOnline = 'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/logos/cloud.png';
-  static const windOnline = 'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/logos/wind.png';
-  static const uvOnline = 'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/logos/uv.png';
-  static const temperatureOnline = 'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/logos/temperature.png';
-  static const humidityOnline = 'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/logos/humidity.png';
-  static const pressureOnline = 'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/logos/pressure.png';
-  static const allWeatherOnline = 'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/logos/weather/';
+  static const cloudOnline =
+      'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/logos/cloud.png';
+  static const windOnline =
+      'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/logos/wind.png';
+  static const uvOnline =
+      'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/logos/uv.png';
+  static const temperatureOnline =
+      'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/logos/temperature.png';
+  static const humidityOnline =
+      'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/logos/humidity.png';
+  static const pressureOnline =
+      'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/logos/pressure.png';
+  static const allWeatherOnline =
+      'https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/assets/logos/weather/';
 
   //
   static const allWeather = 'assets/logos/weather/';

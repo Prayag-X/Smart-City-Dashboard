@@ -19,9 +19,7 @@ class WeatherTabRight extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Color normalColor = ref.watch(normalColorProvider);
     Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
     Color highlightColor = ref.watch(highlightColorProvider);
     ForecastWeather? weatherData = ref.watch(weatherDataProvider);
     int weatherDayClicked = ref.watch(weatherDayClickedProvider);

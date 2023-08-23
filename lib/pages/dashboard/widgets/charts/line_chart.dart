@@ -410,9 +410,6 @@ class _VisualizerLineChartState extends ConsumerState<VisualizerLineChart> {
 
   @override
   Widget build(BuildContext context) {
-    Color normalColor = ref.watch(normalColorProvider);
-    Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
     Color highlightColor = ref.watch(highlightColorProvider);
     return Container(
       width: screenSize(context).width * 0.8 -

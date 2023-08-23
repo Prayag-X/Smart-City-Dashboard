@@ -12,7 +12,6 @@ import '../../../kml_makers/balloon_makers.dart';
 import '../../../providers/data_providers.dart';
 import '../../../providers/page_providers.dart';
 import '../../../providers/settings_providers.dart';
-import '../../../utils/helper.dart';
 
 class BalloonLoader {
   WidgetRef ref;
@@ -29,7 +28,6 @@ class BalloonLoader {
       {String? tabPageName}) async {
     if (ref.read(isConnectedToLGProvider)) {
       await Future.delayed(Const.screenshotDelay).then((x) async {
-        // await SSH(ref: ref).connectionRetry(context);
         screenshotController.capture().then((image) async {
           img.Image? imageDecoded = img.decodePng(Uint8List.fromList(image!));
           await SSH(ref: ref).imageFileUpload(context, image);

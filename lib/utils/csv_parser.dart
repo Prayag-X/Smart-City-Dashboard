@@ -25,15 +25,15 @@ class FileParser {
   }
 
   static Future<List<List<dynamic>>> parseCSVFromStorage(
-      Map<String, String> path, {int limit = 2000}) async {
+      Map<String, String> path,
+      {int limit = 2000}) async {
     var localPath = await getApplicationDocumentsDirectory();
     String rawData = await File(
             '${localPath.path}/${DownloadableContent.generateFileName(path)}')
         .readAsString();
-    var data =  const CsvToListConverter(eol: '\n').convert(rawData);
-    if(limit > 0) {
-
-    return data.sublist(0, min(data.length, limit));
+    var data = const CsvToListConverter(eol: '\n').convert(rawData);
+    if (limit > 0) {
+      return data.sublist(0, min(data.length, limit));
     } else {
       return data;
     }

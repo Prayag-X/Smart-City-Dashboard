@@ -80,16 +80,15 @@ class _MainPageState extends ConsumerState<MainPage> {
           context,
           ref.read(rightmostRigProvider),
           BalloonMakers.orbitBalloon(
-            CameraPosition(
-              target: LatLng(
-                city.location.latitude,
-                city.location.longitude,
+              CameraPosition(
+                target: LatLng(
+                  city.location.latitude,
+                  city.location.longitude,
+                ),
+                zoom: Const.orbitZoomScale.zoomLG,
               ),
-              zoom: Const.orbitZoomScale.zoomLG,
-            ),
-            city.image,
-            city.cityNameEnglish
-          ));
+              city.image,
+              city.cityNameEnglish));
       for (int i = 0; i <= 180; i += 17) {
         if (!mounted) {
           return;
@@ -136,12 +135,12 @@ class _MainPageState extends ConsumerState<MainPage> {
   }
 
   showFeatureTour() async {
-    if(ref.read(showHomepageTourProvider)) {
+    if (ref.read(showHomepageTourProvider)) {
       ref.read(featureTourControllerHomepageProvider).start(
-        context: context,
-        delay: Duration.zero,
-        force: true,
-      );
+            context: context,
+            delay: Duration.zero,
+            force: true,
+          );
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setBool('showHomepageTour', false);
       ref.read(showHomepageTourProvider.notifier).state = false;
@@ -167,7 +166,6 @@ class _MainPageState extends ConsumerState<MainPage> {
     int homePageTab = ref.watch(tabProvider);
     Color highlightColor = ref.watch(highlightColorProvider);
     Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
     bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
     bool playingGlobalTour = ref.watch(playingGlobalTourProvider);
     FeaturesTourController featuresTourController =
@@ -213,7 +211,8 @@ class _MainPageState extends ConsumerState<MainPage> {
                           showSnackBar(
                               context: context,
                               message:
-                                  translate('settings.connection_required'), color: Colors.red);
+                                  translate('settings.connection_required'),
+                              color: Colors.red);
                         }
                         // Add your onPressed code here!
                       },

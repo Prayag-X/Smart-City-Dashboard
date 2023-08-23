@@ -21,7 +21,7 @@ class KMLMakers {
                       <overlayXY x="0" y="1" xunits="fraction" yunits="fraction"/>
                       <screenXY x="0.025" y="0.95" xunits="fraction" yunits="fraction"/>
                       <rotationXY x="0" y="0" xunits="fraction" yunits="fraction"/>
-                      <size x="300" y="${300*factor}" xunits="pixels" yunits="pixels"/>
+                      <size x="300" y="${300 * factor}" xunits="pixels" yunits="pixels"/>
                   </ScreenOverlay>
              </Folder>
     </Document>
@@ -40,12 +40,12 @@ class KMLMakers {
   <gx:altitudeMode>relativeToGround</gx:altitudeMode>
 </LookAt>''';
 
-  static String orbitLookAtLinear(double latitude, double longitude, double zoom,
-          double tilt, double bearing) =>
+  static String orbitLookAtLinear(double latitude, double longitude,
+          double zoom, double tilt, double bearing) =>
       '<gx:duration>2</gx:duration><gx:flyToMode>smooth</gx:flyToMode><LookAt><longitude>$longitude</longitude><latitude>$latitude</latitude><range>$zoom</range><tilt>$tilt</tilt><heading>$bearing</heading><gx:altitudeMode>relativeToGround</gx:altitudeMode></LookAt>';
 
-  static String lookAtLinearInstant(double latitude, double longitude, double zoom,
-          double tilt, double bearing) =>
+  static String lookAtLinearInstant(double latitude, double longitude,
+          double zoom, double tilt, double bearing) =>
       '<gx:duration>0.5</gx:duration><gx:flyToMode>smooth</gx:flyToMode><LookAt><longitude>$longitude</longitude><latitude>$latitude</latitude><range>$zoom</range><tilt>$tilt</tilt><heading>$bearing</heading><gx:altitudeMode>relativeToGround</gx:altitudeMode></LookAt>';
 
   static String buildTourOfCityAbout(WidgetRef ref) {

@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:features_tour/features_tour.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -12,7 +11,6 @@ import 'package:speech_to_text/speech_to_text.dart';
 import 'package:speech_to_text/speech_recognition_result.dart';
 
 import '../../constants/constants.dart';
-import '../../constants/theme.dart';
 import '../../providers/page_providers.dart';
 import 'feature_tour_widget.dart';
 
@@ -55,10 +53,8 @@ class _AppBarState extends ConsumerState<CustomAppBar> {
 
   @override
   Widget build(BuildContext context) {
-    String search = ref.watch(searchProvider);
     Color normalColor = ref.watch(normalColorProvider);
     Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
     Color highlightColor = ref.watch(highlightColorProvider);
     bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
     bool isConnectedToInternet = ref.watch(isConnectedToInternetProvider);
