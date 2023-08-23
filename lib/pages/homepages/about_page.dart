@@ -92,7 +92,7 @@ class _AboutPageState extends ConsumerState<AboutPage> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 15.0),
                         child: SizedBox(
-                          height: 130,
+                          height: 170,
                           child: Row(
                             children: [
                               Expanded(
@@ -144,9 +144,19 @@ class _AboutPageState extends ConsumerState<AboutPage> {
                                             'homepage.about_page.liquid_galaxy')),
                                     AboutText(
                                         text1: translate(
-                                            'homepage.about_page.organization_admin'),
+                                            'homepage.about_page.lg_lab_tester'),
                                         text2: translate(
-                                            'homepage.about_page.andrew')),
+                                            'homepage.about_page.lg_lab_testers')),
+                                    AboutText(
+                                        text1: translate(
+                                            'homepage.about_page.flutter'),
+                                        text2: translate(
+                                            'homepage.about_page.victor')),
+                                    AboutText(
+                                        text1: translate(
+                                            'homepage.about_page.play_store'),
+                                        text2: translate(
+                                            'homepage.about_page.alejandro')),
                                     AboutText(
                                         text1: translate(
                                             'homepage.about_page.mentor'),
@@ -154,9 +164,10 @@ class _AboutPageState extends ConsumerState<AboutPage> {
                                             'homepage.about_page.merul')),
                                     AboutText(
                                         text1: translate(
-                                            'homepage.about_page.lg_lab_tester'),
+                                            'homepage.about_page.organization_admin'),
                                         text2: translate(
-                                            'homepage.about_page.lg_lab_testers')),
+                                            'homepage.about_page.andrew')),
+
                                   ],
                                 ),
                               ),
