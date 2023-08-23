@@ -94,143 +94,105 @@ class _AustinTransportTabLeftState
               ),
             ),
             children: [
-              emsData != null
-                  ? LineChartParser(
-                          title:
-                              translate('city_data.austin.transport.ems_title'),
-                          legendX:
-                              translate('city_data.austin.transport.dest_code'),
-                          chartData: {
-                            translate('city_data.austin.transport.count'):
-                                Colors.yellow,
-                          },
-                          barWidth: 1)
-                      .chartParser(dataX: emsData![2], dataY: [
-                      emsData![4],
-                    ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
-              Const.dashboardUISpacing.ph,
-              transportConstructionData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.austin.transport.transport_construction_title'),
-                          legendX: translate('city_data.austin.transport.id'),
-                          chartData: {
-                            translate('city_data.austin.transport.population'):
-                                Colors.blue,
-                            translate('city_data.austin.transport.length'):
-                                Colors.red,
-                            translate('city_data.austin.transport.percent'):
-                                Colors.yellow,
-                          },
-                          barWidth: 1)
-                      .chartParser(
-                          dataX: transportConstructionData![0],
-                          dataY: [
-                          transportConstructionData![10],
-                          transportConstructionData![11],
-                          transportConstructionData![8],
-                        ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
-              Const.dashboardUISpacing.ph,
-              resignalData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.austin.transport.resignal_title'),
-                          legendX: translate('city_data.austin.transport.id'),
-                          chartData: {
-                            translate('city_data.austin.transport.vol'):
-                                Colors.blue,
-                            translate('city_data.austin.transport.seconds'):
-                                Colors.red,
-                            translate('city_data.austin.transport.count'):
-                                Colors.yellow,
-                          },
-                          barWidth: 4)
-                      .chartParser(dataX: resignalData![0], dataY: [
-                      resignalData![6],
-                      resignalData![8],
-                      resignalData![9],
-                    ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
-              Const.dashboardUISpacing.ph,
-              kioskData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.austin.transport.kiosk_title'),
-                          legendX: translate('city_data.austin.transport.id'),
-                          chartData: {
-                            translate('city_data.austin.transport.docks'):
-                                Colors.blue,
-                            translate('city_data.austin.transport.length'):
-                                Colors.red,
-                            translate('city_data.austin.transport.width'):
-                                Colors.yellow,
-                          },
-                          barWidth: 2)
-                      .chartParser(dataX: kioskData![0], dataY: [
-                      kioskData![8],
-                      kioskData![10],
-                      kioskData![11],
-                    ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
-              Const.dashboardUISpacing.ph,
-              bidBookData != null
-                  ? LineChartParser(
-                      title: translate(
-                          'city_data.austin.transport.bid_book_title'),
+              LineChartParser(
+                      title: translate('city_data.austin.transport.ems_title'),
                       legendX:
-                          translate('city_data.austin.transport.agency_code'),
+                          translate('city_data.austin.transport.dest_code'),
                       chartData: {
-                        translate('city_data.austin.transport.quantity'):
+                        translate('city_data.austin.transport.count'):
                             Colors.yellow,
                       },
-                    ).chartParser(dataX: bidBookData![0], dataY: [
-                      bidBookData![6],
-                    ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+                      barWidth: 1)
+                  .chartParser(dataX: emsData?[2], dataY: [
+                emsData?[4],
+              ]),
               Const.dashboardUISpacing.ph,
-              selfWageData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.austin.transport.self_wage_title'),
-                          legendX:
-                              translate('city_data.austin.transport.fam_code'),
-                          chartData: {
-                            translate(
-                                    'city_data.austin.transport.housing_cost'):
-                                Colors.blue,
-                            translate(
-                                    'city_data.austin.transport.transport_cost'):
-                                Colors.yellow,
-                          },
-                          barWidth: 2)
-                      .chartParser(
-                          dataX: selfWageData![4],
-                          dataY: [
-                            selfWageData![10],
-                            selfWageData![14],
-                          ],
-                          limitMarkerX: 6)
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title: translate(
+                          'city_data.austin.transport.transport_construction_title'),
+                      legendX: translate('city_data.austin.transport.id'),
+                      chartData: {
+                        translate('city_data.austin.transport.population'):
+                            Colors.blue,
+                        translate('city_data.austin.transport.length'):
+                            Colors.red,
+                        translate('city_data.austin.transport.percent'):
+                            Colors.yellow,
+                      },
+                      barWidth: 1)
+                  .chartParser(dataX: transportConstructionData?[0], dataY: [
+                transportConstructionData?[10],
+                transportConstructionData?[11],
+                transportConstructionData?[8],
+              ]),
+              Const.dashboardUISpacing.ph,
+              LineChartParser(
+                      title: translate(
+                          'city_data.austin.transport.resignal_title'),
+                      legendX: translate('city_data.austin.transport.id'),
+                      chartData: {
+                        translate('city_data.austin.transport.vol'):
+                            Colors.blue,
+                        translate('city_data.austin.transport.seconds'):
+                            Colors.red,
+                        translate('city_data.austin.transport.count'):
+                            Colors.yellow,
+                      },
+                      barWidth: 4)
+                  .chartParser(dataX: resignalData?[0], dataY: [
+                resignalData?[6],
+                resignalData?[8],
+                resignalData?[9],
+              ]),
+              Const.dashboardUISpacing.ph,
+              LineChartParser(
+                      title:
+                          translate('city_data.austin.transport.kiosk_title'),
+                      legendX: translate('city_data.austin.transport.id'),
+                      chartData: {
+                        translate('city_data.austin.transport.docks'):
+                            Colors.blue,
+                        translate('city_data.austin.transport.length'):
+                            Colors.red,
+                        translate('city_data.austin.transport.width'):
+                            Colors.yellow,
+                      },
+                      barWidth: 2)
+                  .chartParser(dataX: kioskData?[0], dataY: [
+                kioskData?[8],
+                kioskData?[10],
+                kioskData?[11],
+              ]),
+              Const.dashboardUISpacing.ph,
+              LineChartParser(
+                title: translate('city_data.austin.transport.bid_book_title'),
+                legendX: translate('city_data.austin.transport.agency_code'),
+                chartData: {
+                  translate('city_data.austin.transport.quantity'):
+                      Colors.yellow,
+                },
+              ).chartParser(dataX: bidBookData?[0], dataY: [
+                bidBookData?[6],
+              ]),
+              Const.dashboardUISpacing.ph,
+              LineChartParser(
+                      title: translate(
+                          'city_data.austin.transport.self_wage_title'),
+                      legendX: translate('city_data.austin.transport.fam_code'),
+                      chartData: {
+                        translate('city_data.austin.transport.housing_cost'):
+                            Colors.blue,
+                        translate('city_data.austin.transport.transport_cost'):
+                            Colors.yellow,
+                      },
+                      barWidth: 2)
+                  .chartParser(
+                      dataX: selfWageData?[4],
+                      dataY: [
+                        selfWageData?[10],
+                        selfWageData?[14],
+                      ],
+                      limitMarkerX: 6),
               Const.dashboardUISpacing.ph,
             ],
           ),

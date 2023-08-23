@@ -87,110 +87,83 @@ class _BoulderHealthTabLeftState extends ConsumerState<BoulderHealthTabLeft> {
               ),
             ),
             children: [
-              relationData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.boulder.health.relation_fund'),
-                          legendX: translate('city_data.boulder.health.id'),
-                          chartData: {
-                            translate('city_data.boulder.health.requested'):
-                                Colors.blue,
-                            translate('city_data.boulder.health.received'):
-                                Colors.green,
-                          },
-                          barWidth: 3)
-                      .chartParser(dataX: relationData![0], dataY: [
-                      relationData![5],
-                      relationData![6],
-                    ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title:
+                          translate('city_data.boulder.health.relation_fund'),
+                      legendX: translate('city_data.boulder.health.id'),
+                      chartData: {
+                        translate('city_data.boulder.health.requested'):
+                            Colors.blue,
+                        translate('city_data.boulder.health.received'):
+                            Colors.green,
+                      },
+                      barWidth: 3)
+                  .chartParser(dataX: relationData?[0], dataY: [
+                relationData?[5],
+                relationData?[6],
+              ]),
               Const.dashboardUISpacing.ph,
-              equityData != null
-                  ? LineChartParser(
-                          title:
-                              translate('city_data.boulder.health.equity_fund'),
-                          legendX: translate('city_data.boulder.health.id'),
-                          chartData: {
-                            translate('city_data.boulder.health.requested'):
-                                Colors.blue,
-                            translate('city_data.boulder.health.received'):
-                                Colors.green,
-                          },
-                          barWidth: 3)
-                      .chartParser(dataX: equityData![0], dataY: [
-                      equityData![8],
-                      equityData![9],
-                    ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title: translate('city_data.boulder.health.equity_fund'),
+                      legendX: translate('city_data.boulder.health.id'),
+                      chartData: {
+                        translate('city_data.boulder.health.requested'):
+                            Colors.blue,
+                        translate('city_data.boulder.health.received'):
+                            Colors.green,
+                      },
+                      barWidth: 3)
+                  .chartParser(dataX: equityData?[0], dataY: [
+                equityData?[8],
+                equityData?[9],
+              ]),
               Const.dashboardUISpacing.ph,
-              serviceData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.boulder.health.service_fund'),
-                          legendX: translate('city_data.boulder.health.id'),
-                          chartData: {
-                            translate('city_data.boulder.health.requested'):
-                                Colors.blue,
-                            translate('city_data.boulder.health.received'):
-                                Colors.green,
-                          },
-                          barWidth: 3)
-                      .chartParser(dataX: serviceData![0], dataY: [
-                      serviceData![9],
-                      serviceData![10],
-                    ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title: translate('city_data.boulder.health.service_fund'),
+                      legendX: translate('city_data.boulder.health.id'),
+                      chartData: {
+                        translate('city_data.boulder.health.requested'):
+                            Colors.blue,
+                        translate('city_data.boulder.health.received'):
+                            Colors.green,
+                      },
+                      barWidth: 3)
+                  .chartParser(dataX: serviceData?[0], dataY: [
+                serviceData?[9],
+                serviceData?[10],
+              ]),
               Const.dashboardUISpacing.ph,
-              engagementData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.boulder.health.parent_engagement_events'),
-                          legendX: translate('city_data.boulder.health.id'),
-                          chartData: {
-                            translate('city_data.boulder.health.adults'):
-                                Colors.blue,
-                            translate('city_data.boulder.health.children'):
-                                Colors.red,
-                          },
-                          barWidth: 3)
-                      .chartParser(dataX: engagementData![0], dataY: [
-                      engagementData![9],
-                      engagementData![10],
-                    ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title: translate(
+                          'city_data.boulder.health.parent_engagement_events'),
+                      legendX: translate('city_data.boulder.health.id'),
+                      chartData: {
+                        translate('city_data.boulder.health.adults'):
+                            Colors.blue,
+                        translate('city_data.boulder.health.children'):
+                            Colors.red,
+                      },
+                      barWidth: 3)
+                  .chartParser(dataX: engagementData?[0], dataY: [
+                engagementData?[9],
+                engagementData?[10],
+              ]),
               Const.dashboardUISpacing.ph,
-              orgData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.boulder.health.org_service_fund'),
-                          legendX: translate('city_data.boulder.health.id'),
-                          chartData: {
-                            translate('city_data.boulder.health.requested'):
-                                Colors.blue,
-                            translate('city_data.boulder.health.received'):
-                                Colors.green,
-                          },
-                          barWidth: 3)
-                      .chartParser(dataX: orgData![0], dataY: [
-                      orgData![7],
-                      orgData![8],
-                    ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title: translate(
+                          'city_data.boulder.health.org_service_fund'),
+                      legendX: translate('city_data.boulder.health.id'),
+                      chartData: {
+                        translate('city_data.boulder.health.requested'):
+                            Colors.blue,
+                        translate('city_data.boulder.health.received'):
+                            Colors.green,
+                      },
+                      barWidth: 3)
+                  .chartParser(dataX: orgData?[0], dataY: [
+                orgData?[7],
+                orgData?[8],
+              ]),
               Const.dashboardUISpacing.ph,
             ],
           ),

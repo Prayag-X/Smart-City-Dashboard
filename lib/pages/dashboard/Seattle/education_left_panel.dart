@@ -82,114 +82,84 @@ class _SeattleEducationTabLeftState
               ),
             ),
             children: [
-              tsgOverallData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.seattle.education.tsg_overall_title'),
-                          legendX:
-                              translate('city_data.seattle.education.group'),
-                          chartData: {
-                            translate('city_data.seattle.education.percentage'):
-                                Colors.blue,
-                            translate('city_data.seattle.education.avg_met'):
-                                Colors.yellow,
-                            translate(
-                                    'city_data.seattle.education.children_count'):
-                                Colors.red,
-                          },
-                          barWidth: 4)
-                      .chartParser(
-                      limitMarkerX: 10,
-                      dataX: tsgOverallData![1],
-                      dataY: [
-                        tsgOverallData![2],
-                        tsgOverallData![3],
-                        tsgOverallData![4],
-                      ],
-                    )
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title: translate(
+                          'city_data.seattle.education.tsg_overall_title'),
+                      legendX: translate('city_data.seattle.education.group'),
+                      chartData: {
+                        translate('city_data.seattle.education.percentage'):
+                            Colors.blue,
+                        translate('city_data.seattle.education.avg_met'):
+                            Colors.yellow,
+                        translate('city_data.seattle.education.children_count'):
+                            Colors.red,
+                      },
+                      barWidth: 4)
+                  .chartParser(
+                limitMarkerX: 10,
+                dataX: tsgOverallData?[1],
+                dataY: [
+                  tsgOverallData?[2],
+                  tsgOverallData?[3],
+                  tsgOverallData?[4],
+                ],
+              ),
               Const.dashboardUISpacing.ph,
-              tsgDomainData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.seattle.education.tsg_domain_title'),
-                          legendX:
-                              translate('city_data.seattle.education.group'),
-                          chartData: {
-                            translate('city_data.seattle.education.lan_met'):
-                                Colors.blue,
-                            translate(
-                                    'city_data.seattle.education.literacy_met'):
-                                Colors.yellow,
-                            translate(
-                                    'city_data.seattle.education.children_count'):
-                                Colors.red,
-                          },
-                          barWidth: 4)
-                      .chartParser(
-                      limitMarkerX: 10,
-                      dataX: tsgDomainData![1],
-                      dataY: [
-                        tsgDomainData![2],
-                        tsgDomainData![3],
-                        tsgDomainData![8],
-                      ],
-                    )
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title: translate(
+                          'city_data.seattle.education.tsg_domain_title'),
+                      legendX: translate('city_data.seattle.education.group'),
+                      chartData: {
+                        translate('city_data.seattle.education.lan_met'):
+                            Colors.blue,
+                        translate('city_data.seattle.education.literacy_met'):
+                            Colors.yellow,
+                        translate('city_data.seattle.education.children_count'):
+                            Colors.red,
+                      },
+                      barWidth: 4)
+                  .chartParser(
+                limitMarkerX: 10,
+                dataX: tsgDomainData?[1],
+                dataY: [
+                  tsgDomainData?[2],
+                  tsgDomainData?[3],
+                  tsgDomainData?[8],
+                ],
+              ),
               Const.dashboardUISpacing.ph,
-              sppEnrollmentData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.seattle.education.spp_title'),
-                          legendX:
-                              translate('city_data.seattle.education.year'),
-                          chartData: {
-                            translate(
-                                    'city_data.seattle.education.children_count'):
-                                Colors.blue,
-                          },
-                          barWidth: 4)
-                      .chartParser(
-                      limitMarkerX: 8,
-                      dataX: sppEnrollmentData![0],
-                      dataY: [
-                        sppEnrollmentData![2],
-                      ],
-                    )
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title: translate('city_data.seattle.education.spp_title'),
+                      legendX: translate('city_data.seattle.education.year'),
+                      chartData: {
+                        translate('city_data.seattle.education.children_count'):
+                            Colors.blue,
+                      },
+                      barWidth: 4)
+                  .chartParser(
+                limitMarkerX: 8,
+                dataX: sppEnrollmentData?[0],
+                dataY: [
+                  sppEnrollmentData?[2],
+                ],
+              ),
               Const.dashboardUISpacing.ph,
-              sppSPSData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.seattle.education.spp_sps_title'),
-                          legendX:
-                              translate('city_data.seattle.education.year'),
-                          chartData: {
-                            translate(
-                                    'city_data.seattle.education.children_count'):
-                                Colors.blue,
-                          },
-                          barWidth: 4)
-                      .chartParser(
-                      limitMarkerX: 8,
-                      dataX: sppSPSData![1],
-                      dataY: [
-                        sppSPSData![2],
-                      ],
-                    )
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title: translate(
+                          'city_data.seattle.education.spp_sps_title'),
+                      legendX: translate('city_data.seattle.education.year'),
+                      chartData: {
+                        translate('city_data.seattle.education.children_count'):
+                            Colors.blue,
+                      },
+                      barWidth: 4)
+                  .chartParser(
+                limitMarkerX: 8,
+                dataX: sppSPSData?[1],
+                dataY: [
+                  sppSPSData?[2],
+                ],
+              ),
               Const.dashboardUISpacing.ph,
             ],
           ),

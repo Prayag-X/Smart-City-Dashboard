@@ -100,152 +100,112 @@ class _AustinEnvironmentTabLeftState
               ),
             ),
             children: [
-              imagineAustinData != null
-                  ? LineChartParser(
+              LineChartParser(
+                  title: translate(
+                      'city_data.austin.environment.imagine_austin_title'),
+                  legendX: translate('city_data.austin.environment.tag'),
+                  chartData: {
+                    translate('city_data.austin.environment.2007'): Colors.blue,
+                    translate('city_data.austin.environment.2012'):
+                        Colors.yellow,
+                    translate('city_data.austin.environment.2017'): Colors.red,
+                  }).chartParser(dataX: imagineAustinData?[0], dataY: [
+                imagineAustinData?[4],
+                imagineAustinData?[9],
+                imagineAustinData?[14],
+              ]),
+              Const.dashboardUISpacing.ph,
+              LineChartParser(
                       title: translate(
-                          'city_data.austin.environment.imagine_austin_title'),
-                      legendX: translate('city_data.austin.environment.tag'),
-                      chartData: {
-                          translate('city_data.austin.environment.2007'):
-                              Colors.blue,
-                          translate('city_data.austin.environment.2012'):
-                              Colors.yellow,
-                          translate('city_data.austin.environment.2017'):
-                              Colors.red,
-                        }).chartParser(dataX: imagineAustinData![0], dataY: [
-                      imagineAustinData![4],
-                      imagineAustinData![9],
-                      imagineAustinData![14],
-                    ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
-              Const.dashboardUISpacing.ph,
-              cpi38Data != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.austin.environment.cpi_38_title'),
-                          legendX:
-                              translate('city_data.austin.environment.year'),
-                          chartData: {
-                            translate('city_data.austin.environment.victims'):
-                                Colors.red,
-                          },
-                          markerIntervalX: 1)
-                      .chartParserWithDuplicate(dataX: cpi38Data![0], dataY: [
-                      cpi38Data![4],
-                    ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
-              Const.dashboardUISpacing.ph,
-              cpi33Data != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.austin.environment.cpi_33_title'),
-                          legendX:
-                              translate('city_data.austin.environment.year'),
-                          chartData: {
-                            translate('city_data.austin.environment.victims'):
-                                Colors.red,
-                          },
-                          markerIntervalX: 1)
-                      .chartParserWithDuplicate(dataX: cpi33Data![0], dataY: [
-                      cpi33Data![4],
-                    ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
-              Const.dashboardUISpacing.ph,
-              greenBuildingData != null
-                  ? LineChartParser(
-                      title: translate(
-                          'city_data.austin.environment.green_building_title'),
+                          'city_data.austin.environment.cpi_38_title'),
                       legendX: translate('city_data.austin.environment.year'),
                       chartData: {
-                          translate('city_data.austin.environment.project_no'):
-                              Colors.blue,
-                          translate('city_data.austin.environment.energy'):
-                              Colors.yellow,
-                          translate('city_data.austin.environment.demand'):
-                              Colors.red,
-                        }).chartParserWithDuplicate(
-                      sortX: true,
-                      dataX: greenBuildingData![1],
-                      dataY: [
-                          greenBuildingData![2],
-                          greenBuildingData![7],
-                          greenBuildingData![8],
-                        ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+                        translate('city_data.austin.environment.victims'):
+                            Colors.red,
+                      },
+                      markerIntervalX: 1)
+                  .chartParserWithDuplicate(dataX: cpi38Data?[0], dataY: [
+                cpi38Data?[4],
+              ]),
               Const.dashboardUISpacing.ph,
-              ecadData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.austin.environment.ecad_title'),
-                          legendX: translate('city_data.austin.environment.id'),
-                          chartData: {
-                            translate('city_data.austin.environment.number'):
-                                Colors.blue,
-                            translate('city_data.austin.environment.apts'):
-                                Colors.yellow,
-                            translate('city_data.austin.environment.costs'):
-                                Colors.red,
-                          },
-                          barWidth: 1)
-                      .chartParser(dataX: ecadData![0], dataY: [
-                      ecadData![9],
-                      ecadData![10],
-                      ecadData![12],
-                    ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
-              Const.dashboardUISpacing.ph,
-              renewableData != null
-                  ? LineChartParser(
+              LineChartParser(
                       title: translate(
-                          'city_data.austin.environment.renewable_title'),
+                          'city_data.austin.environment.cpi_33_title'),
                       legendX: translate('city_data.austin.environment.year'),
                       chartData: {
-                          translate('city_data.austin.environment.percentage'):
-                              Colors.blue,
-                        }).chartParser(dataX: renewableData![0], dataY: [
-                      renewableData![1],
-                    ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+                        translate('city_data.austin.environment.victims'):
+                            Colors.red,
+                      },
+                      markerIntervalX: 1)
+                  .chartParserWithDuplicate(dataX: cpi33Data?[0], dataY: [
+                cpi33Data?[4],
+              ]),
               Const.dashboardUISpacing.ph,
-              hee5cData != null
-                  ? LineChartParser(
-                      title: translate('city_data.austin.environment.heec5'),
-                      legendX:
-                          translate('city_data.austin.environment.district'),
+              LineChartParser(
+                  title: translate(
+                      'city_data.austin.environment.green_building_title'),
+                  legendX: translate('city_data.austin.environment.year'),
+                  chartData: {
+                    translate('city_data.austin.environment.project_no'):
+                        Colors.blue,
+                    translate('city_data.austin.environment.energy'):
+                        Colors.yellow,
+                    translate('city_data.austin.environment.demand'):
+                        Colors.red,
+                  }).chartParserWithDuplicate(
+                  sortX: true,
+                  dataX: greenBuildingData?[1],
+                  dataY: [
+                    greenBuildingData?[2],
+                    greenBuildingData?[7],
+                    greenBuildingData?[8],
+                  ]),
+              Const.dashboardUISpacing.ph,
+              LineChartParser(
+                      title:
+                          translate('city_data.austin.environment.ecad_title'),
+                      legendX: translate('city_data.austin.environment.id'),
                       chartData: {
-                          translate('city_data.austin.environment.treated'):
-                              Colors.blue,
-                          translate('city_data.austin.environment.treatable'):
-                              Colors.yellow,
-                        }).chartParserWithDuplicate(
-                      sortX: true,
-                      dataX: hee5cData![1],
-                      dataY: [
-                          hee5cData![2],
-                          hee5cData![3],
-                        ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+                        translate('city_data.austin.environment.number'):
+                            Colors.blue,
+                        translate('city_data.austin.environment.apts'):
+                            Colors.yellow,
+                        translate('city_data.austin.environment.costs'):
+                            Colors.red,
+                      },
+                      barWidth: 1)
+                  .chartParser(dataX: ecadData?[0], dataY: [
+                ecadData?[9],
+                ecadData?[10],
+                ecadData?[12],
+              ]),
+              Const.dashboardUISpacing.ph,
+              LineChartParser(
+                  title:
+                      translate('city_data.austin.environment.renewable_title'),
+                  legendX: translate('city_data.austin.environment.year'),
+                  chartData: {
+                    translate('city_data.austin.environment.percentage'):
+                        Colors.blue,
+                  }).chartParser(dataX: renewableData?[0], dataY: [
+                renewableData?[1],
+              ]),
+              Const.dashboardUISpacing.ph,
+              LineChartParser(
+                  title: translate('city_data.austin.environment.heec5'),
+                  legendX: translate('city_data.austin.environment.district'),
+                  chartData: {
+                    translate('city_data.austin.environment.treated'):
+                        Colors.blue,
+                    translate('city_data.austin.environment.treatable'):
+                        Colors.yellow,
+                  }).chartParserWithDuplicate(
+                  sortX: true,
+                  dataX: hee5cData?[1],
+                  dataY: [
+                    hee5cData?[2],
+                    hee5cData?[3],
+                  ]),
               Const.dashboardUISpacing.ph,
             ],
           ),

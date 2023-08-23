@@ -5,6 +5,7 @@ import 'package:smart_city_dashboard/models/pie_chart_model.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/charts/pie_chart.dart';
 
 import '../../../../utils/helper.dart';
+import '../dashboard_container.dart';
 
 class PieChartParser {
   late String title;
@@ -13,7 +14,14 @@ class PieChartParser {
 
   PieChartParser({required this.title, required this.subTitle});
 
-  Widget chartParser({required List<dynamic> data}) {
+  Widget chartParser({required List<dynamic>? data}) {
+    if(data == null) {
+      return const BlankDashboardContainer(
+        heightMultiplier: 2,
+        widthMultiplier: 2,
+      );
+    }
+
     List<int> frequency = [];
     List<String> headers = [];
 

@@ -81,86 +81,64 @@ class _BoulderLivableTabLeftState extends ConsumerState<BoulderLivableTabLeft> {
               ),
             ),
             children: [
-              buildingData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.boulder.livable.building_title'),
-                          legendX: translate('city_data.boulder.livable.id'),
-                          chartData: {
-                            translate('city_data.boulder.livable.areaSF'):
-                                Colors.yellow,
-                            translate('city_data.boulder.livable.row'):
-                                Colors.blue,
-                          },
-                          barWidth: 2)
-                      .chartParser(dataX: buildingData![11], dataY: [
-                      buildingData![7],
-                      buildingData![2],
-                    ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title:
+                          translate('city_data.boulder.livable.building_title'),
+                      legendX: translate('city_data.boulder.livable.id'),
+                      chartData: {
+                        translate('city_data.boulder.livable.areaSF'):
+                            Colors.yellow,
+                        translate('city_data.boulder.livable.row'): Colors.blue,
+                      },
+                      barWidth: 2)
+                  .chartParser(dataX: buildingData?[11], dataY: [
+                buildingData?[7],
+                buildingData?[2],
+              ]),
               Const.dashboardUISpacing.ph,
-              homelessnessData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.boulder.livable.homelessness_title'),
-                          legendX: translate('city_data.boulder.livable.id'),
-                          chartData: {
-                            translate('city_data.boulder.livable.attendance'):
-                                Colors.blue,
-                          },
-                          barWidth: 2)
-                      .chartParser(dataX: homelessnessData![0], dataY: [
-                      homelessnessData![4],
-                    ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title: translate(
+                          'city_data.boulder.livable.homelessness_title'),
+                      legendX: translate('city_data.boulder.livable.id'),
+                      chartData: {
+                        translate('city_data.boulder.livable.attendance'):
+                            Colors.blue,
+                      },
+                      barWidth: 2)
+                  .chartParser(dataX: homelessnessData?[0], dataY: [
+                homelessnessData?[4],
+              ]),
               Const.dashboardUISpacing.ph,
-              communityData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.boulder.livable.community_title'),
-                          legendX: translate('city_data.boulder.livable.id'),
-                          chartData: {
-                            translate('city_data.boulder.livable.no_people'):
-                                Colors.blue,
-                          },
-                          barWidth: 1)
-                      .chartParser(dataX: communityData![0], dataY: [
-                      communityData![133],
-                    ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title: translate(
+                          'city_data.boulder.livable.community_title'),
+                      legendX: translate('city_data.boulder.livable.id'),
+                      chartData: {
+                        translate('city_data.boulder.livable.no_people'):
+                            Colors.blue,
+                      },
+                      barWidth: 1)
+                  .chartParser(dataX: communityData?[0], dataY: [
+                communityData?[133],
+              ]),
               Const.dashboardUISpacing.ph,
-              policeData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.boulder.livable.police_title'),
-                          legendX: translate('city_data.boulder.livable.id'),
-                          chartData: {
-                            translate('city_data.boulder.livable.stop_time'):
-                                Colors.blue,
-                            translate('city_data.boulder.livable.min'):
-                                Colors.yellow,
-                            translate('city_data.boulder.livable.dob'):
-                                Colors.red,
-                          },
-                          barWidth: 1)
-                      .chartParser(dataX: policeData![0], dataY: [
-                      policeData![2],
-                      policeData![6],
-                      policeData![10],
-                    ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title:
+                          translate('city_data.boulder.livable.police_title'),
+                      legendX: translate('city_data.boulder.livable.id'),
+                      chartData: {
+                        translate('city_data.boulder.livable.stop_time'):
+                            Colors.blue,
+                        translate('city_data.boulder.livable.min'):
+                            Colors.yellow,
+                        translate('city_data.boulder.livable.dob'): Colors.red,
+                      },
+                      barWidth: 1)
+                  .chartParser(dataX: policeData?[0], dataY: [
+                policeData?[2],
+                policeData?[6],
+                policeData?[10],
+              ]),
               Const.dashboardUISpacing.ph,
             ],
           ),

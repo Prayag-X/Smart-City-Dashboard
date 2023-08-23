@@ -279,16 +279,11 @@ class _LeftPanelState extends ConsumerState<WeatherTabLeft> {
               ],
             ),
             Const.dashboardUISpacing.ph,
-            weatherData != null
-                ? LineChartParser(chartData: {
-                    translate('dashboard.weather.temperature'): Colors.red,
-                    translate('dashboard.weather.humidity'): Colors.blue
-                  }, title: translate('dashboard.weather.hourly'))
-                    .weatherHourlyDataParser(weatherData, weatherDayClicked)
-                : const BlankDashboardContainer(
-                    heightMultiplier: 2,
-                    widthMultiplier: 2,
-                  ),
+            LineChartParser(chartData: {
+              translate('dashboard.weather.temperature'): Colors.red,
+              translate('dashboard.weather.humidity'): Colors.blue
+            }, title: translate('dashboard.weather.hourly'))
+                .weatherHourlyDataParser(weatherData, weatherDayClicked),
             Const.dashboardUISpacing.ph,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

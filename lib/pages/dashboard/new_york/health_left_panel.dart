@@ -112,91 +112,65 @@ class _NYCHealthTabLeftState extends ConsumerState<NYCHealthTabLeft> {
                 ],
               ),
               Const.dashboardUISpacing.ph,
-              covidData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.new_york.health.covid_title'),
-                          legendX: translate('city_data.new_york.health.date'),
-                          chartData: {
-                            translate('city_data.new_york.health.case'):
-                                Colors.blue,
-                            translate('city_data.new_york.health.death'):
-                                Colors.red
-                          },
-                          markerIntervalX: 8)
-                      .chartParser(
-                      dataX: covidData![0],
-                      dataY: [covidData![1], covidData![4]],
-                    )
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title: translate('city_data.new_york.health.covid_title'),
+                      legendX: translate('city_data.new_york.health.date'),
+                      chartData: {
+                        translate('city_data.new_york.health.case'):
+                            Colors.blue,
+                        translate('city_data.new_york.health.death'): Colors.red
+                      },
+                      markerIntervalX: 8)
+                  .chartParser(
+                dataX: covidData?[0],
+                dataY: [covidData?[1], covidData?[4]],
+              ),
               Const.dashboardUISpacing.ph,
-              sars2Data != null
-                  ? LineChartParser(
-                          title:
-                              translate('city_data.new_york.health.sars_title'),
-                          legendX: translate('city_data.new_york.health.date'),
-                          chartData: {
-                            translate(
-                                    'city_data.new_york.health.concentration'):
-                                Colors.green,
-                            translate('city_data.new_york.health.served'):
-                                Colors.brown
-                          },
-                          barWidth: 0.1,
-                          markerIntervalX: 8)
-                      .chartParser(
-                      dataX: sars2Data![0],
-                      dataY: [sars2Data![4], sars2Data![7]],
-                    )
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title: translate('city_data.new_york.health.sars_title'),
+                      legendX: translate('city_data.new_york.health.date'),
+                      chartData: {
+                        translate('city_data.new_york.health.concentration'):
+                            Colors.green,
+                        translate('city_data.new_york.health.served'):
+                            Colors.brown
+                      },
+                      barWidth: 0.1,
+                      markerIntervalX: 8)
+                  .chartParser(
+                dataX: sars2Data?[0],
+                dataY: [sars2Data?[4], sars2Data?[7]],
+              ),
               Const.dashboardUISpacing.ph,
-              infantData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.new_york.health.infant_title'),
-                          legendX: translate('city_data.new_york.health.year'),
-                          chartData: {
-                            translate('city_data.new_york.health.infant_death'):
-                                Colors.red,
-                            translate('city_data.new_york.health.live_birth'):
-                                Colors.green
-                          },
-                          markerIntervalX: 2)
-                      .chartParserWithDuplicate(
-                          dataX: infantData![0],
-                          dataY: [infantData![5], infantData![8]],
-                          sortX: true)
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title:
+                          translate('city_data.new_york.health.infant_title'),
+                      legendX: translate('city_data.new_york.health.year'),
+                      chartData: {
+                        translate('city_data.new_york.health.infant_death'):
+                            Colors.red,
+                        translate('city_data.new_york.health.live_birth'):
+                            Colors.green
+                      },
+                      markerIntervalX: 2)
+                  .chartParserWithDuplicate(
+                      dataX: infantData?[0],
+                      dataY: [infantData?[5], infantData?[8]],
+                      sortX: true),
               Const.dashboardUISpacing.ph,
-              hivData != null
-                  ? LineChartParser(
-                          title:
-                              translate('city_data.new_york.health.hiv_title'),
-                          legendX: translate('city_data.new_york.health.year'),
-                          chartData: {
-                            translate('city_data.new_york.health.hiv'):
-                                Colors.red,
-                            translate('city_data.new_york.health.aids'):
-                                Colors.yellow
-                          },
-                          markerIntervalX: 3)
-                      .chartParserWithDuplicate(
-                          dataX: hivData![0],
-                          dataY: [hivData![5], hivData![9]],
-                          sortX: true)
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title: translate('city_data.new_york.health.hiv_title'),
+                      legendX: translate('city_data.new_york.health.year'),
+                      chartData: {
+                        translate('city_data.new_york.health.hiv'): Colors.red,
+                        translate('city_data.new_york.health.aids'):
+                            Colors.yellow
+                      },
+                      markerIntervalX: 3)
+                  .chartParserWithDuplicate(
+                      dataX: hivData?[0],
+                      dataY: [hivData?[5], hivData?[9]],
+                      sortX: true),
               Const.dashboardUISpacing.ph,
             ],
           ),

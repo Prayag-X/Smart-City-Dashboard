@@ -76,59 +76,38 @@ class _CharlotteMiscTabLeftState extends ConsumerState<CharlotteMiscTabLeft> {
               ),
             ),
             children: [
-              serviceData != null
-                  ? LineChartParser(
+              LineChartParser(
+                  title: translate('city_data.charlotte.misc.service_title'),
+                  legendX: translate('city_data.charlotte.misc.year'),
+                  chartData: {
+                    translate('city_data.charlotte.misc.calls'): Colors.yellow,
+                  }).chartParserWithDuplicate(dataX: serviceData?[3], dataY: [
+                serviceData?[6],
+              ]),
+              Const.dashboardUISpacing.ph,
+              PieChartParser(
                       title:
-                          translate('city_data.charlotte.misc.service_title'),
-                      legendX: translate('city_data.charlotte.misc.year'),
+                          translate('city_data.charlotte.misc.traffic_title'),
+                      subTitle:
+                          translate('city_data.charlotte.misc.traffic_title'))
+                  .chartParser(data: trafficData?[2]),
+              Const.dashboardUISpacing.ph,
+              LineChartParser(
+                      title:
+                          translate('city_data.charlotte.misc.housing_title'),
+                      legendX: translate('city_data.charlotte.misc.object'),
                       chartData: {
-                          translate('city_data.charlotte.misc.calls'):
-                              Colors.yellow,
-                        }).chartParserWithDuplicate(
-                      dataX: serviceData![3],
-                      dataY: [
-                          serviceData![6],
-                        ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
-              Const.dashboardUISpacing.ph,
-              trafficData != null
-                  ? PieChartParser(
-                          title: translate(
-                              'city_data.charlotte.misc.traffic_title'),
-                          subTitle: translate(
-                              'city_data.charlotte.misc.traffic_title'))
-                      .chartParser(data: trafficData![2])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
-              Const.dashboardUISpacing.ph,
-              demandData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.charlotte.misc.housing_title'),
-                          legendX: translate('city_data.charlotte.misc.object'),
-                          chartData: {
-                            translate('city_data.charlotte.misc.puma'):
-                                Colors.blue,
-                            translate('city_data.charlotte.misc.bdsp'):
-                                Colors.yellow,
-                            translate('city_data.charlotte.misc.elep'):
-                                Colors.red,
-                          },
-                          barWidth: 1)
-                      .chartParser(dataX: demandData![0], dataY: [
-                      demandData![4],
-                      demandData![16],
-                      demandData![23],
-                    ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+                        translate('city_data.charlotte.misc.puma'): Colors.blue,
+                        translate('city_data.charlotte.misc.bdsp'):
+                            Colors.yellow,
+                        translate('city_data.charlotte.misc.elep'): Colors.red,
+                      },
+                      barWidth: 1)
+                  .chartParser(dataX: demandData?[0], dataY: [
+                demandData?[4],
+                demandData?[16],
+                demandData?[23],
+              ]),
               Const.dashboardUISpacing.ph,
             ],
           ),

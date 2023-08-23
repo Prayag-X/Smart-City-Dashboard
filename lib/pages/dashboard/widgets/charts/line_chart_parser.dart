@@ -5,6 +5,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:smart_city_dashboard/models/forecast_weather.dart';
 import 'package:smart_city_dashboard/utils/helper.dart';
 
+import '../dashboard_container.dart';
 import 'line_chart.dart';
 
 class LineChartParser {
@@ -33,9 +34,17 @@ class LineChartParser {
   });
 
   Widget chartParserWithDuplicate(
-      {required List<dynamic> dataX,
-      required List<List<dynamic>> dataY,
+      {required List<dynamic>? dataX,
+      required List<List<dynamic>?> dataY,
       bool sortX = false}) {
+
+    if(dataX == null) {
+      return const BlankDashboardContainer(
+        heightMultiplier: 2,
+        widthMultiplier: 2,
+      );
+    }
+
     List<dynamic> uniqueX = [];
     List<List<double>> uniqueY = [];
 
@@ -48,7 +57,7 @@ class LineChartParser {
         uniqueX.add(dataX[i]);
         for (int j = 0; j < dataY.length; j++) {
           try {
-            uniqueY[j].add(double.parse(dataY[j][i].toString()));
+            uniqueY[j].add(double.parse(dataY[j]![i].toString()));
           } catch (e) {
             uniqueY[j].add(0);
           }
@@ -57,7 +66,7 @@ class LineChartParser {
         for (int j = 0; j < dataY.length; j++) {
           try {
             uniqueY[j][uniqueX.indexOf(dataX[i])] +=
-                double.parse(dataY[j][i].toString());
+                double.parse(dataY[j]![i].toString());
           } catch (e) {}
         }
       }
@@ -86,9 +95,17 @@ class LineChartParser {
   }
 
   Widget chartParser(
-      {required List<dynamic> dataX,
-      required List<List<dynamic>> dataY,
+      {required List<dynamic>? dataX,
+      required List<List<dynamic>?> dataY,
       int? limitMarkerX}) {
+
+    if(dataX == null) {
+      return const BlankDashboardContainer(
+        heightMultiplier: 2,
+        widthMultiplier: 2,
+      );
+    }
+
     List<List<double>> dataYNum = [];
     List<double> maxValuesY = [];
     List<double> minValuesY = [];
@@ -103,7 +120,7 @@ class LineChartParser {
     }
 
     for (int i = 0; i < dataY.length; i++) {
-      for (dynamic y in dataY[i]) {
+      for (dynamic y in dataY[i]!) {
         try {
           dataYNum[i].add(y.toDouble());
         } catch (e) {
@@ -177,10 +194,18 @@ class LineChartParser {
   }
 
   Widget chartParserForVisualizer(
-      {required List<dynamic> dataX,
-      required List<List<dynamic>> dataY,
+      {required List<dynamic>? dataX,
+      required List<List<dynamic>>? dataY,
       required List<Color> chartColors,
       int? limitMarkerX}) {
+
+    if(dataX == null) {
+      return const BlankDashboardContainer(
+        heightMultiplier: 2,
+        widthMultiplier: 2,
+      );
+    }
+
     List<List<double>> dataYNum = [];
     List<double> maxValuesY = [];
     List<double> minValuesY = [];
@@ -189,7 +214,7 @@ class LineChartParser {
 
     maxX = min(dataX.length.toDouble(), 25);
 
-    for (int i = 0; i < dataY.length; i++) {
+    for (int i = 0; i < dataY!.length; i++) {
       dataYNum.add([]);
       points.add([]);
     }
@@ -266,7 +291,15 @@ class LineChartParser {
     );
   }
 
-  Widget weatherHourlyDataParser(ForecastWeather weather, int day) {
+  Widget weatherHourlyDataParser(ForecastWeather? weather, int day) {
+
+    if(weather == null) {
+      return const BlankDashboardContainer(
+        heightMultiplier: 2,
+        widthMultiplier: 2,
+      );
+    }
+
     maxX = 24;
     markerIntervalX = 4;
     points = [[], []];

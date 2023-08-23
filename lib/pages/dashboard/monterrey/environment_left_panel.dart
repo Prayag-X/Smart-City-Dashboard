@@ -88,65 +88,40 @@ class _MonterreyEnvironmentTabLeftState
               ),
             ),
             children: [
-              eirsData != null
-                  ? PieChartParser(
-                          title: translate(
-                              'city_data.monterrey.environment.eirs_title'),
-                          subTitle: translate(
-                              'city_data.monterrey.environment.library'))
-                      .chartParser(data: eirsData![9])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              PieChartParser(
+                      title: translate(
+                          'city_data.monterrey.environment.eirs_title'),
+                      subTitle:
+                          translate('city_data.monterrey.environment.library'))
+                  .chartParser(data: eirsData?[9]),
               Const.dashboardUISpacing.ph,
-              geologyData != null
-                  ? PieChartParser(
-                          title: translate(
-                              'city_data.monterrey.environment.geology_title'),
-                          subTitle: translate(
-                              'city_data.monterrey.environment.class'))
-                      .chartParser(data: geologyData![12])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              PieChartParser(
+                      title: translate(
+                          'city_data.monterrey.environment.geology_title'),
+                      subTitle:
+                          translate('city_data.monterrey.environment.class'))
+                  .chartParser(data: geologyData?[12]),
               Const.dashboardUISpacing.ph,
-              mineralData != null
-                  ? PieChartParser(
-                          title: translate(
-                              'city_data.monterrey.environment.mineral_title'),
-                          subTitle:
-                              translate('city_data.monterrey.environment.mrz'))
-                      .chartParser(data: mineralData![2])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              PieChartParser(
+                      title: translate(
+                          'city_data.monterrey.environment.mineral_title'),
+                      subTitle:
+                          translate('city_data.monterrey.environment.mrz'))
+                  .chartParser(data: mineralData?[2]),
               Const.dashboardUISpacing.ph,
-              erosionData != null
-                  ? PieChartParser(
-                          title: translate(
-                              'city_data.monterrey.environment.erosion_title'),
-                          subTitle: translate(
-                              'city_data.monterrey.environment.rating'))
-                      .chartParser(data: erosionData![3])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              PieChartParser(
+                      title: translate(
+                          'city_data.monterrey.environment.erosion_title'),
+                      subTitle:
+                          translate('city_data.monterrey.environment.rating'))
+                  .chartParser(data: erosionData?[3]),
               Const.dashboardUISpacing.ph,
-              liquefactionData != null
-                  ? PieChartParser(
-                          title: translate(
-                              'city_data.monterrey.environment.liquefaction_title'),
-                          subTitle: translate(
-                              'city_data.monterrey.environment.liquid'))
-                      .chartParser(data: liquefactionData![2])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              PieChartParser(
+                      title: translate(
+                          'city_data.monterrey.environment.liquefaction_title'),
+                      subTitle:
+                          translate('city_data.monterrey.environment.liquid'))
+                  .chartParser(data: liquefactionData?[2]),
               Const.dashboardUISpacing.ph,
             ],
           ),

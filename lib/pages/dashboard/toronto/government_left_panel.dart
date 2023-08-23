@@ -90,137 +90,108 @@ class _TorontoGovernmentTabLeftState
               ),
             ),
             children: [
-              polisData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.toronto.government.polis_title'),
-                          legendX: translate('city_data.toronto.government.id'),
-                          chartData: {
-                            translate('city_data.toronto.government.pass_rate'):
-                                Colors.blue,
-                            translate(
-                                    'city_data.toronto.government.potential_voters'):
-                                Colors.yellow,
-                          },
-                          barWidth: 2)
-                      .chartParser(
-                      // limitMarkerX: 8,
-                      dataX: polisData![0],
-                      dataY: [
-                        polisData![18],
-                        polisData![23],
-                      ],
-                    )
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
-              Const.dashboardUISpacing.ph,
-              shelterData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.toronto.government.shelter_title'),
-                          legendX: translate('city_data.toronto.government.id'),
-                          chartData: {
-                            translate('city_data.toronto.government.users'):
-                                Colors.blue,
-                            translate(
-                                    'city_data.toronto.government.occupancy_rate'):
-                                Colors.yellow,
-                          },
-                          barWidth: 1)
-                      .chartParser(
-                      // limitMarkerX: 8,
-                      dataX: shelterData![0],
-                      dataY: [
-                        shelterData![18],
-                        shelterData![31],
-                      ],
-                    )
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
-              Const.dashboardUISpacing.ph,
-              evaluationData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.toronto.government.evaluation_title'),
-                          legendX: translate('city_data.toronto.government.id'),
-                          chartData: {
-                            translate(
-                                    'city_data.toronto.government.year_built'):
-                                Colors.blue,
-                            translate('city_data.toronto.government.storeys'):
-                                Colors.yellow,
-                            translate('city_data.toronto.government.score'):
-                                Colors.red,
-                          },
-                          barWidth: 1)
-                      .chartParser(
-                      // limitMarkerX: 8,
-                      dataX: evaluationData![0],
-                      dataY: [
-                        evaluationData![4],
-                        evaluationData![9],
-                        evaluationData![12],
-                      ],
-                    )
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
-              Const.dashboardUISpacing.ph,
-              registrationData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.toronto.government.registration_title'),
-                          legendX: translate('city_data.toronto.government.id'),
-                          chartData: {
-                            translate(
-                                    'city_data.toronto.government.year_built'):
-                                Colors.blue,
-                            translate(
-                                    'city_data.toronto.government.year_registered'):
-                                Colors.yellow,
-                            translate('city_data.toronto.government.storeys'):
-                                Colors.red,
-                          },
-                          barWidth: 2)
-                      .chartParser(
-                      // limitMarkerX: 8,
-                      dataX: registrationData![0],
-                      dataY: [
-                        registrationData![59],
-                        registrationData![61],
-                        registrationData![9],
-                      ],
-                    )
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
-              Const.dashboardUISpacing.ph,
-              measuresData != null
-                  ? LineChartParser(
-                      title: translate(
-                          'city_data.toronto.government.measures_title'),
+              LineChartParser(
+                      title:
+                          translate('city_data.toronto.government.polis_title'),
                       legendX: translate('city_data.toronto.government.id'),
                       chartData: {
-                        translate('city_data.toronto.government.result'):
+                        translate('city_data.toronto.government.pass_rate'):
                             Colors.blue,
+                        translate(
+                                'city_data.toronto.government.potential_voters'):
+                            Colors.yellow,
                       },
-                    ).chartParser(
-                      // limitMarkerX: 8,
-                      dataX: measuresData![0],
-                      dataY: [
-                        measuresData![10],
-                      ],
-                    )
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+                      barWidth: 2)
+                  .chartParser(
+                // limitMarkerX: 8,
+                dataX: polisData?[0],
+                dataY: [
+                  polisData?[18],
+                  polisData?[23],
+                ],
+              ),
+              Const.dashboardUISpacing.ph,
+              LineChartParser(
+                      title: translate(
+                          'city_data.toronto.government.shelter_title'),
+                      legendX: translate('city_data.toronto.government.id'),
+                      chartData: {
+                        translate('city_data.toronto.government.users'):
+                            Colors.blue,
+                        translate(
+                                'city_data.toronto.government.occupancy_rate'):
+                            Colors.yellow,
+                      },
+                      barWidth: 1)
+                  .chartParser(
+                // limitMarkerX: 8,
+                dataX: shelterData?[0],
+                dataY: [
+                  shelterData?[18],
+                  shelterData?[31],
+                ],
+              ),
+              Const.dashboardUISpacing.ph,
+              LineChartParser(
+                      title: translate(
+                          'city_data.toronto.government.evaluation_title'),
+                      legendX: translate('city_data.toronto.government.id'),
+                      chartData: {
+                        translate('city_data.toronto.government.year_built'):
+                            Colors.blue,
+                        translate('city_data.toronto.government.storeys'):
+                            Colors.yellow,
+                        translate('city_data.toronto.government.score'):
+                            Colors.red,
+                      },
+                      barWidth: 1)
+                  .chartParser(
+                // limitMarkerX: 8,
+                dataX: evaluationData?[0],
+                dataY: [
+                  evaluationData?[4],
+                  evaluationData?[9],
+                  evaluationData?[12],
+                ],
+              ),
+              Const.dashboardUISpacing.ph,
+              LineChartParser(
+                      title: translate(
+                          'city_data.toronto.government.registration_title'),
+                      legendX: translate('city_data.toronto.government.id'),
+                      chartData: {
+                        translate('city_data.toronto.government.year_built'):
+                            Colors.blue,
+                        translate(
+                                'city_data.toronto.government.year_registered'):
+                            Colors.yellow,
+                        translate('city_data.toronto.government.storeys'):
+                            Colors.red,
+                      },
+                      barWidth: 2)
+                  .chartParser(
+                // limitMarkerX: 8,
+                dataX: registrationData?[0],
+                dataY: [
+                  registrationData?[59],
+                  registrationData?[61],
+                  registrationData?[9],
+                ],
+              ),
+              Const.dashboardUISpacing.ph,
+              LineChartParser(
+                title: translate('city_data.toronto.government.measures_title'),
+                legendX: translate('city_data.toronto.government.id'),
+                chartData: {
+                  translate('city_data.toronto.government.result'): Colors.blue,
+                },
+              ).chartParser(
+                // limitMarkerX: 8,
+                dataX: measuresData?[0],
+                dataY: [
+                  measuresData?[10],
+                ],
+              ),
               Const.dashboardUISpacing.ph,
             ],
           ),

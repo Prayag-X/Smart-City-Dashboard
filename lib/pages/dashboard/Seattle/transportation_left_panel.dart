@@ -106,204 +106,166 @@ class _SeattleTransportationTabLeftState
               ),
             ),
             children: [
-              fretmontCycleData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.seattle.transportation.fretmont_title'),
-                          legendX: translate(
-                              'city_data.seattle.transportation.date'),
-                          chartData: {
-                            translate('city_data.seattle.transportation.south'):
-                                Colors.blue,
-                            translate('city_data.seattle.transportation.east'):
-                                Colors.yellow,
-                            translate('city_data.seattle.transportation.west'):
-                                Colors.red,
-                          },
-                          markerIntervalX: 23,
-                          barWidth: 1)
-                      .chartParser(
-                      limitMarkerX: 10,
-                      dataX: fretmontCycleData![0],
-                      dataY: [
-                        fretmontCycleData![1],
-                        fretmontCycleData![2],
-                        fretmontCycleData![3],
-                      ],
-                    )
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title: translate(
+                          'city_data.seattle.transportation.fretmont_title'),
+                      legendX:
+                          translate('city_data.seattle.transportation.date'),
+                      chartData: {
+                        translate('city_data.seattle.transportation.south'):
+                            Colors.blue,
+                        translate('city_data.seattle.transportation.east'):
+                            Colors.yellow,
+                        translate('city_data.seattle.transportation.west'):
+                            Colors.red,
+                      },
+                      markerIntervalX: 23,
+                      barWidth: 1)
+                  .chartParser(
+                limitMarkerX: 10,
+                dataX: fretmontCycleData?[0],
+                dataY: [
+                  fretmontCycleData?[1],
+                  fretmontCycleData?[2],
+                  fretmontCycleData?[3],
+                ],
+              ),
               Const.dashboardUISpacing.ph,
-              brodwayCycleData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.seattle.transportation.brodway_title'),
-                          legendX: translate(
-                              'city_data.seattle.transportation.date'),
-                          chartData: {
-                            translate('city_data.seattle.transportation.total'):
-                                Colors.blue,
-                            translate('city_data.seattle.transportation.nb'):
-                                Colors.yellow,
-                            translate('city_data.seattle.transportation.sb'):
-                                Colors.red,
-                          },
-                          markerIntervalX: 23,
-                          barWidth: 1)
-                      .chartParser(
-                      limitMarkerX: 10,
-                      dataX: brodwayCycleData![0],
-                      dataY: [
-                        brodwayCycleData![1],
-                        brodwayCycleData![2],
-                        brodwayCycleData![3],
-                      ],
-                    )
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title: translate(
+                          'city_data.seattle.transportation.brodway_title'),
+                      legendX:
+                          translate('city_data.seattle.transportation.date'),
+                      chartData: {
+                        translate('city_data.seattle.transportation.total'):
+                            Colors.blue,
+                        translate('city_data.seattle.transportation.nb'):
+                            Colors.yellow,
+                        translate('city_data.seattle.transportation.sb'):
+                            Colors.red,
+                      },
+                      markerIntervalX: 23,
+                      barWidth: 1)
+                  .chartParser(
+                limitMarkerX: 10,
+                dataX: brodwayCycleData?[0],
+                dataY: [
+                  brodwayCycleData?[1],
+                  brodwayCycleData?[2],
+                  brodwayCycleData?[3],
+                ],
+              ),
               Const.dashboardUISpacing.ph,
-              westlakeCycleData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.seattle.transportation.westlake_title'),
-                          legendX: translate(
-                              'city_data.seattle.transportation.date'),
-                          chartData: {
-                            translate('city_data.seattle.transportation.total'):
-                                Colors.blue,
-                            translate('city_data.seattle.transportation.north'):
-                                Colors.yellow,
-                            translate('city_data.seattle.transportation.south'):
-                                Colors.red,
-                          },
-                          markerIntervalX: 23,
-                          barWidth: 1)
-                      .chartParser(
-                      limitMarkerX: 10,
-                      dataX: westlakeCycleData![0],
-                      dataY: [
-                        westlakeCycleData![1],
-                        westlakeCycleData![2],
-                        westlakeCycleData![3],
-                      ],
-                    )
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title: translate(
+                          'city_data.seattle.transportation.westlake_title'),
+                      legendX:
+                          translate('city_data.seattle.transportation.date'),
+                      chartData: {
+                        translate('city_data.seattle.transportation.total'):
+                            Colors.blue,
+                        translate('city_data.seattle.transportation.north'):
+                            Colors.yellow,
+                        translate('city_data.seattle.transportation.south'):
+                            Colors.red,
+                      },
+                      markerIntervalX: 23,
+                      barWidth: 1)
+                  .chartParser(
+                limitMarkerX: 10,
+                dataX: westlakeCycleData?[0],
+                dataY: [
+                  westlakeCycleData?[1],
+                  westlakeCycleData?[2],
+                  westlakeCycleData?[3],
+                ],
+              ),
               Const.dashboardUISpacing.ph,
-              annualParkingData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.seattle.transportation.annual_title'),
-                          legendX: translate(
-                              'city_data.seattle.transportation.element'),
-                          chartData: {
-                            translate(
-                                    'city_data.seattle.transportation.spaces'):
-                                Colors.blue,
-                            translate(
-                                    'city_data.seattle.transportation.vehicle_count'):
-                                Colors.yellow,
-                          },
-                          barWidth: 1)
-                      .chartParser(
-                      dataX: annualParkingData![0],
-                      dataY: [
-                        annualParkingData![7],
-                        annualParkingData![8],
-                      ],
-                    )
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title: translate(
+                          'city_data.seattle.transportation.annual_title'),
+                      legendX:
+                          translate('city_data.seattle.transportation.element'),
+                      chartData: {
+                        translate('city_data.seattle.transportation.spaces'):
+                            Colors.blue,
+                        translate(
+                                'city_data.seattle.transportation.vehicle_count'):
+                            Colors.yellow,
+                      },
+                      barWidth: 1)
+                  .chartParser(
+                dataX: annualParkingData?[0],
+                dataY: [
+                  annualParkingData?[7],
+                  annualParkingData?[8],
+                ],
+              ),
               Const.dashboardUISpacing.ph,
-              trafficCountData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.seattle.transportation.traffic_title'),
-                          legendX:
-                              translate('city_data.seattle.transportation.id'),
-                          chartData: {
-                            translate(
-                                    'city_data.seattle.transportation.actual_days'):
-                                Colors.blue,
-                            translate(
-                                    'city_data.seattle.transportation.study_length'):
-                                Colors.yellow,
-                          },
-                          barWidth: 4)
-                      .chartParser(
-                      dataX: trafficCountData![0],
-                      dataY: [
-                        trafficCountData![9],
-                        trafficCountData![11],
-                      ],
-                    )
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title: translate(
+                          'city_data.seattle.transportation.traffic_title'),
+                      legendX: translate('city_data.seattle.transportation.id'),
+                      chartData: {
+                        translate(
+                                'city_data.seattle.transportation.actual_days'):
+                            Colors.blue,
+                        translate(
+                                'city_data.seattle.transportation.study_length'):
+                            Colors.yellow,
+                      },
+                      barWidth: 4)
+                  .chartParser(
+                dataX: trafficCountData?[0],
+                dataY: [
+                  trafficCountData?[9],
+                  trafficCountData?[11],
+                ],
+              ),
               Const.dashboardUISpacing.ph,
-              nbpdData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.seattle.transportation.npbd_title'),
-                          legendX: translate(
-                              'city_data.seattle.transportation.location'),
-                          chartData: {
-                            translate('city_data.seattle.transportation.may'):
-                                Colors.blue,
-                            translate('city_data.seattle.transportation.july'):
-                                Colors.yellow,
-                            translate('city_data.seattle.transportation.sept'):
-                                Colors.red,
-                          },
-                          barWidth: 4,
-                          markerIntervalX: 6)
-                      .chartParser(
-                      limitMarkerX: 10,
-                      dataX: nbpdData![0],
-                      dataY: [
-                        nbpdData![2],
-                        nbpdData![3],
-                        nbpdData![4],
-                      ],
-                    )
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title: translate(
+                          'city_data.seattle.transportation.npbd_title'),
+                      legendX: translate(
+                          'city_data.seattle.transportation.location'),
+                      chartData: {
+                        translate('city_data.seattle.transportation.may'):
+                            Colors.blue,
+                        translate('city_data.seattle.transportation.july'):
+                            Colors.yellow,
+                        translate('city_data.seattle.transportation.sept'):
+                            Colors.red,
+                      },
+                      barWidth: 4,
+                      markerIntervalX: 6)
+                  .chartParser(
+                limitMarkerX: 10,
+                dataX: nbpdData?[0],
+                dataY: [
+                  nbpdData?[2],
+                  nbpdData?[3],
+                  nbpdData?[4],
+                ],
+              ),
               Const.dashboardUISpacing.ph,
-              shortBikeData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.seattle.transportation.short_bike_title'),
-                          legendX:
-                              translate('city_data.seattle.transportation.id'),
-                          chartData: {
-                            translate('city_data.seattle.transportation.day1'):
-                                Colors.blue,
-                            translate('city_data.seattle.transportation.day4'):
-                                Colors.yellow,
-                          },
-                          barWidth: 4)
-                      .chartParser(
-                      dataX: shortBikeData![0],
-                      dataY: [
-                        shortBikeData![5],
-                        shortBikeData![8],
-                      ],
-                    )
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title: translate(
+                          'city_data.seattle.transportation.short_bike_title'),
+                      legendX: translate('city_data.seattle.transportation.id'),
+                      chartData: {
+                        translate('city_data.seattle.transportation.day1'):
+                            Colors.blue,
+                        translate('city_data.seattle.transportation.day4'):
+                            Colors.yellow,
+                      },
+                      barWidth: 4)
+                  .chartParser(
+                dataX: shortBikeData?[0],
+                dataY: [
+                  shortBikeData?[5],
+                  shortBikeData?[8],
+                ],
+              ),
               Const.dashboardUISpacing.ph,
             ],
           ),

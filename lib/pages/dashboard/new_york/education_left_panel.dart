@@ -82,95 +82,66 @@ class _NYCEducationTabLeftState extends ConsumerState<NYCEducationTabLeft> {
               ),
             ),
             children: [
-              satData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.new_york.education.sat_title'),
-                          legendX:
-                              translate('city_data.new_york.education.dbn'),
-                          chartData: {
-                            translate('city_data.new_york.education.students'):
-                                Colors.blue,
-                            translate('city_data.new_york.education.reading'):
-                                Colors.red.withOpacity(0.7),
-                            translate('city_data.new_york.education.math'):
-                                Colors.yellow.withOpacity(0.8),
-                            translate('city_data.new_york.education.writing'):
-                                Colors.green.withOpacity(0.8),
-                          },
-                          markerIntervalY: 7,
-                          barWidth: 1)
-                      .chartParser(
-                      dataX: satData![0],
-                      dataY: [
-                        satData![2],
-                        satData![3],
-                        satData![4],
-                        satData![5]
-                      ],
-                    )
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title:
+                          translate('city_data.new_york.education.sat_title'),
+                      legendX: translate('city_data.new_york.education.dbn'),
+                      chartData: {
+                        translate('city_data.new_york.education.students'):
+                            Colors.blue,
+                        translate('city_data.new_york.education.reading'):
+                            Colors.red.withOpacity(0.7),
+                        translate('city_data.new_york.education.math'):
+                            Colors.yellow.withOpacity(0.8),
+                        translate('city_data.new_york.education.writing'):
+                            Colors.green.withOpacity(0.8),
+                      },
+                      markerIntervalY: 7,
+                      barWidth: 1)
+                  .chartParser(
+                dataX: satData?[0],
+                dataY: [satData?[2], satData?[3], satData?[4], satData?[5]],
+              ),
               Const.dashboardUISpacing.ph,
-              bilingualData != null
-                  ? PieChartParser(
-                          title: translate(
-                              'city_data.new_york.education.bilingual_title'),
-                          subTitle:
-                              translate('city_data.new_york.education.school'))
-                      .chartParser(data: bilingualData![7])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              PieChartParser(
+                      title: translate(
+                          'city_data.new_york.education.bilingual_title'),
+                      subTitle:
+                          translate('city_data.new_york.education.school'))
+                  .chartParser(data: bilingualData?[7]),
               Const.dashboardUISpacing.ph,
-              mathData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.new_york.education.math_title'),
-                          legendX:
-                              translate('city_data.new_york.education.year'),
-                          chartData: {
-                            translate('city_data.new_york.education.num'):
-                                Colors.blue,
-                            translate('city_data.new_york.education.score'):
-                                Colors.brown,
-                          },
-                          markerIntervalX: 1)
-                      .chartParserWithDuplicate(
-                          dataX: mathData![2],
-                          dataY: [mathData![4], mathData![5]],
-                          sortX: true)
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title:
+                          translate('city_data.new_york.education.math_title'),
+                      legendX: translate('city_data.new_york.education.year'),
+                      chartData: {
+                        translate('city_data.new_york.education.num'):
+                            Colors.blue,
+                        translate('city_data.new_york.education.score'):
+                            Colors.brown,
+                      },
+                      markerIntervalX: 1)
+                  .chartParserWithDuplicate(
+                      dataX: mathData?[2],
+                      dataY: [mathData?[4], mathData?[5]],
+                      sortX: true),
               Const.dashboardUISpacing.ph,
-              attendanceData != null
-                  ? LineChartParser(
-                          title: translate(
-                              'city_data.new_york.education.attendance_title'),
-                          legendX: translate(
-                              'city_data.new_york.education.district'),
-                          chartData: {
-                            translate(
-                                    'city_data.new_york.education.attendance'):
-                                Colors.yellow,
-                            translate(
-                                    'city_data.new_york.education.enrollment'):
-                                Colors.green,
-                          },
-                          markerIntervalX: 6)
-                      .chartParser(
-                      dataX: attendanceData![0],
-                      dataY: [attendanceData![1], attendanceData![2]],
-                    )
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              LineChartParser(
+                      title: translate(
+                          'city_data.new_york.education.attendance_title'),
+                      legendX:
+                          translate('city_data.new_york.education.district'),
+                      chartData: {
+                        translate('city_data.new_york.education.attendance'):
+                            Colors.yellow,
+                        translate('city_data.new_york.education.enrollment'):
+                            Colors.green,
+                      },
+                      markerIntervalX: 6)
+                  .chartParser(
+                dataX: attendanceData?[0],
+                dataY: [attendanceData?[1], attendanceData?[2]],
+              ),
               Const.dashboardUISpacing.ph,
             ],
           ),

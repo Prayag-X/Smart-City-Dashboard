@@ -71,47 +71,30 @@ class _CharlotteProductionTabLeftState
               ),
             ),
             children: [
-              crimeData != null
-                  ? LineChartParser(
+              LineChartParser(
+                  title:
+                      translate('city_data.charlotte.production.crime_title'),
+                  legendX: translate('city_data.charlotte.production.year'),
+                  chartData: {
+                    translate('city_data.charlotte.production.offense'):
+                        Colors.red,
+                  }).chartParserWithDuplicate(dataX: crimeData?[3], dataY: [
+                crimeData?[6],
+              ]),
+              Const.dashboardUISpacing.ph,
+              PieChartParser(
                       title: translate(
                           'city_data.charlotte.production.crime_title'),
-                      legendX: translate('city_data.charlotte.production.year'),
-                      chartData: {
-                          translate('city_data.charlotte.production.offense'):
-                              Colors.red,
-                        }).chartParserWithDuplicate(
-                      dataX: crimeData![3],
-                      dataY: [
-                          crimeData![6],
-                        ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+                      subTitle:
+                          translate('city_data.charlotte.production.offenses'))
+                  .chartParser(data: crimeData?[5]),
               Const.dashboardUISpacing.ph,
-              crimeData != null
-                  ? PieChartParser(
-                          title: translate(
-                              'city_data.charlotte.production.crime_title'),
-                          subTitle: translate(
-                              'city_data.charlotte.production.offenses'))
-                      .chartParser(data: crimeData![5])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
-              Const.dashboardUISpacing.ph,
-              requestData != null
-                  ? PieChartParser(
-                          title: translate(
-                              'city_data.charlotte.production.requests_title'),
-                          subTitle: translate(
-                              'city_data.charlotte.production.requests'))
-                      .chartParser(data: requestData![6])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              PieChartParser(
+                      title: translate(
+                          'city_data.charlotte.production.requests_title'),
+                      subTitle:
+                          translate('city_data.charlotte.production.requests'))
+                  .chartParser(data: requestData?[6]),
               Const.dashboardUISpacing.ph,
             ],
           ),

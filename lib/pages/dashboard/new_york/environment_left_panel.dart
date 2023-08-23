@@ -100,58 +100,38 @@ class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
                 ],
               ),
               Const.dashboardUISpacing.ph,
-              waterConsumptionData != null
-                  ? LineChartParser(
-                      title: translate(
-                          'city_data.new_york.environment.water_consumption_title'),
-                      legendX: translate('city_data.new_york.environment.year'),
+              LineChartParser(
+                  title: translate(
+                      'city_data.new_york.environment.water_consumption_title'),
+                  legendX: translate('city_data.new_york.environment.year'),
+                  chartData: {
+                    translate('city_data.new_york.environment.population'):
+                        Colors.red,
+                    translate(
+                            'city_data.new_york.environment.water_consumption'):
+                        Colors.blue
+                  }).chartParser(
+                  dataX: waterConsumptionData?[0],
+                  dataY: [waterConsumptionData?[1], waterConsumptionData?[2]]),
+              Const.dashboardUISpacing.ph,
+              LineChartParser(
+                      title: translate('city_data.new_york.environment.gas'),
                       chartData: {
-                          translate(
-                                  'city_data.new_york.environment.population'):
-                              Colors.red,
-                          translate(
-                                  'city_data.new_york.environment.water_consumption'):
-                              Colors.blue
-                        }).chartParser(dataX: waterConsumptionData![0], dataY: [
-                      waterConsumptionData![1],
-                      waterConsumptionData![2]
-                    ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+                        translate('city_data.new_york.environment.consumption'):
+                            Colors.greenAccent,
+                      },
+                      legendX: translate('city_data.new_york.environment.zip'),
+                      barWidth: 3)
+                  .chartParser(limitMarkerX: 5, dataX: gasData?[0], dataY: [
+                gasData?[2],
+              ]),
               Const.dashboardUISpacing.ph,
-              gasData != null
-                  ? LineChartParser(
-                          title:
-                              translate('city_data.new_york.environment.gas'),
-                          chartData: {
-                            translate(
-                                    'city_data.new_york.environment.consumption'):
-                                Colors.greenAccent,
-                          },
-                          legendX:
-                              translate('city_data.new_york.environment.zip'),
-                          barWidth: 3)
-                      .chartParser(limitMarkerX: 5, dataX: gasData![0], dataY: [
-                      gasData![2],
-                    ])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
-              Const.dashboardUISpacing.ph,
-              squirrelData != null
-                  ? PieChartParser(
-                          title: translate(
-                              'city_data.new_york.environment.squirrel_data'),
-                          subTitle: translate(
-                              'city_data.new_york.environment.squirrel'))
-                      .chartParser(data: squirrelData![9])
-                  : const BlankDashboardContainer(
-                      heightMultiplier: 2,
-                      widthMultiplier: 2,
-                    ),
+              PieChartParser(
+                      title: translate(
+                          'city_data.new_york.environment.squirrel_data'),
+                      subTitle:
+                          translate('city_data.new_york.environment.squirrel'))
+                  .chartParser(data: squirrelData?[9]),
               Const.dashboardUISpacing.ph,
             ],
           ),
