@@ -50,7 +50,6 @@ class BalloonLoader {
               }
             }
           }
-
           ref.read(lastBalloonProvider.notifier).state = await SSH(ref: ref)
               .renderInSlave(
                   context,
