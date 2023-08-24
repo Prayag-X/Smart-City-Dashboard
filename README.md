@@ -43,7 +43,7 @@ Android app to visualize many available public data of various Smart Cities thro
 # App Installation
 
 ### Prerequisites:
-- Minimum 9-inch Tablet of resolution at least 2048x1536.
+- Minimum 9-inch Tablet of resolution at least 2048 x 1536.
 - Android SDK 24 or above (Codename: Android 7.0 or Nougat)
 - Free Space of minimum 240 MB is required. Suggested Free Space is at least 500 MB (Including all in-app downloadable content).
 
@@ -53,4 +53,7 @@ Android app to visualize many available public data of various Smart Cities thro
   <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/qr.png" width="200" height="200">
 </p>  
 
-Scan the QR Code or download from the [Play Store link](https://play.google.com/store/apps/details?id=com.liquidgalaxy.smart_city_dashboard&hl=en-IN). Alternatively you can also download the apk from [this link](https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/releases/Smart%20City%20Dashboard%20-%201.1.0%20-%2024.08.2023.apk). If this alternate link doesn't work then manually download the apk in [this folder](https://github.com/Prayag-X/Smart-City-Dashboard/tree/main/releases).
+Scan the QR Code or download from the [Play Store link](https://play.google.com/store/apps/details?id=com.liquidgalaxy.smart_city_dashboard&hl=en-IN). Alternatively you can also download the apk from [this link](https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/releases/Smart%20City%20Dashboard%20-%201.1.0%20-%2024.08.2023.apk). If this alternate link doesn't work then manually download the apk in [this folder](https://github.com/Prayag-X/Smart-City-Dashboard/tree/main/releases). 
+</br>
+</br>
+After the installation, you will get a tour when you open the app for the first time, providing guidance to how to use the app and highlighting all the important features. In case of any trouble, always check out the Help Page. Enjoy :D
