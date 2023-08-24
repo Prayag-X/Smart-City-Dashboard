@@ -60,3 +60,13 @@ Android app to visualize many available public data of various Smart Cities thro
 After the installation, you will get a tour when you open the app for the first time, providing guidance to how to use the app and highlighting all the important features. In case of any trouble, always check out the Help Page. Enjoy :D
 
 # App Screenshots
+
+| | | |
+| ------------- | ------------- | -------------- |
+| <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/1.png"> | <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/3.png"> | <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/4.png"> | 
+| <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/6.png"> | <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/7.png"> | <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/8.png"> |
+
+| | | 
+| ------------- | ------------- |
+| <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/2.png"> | <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/5.png"> |
+
