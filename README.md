@@ -59,6 +59,13 @@ Android app to visualize many available public data of various Smart Cities thro
 
 After the installation, you will get a tour when you open the app for the first time, providing guidance to how to use the app and highlighting all the important features. In case of any trouble, always check out the Help Page. Enjoy :D
 
+### Integration with Liquid Galaxy:
+
+Follow the instructions given [here](https://github.com/LiquidGalaxyLAB/liquid-galaxy#readme) to install and setup Liquid Galaxy in either multi-device rigs or virtual machines. For virtual machine setup follow  this [video](https://www.youtube.com/watch?v=CLdUuDHo6lU) or this [document](https://drive.google.com/file/d/1uwWEKms1ZHZoRjn4IKOchk71solLxpuL/view).
+</br>
+</br>
+After this, go to the app Settings Page and under `Connection and Settings` fillup the required details and click on `CONNECT TO LG` and all done.
+
 # App Screenshots
 
 | | | |
