@@ -78,3 +78,23 @@ After this, go to the app Settings Page and under `Connection and Settings` fill
 | ------------- | ------------- |
 | <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/2.png"> | <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/5.png"> |
 
+# Setting up locally
+
+### Prerequisites:
+- Git
+- Flutter SDK `v3.7.6 stable`
+- Dart `v2.19.3`
+- Android Studio or Visual Studio Code
+- Minimum 9-inch Tablet of resolution at least 2048 x 1536 (Emulator or Real Device)
+
+Before starting, make sure the Flutter and Dart SDK are of the mentioned version to make sure there is no version error or mismatching while running the project. If your Flutter SDK doesn't match the given, use the following steps:
+- Go to the folder where you installed Flutter (For example: C:/flutter/)
+- Open terminal and execute these commands
+  ```bash
+  $ git checkout 3.7.6
+  ```
+  then
+  ```bash
+  $ flutter doctor
+  ```
+- Wait for the process to finish and you environment is ready to run the project!
