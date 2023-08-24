@@ -15,6 +15,7 @@
   <img alt="GitHub Repo stars" src="https://img.shields.io/github/issues/Prayag-X/Smart-City-Dashboard?color=00092a&labelColor=001049">
   <img alt="GitHub Repo stars" src="https://img.shields.io/github/issues-closed/Prayag-X/Smart-City-Dashboard?color=00092a&labelColor=001049">
 </p>
+</br>
 
 # Smart City Dashboard
 Android app to visualize many available public data of various Smart Cities through Dashboards. It will also connect with Liquid Galaxy to show the data in Google Earth in bigger screens for better visualization. The aim of the project is to make the open data of various Smart Cities easy to visualize and understand for everyone. The project hopes to create more awareness among the public regarding the data of their own city and eases the data analysis for general improvement of the city.
