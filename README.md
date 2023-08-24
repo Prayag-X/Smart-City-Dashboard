@@ -100,4 +100,4 @@ Before starting, make sure the Flutter and Dart SDK are of the mentioned version
   ```bash
   $ flutter doctor
   ```
-- Wait for the process to finish and you environment is ready to run the project!
+- Wait for the process to finish and your environment is ready to run the project!
