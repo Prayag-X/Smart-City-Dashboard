@@ -45,7 +45,7 @@ Android app to visualize many available public data of various Smart Cities thro
 ### Prerequisites:
 - Minimum 9-inch Tablet of resolution at least 2048x1536.
 - Android SDK 24 or above (Codename: Android 7.0 or Nougat)
-- Free Space of minimum 240 MB is required. Suggested Free Space is at least 500 MB (Including all downloadable content).
+- Free Space of minimum 240 MB is required. Suggested Free Space is at least 500 MB (Including all in-app downloadable content).
 
 ### Download Sources:
 
