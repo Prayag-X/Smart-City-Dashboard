@@ -53,6 +53,8 @@ Android app to visualize many available public data of various Smart Cities thro
   <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/qr.png" width="200" height="200">
 </p>  
 
+# App Screenshots
+
 - Scan the QR Code or download from the [Play Store link](https://play.google.com/store/apps/details?id=com.liquidgalaxy.smart_city_dashboard&hl=en-IN).
 - Alternatively you can also download the apk from [this link](https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/releases/Smart%20City%20Dashboard%20-%201.1.0%20-%2024.08.2023.apk).
 - If this alternate link doesn't work then manually download the apk in [this folder](https://github.com/Prayag-X/Smart-City-Dashboard/tree/main/releases). 
