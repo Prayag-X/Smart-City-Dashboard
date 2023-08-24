@@ -58,6 +58,7 @@ Android app to visualize many available public data of various Smart Cities thro
 - If this alternate link doesn't work then manually download the apk in [this folder](https://github.com/Prayag-X/Smart-City-Dashboard/tree/main/releases). 
 
 After the installation, you will get a tour when you open the app for the first time, providing guidance to how to use the app and highlighting all the important features. In case of any trouble, always check out the Help Page. Enjoy :D
+</br>
 
 ### Integration with Liquid Galaxy:
 
