@@ -19,6 +19,10 @@
 # Smart City Dashboard
 Android app to visualize many available public data of various Smart Cities through Dashboards. It will also connect with Liquid Galaxy to show the data in Google Earth in bigger screens for better visualization. The aim of the project is to make the open data of various Smart Cities easy to visualize and understand for everyone. The project hopes to create more awareness among the public regarding the data of their own city and eases the data analysis for general improvement of the city.
 
+### Architechture
+<img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/architechture.png">
+
+### Features
 - Works both with and without connecting to Liquid Galaxy.
 - Visually appealing UI/UX with smooth animations.
 - Dynamic Left Tab bar and 1 tap navigation for ease of use.
