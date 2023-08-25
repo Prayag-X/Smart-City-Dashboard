@@ -155,4 +155,4 @@ The project was successfully made thanks to my mentor of *Google Summer of Code 
 
 This project is licensed under the [MIT license](https://opensource.org/licenses/MIT).
 </br>
-Copyright @ 2023 [Prayag Biswas](https://www.linkedin.com/in/prayag-biswas-293644215/)
+Copyright @2023 [Prayag Biswas](https://www.linkedin.com/in/prayag-biswas-293644215/)
