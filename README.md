@@ -26,6 +26,13 @@ Android app to visualize many available public data of various Smart Cities thro
   <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/architechture.png">
 </p>  
 
+1. First the open data (except [Weather API](https://rapidapi.com/weatherapi/api/weatherapi-com)) is collected from the following sites: [New York City](https://opendata.cityofnewyork.us/data/), [Chartlotte](https://data.charlottenc.gov/search?collection=Dataset), [Seattle](https://data.seattle.gov/), [Austin](https://data.austintexas.gov/), [Boudler](https://open-data.bouldercolorado.gov/), [Chicago](https://data.cityofchicago.org/), [Toronto](https://open.toronto.ca/catalogue/), [Monterrey](https://montereycountyopendata-12017-01-13t232948815z-montereyco.opendata.arcgis.com/) and [City Scores](https://www.kaggle.com/datasets/magdamonteiro/smart-cities-index-datasets).
+2. After the data is downloaded, it is processed into Dart models if it is `.csv` or is prepared to visualize in Liquid Galaxy is `.kml`.
+3. The processed data is shown as form of beautiful Line Chart, Pie Chart and Percentage Bar data with smooth animations.
+4. The charts and bars are rendered with the help of [this](https://pub.dev/packages/screenshot) package into an `.png` image.
+5. The app then integrates the rendered image of the widget in a `.kml` file and sends to Liquid Galaxy for visualization.
+6. The integration of the app with Liquid Galaxy has been done with the help of [this](https://pub.dev/packages/dartssh2) package.
+
 ### Features:
 
 - Works both with and without connecting to Liquid Galaxy.
