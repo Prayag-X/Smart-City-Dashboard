@@ -8,7 +8,6 @@ import 'package:smart_city_dashboard/pages/dashboard/boulder/health_left_panel.d
 import 'package:smart_city_dashboard/pages/dashboard/monterrey/environment_left_panel.dart';
 import 'package:smart_city_dashboard/pages/dashboard/new_york/education_left_panel.dart';
 import 'package:smart_city_dashboard/pages/dashboard/toronto/government_left_panel.dart';
-import 'package:smart_city_dashboard/pages/panels/tab_button.dart';
 
 import '../../models/tab_button.dart';
 import 'Seattle/education_left_panel.dart';
