@@ -97,3 +97,15 @@ Before starting, make sure the Flutter and Dart SDK are of the mentioned version
   $ flutter doctor
   ```
 - Wait for the process to finish and your environment is ready to run the project!
+
+### Running the Project:
+
+First clone the repository
+```bash
+$ git clone https://github.com/Prayag-X/Smart-City-Dashboard.git
+$ cd Smart-City-Dashboard
+```
+Now we have to install all the Flutter packages
+```bash
+$ flutter pub get
+```
