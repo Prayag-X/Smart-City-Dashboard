@@ -71,12 +71,8 @@ After this, go to the app Settings Page and under `Connection and Settings` fill
 
 | | | |
 | ------------- | ------------- | -------------- |
-| <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/1.png"> | <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/3.png"> | <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/4.png"> | 
-| <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/6.png"> | <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/7.png"> | <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/8.png"> |
-
-| | | 
-| ------------- | ------------- |
-| <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/2.png"> | <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/5.png"> |
+| <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/1.png"> | <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/3.png"> | <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/2.png"> |
+| <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/8.png"> | <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/4.png"> | <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/screenshots/5.png"> |
 
 # Setting up locally
 
