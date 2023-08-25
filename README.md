@@ -43,6 +43,7 @@ Android app to visualize many available public data of various Smart Cities thro
 - Same interface as the app in the Liquid Galaxy
 - Has the option to download and visaulize open data as well as delete those whenever required so that the app doesn't consume much storage.
 - Integrated Google Map and many functions to control Liquid Galaxy.
+- Allows various types of tours and orbit accross the cities.
 - Visualizer for any custom `.csv` or `.kml` files.
 - App tour to guide new users and highlight the features.
 - 8+ Smart Cities data.
