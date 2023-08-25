@@ -21,11 +21,13 @@
 Android app to visualize many available public data of various Smart Cities through Dashboards. It will also connect with Liquid Galaxy to show the data in Google Earth in bigger screens for better visualization. The aim of the project is to make the open data of various Smart Cities easy to visualize and understand for everyone. The project hopes to create more awareness among the public regarding the data of their own city and eases the data analysis for general improvement of the city.
 
 ### Workflow:
+
 <p align="center">
   <img src="https://raw.githubusercontent.com/Prayag-X/Smart-City-Dashboard/main/readme_assets/architechture.png">
 </p>  
 
 ### Features:
+
 - Works both with and without connecting to Liquid Galaxy.
 - Visually appealing UI/UX with smooth animations.
 - Dynamic Left Tab bar and 1 tap navigation for ease of use.
@@ -60,7 +62,7 @@ Android app to visualize many available public data of various Smart Cities thro
 After the installation, you will get a tour when you open the app for the first time, providing guidance to how to use the app and highlighting all the important features. In case of any trouble, always check out the Help Page. Enjoy :D
 </br>
 
-### Integration with Liquid Galaxy:
+# Integration with Liquid Galaxy:
 
 Follow the instructions given [here](https://github.com/LiquidGalaxyLAB/liquid-galaxy#readme) to install and setup Liquid Galaxy in either multi-device rigs or virtual machines. For virtual machine setup follow  this [video](https://www.youtube.com/watch?v=CLdUuDHo6lU) or this [document](https://drive.google.com/file/d/1uwWEKms1ZHZoRjn4IKOchk71solLxpuL/view).
 </br>
@@ -98,14 +100,37 @@ Before starting, make sure the Flutter and Dart SDK are of the mentioned version
   ```
 - Wait for the process to finish and your environment is ready to run the project!
 
-### Running the Project:
+### Clonning the Project:
 
-First clone the repository
 ```bash
 $ git clone https://github.com/Prayag-X/Smart-City-Dashboard.git
 $ cd Smart-City-Dashboard
 ```
-Now we have to install all the Flutter packages
+
+### Preparing the API Keys (Optional):
+
+There are 2 APIs that have been used in this project. The API Keys I have used are already given and not hidden to make the process of setting up the project easy. But its suggested to use your own keys if you are planning to work around the project for a longer time. (Please consider my API's daily limit as well and dont misuse it :) )
+
+1. **Google Maps API:** To get your own key, you will need to follow the steps mentioned in [this documentation](https://docs.google.com/document/d/1_LDcuFSzZKv-69FrT41hHyZoMb7db7m5fxwGSKZScaE/edit?usp=sharing). Then go to the project's `android/app/src/main/AndroidManifest.xml` and paste the API key you got in place of `REPLACE_THE_API_KEY_HERE`.
+  ```xml
+  <meta-data
+     android:name="com.google.android.geo.API_KEY"
+     android:value="REPLACE_THE_API_KEY_HERE"/>
+  ```
+
+2. **Weather API:** Go to [this link](https://rapidapi.com/weatherapi/api/weatherapi-com) then sign up if you don't have any account. Then subsribe to the FREE Basic plan of the API. Then select your project or keep it default. And `X-RapidAPI-Key` will be your key. Then go to the project's `lib/services/weather_api.dart` and replace line 6's `REPLACE_THE_API_KEY_HERE`:
+  ```dart
+  final String apiKey = 'REPLACE_THE_API_KEY_HERE';
+  ```
+
+### Running the Project:
+
+First install all the Flutter packages
 ```dart
 $ flutter pub get
+```
+
+Then connect a tablet (emulator/device) of the mentioned requirements and run
+```dart
+$ flutter run
 ```
