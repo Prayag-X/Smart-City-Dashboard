@@ -134,3 +134,24 @@ Then connect a tablet (emulator/device) of the mentioned requirements and run
 ```dart
 $ flutter run
 ```
+
+# Open Source Contributions
+
+It will be very appreciated if you want to contribute to this project. There are few ways you can contribute to this project:
+- Add up more city data.
+- Increase the data of each cities.
+- Add more languages.
+- Improve the overall stability of the app.
+- Look up for possible bugs and try to fix it.
+- Any imrprovement to the existing UI/UX.
+
+Always feel free to open up any issues in the [Issues](https://github.com/Prayag-X/Smart-City-Dashboard/issues?q=is%3Aopen+is%3Aissue) section in case of any doubt or bug. I will be more than happy to help you out in every way possible. You can improve anything of the above mentioned things or work something on your own and make a Pull Request. I will review it asap. Happy Contributing :D
+
+# Credits
+
+The project was successfully made thanks to my mentor of *Google Summer of Code 2023* **Merul Dhiman** and Liquid Galaxy administrator **Andreu Ibáñez** who guided me in every way possible. Also thanks to **Alejandro Illan Marcos** for publishing the app in the Play Store and **Victor Carreras** for any Flutter related queries. The project wouldn't be completed without the support of **Mohamed Zazou**, **Navdeep Singh** and **Imad Laichi** who tested the app relentlessly for any possible bugs and improvements.
+
+# License
+
+This project is licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Copyright @ 2023 [Prayag Biswas](https://www.linkedin.com/in/prayag-biswas-293644215/)
