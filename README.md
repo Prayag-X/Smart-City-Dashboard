@@ -157,7 +157,7 @@ Always feel free to open up any issues in the [Issues](https://github.com/Prayag
 
 # Credits
 
-The project was successfully made thanks to my mentor of *Google Summer of Code 2023* **Merul Dhiman** and Liquid Galaxy administrator **Andreu Ibáñez** who guided me in every way possible. Also thanks to **Alejandro Illan Marcos** for publishing the app in the Play Store and **Victor Carreras** for any Flutter related queries. The project wouldn't be completed without the support of **Mohamed Zazou**, **Navdeep Singh** and **Imad Laichi** who tested the app relentlessly for any possible bugs and improvements.
+The project was successfully made thanks to my mentor of *Google Summer of Code 2023* **Merul Dhiman** and Liquid Galaxy administrator **Andreu Ibáñez** who guided me in every way possible. Thanks to **Yash Raj Bharti** for solving many issues and doubts. Also thanks to **Alejandro Illan Marcos** for publishing the app in the Play Store and **Victor Carreras** for any Flutter related queries. The project wouldn't be completed without the support of **Mohamed Zazou**, **Navdeep Singh** and **Imad Laichi** who tested the app relentlessly for any possible bugs and improvements.
 
 # License
 
