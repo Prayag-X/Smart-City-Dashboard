@@ -1,27 +1,27 @@
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:smart_city_dashboard/models/city_card_model.dart';
-import 'package:smart_city_dashboard/pages/dashboard/Seattle/finance_left_panel.dart';
-import 'package:smart_city_dashboard/pages/dashboard/austin/transport_left_panel.dart';
-import 'package:smart_city_dashboard/pages/dashboard/boulder/government_left_panel.dart';
-import 'package:smart_city_dashboard/pages/dashboard/boulder/health_left_panel.dart';
-import 'package:smart_city_dashboard/pages/dashboard/monterrey/environment_left_panel.dart';
-import 'package:smart_city_dashboard/pages/dashboard/new_york/education_left_panel.dart';
-import 'package:smart_city_dashboard/pages/dashboard/toronto/government_left_panel.dart';
+import 'package:smart_city_dashboard/models/city_card.dart';
+import 'package:smart_city_dashboard/pages/dashboard/Seattle/finance.dart';
+import 'package:smart_city_dashboard/pages/dashboard/austin/transport.dart';
+import 'package:smart_city_dashboard/pages/dashboard/boulder/government.dart';
+import 'package:smart_city_dashboard/pages/dashboard/boulder/health.dart';
+import 'package:smart_city_dashboard/pages/dashboard/monterrey/environment.dart';
+import 'package:smart_city_dashboard/pages/dashboard/new_york/education.dart';
+import 'package:smart_city_dashboard/pages/dashboard/toronto/government.dart';
 
 import '../../models/tab_button.dart';
-import 'Seattle/education_left_panel.dart';
-import 'Seattle/transportation_left_panel.dart';
-import 'austin/environment_left_panel.dart';
-import 'austin/health_left_panel.dart';
-import 'boulder/livable_left_panel.dart';
-import 'charlotte/misc_left_panel.dart';
-import 'charlotte/society_left_panel.dart';
-import 'chicago/ethics_left_panel.dart';
+import 'Seattle/education.dart';
+import 'Seattle/transportation.dart';
+import 'austin/environment.dart';
+import 'austin/health.dart';
+import 'boulder/livable.dart';
+import 'charlotte/misc.dart';
+import 'charlotte/society.dart';
+import 'chicago/ethics.dart';
 import 'downloadable_content.dart';
-import 'new_york/environment_left_panel.dart';
+import 'new_york/environment.dart';
 import '../../constants/images.dart';
-import 'new_york/health_left_panel.dart';
+import 'new_york/health.dart';
 
 class AllCityData {
   static List<CityCardModel> availableCities = [
@@ -42,7 +42,7 @@ class AllCityData {
             logo: ImageConst.environmentTab,
             name: translate('dashboard.environment.environment'),
             tab: 1,
-            leftTab: const NYCEnvironmentTabLeft(),
+            leftTab: const NYCEnvironment(),
             rightTabData: DownloadableContent.nycEnvironmentKml,
             nameForUrl: 'environment',
           ),
@@ -50,7 +50,7 @@ class AllCityData {
             logo: ImageConst.health,
             name: translate('city_data.new_york.health.health'),
             tab: 2,
-            leftTab: const NYCHealthTabLeft(),
+            leftTab: const NYCHealth(),
             rightTabData: DownloadableContent.nycHealthKml,
             nameForUrl: 'health',
           ),
@@ -58,7 +58,7 @@ class AllCityData {
             logo: ImageConst.education,
             name: translate('city_data.new_york.education.education'),
             tab: 3,
-            leftTab: const NYCEducationTabLeft(),
+            leftTab: const NYCEducation(),
             rightTabData: DownloadableContent.nycEducationKml,
             nameForUrl: 'education',
           ),
@@ -93,7 +93,7 @@ class AllCityData {
             logo: ImageConst.people,
             name: translate('city_data.charlotte.production.production'),
             tab: 1,
-            leftTab: const CharlotteSocietyTabLeft(),
+            leftTab: const CharlotteSociety(),
             rightTabData: DownloadableContent.charlotteProductionKml,
             nameForUrl: 'society',
           ),
@@ -101,7 +101,7 @@ class AllCityData {
             logo: ImageConst.misc,
             name: translate('city_data.charlotte.misc.misc'),
             tab: 2,
-            leftTab: const CharlotteMiscTabLeft(),
+            leftTab: const CharlotteMisc(),
             rightTabData: DownloadableContent.charlotteMiscKml,
             nameForUrl: 'misc',
           ),
@@ -133,7 +133,7 @@ class AllCityData {
             logo: ImageConst.finance,
             name: translate('city_data.seattle.finance.finance'),
             tab: 1,
-            leftTab: const SeattleFinanceTabLeft(),
+            leftTab: const SeattleFinance(),
             rightTabData: DownloadableContent.blankKml,
             nameForUrl: 'finance',
           ),
@@ -141,7 +141,7 @@ class AllCityData {
             logo: ImageConst.transportation,
             name: translate('city_data.seattle.transportation.transportation'),
             tab: 2,
-            leftTab: const SeattleTransportationTabLeft(),
+            leftTab: const SeattleTransportation(),
             rightTabData: DownloadableContent.seattleTransportKml,
             nameForUrl: 'transport',
           ),
@@ -149,7 +149,7 @@ class AllCityData {
             logo: ImageConst.education,
             name: translate('city_data.seattle.education.education'),
             tab: 3,
-            leftTab: const SeattleEducationTabLeft(),
+            leftTab: const SeattleEducation(),
             rightTabData: DownloadableContent.blankKml,
             nameForUrl: 'education',
           ),
@@ -181,7 +181,7 @@ class AllCityData {
             logo: ImageConst.environmentTab,
             name: translate('dashboard.environment.environment'),
             tab: 1,
-            leftTab: const AustinEnvironmentTabLeft(),
+            leftTab: const AustinEnvironment(),
             rightTabData: DownloadableContent.austinEnvironmentKml,
             nameForUrl: 'environment',
           ),
@@ -189,7 +189,7 @@ class AllCityData {
             logo: ImageConst.health,
             name: translate('city_data.austin.health.health'),
             tab: 2,
-            leftTab: const AustinHealthTabLeft(),
+            leftTab: const AustinHealth(),
             rightTabData: DownloadableContent.austinHealthKml,
             nameForUrl: 'health',
           ),
@@ -197,7 +197,7 @@ class AllCityData {
             logo: ImageConst.transportation,
             name: translate('city_data.austin.transport.transport'),
             tab: 3,
-            leftTab: const AustinTransportTabLeft(),
+            leftTab: const AustinTransport(),
             rightTabData: DownloadableContent.austinTransportKml,
             nameForUrl: 'transport',
           ),
@@ -228,7 +228,7 @@ class AllCityData {
           TabButtonModel(
             logo: ImageConst.health,
             name: translate('city_data.boulder.health.health'),
-            leftTab: const BoulderHealthTabLeft(),
+            leftTab: const BoulderHealth(),
             rightTabData: DownloadableContent.blankKml,
             tab: 1,
             nameForUrl: 'health',
@@ -236,7 +236,7 @@ class AllCityData {
           TabButtonModel(
             logo: ImageConst.living,
             name: translate('city_data.boulder.livable.livable'),
-            leftTab: const BoulderLivableTabLeft(),
+            leftTab: const BoulderLivable(),
             rightTabData: DownloadableContent.boulderLivableKml,
             tab: 2,
             nameForUrl: 'livable',
@@ -244,7 +244,7 @@ class AllCityData {
           TabButtonModel(
             logo: ImageConst.government,
             name: translate('city_data.boulder.government.government'),
-            leftTab: const BoulderGovernmentTabLeft(),
+            leftTab: const BoulderGovernment(),
             rightTabData: DownloadableContent.blankKml,
             tab: 3,
             nameForUrl: 'government',
@@ -276,7 +276,7 @@ class AllCityData {
           TabButtonModel(
             logo: ImageConst.ethics,
             name: translate('city_data.chicago.ethics.ethics'),
-            leftTab: const ChicagoEthicsTabLeft(),
+            leftTab: const ChicagoEthics(),
             rightTabData: DownloadableContent.blankKml,
             tab: 1,
             nameForUrl: 'ethics',
@@ -308,7 +308,7 @@ class AllCityData {
           TabButtonModel(
             logo: ImageConst.government,
             name: translate('city_data.toronto.government.government'),
-            leftTab: const TorontoGovernmentTabLeft(),
+            leftTab: const TorontoGovernment(),
             rightTabData: DownloadableContent.torontoGovernmentKml,
             tab: 1,
             nameForUrl: 'government',
@@ -340,7 +340,7 @@ class AllCityData {
           TabButtonModel(
             logo: ImageConst.environment,
             name: translate('city_data.monterrey.environment.environment'),
-            leftTab: const MonterreyEnvironmentTabLeft(),
+            leftTab: const MonterreyEnvironment(),
             rightTabData: DownloadableContent.monterreyEnvironmentKml,
             tab: 1,
             nameForUrl: 'health',

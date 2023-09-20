@@ -13,15 +13,15 @@ import '../../../utils/csv_parser.dart';
 import '../widgets/dashboard_container.dart';
 import '../widgets/load_balloon.dart';
 
-class MonterreyEnvironmentTabLeft extends ConsumerStatefulWidget {
-  const MonterreyEnvironmentTabLeft({super.key});
+class MonterreyEnvironment extends ConsumerStatefulWidget {
+  const MonterreyEnvironment({super.key});
 
   @override
   ConsumerState createState() => _MonterreyEnvironmentTabLeftState();
 }
 
 class _MonterreyEnvironmentTabLeftState
-    extends ConsumerState<MonterreyEnvironmentTabLeft> {
+    extends ConsumerState<MonterreyEnvironment> {
   ScreenshotController screenshotController = ScreenshotController();
   List<List<dynamic>>? data;
   List<List<dynamic>>? eirsData;

@@ -14,15 +14,15 @@ import '../widgets/charts/line_chart_parser.dart';
 import '../widgets/dashboard_container.dart';
 import '../widgets/load_balloon.dart';
 
-class CharlotteSocietyTabLeft extends ConsumerStatefulWidget {
-  const CharlotteSocietyTabLeft({super.key});
+class CharlotteSociety extends ConsumerStatefulWidget {
+  const CharlotteSociety({super.key});
 
   @override
   ConsumerState createState() => _CharlotteProductionTabLeftState();
 }
 
 class _CharlotteProductionTabLeftState
-    extends ConsumerState<CharlotteSocietyTabLeft> {
+    extends ConsumerState<CharlotteSociety> {
   ScreenshotController screenshotController = ScreenshotController();
   List<List<dynamic>>? data;
   List<List<dynamic>>? crimeData;

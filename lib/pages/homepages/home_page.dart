@@ -15,7 +15,7 @@ import '../../connections/ssh.dart';
 import '../../constants/constants.dart';
 import '../../constants/images.dart';
 import '../../constants/text_styles.dart';
-import '../../models/city_card_model.dart';
+import '../../models/city_card.dart';
 import '../../providers/data_providers.dart';
 import '../../providers/page_providers.dart';
 import '../../providers/settings_providers.dart';

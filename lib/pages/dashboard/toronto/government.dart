@@ -15,15 +15,15 @@ import '../widgets/charts/line_chart_parser.dart';
 import '../widgets/dashboard_container.dart';
 import '../widgets/load_balloon.dart';
 
-class TorontoGovernmentTabLeft extends ConsumerStatefulWidget {
-  const TorontoGovernmentTabLeft({super.key});
+class TorontoGovernment extends ConsumerStatefulWidget {
+  const TorontoGovernment({super.key});
 
   @override
   ConsumerState createState() => _TorontoGovernmentTabLeftState();
 }
 
 class _TorontoGovernmentTabLeftState
-    extends ConsumerState<TorontoGovernmentTabLeft> {
+    extends ConsumerState<TorontoGovernment> {
   ScreenshotController screenshotController = ScreenshotController();
   List<List<dynamic>>? data;
   List<List<dynamic>>? polisData;

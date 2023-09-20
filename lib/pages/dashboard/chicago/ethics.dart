@@ -14,14 +14,14 @@ import '../widgets/charts/line_chart_parser.dart';
 import '../widgets/dashboard_container.dart';
 import '../widgets/load_balloon.dart';
 
-class ChicagoEthicsTabLeft extends ConsumerStatefulWidget {
-  const ChicagoEthicsTabLeft({super.key});
+class ChicagoEthics extends ConsumerStatefulWidget {
+  const ChicagoEthics({super.key});
 
   @override
   ConsumerState createState() => _ChicagoEthicsTabLeftState();
 }
 
-class _ChicagoEthicsTabLeftState extends ConsumerState<ChicagoEthicsTabLeft> {
+class _ChicagoEthicsTabLeftState extends ConsumerState<ChicagoEthics> {
   ScreenshotController screenshotController = ScreenshotController();
   List<List<dynamic>>? data;
   List<List<dynamic>>? registryData;

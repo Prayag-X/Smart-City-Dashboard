@@ -14,14 +14,14 @@ import '../widgets/charts/line_chart_parser.dart';
 import '../widgets/dashboard_container.dart';
 import '../widgets/load_balloon.dart';
 
-class CharlotteMiscTabLeft extends ConsumerStatefulWidget {
-  const CharlotteMiscTabLeft({super.key});
+class CharlotteMisc extends ConsumerStatefulWidget {
+  const CharlotteMisc({super.key});
 
   @override
   ConsumerState createState() => _CharlotteMiscTabLeftState();
 }
 
-class _CharlotteMiscTabLeftState extends ConsumerState<CharlotteMiscTabLeft> {
+class _CharlotteMiscTabLeftState extends ConsumerState<CharlotteMisc> {
   ScreenshotController screenshotController = ScreenshotController();
   List<List<dynamic>>? data;
   List<List<dynamic>>? serviceData;

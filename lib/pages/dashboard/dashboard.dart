@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:smart_city_dashboard/models/city_card_model.dart';
+import 'package:smart_city_dashboard/models/city_card.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/dashboard_right_panel.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/google_map.dart';
 import 'package:smart_city_dashboard/pages/dashboard/widgets/kml_download_button.dart';

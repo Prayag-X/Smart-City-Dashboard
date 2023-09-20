@@ -13,14 +13,14 @@ import '../widgets/charts/line_chart_parser.dart';
 import '../widgets/dashboard_container.dart';
 import '../widgets/load_balloon.dart';
 
-class BoulderLivableTabLeft extends ConsumerStatefulWidget {
-  const BoulderLivableTabLeft({super.key});
+class BoulderLivable extends ConsumerStatefulWidget {
+  const BoulderLivable({super.key});
 
   @override
   ConsumerState createState() => _BoulderLivableTabLeftState();
 }
 
-class _BoulderLivableTabLeftState extends ConsumerState<BoulderLivableTabLeft> {
+class _BoulderLivableTabLeftState extends ConsumerState<BoulderLivable> {
   ScreenshotController screenshotController = ScreenshotController();
   List<List<dynamic>>? data;
   List<List<dynamic>>? buildingData;

@@ -14,14 +14,14 @@ import '../widgets/charts/line_chart_parser.dart';
 import '../widgets/dashboard_container.dart';
 import '../widgets/load_balloon.dart';
 
-class SeattleFinanceTabLeft extends ConsumerStatefulWidget {
-  const SeattleFinanceTabLeft({super.key});
+class SeattleFinance extends ConsumerStatefulWidget {
+  const SeattleFinance({super.key});
 
   @override
   ConsumerState createState() => _SeattleFinanceTabLeftState();
 }
 
-class _SeattleFinanceTabLeftState extends ConsumerState<SeattleFinanceTabLeft> {
+class _SeattleFinanceTabLeftState extends ConsumerState<SeattleFinance> {
   ScreenshotController screenshotController = ScreenshotController();
   List<List<dynamic>>? data;
   List<List<dynamic>>? fleetData;

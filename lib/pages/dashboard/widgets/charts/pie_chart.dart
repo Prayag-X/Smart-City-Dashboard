@@ -5,7 +5,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../constants/constants.dart';
 import '../../../../constants/text_styles.dart';
-import '../../../../models/pie_chart_model.dart';
+import '../../../../models/pie_chart.dart';
 import '../../../../providers/settings_providers.dart';
 import '../../../../utils/helper.dart';
 

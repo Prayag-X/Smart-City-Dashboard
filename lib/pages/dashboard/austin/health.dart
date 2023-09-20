@@ -13,14 +13,14 @@ import '../widgets/charts/line_chart_parser.dart';
 import '../widgets/dashboard_container.dart';
 import '../widgets/load_balloon.dart';
 
-class AustinHealthTabLeft extends ConsumerStatefulWidget {
-  const AustinHealthTabLeft({super.key});
+class AustinHealth extends ConsumerStatefulWidget {
+  const AustinHealth({super.key});
 
   @override
   ConsumerState createState() => _AustinHealthTabLeftState();
 }
 
-class _AustinHealthTabLeftState extends ConsumerState<AustinHealthTabLeft> {
+class _AustinHealthTabLeftState extends ConsumerState<AustinHealth> {
   ScreenshotController screenshotController = ScreenshotController();
   List<List<dynamic>>? data;
   List<List<dynamic>>? sa4Data;

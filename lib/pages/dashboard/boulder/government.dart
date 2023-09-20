@@ -14,15 +14,15 @@ import '../widgets/charts/line_chart_parser.dart';
 import '../widgets/dashboard_container.dart';
 import '../widgets/load_balloon.dart';
 
-class BoulderGovernmentTabLeft extends ConsumerStatefulWidget {
-  const BoulderGovernmentTabLeft({super.key});
+class BoulderGovernment extends ConsumerStatefulWidget {
+  const BoulderGovernment({super.key});
 
   @override
   ConsumerState createState() => _BoulderGovernmentTabLeftState();
 }
 
 class _BoulderGovernmentTabLeftState
-    extends ConsumerState<BoulderGovernmentTabLeft> {
+    extends ConsumerState<BoulderGovernment> {
   ScreenshotController screenshotController = ScreenshotController();
   List<List<dynamic>>? data;
   List<List<dynamic>>? boardData;

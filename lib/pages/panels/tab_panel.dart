@@ -12,7 +12,7 @@ import 'package:smart_city_dashboard/utils/helper.dart';
 import 'package:smart_city_dashboard/utils/logo_shower.dart';
 
 import '../../constants/constants.dart';
-import '../../models/city_card_model.dart';
+import '../../models/city_card.dart';
 import '../../providers/data_providers.dart';
 import '../../providers/settings_providers.dart';
 import 'feature_tour_widget.dart';

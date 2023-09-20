@@ -15,14 +15,14 @@ import '../widgets/charts/line_chart_parser.dart';
 import '../widgets/dashboard_container.dart';
 import '../widgets/load_balloon.dart';
 
-class NYCEnvironmentTabLeft extends ConsumerStatefulWidget {
-  const NYCEnvironmentTabLeft({super.key});
+class NYCEnvironment extends ConsumerStatefulWidget {
+  const NYCEnvironment({super.key});
 
   @override
   ConsumerState createState() => _NYCEnvironmentTabLeftState();
 }
 
-class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironmentTabLeft> {
+class _NYCEnvironmentTabLeftState extends ConsumerState<NYCEnvironment> {
   ScreenshotController screenshotController = ScreenshotController();
   List<List<dynamic>>? data;
   List<List<dynamic>>? waterConsumptionData;

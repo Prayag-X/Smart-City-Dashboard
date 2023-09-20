@@ -13,15 +13,15 @@ import '../widgets/charts/line_chart_parser.dart';
 import '../widgets/dashboard_container.dart';
 import '../widgets/load_balloon.dart';
 
-class AustinEnvironmentTabLeft extends ConsumerStatefulWidget {
-  const AustinEnvironmentTabLeft({super.key});
+class AustinEnvironment extends ConsumerStatefulWidget {
+  const AustinEnvironment({super.key});
 
   @override
   ConsumerState createState() => _AustinEnvironmentTabLeftState();
 }
 
 class _AustinEnvironmentTabLeftState
-    extends ConsumerState<AustinEnvironmentTabLeft> {
+    extends ConsumerState<AustinEnvironment> {
   ScreenshotController screenshotController = ScreenshotController();
   List<List<dynamic>>? data;
   List<List<dynamic>>? imagineAustinData;
