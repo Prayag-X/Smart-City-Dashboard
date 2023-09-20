@@ -29,9 +29,9 @@ Android app to visualize many available public data of various Smart Cities thro
 1. First the open data (except [Weather API](https://rapidapi.com/weatherapi/api/weatherapi-com)) is collected from the following sites: [New York City](https://opendata.cityofnewyork.us/data/), [Chartlotte](https://data.charlottenc.gov/search?collection=Dataset), [Seattle](https://data.seattle.gov/), [Austin](https://data.austintexas.gov/), [Boudler](https://open-data.bouldercolorado.gov/), [Chicago](https://data.cityofchicago.org/), [Toronto](https://open.toronto.ca/catalogue/), [Monterrey](https://montereycountyopendata-12017-01-13t232948815z-montereyco.opendata.arcgis.com/) and [City Scores](https://www.kaggle.com/datasets/magdamonteiro/smart-cities-index-datasets).
 2. After the data is downloaded, it is processed into Dart models if it is `.csv` or is prepared to visualize in Liquid Galaxy is `.kml`.
 3. The processed data is shown as form of beautiful Line Chart, Pie Chart and Percentage Bar data with smooth animations.
-4. The charts and bars are rendered with the help of [this](https://pub.dev/packages/screenshot) package into an `.png` image.
+4. The charts and bars are rendered into an `.png` image.
 5. The app then integrates the rendered image of the widget in a `.kml` file and sends to Liquid Galaxy for visualization.
-6. The integration of the app with Liquid Galaxy has been done with the help of [this](https://pub.dev/packages/dartssh2) package.
+6. The integration of the app with Liquid Galaxy has been done with the help of SSH Client functions and file transfer is done through SFTP Protocol.
 
 ### Features:
 
@@ -157,7 +157,7 @@ Always feel free to open up any issues in the [Issues](https://github.com/Prayag
 
 # Credits
 
-The project was successfully made thanks to my mentor of *Google Summer of Code 2023* **Merul Dhiman** and Liquid Galaxy administrator **Andreu Ibáñez** who guided me in every way possible. Also thanks to **Alejandro Illan Marcos** for publishing the app in the Play Store and **Victor Carreras** for any Flutter related queries. The project wouldn't be completed without the support of **Mohamed Zazou**, **Navdeep Singh** and **Imad Laichi** who tested the app relentlessly for any possible bugs and improvements.
+The project was successfully made thanks to my mentor of *Google Summer of Code 2023* **Merul Dhiman** and Liquid Galaxy administrator **Andreu Ibáñez** who guided me in every way possible. Thanks to **Yash Raj Bharti** for solving many issues and doubts. Also thanks to **Alejandro Illan Marcos** for publishing the app in the Play Store and **Victor Carreras** for any Flutter related queries. The project wouldn't be completed without the support of **Mohamed Zazou**, **Navdeep Singh** and **Imad Laichi** who tested the app relentlessly for any possible bugs and improvements.
 
 # License
 
