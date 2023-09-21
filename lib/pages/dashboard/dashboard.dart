@@ -4,23 +4,26 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:smart_city_dashboard/models/city_card.dart';
-import 'package:smart_city_dashboard/pages/dashboard/widgets/dashboard_right_panel.dart';
-import 'package:smart_city_dashboard/pages/dashboard/widgets/google_map.dart';
-import 'package:smart_city_dashboard/pages/dashboard/widgets/kml_download_button.dart';
-import 'package:smart_city_dashboard/utils/extensions.dart';
-import 'package:smart_city_dashboard/utils/helper.dart';
-import '../../connections/ssh.dart';
-import '../../constants/constants.dart';
-import '../../constants/text_styles.dart';
-import '../../providers/data_providers.dart';
-import '../../providers/page_providers.dart';
-import '../../providers/settings_providers.dart';
-import '../panels/feature_tour_widget.dart';
+
 import 'about_tab/left_panel.dart';
 import 'about_tab/right_panel.dart';
 import 'weather_tab/left_panel.dart';
 import 'weather_tab/right_panel.dart';
+import 'widgets/dashboard_right_panel.dart';
+import 'widgets/google_map.dart';
+import 'widgets/kml_download_button.dart';
+import '../panels/feature_tour_widget.dart';
+import '../../models/city_card.dart';
+import '../../utils/extensions.dart';
+import '../../utils/helper.dart';
+import '../../connections/ssh.dart';
+import '../../constants/constants.dart';
+import '../../constants/text_styles.dart';
+import '../../constants/theme.dart';
+import '../../providers/data_providers.dart';
+import '../../providers/page_providers.dart';
+import '../../providers/settings_providers.dart';
+
 
 class Dashboard extends ConsumerStatefulWidget {
   const Dashboard({super.key});
@@ -51,7 +54,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
 
   @override
   Widget build(BuildContext context) {
-    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Themes themes = ref.watch(themesProvider);
     CityCardModel city = ref.watch(cityDataProvider)!;
     int tab = ref.watch(tabProvider);
     bool downloadableContentAvailable =
@@ -131,7 +134,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
                                         'dashboard.downloadable_content_unavailable'),
                                     textAlign: TextAlign.center,
                                     style: textStyleNormal.copyWith(
-                                        color: oppositeColor, fontSize: 16),
+                                        color: themes.oppositeColor, fontSize: 16),
                                   ),
                                 ],
                               ),
@@ -195,7 +198,7 @@ class _DashboardState extends ConsumerState<Dashboard> {
                                             fontSize:
                                                 Const.dashboardTextSize - 3,
                                             color:
-                                                oppositeColor.withOpacity(0.5)),
+                                                themes.oppositeColor.withOpacity(0.5)),
                                       ),
                                     );
                                   }

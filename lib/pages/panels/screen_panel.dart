@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:smart_city_dashboard/pages/homepages/about_page.dart';
-import 'package:smart_city_dashboard/pages/dashboard/dashboard.dart';
-import 'package:smart_city_dashboard/pages/homepages/help_page.dart';
-import 'package:smart_city_dashboard/pages/homepages/settings_page.dart';
-import 'package:smart_city_dashboard/pages/homepages/visualizer_page.dart';
-import 'package:smart_city_dashboard/pages/panels/app_bar.dart';
 
+import '../homepages/home_page.dart';
+import '../../pages/homepages/about_page.dart';
+import '../../pages/dashboard/dashboard.dart';
+import '../../pages/homepages/help_page.dart';
+import '../../pages/homepages/settings_page.dart';
+import '../../pages/homepages/visualizer_page.dart';
+import '../../pages/panels/app_bar.dart';
+import '../../constants/theme.dart';
 import '../../providers/page_providers.dart';
 import '../../providers/settings_providers.dart';
-import '../homepages/home_page.dart';
 
 class ScreenPanel extends ConsumerStatefulWidget {
   const ScreenPanel({
@@ -23,13 +24,13 @@ class ScreenPanel extends ConsumerStatefulWidget {
 class _ScreenPanelState extends ConsumerState<ScreenPanel> {
   @override
   Widget build(BuildContext context) {
-    Color normalColor = ref.watch(normalColorProvider);
+    Themes themes = ref.watch(themesProvider);
     bool isHomePage = ref.watch(isHomePageProvider);
     int homePageTab = ref.watch(tabProvider);
     return Stack(
       children: [
         Container(
-          color: normalColor,
+          color: themes.normalColor,
           child: Center(
             child: isHomePage
                 ? (() {

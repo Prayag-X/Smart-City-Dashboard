@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
@@ -6,17 +7,18 @@ import 'package:flutter_switch/flutter_switch.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:smart_city_dashboard/connections/downloader.dart';
-import 'package:smart_city_dashboard/pages/dashboard/downloadable_content.dart';
-import 'package:smart_city_dashboard/constants/images.dart';
-import 'package:smart_city_dashboard/constants/text_styles.dart';
-import 'package:smart_city_dashboard/kml_makers/kml_makers.dart';
-import 'package:smart_city_dashboard/providers/settings_providers.dart';
-import 'package:smart_city_dashboard/utils/extensions.dart';
-import 'package:smart_city_dashboard/utils/helper.dart';
 
+import '../../connections/downloader.dart';
+import '../../pages/dashboard/downloadable_content.dart';
+import '../../constants/images.dart';
+import '../../constants/text_styles.dart';
+import '../../kml_makers/kml_makers.dart';
+import '../../providers/settings_providers.dart';
+import '../../utils/extensions.dart';
+import '../../utils/helper.dart';
 import '../../constants/constants.dart';
 import '../../connections/ssh.dart';
+import '../../constants/theme.dart';
 
 class SettingsPage extends ConsumerStatefulWidget {
   const SettingsPage({
@@ -62,8 +64,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
   }
 
   connectionSection() {
-    Color normalColor = ref.watch(normalColorProvider);
-    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Themes themes = ref.watch(themesProvider);
     bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
     bool darkMode = ref.watch(darkModeOnProvider);
     double widgetSize = screenSize(context).width / 2 - 200;
@@ -118,7 +119,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
             SizedBox(
               height: 300,
               child: VerticalDivider(
-                color: oppositeColor,
+                color: themes.oppositeColor,
                 indent: 30,
                 endIndent: 30,
               ),
@@ -143,7 +144,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                             Text(
                               translate('settings.theme'),
                               style: textStyleBold.copyWith(
-                                  color: oppositeColor, fontSize: 20),
+                                  color: themes.oppositeColor, fontSize: 20),
                             ),
                             FlutterSwitch(
                               width: 70.0,
@@ -164,10 +165,10 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                                 });
                                 if (val == true) {
                                   await prefs.setBool('theme', true);
-                                  setDarkTheme(ref);
+                                  ref.read(themesProvider.notifier).state = ThemesDark();
                                 } else {
                                   await prefs.setBool('theme', false);
-                                  setLightTheme(ref);
+                                  ref.read(themesProvider.notifier).state = ThemesLight();
                                 }
                               },
                             ),
@@ -182,14 +183,14 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                           Text(
                             translate('settings.language'),
                             style: textStyleBold.copyWith(
-                                color: oppositeColor, fontSize: 20),
+                                color: themes.oppositeColor, fontSize: 20),
                           ),
                           DropdownButton<String>(
                             value: dropdownValue,
-                            dropdownColor: darkenColor(normalColor, 0.02),
+                            dropdownColor: darkenColor(themes.normalColor, 0.02),
                             elevation: 10,
                             style: textStyleNormal.copyWith(
-                                color: oppositeColor, fontSize: 15),
+                                color: themes.oppositeColor, fontSize: 15),
                             onChanged: (String? value) async {
                               setState(() {
                                 dropdownValue = value!;
@@ -293,7 +294,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
   }
 
   contentSection() {
-    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Themes themes = ref.watch(themesProvider);
     double widgetSize = screenSize(context).width / 2 - 200;
     bool downloadableContentAvailable =
         ref.watch(downloadableContentAvailableProvider);
@@ -346,7 +347,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
             SizedBox(
               height: 150,
               child: VerticalDivider(
-                color: oppositeColor,
+                color: themes.oppositeColor,
                 indent: 30,
                 endIndent: 30,
               ),
@@ -424,8 +425,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
   }
 
   lgSection() {
-    Color normalColor = ref.watch(normalColorProvider);
-    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Themes themes = ref.watch(themesProvider);
     bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
     double widgetSize = screenSize(context).width / 3 - 150;
     return Column(
@@ -466,7 +466,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       icon: Icons.cleaning_services_rounded,
                       color: isConnectedToLg
                           ? darkenColor(Colors.orange, 0.05)
-                          : lightenColor(normalColor, 0.01),
+                          : lightenColor(themes.normalColor, 0.01),
                       ref: ref,
                     ),
                     TextButtonCustom(
@@ -492,7 +492,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       icon: Icons.logo_dev_rounded,
                       color: isConnectedToLg
                           ? darkenColor(Colors.orange, 0.05)
-                          : lightenColor(normalColor, 0.01),
+                          : lightenColor(themes.normalColor, 0.01),
                       ref: ref,
                     ),
                     TextButtonCustom(
@@ -515,7 +515,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       icon: Icons.cleaning_services_rounded,
                       color: isConnectedToLg
                           ? darkenColor(Colors.orange, 0.05)
-                          : lightenColor(normalColor, 0.01),
+                          : lightenColor(themes.normalColor, 0.01),
                       ref: ref,
                     ),
                   ],
@@ -525,7 +525,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
             SizedBox(
               height: 300,
               child: VerticalDivider(
-                color: oppositeColor,
+                color: themes.oppositeColor,
                 indent: 30,
                 endIndent: 30,
               ),
@@ -561,7 +561,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       icon: Icons.restart_alt_rounded,
                       color: isConnectedToLg
                           ? Colors.blue
-                          : lightenColor(normalColor, 0.01),
+                          : lightenColor(themes.normalColor, 0.01),
                       ref: ref,
                     ),
                     TextButtonCustom(
@@ -584,7 +584,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       icon: Icons.restart_alt_rounded,
                       color: isConnectedToLg
                           ? Colors.blue
-                          : lightenColor(normalColor, 0.01),
+                          : lightenColor(themes.normalColor, 0.01),
                       ref: ref,
                     ),
                   ],
@@ -594,7 +594,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
             SizedBox(
               height: 300,
               child: VerticalDivider(
-                color: oppositeColor,
+                color: themes.oppositeColor,
                 indent: 30,
                 endIndent: 30,
               ),
@@ -630,7 +630,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       icon: Icons.power_rounded,
                       color: isConnectedToLg
                           ? Colors.redAccent
-                          : lightenColor(normalColor, 0.01),
+                          : lightenColor(themes.normalColor, 0.01),
                       ref: ref,
                     ),
                     TextButtonCustom(
@@ -653,7 +653,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       icon: Icons.settings_power_rounded,
                       color: isConnectedToLg
                           ? Colors.redAccent
-                          : lightenColor(normalColor, 0.01),
+                          : lightenColor(themes.normalColor, 0.01),
                       ref: ref,
                     ),
                     TextButtonCustom(
@@ -676,7 +676,7 @@ class _SettingsState extends ConsumerState<SettingsPage> {
                       icon: Icons.power_settings_new_rounded,
                       color: isConnectedToLg
                           ? Colors.redAccent
-                          : lightenColor(normalColor, 0.01),
+                          : lightenColor(themes.normalColor, 0.01),
                       ref: ref,
                     ),
                   ],
@@ -735,8 +735,7 @@ class TextButtonCustom extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Color normalColor = ref.watch(normalColorProvider);
-    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Themes themes = ref.watch(themesProvider);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: TextButton(
@@ -745,7 +744,7 @@ class TextButtonCustom extends ConsumerWidget {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(300),
                 side: name == '--'
-                    ? BorderSide(color: lightenColor(normalColor))
+                    ? BorderSide(color: lightenColor(themes.normalColor))
                     : BorderSide.none)),
         onPressed: () async {
           ref.read(isLoadingProvider.notifier).state = true;
@@ -773,7 +772,7 @@ class TextButtonCustom extends ConsumerWidget {
               Text(
                 name,
                 style:
-                    textStyleBold.copyWith(color: oppositeColor, fontSize: 15),
+                    textStyleBold.copyWith(color: themes.oppositeColor, fontSize: 15),
               ),
             ],
           ),
@@ -797,10 +796,7 @@ class TextFormFieldCustom extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Color normalColor = ref.watch(normalColorProvider);
-    Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
+    Themes themes = ref.watch(themesProvider);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: SizedBox(
@@ -809,12 +805,12 @@ class TextFormFieldCustom extends ConsumerWidget {
           decoration: InputDecoration(
             prefixIcon: Icon(
               icon,
-              color: oppositeColor,
+              color: themes.oppositeColor,
               size: 20,
             ),
             labelText: hintText,
             labelStyle: textStyleNormal.copyWith(
-                fontSize: 17, color: oppositeColor.withOpacity(0.5)),
+                fontSize: 17, color: themes.oppositeColor.withOpacity(0.5)),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
             focusedBorder: OutlineInputBorder(
@@ -823,10 +819,10 @@ class TextFormFieldCustom extends ConsumerWidget {
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: oppositeColor, width: 1),
+              borderSide: BorderSide(color: themes.oppositeColor, width: 1),
             ),
           ),
-          style: textStyleNormal.copyWith(color: oppositeColor, fontSize: 17),
+          style: textStyleNormal.copyWith(color: themes.oppositeColor, fontSize: 17),
           controller: controller,
         ),
       ),
@@ -843,8 +839,7 @@ class TitleContainer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Color highlightColor = ref.watch(highlightColorProvider);
-    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Themes themes = ref.watch(themesProvider);
     return Container(
       height: 100,
       width: screenSize(context).width -
@@ -852,12 +847,12 @@ class TitleContainer extends ConsumerWidget {
           50,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
-        color: lightenColor(highlightColor),
+        color: lightenColor(themes.highlightColor),
       ),
       child: Center(
         child: Text(
           title,
-          style: textStyleBold.copyWith(color: oppositeColor, fontSize: 40),
+          style: textStyleBold.copyWith(color: themes.oppositeColor, fontSize: 40),
         ),
       ),
     );

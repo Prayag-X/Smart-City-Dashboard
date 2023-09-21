@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:smart_city_dashboard/constants/text_styles.dart';
-import 'package:smart_city_dashboard/utils/helper.dart';
 
+import '../../../constants/text_styles.dart';
+import '../../../utils/helper.dart';
 import '../../../../constants/constants.dart';
+import '../../../constants/theme.dart';
 import '../../../providers/settings_providers.dart';
 
 class DashboardRightPanel extends ConsumerWidget {
@@ -23,7 +24,7 @@ class DashboardRightPanel extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Themes themes = ref.watch(themesProvider);
     return AnimationLimiter(
       child: Column(
         children: AnimationConfiguration.toStaggeredList(
@@ -50,13 +51,13 @@ class DashboardRightPanel extends ConsumerWidget {
                                   header,
                                   style: textStyleNormal.copyWith(
                                       fontSize: Const.dashboardTextSize - 3,
-                                      color: oppositeColor.withOpacity(0.5)),
+                                      color: themes.oppositeColor.withOpacity(0.5)),
                                 ))
                               : Text(
                                   header,
                                   style: textStyleNormal.copyWith(
                                       fontSize: Const.dashboardTextSize - 3,
-                                      color: oppositeColor.withOpacity(0.5)),
+                                      color: themes.oppositeColor.withOpacity(0.5)),
                                 ),
                         ),
                       )
@@ -65,7 +66,7 @@ class DashboardRightPanel extends ConsumerWidget {
               ),
             ),
             Divider(
-              color: oppositeColor,
+              color: themes.oppositeColor,
             ),
             SizedBox(
               height: (screenSize(context).height - Const.appBarHeight) / 2 -

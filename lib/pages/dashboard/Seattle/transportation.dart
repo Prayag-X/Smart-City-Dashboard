@@ -3,15 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:smart_city_dashboard/utils/extensions.dart';
 
-import '../../../constants/constants.dart';
 import '../downloadable_content.dart';
+import '../widgets/charts/line_chart_parser.dart';
+import '../widgets/load_balloon.dart';
+import '../../../utils/extensions.dart';
+import '../../../constants/constants.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../utils/csv_parser.dart';
-import '../widgets/charts/line_chart_parser.dart';
-import '../widgets/dashboard_container.dart';
-import '../widgets/load_balloon.dart';
 
 class SeattleTransportation extends ConsumerStatefulWidget {
   const SeattleTransportation({super.key});

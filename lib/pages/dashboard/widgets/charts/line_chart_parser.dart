@@ -1,12 +1,13 @@
 import 'dart:math';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:smart_city_dashboard/models/forecast_weather.dart';
-import 'package:smart_city_dashboard/utils/helper.dart';
 
-import '../dashboard_container.dart';
 import 'line_chart.dart';
+import '../dashboard_container.dart';
+import '../../../../models/forecast_weather.dart';
+import '../../../../utils/helper.dart';
 
 class LineChartParser {
   late String title;

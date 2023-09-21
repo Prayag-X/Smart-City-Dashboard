@@ -5,15 +5,15 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:smart_city_dashboard/constants/images.dart';
-import 'package:smart_city_dashboard/models/forecast_weather.dart';
-import 'package:smart_city_dashboard/pages/dashboard/widgets/charts/line_chart_parser.dart';
-import 'package:smart_city_dashboard/pages/dashboard/widgets/dashboard_container.dart';
-import 'package:smart_city_dashboard/pages/dashboard/widgets/load_balloon.dart';
-import 'package:smart_city_dashboard/providers/data_providers.dart';
-import 'package:smart_city_dashboard/services/weather_api.dart';
-import 'package:smart_city_dashboard/utils/extensions.dart';
 
+import '../widgets/charts/line_chart_parser.dart';
+import '../widgets/dashboard_container.dart';
+import '../widgets/load_balloon.dart';
+import '../../../constants/images.dart';
+import '../../../models/forecast_weather.dart';
+import '../../../providers/data_providers.dart';
+import '../../../services/weather_api.dart';
+import '../../../utils/extensions.dart';
 import '../../../constants/constants.dart';
 import '../../../providers/settings_providers.dart';
 

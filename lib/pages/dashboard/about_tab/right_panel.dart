@@ -1,13 +1,15 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:smart_city_dashboard/constants/text_styles.dart';
-import 'package:smart_city_dashboard/kml_makers/kml_makers.dart';
-import 'package:smart_city_dashboard/pages/dashboard/widgets/dashboard_right_panel.dart';
-import 'package:smart_city_dashboard/utils/extensions.dart';
 
+import '../widgets/dashboard_right_panel.dart';
+import '../../../constants/text_styles.dart';
+import '../../../kml_makers/kml_makers.dart';
+import '../../../utils/extensions.dart';
 import '../../../constants/constants.dart';
+import '../../../constants/theme.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../connections/ssh.dart';
 import '../../../utils/helper.dart';
@@ -26,10 +28,7 @@ class _AboutTabRightState extends ConsumerState<AboutTabRight> {
 
   @override
   Widget build(BuildContext context) {
-    Color normalColor = ref.watch(normalColorProvider);
-    Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
+    Themes themes = ref.watch(themesProvider);
     return DashboardRightPanel(
         headers: [translate('dashboard.about.available_options')],
         headersFlex: const [1],
@@ -84,7 +83,7 @@ class _AboutTabRightState extends ConsumerState<AboutTabRight> {
               },
               child: Container(
                 decoration: BoxDecoration(
-                  color: selectedTask == 0 ? highlightColor : null,
+                  color: selectedTask == 0 ? themes.highlightColor : null,
                   borderRadius:
                       BorderRadius.circular(Const.dashboardUIRoundness),
                 ),
@@ -96,13 +95,13 @@ class _AboutTabRightState extends ConsumerState<AboutTabRight> {
                         Icon(
                           Icons.play_arrow_rounded,
                           size: Const.dashboardTextSize + 5,
-                          color: oppositeColor,
+                          color: themes.oppositeColor,
                         ),
                         10.pw,
                         Text(
                           translate('dashboard.about.start_tour'),
                           style: textStyleNormal.copyWith(
-                              color: oppositeColor,
+                              color: themes.oppositeColor,
                               fontSize: Const.dashboardTextSize + 5),
                         ),
                       ],
@@ -128,7 +127,7 @@ class _AboutTabRightState extends ConsumerState<AboutTabRight> {
               },
               child: Container(
                 decoration: BoxDecoration(
-                  color: selectedTask == 1 ? highlightColor : null,
+                  color: selectedTask == 1 ? themes.highlightColor : null,
                   borderRadius:
                       BorderRadius.circular(Const.dashboardUIRoundness),
                 ),
@@ -140,13 +139,13 @@ class _AboutTabRightState extends ConsumerState<AboutTabRight> {
                         Icon(
                           Icons.stop_rounded,
                           size: Const.dashboardTextSize + 5,
-                          color: oppositeColor,
+                          color: themes.oppositeColor,
                         ),
                         10.pw,
                         Text(
                           translate('dashboard.about.stop'),
                           style: textStyleNormal.copyWith(
-                              color: oppositeColor,
+                              color: themes.oppositeColor,
                               fontSize: Const.dashboardTextSize + 5),
                         ),
                       ],

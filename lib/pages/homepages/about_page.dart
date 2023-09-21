@@ -3,12 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:smart_city_dashboard/constants/images.dart';
-import 'package:smart_city_dashboard/constants/text_styles.dart';
-import 'package:smart_city_dashboard/utils/extensions.dart';
-import 'package:smart_city_dashboard/utils/logo_shower.dart';
 
+import '../../constants/images.dart';
+import '../../constants/text_styles.dart';
+import '../../utils/extensions.dart';
+import '../../utils/logo_shower.dart';
 import '../../constants/constants.dart';
+import '../../constants/theme.dart';
 import '../../providers/settings_providers.dart';
 
 class AboutPage extends ConsumerStatefulWidget {
@@ -31,10 +32,7 @@ class _AboutPageState extends ConsumerState<AboutPage> {
 
   @override
   Widget build(BuildContext context) {
-    Color normalColor = ref.watch(normalColorProvider);
-    Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
+    Themes themes = ref.watch(themesProvider);
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20),
         child: SingleChildScrollView(
@@ -59,7 +57,7 @@ class _AboutPageState extends ConsumerState<AboutPage> {
                         decoration: BoxDecoration(
                           borderRadius:
                               BorderRadius.circular(Const.dashboardUIRoundness),
-                          color: highlightColor,
+                          color: themes.highlightColor,
                         ),
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 15.0),
@@ -71,7 +69,7 @@ class _AboutPageState extends ConsumerState<AboutPage> {
                               Text(
                                 translate('title'),
                                 style: textStyleBold.copyWith(
-                                    color: oppositeColor, fontSize: 40),
+                                    color: themes.oppositeColor, fontSize: 40),
                               ),
                               const SizedBox.shrink()
                             ],
@@ -85,7 +83,7 @@ class _AboutPageState extends ConsumerState<AboutPage> {
                           translate('homepage.about_page.description'),
                           textAlign: TextAlign.justify,
                           style: textStyleNormal.copyWith(
-                              color: oppositeColor, fontSize: 17),
+                              color: themes.oppositeColor, fontSize: 17),
                         ),
                       ),
                       30.ph,
@@ -289,10 +287,7 @@ class AboutText extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Color normalColor = ref.watch(normalColorProvider);
-    Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
+    Themes themes = ref.watch(themesProvider);
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -307,7 +302,7 @@ class AboutText extends ConsumerWidget {
         Expanded(
           child: Text(
             text2,
-            style: textStyleNormal.copyWith(color: oppositeColor, fontSize: 17),
+            style: textStyleNormal.copyWith(color: themes.oppositeColor, fontSize: 17),
           ),
         ),
       ],

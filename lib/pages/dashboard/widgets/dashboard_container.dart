@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:smart_city_dashboard/constants/text_styles.dart';
-import 'package:smart_city_dashboard/utils/extensions.dart';
-import 'package:smart_city_dashboard/utils/helper.dart';
-import 'package:smart_city_dashboard/utils/logo_shower.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
+import '../../../constants/text_styles.dart';
+import '../../../utils/extensions.dart';
+import '../../../utils/helper.dart';
+import '../../../utils/logo_shower.dart';
 import '../../../constants/constants.dart';
+import '../../../constants/theme.dart';
 import '../../../providers/settings_providers.dart';
 
 class DashboardContainer extends ConsumerStatefulWidget {
@@ -39,8 +40,7 @@ class _DashboardContainerConsumerState
     extends ConsumerState<DashboardContainer> {
   @override
   Widget build(BuildContext context) {
-    Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
+    Themes themes = ref.watch(themesProvider);
     return Container(
       width: (screenSize(context).width -
                   screenSize(context).width / Const.tabBarWidthDivider) *
@@ -53,7 +53,7 @@ class _DashboardContainerConsumerState
           Const.dashboardUIHeightFactor /
           4,
       decoration: BoxDecoration(
-        color: highlightColor,
+        color: themes.highlightColor,
         borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
       ),
       child: Padding(
@@ -70,7 +70,7 @@ class _DashboardContainerConsumerState
               widget.title,
               style: textStyleNormal.copyWith(
                   fontSize: Const.dashboardTextSize - 3,
-                  color: oppositeColor.withOpacity(0.5)),
+                  color: themes.oppositeColor.withOpacity(0.5)),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -86,7 +86,7 @@ class _DashboardContainerConsumerState
                             size: Const.dashboardTextSize + 13),
                         circularStrokeCap: CircularStrokeCap.round,
                         progressColor: widget.progressColor,
-                        backgroundColor: lightenColor(highlightColor, 0.1),
+                        backgroundColor: lightenColor(themes.highlightColor, 0.1),
                       )
                     : widget.image != null
                         ? AssetLogoShower(
@@ -101,14 +101,14 @@ class _DashboardContainerConsumerState
                         child: Text(
                           widget.data,
                           style: textStyleSemiBold.copyWith(
-                              color: oppositeColor,
+                              color: themes.oppositeColor,
                               fontSize: Const.dashboardTextSize + 5),
                         ),
                       )
                     : Text(
                         widget.data,
                         style: textStyleSemiBold.copyWith(
-                            color: oppositeColor,
+                            color: themes.oppositeColor,
                             fontSize: Const.dashboardTextSize * 2),
                       ),
               ],
@@ -146,8 +146,7 @@ class AboutContainer extends ConsumerStatefulWidget {
 class _AboutContainerConsumerState extends ConsumerState<AboutContainer> {
   @override
   Widget build(BuildContext context) {
-    Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
+    Themes themes = ref.watch(themesProvider);
     return Container(
       width: (screenSize(context).width -
                   screenSize(context).width / Const.tabBarWidthDivider) *
@@ -160,7 +159,7 @@ class _AboutContainerConsumerState extends ConsumerState<AboutContainer> {
           Const.dashboardUIHeightFactor /
           4,
       decoration: BoxDecoration(
-        color: highlightColor,
+        color: themes.highlightColor,
         borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
         image: widget.image != null
             ? DecorationImage(
@@ -178,21 +177,21 @@ class _AboutContainerConsumerState extends ConsumerState<AboutContainer> {
                     widget.title!,
                     style: textStyleNormal.copyWith(
                         fontSize: Const.dashboardTextSize - 3,
-                        color: oppositeColor.withOpacity(0.5)),
+                        color: themes.oppositeColor.withOpacity(0.5)),
                   )
                 : const SizedBox.shrink(),
             widget.description != null
                 ? Text(
                     widget.description!,
                     style: textStyleNormal.copyWith(
-                        color: oppositeColor,
+                        color: themes.oppositeColor,
                         fontSize: Const.dashboardTextSize - 1),
                   )
                 : widget.data != null
                     ? Text(
                         widget.data!,
                         style: textStyleSemiBold.copyWith(
-                            color: oppositeColor,
+                            color: themes.oppositeColor,
                             fontSize: Const.dashboardTextSize * 2 - 5),
                       )
                     : const SizedBox.shrink(),
@@ -212,8 +211,7 @@ class BlankDashboardContainer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
+    Themes themes = ref.watch(themesProvider);
     return Container(
         width: (screenSize(context).width -
                     screenSize(context).width / Const.tabBarWidthDivider) *
@@ -226,14 +224,14 @@ class BlankDashboardContainer extends ConsumerWidget {
             Const.dashboardUIHeightFactor /
             4,
         decoration: BoxDecoration(
-          color: highlightColor,
+          color: themes.highlightColor,
           borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
         ),
         child: Center(
           child: Text(
             '--',
             style: textStyleNormal.copyWith(
-                color: oppositeColor, fontSize: Const.dashboardTextSize + 10),
+                color: themes.oppositeColor, fontSize: Const.dashboardTextSize + 10),
           ),
         ));
   }
@@ -244,8 +242,7 @@ class BlankVisualizerContainer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
+    Themes themes = ref.watch(themesProvider);
     return Container(
         width: screenSize(context).width * 0.8 -
             screenSize(context).width / Const.tabBarWidthDivider,
@@ -253,14 +250,14 @@ class BlankVisualizerContainer extends ConsumerWidget {
             screenSize(context).width / Const.tabBarWidthDivider) *
             Const.dashboardUIHeightFactor * 0.7,
         decoration: BoxDecoration(
-          color: highlightColor,
+          color: themes.highlightColor,
           borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
         ),
         child: Center(
           child: Text(
             '--',
             style: textStyleNormal.copyWith(
-                color: oppositeColor, fontSize: Const.dashboardTextSize + 10),
+                color: themes.oppositeColor, fontSize: Const.dashboardTextSize + 10),
           ),
         ));
   }

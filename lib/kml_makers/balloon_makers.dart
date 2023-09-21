@@ -1,7 +1,6 @@
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:smart_city_dashboard/constants/images.dart';
-import 'package:smart_city_dashboard/utils/extensions.dart';
 
+import '../utils/extensions.dart';
 import '../constants/constants.dart';
 
 class BalloonMakers {

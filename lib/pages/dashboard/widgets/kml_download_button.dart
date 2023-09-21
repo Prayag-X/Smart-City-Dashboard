@@ -4,16 +4,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:smart_city_dashboard/connections/downloader.dart';
-import 'package:smart_city_dashboard/pages/dashboard/widgets/load_balloon.dart';
-import 'package:smart_city_dashboard/providers/data_providers.dart';
-import 'package:smart_city_dashboard/providers/settings_providers.dart';
-import 'package:smart_city_dashboard/utils/extensions.dart';
-import 'package:smart_city_dashboard/utils/helper.dart';
 
+import 'load_balloon.dart';
+import '../../../connections/downloader.dart';
+import '../../../providers/data_providers.dart';
+import '../../../providers/settings_providers.dart';
+import '../../../utils/extensions.dart';
+import '../../../utils/helper.dart';
 import '../../../connections/ssh.dart';
 import '../../../constants/constants.dart';
 import '../../../constants/text_styles.dart';
+import '../../../constants/theme.dart';
 import '../../../models/downloadable_kml.dart';
 
 class KmlDownloaderButton extends ConsumerStatefulWidget {
@@ -29,8 +30,7 @@ class KmlDownloaderButton extends ConsumerStatefulWidget {
 class _KmlDownloaderButtonState extends ConsumerState<KmlDownloaderButton> {
   @override
   Widget build(BuildContext context) {
-    Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
+    Themes themes = ref.watch(themesProvider);
     int kmlClicked = ref.watch(kmlClickedProvider);
     int kmlPlaying = ref.watch(kmlPlayProvider);
     double? loadingPercentage = ref.watch(loadingPercentageProvider);
@@ -54,12 +54,12 @@ class _KmlDownloaderButtonState extends ConsumerState<KmlDownloaderButton> {
                         height: 40,
                         decoration: BoxDecoration(
                           color: kmlClicked == widget.index
-                              ? highlightColor
+                              ? themes.highlightColor
                               : null,
                           borderRadius:
                               BorderRadius.circular(Const.dashboardUIRoundness),
                           border: kmlClicked == widget.index
-                              ? Border.all(color: highlightColor)
+                              ? Border.all(color: themes.highlightColor)
                               : null,
                         ))),
           ),
@@ -142,7 +142,7 @@ class _KmlDownloaderButtonState extends ConsumerState<KmlDownloaderButton> {
                       Text(
                         '  ${widget.data.name}',
                         style: textStyleNormal.copyWith(
-                            color: oppositeColor, fontSize: 18),
+                            color: themes.oppositeColor, fontSize: 18),
                       ),
                     ],
                   ),

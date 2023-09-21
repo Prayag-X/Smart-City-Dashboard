@@ -1,15 +1,17 @@
 import 'dart:async';
+
 import 'package:features_tour/features_tour.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:smart_city_dashboard/constants/text_styles.dart';
-import 'package:smart_city_dashboard/utils/extensions.dart';
-import 'package:smart_city_dashboard/utils/helper.dart';
 
+import '../../../constants/text_styles.dart';
+import '../../../utils/extensions.dart';
+import '../../../utils/helper.dart';
 import '../../../constants/constants.dart';
+import '../../../constants/theme.dart';
 import '../../../providers/data_providers.dart';
 import '../../../connections/ssh.dart';
 import '../../../providers/page_providers.dart';
@@ -108,8 +110,7 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
 
   @override
   Widget build(BuildContext context) {
-    Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
+    Themes themes = ref.watch(themesProvider);
     bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
     MapType mapType = ref.watch(mapTypeProvider);
     FeaturesTourController featuresTourDashboardController =
@@ -242,7 +243,7 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
                   borderRadius:
                       BorderRadius.circular(Const.dashboardUIRoundness),
                   border: Border.all(
-                    color: highlightColor,
+                    color: themes.highlightColor,
                     width: 2.0,
                   ),
                 ),
@@ -257,7 +258,7 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
                       child: Container(
                         decoration: BoxDecoration(
                           color: mapType == MapType.hybrid
-                              ? highlightColor
+                              ? themes.highlightColor
                               : Colors.transparent,
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(
@@ -269,7 +270,7 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
                             child: Text(
                           translate('dashboard.map_type.hybrid'),
                           style: textStyleNormal.copyWith(
-                              color: oppositeColor,
+                              color: themes.oppositeColor,
                               fontSize: Const.dashboardTextSize - 2),
                         )),
                       ),
@@ -282,13 +283,13 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
                       },
                       child: Container(
                         color: mapType == MapType.normal
-                            ? highlightColor
+                            ? themes.highlightColor
                             : Colors.transparent,
                         child: Center(
                             child: Text(
                           translate('dashboard.map_type.normal'),
                           style: textStyleNormal.copyWith(
-                              color: oppositeColor,
+                              color: themes.oppositeColor,
                               fontSize: Const.dashboardTextSize - 2),
                         )),
                       ),
@@ -302,7 +303,7 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
                       child: Container(
                         decoration: BoxDecoration(
                           color: mapType == MapType.terrain
-                              ? highlightColor
+                              ? themes.highlightColor
                               : Colors.transparent,
                           borderRadius: BorderRadius.only(
                               topRight: Radius.circular(
@@ -314,7 +315,7 @@ class _RightPanelState extends ConsumerState<GoogleMapPart> {
                             child: Text(
                           translate('dashboard.map_type.terrain'),
                           style: textStyleNormal.copyWith(
-                              color: oppositeColor,
+                              color: themes.oppositeColor,
                               fontSize: Const.dashboardTextSize - 2),
                         )),
                       ),

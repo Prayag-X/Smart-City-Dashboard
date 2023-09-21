@@ -2,14 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:smart_city_dashboard/constants/images.dart';
-import 'package:smart_city_dashboard/constants/text_styles.dart';
-import 'package:smart_city_dashboard/providers/page_providers.dart';
-import 'package:smart_city_dashboard/utils/extensions.dart';
-import 'package:smart_city_dashboard/utils/logo_shower.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
+import '../../constants/images.dart';
+import '../../constants/text_styles.dart';
+import '../../providers/page_providers.dart';
+import '../../utils/extensions.dart';
+import '../../utils/logo_shower.dart';
 import '../../constants/constants.dart';
+import '../../constants/theme.dart';
 import '../../providers/settings_providers.dart';
 import '../../utils/helper.dart';
 
@@ -20,9 +21,9 @@ class HelpPage extends ConsumerWidget {
   final double spacing = Const.dashboardUISpacing * 2;
 
   navSection(WidgetRef ref) {
-    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Themes themes = ref.watch(themesProvider);
     final TextStyle helpPageTextStyle =
-        textStyleNormal.copyWith(color: oppositeColor, fontSize: 20);
+        textStyleNormal.copyWith(color: themes.oppositeColor, fontSize: 20);
     return HelpPageSections(
       number: 0,
       children: [
@@ -61,7 +62,7 @@ class HelpPage extends ConsumerWidget {
           ),
           Icon(
             Icons.arrow_forward_rounded,
-            color: oppositeColor,
+            color: themes.oppositeColor,
             size: 50,
           ),
           HelpLogoShower(
@@ -82,9 +83,9 @@ class HelpPage extends ConsumerWidget {
   }
 
   appBarSection(WidgetRef ref) {
-    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Themes themes = ref.watch(themesProvider);
     final TextStyle helpPageTextStyle =
-        textStyleNormal.copyWith(color: oppositeColor, fontSize: 20);
+        textStyleNormal.copyWith(color: themes.oppositeColor, fontSize: 20);
     return HelpPageSections(
       number: 1,
       children: [
@@ -123,9 +124,9 @@ class HelpPage extends ConsumerWidget {
   }
 
   settingsSection(WidgetRef ref) {
-    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Themes themes = ref.watch(themesProvider);
     final TextStyle helpPageTextStyle =
-        textStyleNormal.copyWith(color: oppositeColor, fontSize: 20);
+        textStyleNormal.copyWith(color: themes.oppositeColor, fontSize: 20);
     return HelpPageSections(
       number: 2,
       children: [
@@ -145,7 +146,7 @@ class HelpPage extends ConsumerWidget {
           ),
           Icon(
             Icons.arrow_forward_rounded,
-            color: oppositeColor,
+            color: themes.oppositeColor,
             size: 50,
           ),
           const HelpLogoShower(
@@ -174,9 +175,9 @@ class HelpPage extends ConsumerWidget {
   }
 
   cityPageSection(WidgetRef ref) {
-    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Themes themes = ref.watch(themesProvider);
     final TextStyle helpPageTextStyle =
-        textStyleNormal.copyWith(color: oppositeColor, fontSize: 20);
+        textStyleNormal.copyWith(color: themes.oppositeColor, fontSize: 20);
     return HelpPageSections(
       number: 3,
       children: [
@@ -240,7 +241,7 @@ class HelpPage extends ConsumerWidget {
           ),
           Icon(
             Icons.arrow_forward_rounded,
-            color: oppositeColor,
+            color: themes.oppositeColor,
             size: 50,
           ),
           const HelpLogoShower(
@@ -258,9 +259,9 @@ class HelpPage extends ConsumerWidget {
   }
 
   visualizerSection(WidgetRef ref) {
-    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Themes themes = ref.watch(themesProvider);
     final TextStyle helpPageTextStyle =
-        textStyleNormal.copyWith(color: oppositeColor, fontSize: 20);
+        textStyleNormal.copyWith(color: themes.oppositeColor, fontSize: 20);
     return HelpPageSections(
       number: 4,
       children: [
@@ -366,12 +367,12 @@ class HelpPageDivider extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Themes themes = ref.watch(themesProvider);
     return SizedBox(
       width: double.infinity,
       height: 30,
       child: Divider(
-        color: oppositeColor,
+        color: themes.oppositeColor,
       ),
     );
   }
@@ -384,11 +385,11 @@ class HelpPageContainer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Color highlightColor = ref.watch(highlightColorProvider);
+    Themes themes = ref.watch(themesProvider);
     return Container(
       height: helpPageImageHeight,
       decoration: BoxDecoration(
-        color: darkenColor(highlightColor, 0.07),
+        color: darkenColor(themes.highlightColor, 0.07),
         borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
       ),
       child: Padding(
@@ -410,18 +411,17 @@ class HelpPageTitleContainer extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Color highlightColor = ref.watch(highlightColorProvider);
-    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Themes themes = ref.watch(themesProvider);
     return Container(
       height: 100,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
-        color: lightenColor(highlightColor),
+        color: lightenColor(themes.highlightColor),
       ),
       child: Center(
         child: Text(
           title,
-          style: textStyleBold.copyWith(color: oppositeColor, fontSize: 40),
+          style: textStyleBold.copyWith(color: themes.oppositeColor, fontSize: 40),
         ),
       ),
     );

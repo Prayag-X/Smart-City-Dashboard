@@ -1,7 +1,8 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
-import 'package:smart_city_dashboard/constants/constants.dart';
-import 'package:smart_city_dashboard/constants/images.dart';
+
+import '../constants/constants.dart';
+import '../constants/images.dart';
 
 extension SizedBoxPadding on num {
   SizedBox get ph => SizedBox(height: toDouble());

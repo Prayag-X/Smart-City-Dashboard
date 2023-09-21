@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:smart_city_dashboard/connections/ssh.dart';
-import 'package:smart_city_dashboard/providers/data_providers.dart';
-import 'package:smart_city_dashboard/utils/extensions.dart';
+
+import '../providers/data_providers.dart';
+import '../utils/extensions.dart';
 
 import '../constants/constants.dart';
 

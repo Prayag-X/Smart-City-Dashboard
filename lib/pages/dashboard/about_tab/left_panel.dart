@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:image/image.dart' as img;
@@ -7,20 +8,20 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:screenshot/screenshot.dart';
-import 'package:smart_city_dashboard/constants/data.dart';
-import 'package:smart_city_dashboard/constants/images.dart';
-import 'package:smart_city_dashboard/pages/dashboard/widgets/dashboard_container.dart';
-import 'package:smart_city_dashboard/providers/data_providers.dart';
-import 'package:smart_city_dashboard/utils/extensions.dart';
-import 'package:smart_city_dashboard/utils/helper.dart';
 
+import '../widgets/dashboard_container.dart';
+import '../widgets/load_balloon.dart';
+import '../../../constants/data.dart';
+import '../../../constants/images.dart';
+import '../../../providers/data_providers.dart';
+import '../../../utils/extensions.dart';
+import '../../../utils/helper.dart';
 import '../../../connections/ssh.dart';
 import '../../../constants/constants.dart';
 import '../../../kml_makers/balloon_makers.dart';
 import '../../../providers/page_providers.dart';
 import '../../../providers/settings_providers.dart';
 import '../../../utils/csv_parser.dart';
-import '../widgets/load_balloon.dart';
 
 class AboutTabLeft extends ConsumerStatefulWidget {
   const AboutTabLeft({

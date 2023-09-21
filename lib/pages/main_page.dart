@@ -8,21 +8,22 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:smart_city_dashboard/constants/text_styles.dart';
-import 'package:smart_city_dashboard/models/city_card.dart';
-import 'package:smart_city_dashboard/pages/panels/feature_tour_widget.dart';
-import 'package:smart_city_dashboard/utils/extensions.dart';
-import 'package:smart_city_dashboard/utils/helper.dart';
 
+import 'dashboard/city_data.dart';
+import 'panels/screen_panel.dart';
+import 'panels/tab_panel.dart';
+import '../constants/text_styles.dart';
+import '../models/city_card.dart';
+import '../pages/panels/feature_tour_widget.dart';
+import '../utils/extensions.dart';
+import '../utils/helper.dart';
 import '../connections/ssh.dart';
 import '../constants/constants.dart';
+import '../constants/theme.dart';
 import '../kml_makers/balloon_makers.dart';
 import '../providers/data_providers.dart';
 import '../providers/page_providers.dart';
 import '../providers/settings_providers.dart';
-import 'dashboard/city_data.dart';
-import 'panels/screen_panel.dart';
-import 'panels/tab_panel.dart';
 
 class MainPage extends ConsumerStatefulWidget {
   const MainPage({
@@ -164,8 +165,7 @@ class _MainPageState extends ConsumerState<MainPage> {
   Widget build(BuildContext context) {
     bool isHomePage = ref.watch(isHomePageProvider);
     int homePageTab = ref.watch(tabProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
-    Color oppositeColor = ref.watch(oppositeColorProvider);
+    Themes themes = ref.watch(themesProvider);
     bool isConnectedToLg = ref.watch(isConnectedToLGProvider);
     bool playingGlobalTour = ref.watch(playingGlobalTourProvider);
     FeaturesTourController featuresTourController =
@@ -224,7 +224,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                               ? translate('homepage.tour')
                               : translate('homepage.stop_tour'),
                           style: textStyleNormal.copyWith(
-                              color: oppositeColor, fontSize: 17),
+                              color: themes.oppositeColor, fontSize: 17),
                         ),
                       ),
                       icon: Padding(
@@ -239,7 +239,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                         ),
                       ),
                       backgroundColor:
-                          lightenColor(highlightColor).withOpacity(0.5),
+                          lightenColor(themes.highlightColor).withOpacity(0.5),
                     ),
                   ),
                 ),

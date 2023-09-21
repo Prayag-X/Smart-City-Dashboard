@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_translate/flutter_translate.dart';
-import 'package:smart_city_dashboard/constants/images.dart';
-import 'package:smart_city_dashboard/constants/text_styles.dart';
-import 'package:smart_city_dashboard/models/forecast_weather.dart';
-import 'package:smart_city_dashboard/pages/dashboard/widgets/dashboard_right_panel.dart';
-import 'package:smart_city_dashboard/utils/extensions.dart';
-import 'package:smart_city_dashboard/utils/logo_shower.dart';
 
+import '../widgets/dashboard_right_panel.dart';
+import '../../../constants/images.dart';
+import '../../../constants/text_styles.dart';
+import '../../../models/forecast_weather.dart';
+import '../../../utils/extensions.dart';
+import '../../../utils/logo_shower.dart';
 import '../../../constants/constants.dart';
+import '../../../constants/theme.dart';
 import '../../../providers/data_providers.dart';
 import '../../../providers/settings_providers.dart';
 
@@ -19,8 +20,7 @@ class WeatherTabRight extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
+    Themes themes = ref.watch(themesProvider);
     ForecastWeather? weatherData = ref.watch(weatherDataProvider);
     int weatherDayClicked = ref.watch(weatherDayClickedProvider);
     return DashboardRightPanel(
@@ -48,7 +48,7 @@ class WeatherTabRight extends ConsumerWidget {
                         color: weatherDayClicked ==
                                 weatherData.forecast.forecastday
                                     .indexOf(forecast)
-                            ? highlightColor
+                            ? themes.highlightColor
                             : null,
                         borderRadius:
                             BorderRadius.circular(Const.dashboardUIRoundness),
@@ -67,7 +67,7 @@ class WeatherTabRight extends ConsumerWidget {
                                       ? translate('dashboard.weather.today')
                                       : '${forecast.date.day}/${forecast.date.month}',
                                   style: textStyleNormal.copyWith(
-                                      color: oppositeColor,
+                                      color: themes.oppositeColor,
                                       fontSize: Const.dashboardTextSize + 5),
                                 ),
                               ),
@@ -84,7 +84,7 @@ class WeatherTabRight extends ConsumerWidget {
                                       Text(
                                         '${forecast.day.maxtempC}°C',
                                         style: textStyleNormal.copyWith(
-                                            color: oppositeColor,
+                                            color: themes.oppositeColor,
                                             fontSize:
                                                 Const.dashboardTextSize + 5),
                                       ),
@@ -103,7 +103,7 @@ class WeatherTabRight extends ConsumerWidget {
                                       Text(
                                         '${forecast.day.mintempC}°C',
                                         style: textStyleNormal.copyWith(
-                                            color: oppositeColor,
+                                            color: themes.oppositeColor,
                                             fontSize:
                                                 Const.dashboardTextSize + 5),
                                       ),
@@ -120,7 +120,7 @@ class WeatherTabRight extends ConsumerWidget {
                                       Text(
                                         '${forecast.day.avghumidity}%',
                                         style: textStyleNormal.copyWith(
-                                            color: oppositeColor,
+                                            color: themes.oppositeColor,
                                             fontSize:
                                                 Const.dashboardTextSize + 5),
                                       ),

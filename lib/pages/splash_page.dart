@@ -23,6 +23,7 @@ class SplashPage extends ConsumerStatefulWidget {
 class _SplashScreenState extends ConsumerState<SplashPage> {
   initApp() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
+
     ref.read(ipProvider.notifier).state =
         prefs.getString('ip') ?? '192.168.56.100';
     ref.read(usernameProvider.notifier).state =
@@ -33,8 +34,6 @@ class _SplashScreenState extends ConsumerState<SplashPage> {
     ref.read(downloadableContentAvailableProvider.notifier).state =
         prefs.getBool('downloadableContent') ?? false;
     setRigs(prefs.getInt('rigsController') ?? 3, ref);
-    ref.read(darkModeOnProvider.notifier).state =
-        prefs.getBool('theme') ?? true;
     ref.read(showHomepageTourProvider.notifier).state =
         prefs.getBool('showHomepageTour') ?? true;
     ref.read(showDashboardTourProvider.notifier).state =
@@ -43,11 +42,15 @@ class _SplashScreenState extends ConsumerState<SplashPage> {
         prefs.getBool('showVisualizerTour') ?? true;
     ref.read(languageProvider.notifier).state =
         prefs.getString('language') ?? 'English';
-    if (ref.read(darkModeOnProvider) == true) {
-      setDarkTheme(ref);
+    ref.read(darkModeOnProvider.notifier).state =
+        prefs.getBool('theme') ?? true;
+
+    if (ref.read(darkModeOnProvider)) {
+      ref.read(themesProvider.notifier).state = ThemesDark();
     } else {
-      setLightTheme(ref);
+      ref.read(themesProvider.notifier).state = ThemesLight();
     }
+
     if (!mounted) {
       return;
     }
@@ -71,7 +74,7 @@ class _SplashScreenState extends ConsumerState<SplashPage> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: ThemesDark.normalColor,
+        color: ThemesDark().normalColor,
         image: const DecorationImage(
             image: AssetImage(ImageConst.splash), fit: BoxFit.fitHeight),
       ),

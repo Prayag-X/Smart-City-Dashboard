@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:smart_city_dashboard/constants/text_styles.dart';
-import 'package:smart_city_dashboard/utils/extensions.dart';
-import 'package:smart_city_dashboard/utils/helper.dart';
 
+import '../../../../constants/text_styles.dart';
+import '../../../../utils/extensions.dart';
+import '../../../../utils/helper.dart';
 import '../../../../constants/constants.dart';
 import '../../../../constants/theme.dart';
 import '../../../../providers/settings_providers.dart';
@@ -46,9 +46,9 @@ class DashboardLineChart extends ConsumerStatefulWidget {
 
 class _DashboardLineChartState extends ConsumerState<DashboardLineChart> {
   Color lightColor =
-      lightenColor(ThemesDark.highlightColor, 0.1).withOpacity(0.5);
+      lightenColor(ThemesDark().highlightColor, 0.1).withOpacity(0.5);
   Color darkColor =
-      lightenColor(ThemesDark.highlightColor, 0.1).withOpacity(0.5);
+      lightenColor(ThemesDark().highlightColor, 0.1).withOpacity(0.5);
 
   LineChart lineChartCustom() => LineChart(
         LineChartData(
@@ -148,7 +148,7 @@ class _DashboardLineChartState extends ConsumerState<DashboardLineChart> {
         marker,
         style: textStyleNormal.copyWith(
             fontSize: Const.dashboardChartTextSize - 5,
-            color: lightenColor(ThemesDark.highlightColor, 0.4)),
+            color: lightenColor(ThemesDark().highlightColor, 0.4)),
       ),
     );
   }
@@ -166,10 +166,7 @@ class _DashboardLineChartState extends ConsumerState<DashboardLineChart> {
 
   @override
   Widget build(BuildContext context) {
-    Color normalColor = ref.watch(normalColorProvider);
-    Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
+    Themes themes = ref.watch(themesProvider);
     return Container(
       width: (screenSize(context).width -
               screenSize(context).width / Const.tabBarWidthDivider) /
@@ -179,7 +176,7 @@ class _DashboardLineChartState extends ConsumerState<DashboardLineChart> {
           Const.dashboardUIHeightFactor /
           2,
       decoration: BoxDecoration(
-        color: highlightColor,
+        color: themes.highlightColor,
         borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
       ),
       child: Padding(
@@ -220,7 +217,7 @@ class _DashboardLineChartState extends ConsumerState<DashboardLineChart> {
                                 Text(
                                   entry.key,
                                   style: textStyleNormal.copyWith(
-                                      color: oppositeColor,
+                                      color: themes.oppositeColor,
                                       fontSize:
                                           Const.dashboardChartTextSize - 3),
                                 ),
@@ -235,14 +232,14 @@ class _DashboardLineChartState extends ConsumerState<DashboardLineChart> {
                         width: Const.dashboardChartTextSize - 7,
                         height: Const.dashboardChartTextSize - 7,
                         decoration: BoxDecoration(
-                            color: lightenColor(ThemesDark.highlightColor, 0.3),
+                            color: lightenColor(ThemesDark().highlightColor, 0.3),
                             borderRadius: BorderRadius.circular(35.0)),
                       ),
                       5.pw,
                       Text(
                         widget.legendX,
                         style: textStyleNormal.copyWith(
-                            color: oppositeColor,
+                            color: themes.oppositeColor,
                             fontSize: Const.dashboardChartTextSize - 3),
                       ),
                     ],
@@ -291,9 +288,9 @@ class VisualizerLineChart extends ConsumerStatefulWidget {
 
 class _VisualizerLineChartState extends ConsumerState<VisualizerLineChart> {
   Color lightColor =
-      lightenColor(ThemesDark.highlightColor, 0.1).withOpacity(0.5);
+      lightenColor(ThemesDark().highlightColor, 0.1).withOpacity(0.5);
   Color darkColor =
-      lightenColor(ThemesDark.highlightColor, 0.1).withOpacity(0.5);
+      lightenColor(ThemesDark().highlightColor, 0.1).withOpacity(0.5);
 
   LineChart lineChartCustom() => LineChart(
         LineChartData(
@@ -392,7 +389,7 @@ class _VisualizerLineChartState extends ConsumerState<VisualizerLineChart> {
         marker,
         style: textStyleNormal.copyWith(
             fontSize: Const.dashboardChartTextSize - 5,
-            color: lightenColor(ThemesDark.highlightColor, 0.4)),
+            color: lightenColor(ThemesDark().highlightColor, 0.4)),
       ),
     );
   }
@@ -410,7 +407,7 @@ class _VisualizerLineChartState extends ConsumerState<VisualizerLineChart> {
 
   @override
   Widget build(BuildContext context) {
-    Color highlightColor = ref.watch(highlightColorProvider);
+    Themes themes = ref.watch(themesProvider);
     return Container(
       width: screenSize(context).width * 0.8 -
           screenSize(context).width / Const.tabBarWidthDivider,
@@ -418,7 +415,7 @@ class _VisualizerLineChartState extends ConsumerState<VisualizerLineChart> {
               screenSize(context).width / Const.tabBarWidthDivider) *
           Const.dashboardUIHeightFactor * 0.7,
       decoration: BoxDecoration(
-        color: highlightColor,
+        color: themes.highlightColor,
         borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
       ),
       child: Padding(

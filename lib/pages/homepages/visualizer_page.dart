@@ -9,22 +9,23 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:smart_city_dashboard/connections/downloader.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
-import 'package:smart_city_dashboard/constants/text_styles.dart';
-import 'package:smart_city_dashboard/utils/extensions.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
-import '../../connections/ssh.dart';
-import '../../constants/constants.dart';
-import '../../providers/page_providers.dart';
-import '../../providers/settings_providers.dart';
-import '../../utils/csv_parser.dart';
-import '../../utils/helper.dart';
 import '../dashboard/widgets/charts/line_chart_parser.dart';
 import '../dashboard/widgets/charts/pie_chart_parser.dart';
 import '../dashboard/widgets/google_map.dart';
 import '../panels/feature_tour_widget.dart';
+import '../../constants/text_styles.dart';
+import '../../utils/extensions.dart';
+import '../../connections/downloader.dart';
+import '../../connections/ssh.dart';
+import '../../constants/constants.dart';
+import '../../constants/theme.dart';
+import '../../providers/page_providers.dart';
+import '../../providers/settings_providers.dart';
+import '../../utils/csv_parser.dart';
+import '../../utils/helper.dart';
 
 class VisualizerPage extends ConsumerStatefulWidget {
   const VisualizerPage({super.key});
@@ -231,10 +232,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
   }
 
   csvSection() {
-    Color normalColor = ref.watch(normalColorProvider);
-    Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
+    Themes themes = ref.watch(themesProvider);
     FeaturesTourController featuresTourVisualizerController =
         ref.watch(featureTourControllerVisualizerProvider);
     return VisualizerPageSections(
@@ -245,12 +243,12 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
           height: 100,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(Const.dashboardUIRoundness * 3),
-            color: highlightColor,
+            color: themes.highlightColor,
           ),
           child: Center(
             child: Text(
               translate('visualizer.csv_title'),
-              style: textStyleBold.copyWith(color: oppositeColor, fontSize: 40),
+              style: textStyleBold.copyWith(color: themes.oppositeColor, fontSize: 40),
             ),
           ),
         ),
@@ -261,7 +259,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
             Text(
               '${translate('visualizer.url')}:  ',
               style:
-                  textStyleNormal.copyWith(color: oppositeColor, fontSize: 25),
+                  textStyleNormal.copyWith(color: themes.oppositeColor, fontSize: 25),
             ),
             TextFormFieldCustom(
               controller: csvUrlController,
@@ -285,7 +283,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                   borderRadius:
                       BorderRadius.circular(Const.dashboardUIRoundness),
                   border: Border.all(
-                    color: highlightColor,
+                    color: themes.highlightColor,
                     width: 2.0,
                   ),
                 ),
@@ -301,7 +299,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                       child: Container(
                         decoration: BoxDecoration(
                           color: chartType == 0
-                              ? lightenColor(tabBarColor)
+                              ? lightenColor(themes.tabBarColor)
                               : Colors.transparent,
                           borderRadius: BorderRadius.only(
                               topLeft: Radius.circular(
@@ -313,7 +311,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                             child: Text(
                           translate('visualizer.line_chart'),
                           style: textStyleNormal.copyWith(
-                              color: oppositeColor,
+                              color: themes.oppositeColor,
                               fontSize: Const.dashboardTextSize),
                         )),
                       ),
@@ -327,13 +325,13 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                       },
                       child: Container(
                         color: chartType == 1
-                            ? lightenColor(tabBarColor)
+                            ? lightenColor(themes.tabBarColor)
                             : Colors.transparent,
                         child: Center(
                             child: Text(
                           translate('visualizer.pie_chart'),
                           style: textStyleNormal.copyWith(
-                              color: oppositeColor,
+                              color: themes.oppositeColor,
                               fontSize: Const.dashboardTextSize),
                         )),
                       ),
@@ -348,7 +346,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
         Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Text(
             '${translate('visualizer.plotx')}:  ',
-            style: textStyleNormal.copyWith(color: oppositeColor, fontSize: 25),
+            style: textStyleNormal.copyWith(color: themes.oppositeColor, fontSize: 25),
           ),
           FeaturesTour(
             index: 2,
@@ -375,7 +373,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
             ),
             child: ControllerValueControl(
               controller: chartXController,
-              oppositeColor: oppositeColor,
+              oppositeColor: themes.oppositeColor,
             ),
           )
         ]),
@@ -386,7 +384,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                   Text(
                     '${translate('visualizer.ploty')}:  ',
                     style: textStyleNormal.copyWith(
-                        color: oppositeColor, fontSize: 25),
+                        color: themes.oppositeColor, fontSize: 25),
                   ),
                   ListView.builder(
                       physics: const NeverScrollableScrollPhysics(),
@@ -452,7 +450,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                                 ),
                                 ControllerValueControl(
                                   controller: chartYControllers[index],
-                                  oppositeColor: oppositeColor,
+                                  oppositeColor: themes.oppositeColor,
                                 ),
                                 FeaturesTour(
                                   index: 7,
@@ -473,7 +471,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
                                       final Color colorBeforeDialog =
                                           chartColors[index];
                                       if (!(await colorPickerDialog(index,
-                                          highlightColor, oppositeColor))) {
+                                          themes.highlightColor, themes.oppositeColor))) {
                                         setState(() {
                                           chartColors[index] =
                                               colorBeforeDialog;
@@ -540,8 +538,8 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
             onPressed: () async {
               await visualizeCSV();
             },
-            highlightColor: lightenColor(tabBarColor),
-            oppositeColor: oppositeColor,
+            highlightColor: lightenColor(themes.tabBarColor),
+            oppositeColor: themes.oppositeColor,
           ),
         ),
         (Const.dashboardUISpacing * 4).ph,
@@ -567,10 +565,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
   }
 
   kmlSection() {
-    Color normalColor = ref.watch(normalColorProvider);
-    Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
+    Themes themes = ref.watch(themesProvider);
     FeaturesTourController featuresTourVisualizerController =
         ref.watch(featureTourControllerVisualizerProvider);
     return VisualizerPageSections(
@@ -581,12 +576,12 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
           height: 100,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(Const.dashboardUIRoundness * 3),
-            color: highlightColor,
+            color: themes.highlightColor,
           ),
           child: Center(
             child: Text(
               translate('visualizer.kml_title'),
-              style: textStyleBold.copyWith(color: oppositeColor, fontSize: 40),
+              style: textStyleBold.copyWith(color: themes.oppositeColor, fontSize: 40),
             ),
           ),
         ),
@@ -603,7 +598,7 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
             Text(
               '${translate('visualizer.url')}:  ',
               style:
-                  textStyleNormal.copyWith(color: oppositeColor, fontSize: 25),
+                  textStyleNormal.copyWith(color: themes.oppositeColor, fontSize: 25),
             ),
             TextFormFieldCustom(
               controller: kmlUrlController,
@@ -615,8 +610,8 @@ class _VisualizerPageState extends ConsumerState<VisualizerPage> {
         (Const.dashboardUISpacing * 2).ph,
         DownloadButton(
           onPressed: () {},
-          highlightColor: lightenColor(tabBarColor),
-          oppositeColor: oppositeColor,
+          highlightColor: lightenColor(themes.tabBarColor),
+          oppositeColor: themes.oppositeColor,
         ),
         (Const.dashboardUISpacing * 4).ph,
       ],
@@ -807,10 +802,7 @@ class TextFormFieldCustom extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Color normalColor = ref.watch(normalColorProvider);
-    Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
+    Themes themes = ref.watch(themesProvider);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: SizedBox(
@@ -824,7 +816,7 @@ class TextFormFieldCustom extends ConsumerWidget {
           decoration: InputDecoration(
             labelText: hintText,
             labelStyle: textStyleNormal.copyWith(
-                fontSize: 17, color: oppositeColor.withOpacity(0.5)),
+                fontSize: 17, color: themes.oppositeColor.withOpacity(0.5)),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
             focusedBorder: OutlineInputBorder(
@@ -833,10 +825,10 @@ class TextFormFieldCustom extends ConsumerWidget {
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: oppositeColor, width: 1),
+              borderSide: BorderSide(color: themes.oppositeColor, width: 1),
             ),
           ),
-          style: textStyleNormal.copyWith(color: oppositeColor, fontSize: 17),
+          style: textStyleNormal.copyWith(color: themes.oppositeColor, fontSize: 17),
           controller: controller,
         ),
       ),
@@ -856,10 +848,7 @@ class TextFormFieldIntegerCustom extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    Color normalColor = ref.watch(normalColorProvider);
-    Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color tabBarColor = ref.watch(tabBarColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
+    Themes themes = ref.watch(themesProvider);
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: SizedBox(
@@ -870,7 +859,7 @@ class TextFormFieldIntegerCustom extends ConsumerWidget {
           decoration: InputDecoration(
             labelText: hintText,
             labelStyle: textStyleNormal.copyWith(
-                fontSize: 17, color: oppositeColor.withOpacity(0.5)),
+                fontSize: 17, color: themes.oppositeColor.withOpacity(0.5)),
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 15, horizontal: 25),
             focusedBorder: OutlineInputBorder(
@@ -879,14 +868,14 @@ class TextFormFieldIntegerCustom extends ConsumerWidget {
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(10),
-              borderSide: BorderSide(color: oppositeColor, width: 1),
+              borderSide: BorderSide(color: themes.oppositeColor, width: 1),
             ),
           ),
           onChanged: (newValue) {
             print(newValue);
             controller.text = newValue ?? '';
           },
-          style: textStyleNormal.copyWith(color: oppositeColor, fontSize: 17),
+          style: textStyleNormal.copyWith(color: themes.oppositeColor, fontSize: 17),
           keyboardType: TextInputType.number,
           inputFormatters: <TextInputFormatter>[
             FilteringTextInputFormatter.digitsOnly

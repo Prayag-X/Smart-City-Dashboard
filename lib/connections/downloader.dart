@@ -1,7 +1,7 @@
 import 'package:background_downloader/background_downloader.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:smart_city_dashboard/providers/settings_providers.dart';
 
+import '../providers/settings_providers.dart';
 import '../constants/constants.dart';
 
 class Downloader {

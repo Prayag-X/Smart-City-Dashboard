@@ -5,6 +5,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../../../../constants/constants.dart';
 import '../../../../constants/text_styles.dart';
+import '../../../../constants/theme.dart';
 import '../../../../models/pie_chart.dart';
 import '../../../../providers/settings_providers.dart';
 import '../../../../utils/helper.dart';
@@ -76,8 +77,7 @@ class _DashboardPieChartState extends ConsumerState<DashboardPieChart> {
 
   @override
   Widget build(BuildContext context) {
-    Color oppositeColor = ref.watch(oppositeColorProvider);
-    Color highlightColor = ref.watch(highlightColorProvider);
+    Themes themes = ref.watch(themesProvider);
     return Container(
       width: (screenSize(context).width -
               screenSize(context).width / Const.tabBarWidthDivider) /
@@ -87,7 +87,7 @@ class _DashboardPieChartState extends ConsumerState<DashboardPieChart> {
           Const.dashboardUIHeightFactor /
           2,
       decoration: BoxDecoration(
-        color: highlightColor,
+        color: themes.highlightColor,
         borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
       ),
       child: Padding(
@@ -120,7 +120,7 @@ class _DashboardPieChartState extends ConsumerState<DashboardPieChart> {
             Text(
               '${translate('dashboard.total')} ${widget.subTitle}: ${widget.total}',
               style: textStyleBold.copyWith(
-                  color: oppositeColor,
+                  color: themes.oppositeColor,
                   fontSize: Const.dashboardChartTextSize - 2),
             ),
           ],
@@ -187,7 +187,7 @@ class _VisualizerPieChartState extends ConsumerState<VisualizerPieChart> {
 
   @override
   Widget build(BuildContext context) {
-    Color highlightColor = ref.watch(highlightColorProvider);
+    Themes themes = ref.watch(themesProvider);
     return Container(
       width: screenSize(context).width * 0.8 -
           screenSize(context).width / Const.tabBarWidthDivider,
@@ -196,7 +196,7 @@ class _VisualizerPieChartState extends ConsumerState<VisualizerPieChart> {
           Const.dashboardUIHeightFactor *
           0.7,
       decoration: BoxDecoration(
-        color: highlightColor,
+        color: themes.highlightColor,
         borderRadius: BorderRadius.circular(Const.dashboardUIRoundness),
       ),
       child: Padding(

@@ -1,11 +1,10 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:smart_city_dashboard/models/pie_chart.dart';
-import 'package:smart_city_dashboard/pages/dashboard/widgets/charts/pie_chart.dart';
 
-import '../../../../utils/helper.dart';
+import 'pie_chart.dart';
 import '../dashboard_container.dart';
+import '../../../../models/pie_chart.dart';
+import '../../../../utils/helper.dart';
 
 class PieChartParser {
   late String title;
