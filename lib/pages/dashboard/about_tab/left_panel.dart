@@ -11,7 +11,7 @@ import 'package:screenshot/screenshot.dart';
 
 import '../widgets/dashboard_container.dart';
 import '../widgets/load_balloon.dart';
-import '../../../constants/data.dart';
+import '../../../data/downloadable_content.dart';
 import '../../../constants/images.dart';
 import '../../../providers/data_providers.dart';
 import '../../../utils/extensions.dart';

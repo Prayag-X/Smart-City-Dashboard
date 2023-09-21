@@ -9,7 +9,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../connections/downloader.dart';
-import '../../pages/dashboard/downloadable_content.dart';
+import '../../data/downloadable_content.dart';
 import '../../constants/images.dart';
 import '../../constants/text_styles.dart';
 import '../../kml_makers/kml_makers.dart';

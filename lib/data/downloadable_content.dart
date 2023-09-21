@@ -1,4 +1,8 @@
-import '../../models/downloadable_kml.dart';
+import '../models/downloadable_kml.dart';
+
+class DataConst {
+  static const about = 'data/about.csv';
+}
 
 class DownloadableContent {
   static generateFileName(Map<String, String> data) =>

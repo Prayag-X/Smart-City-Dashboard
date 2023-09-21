@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 
-import '../../pages/dashboard/city_data.dart';
+import '../../data/city_data.dart';
 import '../../models/tab_button.dart';
 import '../../pages/panels/feature_tour_widget.dart';
 import '../../utils/extensions.dart';

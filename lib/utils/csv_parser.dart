@@ -5,7 +5,7 @@ import 'package:csv/csv.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 
-import '../pages/dashboard/downloadable_content.dart';
+import '../data/downloadable_content.dart';
 
 class FileParser {
   static double totalColumn({required List<dynamic> data}) {

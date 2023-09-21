@@ -1,27 +1,27 @@
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-import 'Seattle/finance.dart';
-import 'austin/transport.dart';
-import 'boulder/government.dart';
-import 'boulder/health.dart';
-import 'monterrey/environment.dart';
-import 'new_york/education.dart';
-import 'toronto/government.dart';
-import 'Seattle/education.dart';
-import 'Seattle/transportation.dart';
-import 'austin/environment.dart';
-import 'austin/health.dart';
-import 'boulder/livable.dart';
-import 'charlotte/misc.dart';
-import 'charlotte/society.dart';
-import 'chicago/ethics.dart';
+import '../pages/dashboard/Seattle/finance.dart';
+import '../pages/dashboard/austin/transport.dart';
+import '../pages/dashboard/boulder/government.dart';
+import '../pages/dashboard/boulder/health.dart';
+import '../pages/dashboard/monterrey/environment.dart';
+import '../pages/dashboard/new_york/education.dart';
+import '../pages/dashboard/toronto/government.dart';
+import '../pages/dashboard/Seattle/education.dart';
+import '../pages/dashboard/Seattle/transportation.dart';
+import '../pages/dashboard/austin/environment.dart';
+import '../pages/dashboard/austin/health.dart';
+import '../pages/dashboard/boulder/livable.dart';
+import '../pages/dashboard/charlotte/misc.dart';
+import '../pages/dashboard/charlotte/society.dart';
+import '../pages/dashboard/chicago/ethics.dart';
 import 'downloadable_content.dart';
-import 'new_york/environment.dart';
-import 'new_york/health.dart';
-import '../../constants/images.dart';
-import '../../models/tab_button.dart';
-import '../../models/city_card.dart';
+import '../pages/dashboard/new_york/environment.dart';
+import '../pages/dashboard/new_york/health.dart';
+import '../constants/images.dart';
+import '../models/tab_button.dart';
+import '../models/city_card.dart';
 
 class AllCityData {
   static List<CityCardModel> availableCities = [

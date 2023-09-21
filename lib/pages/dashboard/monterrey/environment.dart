@@ -4,7 +4,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:flutter_translate/flutter_translate.dart';
 import 'package:screenshot/screenshot.dart';
 
-import '../downloadable_content.dart';
+import '../../../data/downloadable_content.dart';
 import '../widgets/charts/pie_chart_parser.dart';
 import '../widgets/load_balloon.dart';
 import '../../../utils/extensions.dart';

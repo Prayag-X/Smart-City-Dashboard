@@ -9,7 +9,7 @@ import 'package:flutter_translate/flutter_translate.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'dashboard/city_data.dart';
+import '../data/city_data.dart';
 import 'panels/screen_panel.dart';
 import 'panels/tab_panel.dart';
 import '../constants/text_styles.dart';
