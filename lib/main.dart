@@ -84,7 +84,7 @@ class _RoutesState extends State<Routes> {
         locale: localizationDelegate.currentLocale,
         initialRoute: '/',
         routes: {
-          '/': (context) => const SplashPage(),
+          '/': (context) => const SplashPage2(),
           '/HomePage': (context) => const MainPage(),
         },
       ),
