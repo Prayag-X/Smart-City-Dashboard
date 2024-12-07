@@ -74,19 +74,25 @@ class Routes extends StatefulWidget {
 class _RoutesState extends State<Routes> {
   @override
   Widget build(BuildContext context) {
-    // var localizationDelegate = LocalizedApp.of(context).delegate;
+    var localizationDelegate = LocalizedApp.of(context).delegate;
 
     return LocalizationProvider(
       state: LocalizationProvider.of(context).state,
       child: MaterialApp(
         title: 'Smart City Dashboard',
+        localizationsDelegates: [
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          localizationDelegate
+        ],
         supportedLocales: localizationDelegate.supportedLocales,
         locale: localizationDelegate.currentLocale,
         initialRoute: '/',
         routes: {
-          '/': (context) => const SplashPage2(),
+          '/': (context) => const SplashPage(),
           '/HomePage': (context) => const MainPage(),
         },
       ),
+    );
   }
 }
